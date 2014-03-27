@@ -131,12 +131,17 @@ Configuration
 
 3. If you have turned on *userpass*, you will need an SMTP server for development. Instead of installing a full SMTP
 server, you can simply relay messages to your preferred SMTP server. A quick guide about this is available at
-
- http://rgomes-info.blogspot.co.uk/2014/03/configuring-postfix-for-relaying-on.html
+http://rgomes-info.blogspot.co.uk/2014/03/configuring-postfix-for-relaying-on.html
 
 4. I you prefer EclipseLink or any other JPA implementation, please read this:
+http://pbaris.wordpress.com/2013/07/29/play-framework-2-jpa-eclipselink-setup/
 
- http://pbaris.wordpress.com/2013/07/29/play-framework-2-jpa-eclipselink-setup/
+
+Known issues
+============
+
+Authentication tokens should be shared in a cluster environment. The current implementation is not doing that yet, which
+is equivalent to say that this code is not ready to a production server in cluster.
 
 
 Why JPA and why SQL?

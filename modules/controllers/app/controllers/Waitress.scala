@@ -8,7 +8,6 @@ import securesocial.core.SecureSocial
 
 object Waitress extends Controller with SecureSocial with Waitress
 
-
 trait Waitress {
   this: SecureSocial =>
 

@@ -1,9 +1,7 @@
 package dao;
 
-import play.Logger;
-import play.api.Mode;
-
 import com.avaje.ebean.Ebean;
+import play.Logger;
 import play.libs.Yaml;
 
 import java.io.File;
@@ -16,8 +14,6 @@ public class DAO {
     public static final UserDAO userDAO         = new UserDAO();
     public static final IdentityDAO identityDAO = new IdentityDAO();
 
-    // public static final TaskDAO taskDAO         = new TaskDAO();
-    // public static final ProjectDAO projectDAO   = new ProjectDAO();
 
     public static int startUp() {
         return startUp("conf/initial-data.yml");

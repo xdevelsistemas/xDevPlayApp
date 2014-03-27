@@ -7,7 +7,6 @@ import securesocial.core.providers.Token
 import securesocial.core.{Identity,IdentityId}
 
 import dao.DAO.identityDAO
-import models.User
 
 
 class AuthenticationService(application: Application) extends UserServicePlugin(application) {
