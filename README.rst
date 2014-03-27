@@ -25,13 +25,14 @@ Then point your browser to ``http://localhost:9000/``
 
 ::
 
-    username: admin@example.com
+    email:    admin@example.com
     password: 12345678
 
-One issue: Authentication using Google, LinkedIn and some other providers "do not work". Well... this is expected.
-You need to edit conf/securesocial.conf and configure your access to external authentication providers.
+You can also try these pages:
 
-
+* http://localhost:9000/credentials
+* http://localhost:9000/identities
+* http://localhost:9000/app
 
 
 Features is a Nutshell
