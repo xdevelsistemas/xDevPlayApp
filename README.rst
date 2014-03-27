@@ -17,12 +17,14 @@ For the impatient
 =================
 
 ::
+
     $ git clone http://github.com/frgomes/ssdemojpa
     $ play run
 
 Then point your browser to ``http://localhost:9000/``
 
 ::
+
     username: admin@example.com
     password: 12345678
 
