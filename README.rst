@@ -35,17 +35,39 @@ You can also try these pages:
 * http://localhost:9000/app
 
 
+Foreword
+========
+
+It's possible to use JPA from Java and Scala. We have chosen to implement entity classes in Java whilst we everything
+else is implemented in Scala.
+
+This project employs JPA via `Avaje Ebean`_ since it is the default JPA provider in Play 2.2 and it just looks natural
+to keep the things as they are in a demo/toy project like this.
+
+But Avaje Ebean may not be your best choice for a JPA provider. The problem with Avaje Ebean is that you start to find
+issues as soon as your code starts to do something "more advanced", something which fully exercises JPA features. In
+this case, you start to find features not fully implemented by Avaje Ebean. Even worse, you may simply tumble on a bug
+which blocks your work or requires some sort of dirty solution you wouldn't be considering otherwise.
+
+Also, be warned that, in case you are considering using the `Criteria API`_, you will find difficulties in Scala due to
+interoperability issues with Java, in regards to use of ``varargs``. In this case, you will need not only entity classes
+written in Java, but also the DAO layer written in Java, for convenience.
+
+
+.. _`Avaje Ebean`: http://www.avaje.org/
+.. _`Criteria API`: http://docs.oracle.com/javaee/6/tutorial/doc/gjrij.html
+
+
+
 Features is a Nutshell
 ======================
 
 * *userpass* (i.e: username/password) authentication is backed by JPA, which can be backed by any SQL database supported
   by Avaje Ebeans or another JPA implementation you choose.
 
-* JPA is available only from Java sources, bacause *enhancement* is only available on Java sources. Due to this reason,
-  the data model is implemented in Java whilst everything else is implemented in Scala.
-
 * In order to fill in the gap between Java and Scala, there are DAOs responsible for talking to the data model. The DAO
-  layer is implemented in Scala and it is responsible for converting data structures from Java to Scala.
+  layer is implemented in Scala and it is responsible for converting data structures from Java to Scala. If you are
+  considering using the `Criteria API`_, it's recommended that you rewrite the DAO layer in Java.
 
 * The service layer is responsible for calling methods provided by the DAO layer in order to persist information
   onto the database.
@@ -77,15 +99,12 @@ We have added modules to this structure. Below we show some of the most relevant
         +-- controllers
             +-- Application.scala
             +-- Authentication.scala
+            +-- Waitress.scala
     +-- conf
         +-- application.conf
         +-- messages
         +-- securesocial.conf
     +-- modules
-        +-- controllers
-            +-- app
-                +-- Waitress.scala
-            +-- test
         +-- models
             +-- app
                 +-- models
@@ -113,7 +132,7 @@ The idea is:
 
 2. app/controllers/Authentication.scala provides pages related to SecureSocial.
 
-3. modules/controllers/Waitress.scala is intended to serve your protected pages.
+3. app/controllers/Waitress.scala is your main controller, really.
 
 4. modules/models contains Entity classes used by JPA.
 
@@ -138,17 +157,8 @@ http://rgomes-info.blogspot.co.uk/2014/03/configuring-postfix-for-relaying-on.ht
 http://pbaris.wordpress.com/2013/07/29/play-framework-2-jpa-eclipselink-setup/
 
 
-Known issues
-============
-
-Authentication tokens should be shared in a cluster environment. The current implementation is not doing that yet, which
-is equivalent to say that this code is not ready yet for a production server in cluster.
-
-
-Why JPA and why SQL?
-====================
-
-I suppose that, if you are trying this software, you must already have at least 50% of the answer.
+SQL versus NoSQL
+================
 
 In case you are considering NoSQL and you are concerned about mixing SQL and NoSQL databases in your solution, I'd like
 to share with you a couple of interesting articles:
@@ -156,6 +166,15 @@ to share with you a couple of interesting articles:
 https://interlinked.org/tutorials/postgresql.html
 
 http://sourceforge.net/apps/mediawiki/postgres-xc
+
+
+
+Known issues
+============
+
+Authentication tokens should be shared in a cluster environment. The current implementation is not doing that yet, which
+is equivalent to say that this code is not ready yet for a production server in cluster.
+
 
 
 Support
