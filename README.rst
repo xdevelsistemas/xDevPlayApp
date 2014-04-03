@@ -38,7 +38,7 @@ You can also try these pages:
 Foreword
 ========
 
-It's possible to use JPA from Java and Scala. We have chosen to implement entity classes in Java whilst we everything
+It's possible to use JPA from Java and Scala. We have chosen to implement entity classes in Java whilst everything
 else is implemented in Scala.
 
 This project employs JPA via `Avaje Ebean`_ since it is the default JPA provider in Play 2.2 and it just looks natural
@@ -46,7 +46,7 @@ to keep the things as they are in a demo/toy project like this.
 
 But Avaje Ebean may not be your best choice for a JPA provider. The problem with Avaje Ebean is that you start to find
 issues as soon as your code starts to do something "more advanced", something which fully exercises JPA features. In
-this case, you start to find features not fully implemented by Avaje Ebean. Even worse, you may simply tumble on a bug
+this case, you start to find features not fully implemented by Avaje Ebean. Even worse, you may simply stumble on a bug
 which blocks your work or requires some sort of dirty solution you wouldn't be considering otherwise.
 
 Also, be warned that, in case you are considering using the `Criteria API`_, you will find difficulties in Scala due to
