@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import models.Identity;
 import models.User;
 import scala.Option;
 
@@ -69,8 +71,12 @@ public class IdentityDAO extends AbstractDAO<models.Identity, models.Identity_> 
                 cb.equal(root.get("username"), identityId.userId()),
                 cb.equal(root.get("provider"), identityId.providerId()) };
         cq.where(predicates);
-        models.Identity result = em.createQuery(cq).getSingleResult();
-        return wrap(result);
+        try {
+            Identity result = em.createQuery(cq).getSingleResult();
+            return wrap(result);
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
     }
 
     public UserIdentity findOneByEmailAndProvider(final String email, final String provider) {
@@ -80,8 +86,12 @@ public class IdentityDAO extends AbstractDAO<models.Identity, models.Identity_> 
                 cb.equal(root.get("email"), email),
                 cb.equal(root.get("provider"), provider) };
         cq.where(predicates);
-        models.Identity result = em.createQuery(cq).getSingleResult();
-        return wrap(result);
+        try {
+            Identity result = em.createQuery(cq).getSingleResult();
+            return wrap(result);
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
     }
 
     public Iterable<UserIdentity> findManyByEmail(final String email) {

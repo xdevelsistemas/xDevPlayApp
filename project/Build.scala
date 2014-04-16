@@ -31,10 +31,15 @@ trait Zap extends Options {
 
   def zapTask : sbt.Def.Initialize[sbt.Task[Unit]] =
     (streams, baseDirectory).map(
-      (out, basedir) => Seq("project/boot", "project/project", "project/target", "target", "logs").foreach(
-        folder => {
-          if (verbose) println("Remove " + basedir / folder)
-          IO.delete(basedir / folder)}))
+      (out, basedir) => {
+        Seq("project/boot", "project/project", "project/target", "target", "logs").foreach(
+          folder => {
+            if (verbose) println("Remove " + basedir / folder)
+            IO.delete(basedir / folder)
+          })
+        val metamodel : PathFinder = (basedir / "modules/models/app/models") ** ("*_.java")
+        metamodel.get.foreach(f => f.delete())
+      })
 }
 
 trait Metamodel extends Options {
