@@ -5,12 +5,10 @@
 
 @main( Messages("securesocial.appName") + " - Linked Identities" ) {
 <div class="page-header">
-    <h2><img src="@current.avatarUrl" alt="@current.firstName" width="40px" height="40px"/> Hey @current.firstName</h2>
+    <h2><img src="@current.avatarUrl" alt="" width="40px" height="40px"/>@current.firstName</h2>
 </div>
 
 <div class="clearfix">
-    <h2>You are linked to the following identities:</h2>
-
     @linkedIdentities.map { linked =>
         <h2>@linked.identityId.providerId
         </h2>

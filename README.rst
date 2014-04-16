@@ -19,9 +19,13 @@ For the impatient
 ::
 
     $ git clone http://github.com/frgomes/ssdemojpa
-    $ play run
+    $ cd ssdemojpa
+    $ sbt
+    > metamodel
+    > compile
+    > run
 
-Then point your browser to ``http://localhost:9000/``
+Then point your browser to ``http://localhost:9000/`` and login as shown below:
 
 ::
 
@@ -32,48 +36,69 @@ You can also try these pages:
 
 * http://localhost:9000/credentials
 * http://localhost:9000/identities
-* http://localhost:9000/app
+* http://localhost:9000/trends
 
 
 Foreword
 ========
 
-It's possible to use JPA from Java and Scala. We have chosen to implement entity classes in Java whilst everything
-else is implemented in Scala.
+PlayFramework employs `Avaje Ebean`_ as its default ORM technology. By the time, I found that `Avaje Ebean`_ presents
+difficulties as soon as the model becomes to employ some "more advanced" features, I would say. Despite the model we
+have in this application is pretty simple, this project is designed to be expanded to a full featured application,
+which in this case would probably stumble with difficulties imposed by `Avaje Ebean`_.
 
-This project employs JPA via `Avaje Ebean`_ since it is the default JPA provider in Play 2.2 and it just looks natural
-to keep the things as they are in a demo/toy project like this.
+For this reason, I've adopted EclipseLink as JPA provider. EclipseLink is the Reference Implementation (RI) adopted by
+the JEE stack. There are other JPA providers, like Hibernate, OpenJPA, DataNucleus and others, but I've preferred to
+rely on EclipseLink, since it is the RI, it's a mature and a consolidated product, with active community, yada yada.
 
-But Avaje Ebean may not be your best choice for a JPA provider. The problem with Avaje Ebean is that you start to find
-issues as soon as your code starts to do something "more advanced", something which fully exercises JPA features. In
-this case, you start to find features not fully implemented by Avaje Ebean. Even worse, you may simply stumble on a bug
-which blocks your work or requires some sort of dirty solution you wouldn't be considering otherwise.
+Since the JPA provider was chosen, the next step is selecting a high level API for writing queries. One possibility
+would be employing libraries written in Scala for doing that, but I've found difficulties integrating these libraries
+with the workflow established by EclipseLink, in particular in regards to generated JPA metaclasses. For this reason,
+I've adopted the `Criteria API`_ as a high level API, since it is provided by EclipseLink and it is expected to work
+just fine. I would like to had adopted a proper "fluent API", but unfortunately the `Criteria API`_ seems to be best
+combination of features and reliability in the Java world (not in the Scala world, though).
 
-Also, be warned that, in case you are considering using the `Criteria API`_, you will find difficulties in Scala due to
-interoperability issues with Java, in regards to use of ``varargs``. In this case, you will need not only entity classes
-written in Java, but also the DAO layer written in Java, for convenience.
+For basic documentation about how PlayFramework can be configured to work with EclipseLink, please consult these links:
 
+* http://www.playframework.com/documentation/2.0/JavaJPA
+* http://pbaris.wordpress.com/2013/07/29/play-framework-2-jpa-eclipselink-setup
 
 .. _`Avaje Ebean`: http://www.avaje.org/
 .. _`Criteria API`: http://docs.oracle.com/javaee/6/tutorial/doc/gjrij.html
 
 
-
 Features is a Nutshell
 ======================
 
-* *userpass* (i.e: username/password) authentication is backed by JPA, which can be backed by any SQL database supported
-  by Avaje Ebeans or another JPA implementation you choose.
+* *userpass* (i.e: username/password) authentication backed by JPA.
 
-* In order to fill in the gap between Java and Scala, there are DAOs responsible for talking to the data model. The DAO
-  layer is implemented in Scala and it is responsible for converting data structures from Java to Scala. If you are
-  considering using the `Criteria API`_, it's recommended that you rewrite the DAO layer in Java.
+* A simple service connects to Twitter and retrieves information related to tags you can inform. Point your browser to
+  http://localhost:9000/trends in order to see it working.
 
-* The service layer is responsible for calling methods provided by the DAO layer in order to persist information
-  onto the database.
 
-* The web layer is basically provided entirely by SecureSocial, plus one route provided as an example about how the code
-  is organized. More about this below.
+Building this application
+=========================
+
+A SBT build script is provided in ``/project/Build.scala``. This build script employs an annotation processor provided
+by EclipseLink which is reponsible for generating the metamodel from JPA entity classes. This is how you can build this
+application and run test cases:
+
+::
+
+    $ sbt
+    > metamodel
+    > compile
+    > test
+
+The SBT build script is also able to generate project files for major IDEs. This is how you can generate project files
+for Eclipse, Idea and Netbeans:
+
+::
+
+    $ sbt
+    > eclipse
+    > idea
+    > netbeans
 
 
 Organization of Source Code
@@ -100,27 +125,30 @@ We have added modules to this structure. Below we show some of the most relevant
             +-- Application.scala
             +-- Authentication.scala
             +-- Waitress.scala
+        +-- services
+            +-- AuthenticationListener
+            +-- AuthenticationService
     +-- conf
         +-- application.conf
         +-- messages
         +-- securesocial.conf
+        +-- META-INF
+            +-- persistence.xml
     +-- modules
         +-- models
-            +-- app
-                +-- models
-                    +-- AbstractModel.scala
-                    +-- Identity.scala
-                    +-- User.scala
-            +-- test
-        +-- services
             +-- app
                 +-- dao
                     +-- AbstractDAO.scala
                     +-- IdentityDAO.scala
                     +-- UserDAO.scala
+                +-- models
+                    +-- AbstractModel.scala
+                    +-- Identity.scala
+                    +-- User.scala
+        +-- services
+            +-- app
                 +-- services
-                    +-- AuthenticationListener
-                    +-- AuthenticationService
+                    +-- TweeterService
             +-- test
     +-- project
         -- Build.scala
@@ -134,12 +162,22 @@ The idea is:
 
 3. app/controllers/Waitress.scala is your main controller, really.
 
-4. modules/models contains Entity classes used by JPA.
+4. app/services contains services related to authentication, solely.
 
-5. modules/services/app/dao contains DAOs which works in conjunction with the data model.
+5. modules/models contains Entity classes used by JPA and their corresponding DAO classes.
 
-6. modules/services/app/services contains all services exposed by your application, including services related to
+6. modules/services/app/services contains services exposed by your application, but excludes services related to
    authentication.
+
+Notes:
+
+* Data Access Objects (DAOs) are responsible for talking to the data model. The DAO layer is implemented in Java and it
+  is responsible for providing convenience methods which wraps calls to the `Criteria API`_. As mentioned above,
+  attempting to call the `Criteria API`_ directly would imply on interoperability issues with Java.
+
+* The service layer is written in Scala and it is responsible for calling methods provided by the DAO layer and for
+  maintaining transaction state. Contrary to PlayFramework documentation we *do not* employ @Transactional annotation
+  in actions (web layer). Instead, we explicitly manage transactions in the service layer.
 
 
 Configuration
@@ -153,21 +191,6 @@ Configuration
 server, you can simply relay messages to your preferred SMTP server. A quick guide about this is available at
 http://rgomes-info.blogspot.co.uk/2014/03/configuring-postfix-for-relaying-on.html
 
-4. I you prefer EclipseLink or any other JPA implementation, please read this article:
-http://pbaris.wordpress.com/2013/07/29/play-framework-2-jpa-eclipselink-setup/
-
-
-SQL versus NoSQL
-================
-
-In case you are considering NoSQL and you are concerned about mixing SQL and NoSQL databases in your solution, I'd like
-to share with you a couple of interesting articles:
-
-https://interlinked.org/tutorials/postgresql.html
-
-http://sourceforge.net/apps/mediawiki/postgres-xc
-
-
 
 Known issues
 ============
@@ -175,6 +198,19 @@ Known issues
 Authentication tokens should be shared in a cluster environment. The current implementation is not doing that yet, which
 is equivalent to say that this code is not ready yet for a production server in cluster.
 
+
+Miscellaneous
+=============
+
+SQL versus NoSQL
+----------------
+
+In case you are considering NoSQL and you are concerned about mixing SQL and NoSQL databases in your solution, I'd like
+to recommend these readings:
+
+https://interlinked.org/tutorials/postgresql.html
+
+http://sourceforge.net/apps/mediawiki/postgres-xc
 
 
 Support

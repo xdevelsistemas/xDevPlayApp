@@ -34,6 +34,28 @@ create table identity (
   constraint pk_identity primary key (uuid))
 ;
 
+create table tweet (
+  uuid                      varchar(40) not null,
+  tweet_tag_uuid            varchar(40) not null,
+  id                        bigint,
+  date                      timestamp,
+  retweets                  integer,
+  json                      TEXT,
+  created                   timestamp not null,
+  updated                   timestamp not null,
+  constraint uq_tweet_1 unique (date,id),
+  constraint pk_tweet primary key (uuid))
+;
+
+create table tweet_tag (
+  uuid                      varchar(40) not null,
+  tag                       varchar(255),
+  created                   timestamp not null,
+  updated                   timestamp not null,
+  constraint uq_tweet_tag_1 unique (tag),
+  constraint pk_tweet_tag primary key (uuid))
+;
+
 create table user (
   uuid                      varchar(40) not null,
   email                     varchar(255),
@@ -46,6 +68,8 @@ create table user (
 
 alter table identity add constraint fk_identity_user_1 foreign key (user_uuid) references user (uuid) on delete restrict on update restrict;
 create index ix_identity_user_1 on identity (user_uuid);
+alter table tweet add constraint fk_tweet_tweet_tag_2 foreign key (tweet_tag_uuid) references tweet_tag (uuid) on delete restrict on update restrict;
+create index ix_tweet_tweet_tag_2 on tweet (tweet_tag_uuid);
 
 
 
@@ -54,6 +78,10 @@ create index ix_identity_user_1 on identity (user_uuid);
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists identity;
+
+drop table if exists tweet;
+
+drop table if exists tweet_tag;
 
 drop table if exists user;
 

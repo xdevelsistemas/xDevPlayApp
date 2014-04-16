@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import securesocial.core.SecureSocial
 import services.AuthenticationService
+import play.db.jpa.Transactional
 
 
 object Authentication extends Controller with SecureSocial with Authentication

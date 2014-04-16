@@ -1,28 +1,48 @@
 package models;
 
-import java.sql.Timestamp;
-import java.util.UUID;
+import org.eclipse.persistence.annotations.UuidGenerator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
-
-import play.db.ebean.Model;
-import com.avaje.ebean.annotation.CreatedTimestamp;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 
 @MappedSuperclass
-public class AbstractModel extends Model {
+public class AbstractModel implements Serializable {
 
     @Id
-    @GeneratedValue
-    public UUID uuid;
-
-    @CreatedTimestamp
-    public Timestamp created;
+    @UuidGenerator(name="UUID")
+    @GeneratedValue(generator="UUID")
+    @NotNull(message="field 'uuid' cannot be NULL")
+    //see: https://github.com/ancoron/pg-inet-maven/wiki/Support-custom-data-types-in-EclipseLink
+    public String uuid;
 
     @Version
-    public Timestamp updated;
+    @NotNull(message="field 'version' cannot be NULL")
+    public int version;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull(message="field 'created' cannot be NULL")
+    public Date created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull(message="field 'updated' cannot be NULL")
+    public Date updated;
+
+    @PrePersist
+    void prePersist() {
+        this.created = this.updated = new Date();
+    }
+
+    @PreUpdate
+    void preUpdate() {
+        this.updated = new Date();
+    }
 
 }
+
+
+
+
+

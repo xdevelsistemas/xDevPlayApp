@@ -3,7 +3,7 @@ import play.api._
 
 import com.google.inject.{Guice, AbstractModule}
 
-import dao.DAO.{startUp,fakeStartUp}
+import dao.Bootstrap.{startUp,fakeStartUp}
 
 
 object Global extends GlobalSettings {
@@ -25,11 +25,8 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     Logger.info("Application started")
-    val records = if (app.mode == Mode.Prod) startUp else fakeStartUp
-    if (records > 0)
-      Logger.info(s"Database initialization succeeded : $records record(s) saved")
-    else
-      Logger.error("Database initialization failed")
+    val records:Int = if (app.mode == Mode.Prod) startUp else fakeStartUp
+    Logger.info(s"Database initialization succeeded : $records record(s) saved")
   }
 
   override def onStop(app: Application) {
