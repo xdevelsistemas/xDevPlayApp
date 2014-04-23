@@ -10,7 +10,7 @@
 
 SecureSocial Demo with JPA (or ``ssdemojpa`` for short) provides authentication via
 OpenID, OAuth/OAuth2 and *userpass* (username/password) in a ready-to-use implementation
-which employs `SecureSocial`_ (for actually doing the authentication) and JPA layer for
+which employs `SecureSocial`_ (for actually doing the authentication) and JPA for
 the persistence layer.
 
 
