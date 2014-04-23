@@ -56,7 +56,7 @@ classes which are meant to expose a high level API written in Java which can be 
 in Scala. This concludes the matter for Scala.
 
 In addition, this project provides a SBT build script which generates metaclasses from entity classes. Also, a very simple
-integration with Twitter API is provides for the sake of example.
+integration with Twitter API is provided for the sake of example.
 
 For basic documentation about how PlayFramework can be configured to work with EclipseLink, please consult these links:
 
