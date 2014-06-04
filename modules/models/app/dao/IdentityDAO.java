@@ -13,10 +13,10 @@ import models.User;
 import scala.Option;
 
 
-public class IdentityDAO extends AbstractDAO<models.Identity, models.Identity_> {
+public class IdentityDAO extends AbstractDAO<models.Identity> {
 
     public IdentityDAO() {
-        super(models.Identity.class, models.Identity_.class);
+        super(models.Identity.class);
     }
 
     public UserIdentity create(securesocial.core.Identity i, boolean save) {
@@ -124,6 +124,11 @@ public class IdentityDAO extends AbstractDAO<models.Identity, models.Identity_> 
                 @Override
                 public UserIdentity next() {
                     return wrap(it.next());
+                }
+
+                @Override
+                public void remove() {
+
                 }
             }
         };

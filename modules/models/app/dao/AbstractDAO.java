@@ -9,27 +9,28 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import models.AbstractModel;
-import models.AbstractModel_;
+import models.Identity;
 import play.db.jpa.JPA;
 
 
-public class AbstractDAO<T extends AbstractModel, M extends AbstractModel_> {
+public class AbstractDAO<T extends AbstractModel> {
 
     protected final Class<T> classType;
-    protected final M metaclass;
+    protected final T metaclass;
     protected final EntityManager em;
     protected final CriteriaBuilder cb;
 
-    protected AbstractDAO(Class<T> classType, Class<M> metaType) {
+    protected AbstractDAO(Class<T> classType) {
         this.em = JPA.em();
         this.cb = em.getCriteriaBuilder();
         this.classType = classType;
         try {
-            this.metaclass = metaType.newInstance();
+            this.metaclass = classType.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
 
     public T findOne(UUID uuid) {
         CriteriaQuery<T> cq = cb.createQuery(classType);

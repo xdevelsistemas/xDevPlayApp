@@ -32,19 +32,7 @@ public class Bootstrap {
                 UserDAO userDAO = new UserDAO();
                 if (userDAO.findOne("email", "admin@example.com") == null) {
                     final EntityManager em = JPA.em();
-                    try {
-                        final InputStream is = new FileInputStream(new File(yaml));
-                        final List list = (List) Yaml.load(is, Bootstrap.class.getClassLoader());
-                        Logger.info("===================================================");
-                        for (Object o : list) {
-                            Logger.info(o.toString());
-                            em.persist(o);
-                            count++;
-                        }
-                        Logger.info("===================================================");
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+
                 }
                 return count;
             }

@@ -43,14 +43,6 @@ GET     /credentials                controllers.Authentication.credentials
 GET     /identities                 controllers.Authentication.identities
 
 
-# ------------------------------------------------------------------------------------------
-
-GET     /app                        controllers.Waitress.app()
-
-GET     /trends                     controllers.Waitress.trends()
-GET     /search                     controllers.Waitress.search()
-
-# ------------------------------------------------------------------------------------------
 
 
 # Webjars, requirejs, routes and other assets

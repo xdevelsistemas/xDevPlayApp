@@ -1,5 +1,8 @@
 package dao;
 
+import scala.None;
+import scala.Option;
+import scala.Option$;
 import securesocial.core.AuthenticationMethod;
 import securesocial.core.IdentityId;
 import securesocial.core.OAuth1Info;
@@ -56,9 +59,7 @@ public class UserIdentity implements securesocial.core.Identity {
 
     @Override
     public scala.Option<String> avatarUrl() {
-        return (identity.hasAvatarUrl)
-                ? scala.Option$.MODULE$.apply(identity.avatarUrl)
-                : scala.Option$.MODULE$.empty();
+        return (!identity.hasAvatarUrl) ? null: scala.Option$.MODULE$.apply(identity.avatarUrl);
     }
 
     @Override
@@ -67,36 +68,38 @@ public class UserIdentity implements securesocial.core.Identity {
     }
 
     @Override
-    public scala.Option<OAuth1Info> oAuth1Info() {
+    public Option<OAuth1Info> oAuth1Info() {
         return (identity.hasOAuth1Info)
                 ? scala.Option$.MODULE$.apply(
                         new OAuth1Info(
                                 identity.oAuth1InfoToken,
                                 identity.oAuth1InfoSecret))
-                : scala.Option$.MODULE$.empty();
+                : null;
     }
 
     @Override
-    public scala.Option<OAuth2Info> oAuth2Info() {
+    public Option<OAuth2Info> oAuth2Info() {
         return (identity.hasOAuth1Info)
                 ? scala.Option$.MODULE$.apply(
                         new OAuth2Info(
                                 identity.oAuth2InfoAccessToken,
                                 scala.Option$.MODULE$.apply(identity.oAuth2InfoTokenType),
-                                scala.Option$.MODULE$.apply(identity.oAuth2InfoExpiresIn),
-                                scala.Option$.MODULE$.apply(identity.oAuth2InfoRefreshToken)))
-                : scala.Option$.MODULE$.empty();
+                                scala.Option$.MODULE$.apply((Object)identity.oAuth2InfoExpiresIn),
+                                scala.Option$.MODULE$.apply(identity.oAuth2InfoRefreshToken)
+                        )
+                )
+                : null;
     }
 
     @Override
-    public scala.Option<PasswordInfo> passwordInfo() {
+    public Option<PasswordInfo> passwordInfo() {
         return (identity.hasPasswordInfo)
                 ? scala.Option$.MODULE$.apply(
                         new PasswordInfo(
                                 identity.passwordInfoHasher,
                                 identity.passwordInfoPassword,
                                 scala.Option$.MODULE$.apply(identity.passwordInfoSalt)))
-                : scala.Option$.MODULE$.empty();
+                : null;
     }
 
 }

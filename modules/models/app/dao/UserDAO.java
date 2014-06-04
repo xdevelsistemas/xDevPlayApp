@@ -1,9 +1,9 @@
 package dao;
 
-public class UserDAO extends AbstractDAO<models.User, models.User_> {
+public class UserDAO extends AbstractDAO<models.User> {
 
     public UserDAO() {
-        super(models.User.class, models.User_.class);
+        super(models.User.class);
     }
 
     public models.User create(securesocial.core.Identity i, boolean save) {
