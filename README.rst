@@ -1,40 +1,5 @@
-| Code_ | Bugs_ | Forum_ | License_ | Contact_
+PROJETO PROCONSORCIO - BASEADO NO PROJETO PLAY SECURESOCIAL WITH JPA
 
-.. _Code : http://github.com/frgomes/ssdemojpa
-.. _Bugs : http://github.com/frgomes/ssdemojpa/issues
-.. _Forum : http://github.com/frgomes/ssdemojpa/wiki
-.. _License : http://opensource.org/licenses/Apache-2.0
-.. _Contact : http://github.com/~frgomes
-.. _`SecureSocial`: http://securesocial.ws
-
-
-SecureSocial Demo with JPA (or ``ssdemojpa`` for short) provides authentication via
-OpenID, OAuth/OAuth2 and *userpass* (username/password) in a ready-to-use implementation
-which employs `SecureSocial`_ (for actually doing the authentication) and JPA for
-the persistence layer.
-
-
-
-For the impatient
-=================
-
-::
-
-    $ git clone http://github.com/frgomes/ssdemojpa
-    $ cd ssdemojpa
-    $ sbt
-    > metamodel
-    > compile
-    > run
-
-Then point your browser to ``http://localhost:9000/`` and login as shown below:
-
-::
-
-    email:    admin@example.com
-    password: 12345678
-
-You can also try these pages:
 
 * http://localhost:9000/credentials
 * http://localhost:9000/identities
