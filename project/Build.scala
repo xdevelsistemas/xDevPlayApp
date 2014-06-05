@@ -105,9 +105,10 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
 
+  val MySQlVersion = "5.1.12"
 
 
-  // resolvers += Resolver.sonatypeRepo("snapshots"),
+
   resolvers += Resolver.sonatypeRepo("releases")
 
   val essentialDeps = Seq(
@@ -120,8 +121,7 @@ object Build extends sbt.Build with Zap with Metamodel {
     javaJpa,
     "org.eclipse.persistence" % "eclipselink" % eclipselinkVersion,
     "org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
-    //"postgresql" % "postgresql" % postgresqlVersion
-
+    "mysql" % "mysql-connector-java" % MySQlVersion,
     "ws.securesocial" %% "securesocial" % securesocialVersion
   )
 

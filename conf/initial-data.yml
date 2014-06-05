@@ -1,7 +1,7 @@
 # Users
 
 - &admin !!models.User
-    email:    "admin@example.com"
+    email:    "clayton@xdevel.com.br"
     realName: "Administrator"
 
 
@@ -9,13 +9,13 @@
 
 - &admin_1 !!models.Identity
     user:                 *admin
-    username:             "admin@example.com"
+    username:             "clayton@xdevel.com.br"
     provider:             "userpass"
     firstName:            "Administrator"
     lastName:             ""
     fullName:             "Administrator"
-    email:                "admin@example.com"
+    email:                "clayton@xdevel.com.br"
     authMethod:           "userPassword"
     hasPasswordInfo:      true
     passwordInfoHasher:   "bcrypt"
-    passwordInfoPassword: "$2a$10$toxg36HQRNRlsJMvzR8tfufkn8VoWVWq0rjqXDeK7jv7gUUH6Q4.u"
+    passwordInfoPassword: "$2a$10$igmSTb.c2uxs6SXDA0fShuzU4k9ioxYAPsUcvszCgSJvEBvqcPXva"
