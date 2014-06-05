@@ -84,7 +84,7 @@ trait Metamodel extends Options {
 
 object Build extends sbt.Build with Zap with Metamodel {
 
-  val appName = "ssdemojpa"
+  val appName = "ProconsorcioApp"
   val appVersion = "0.1-SNAPSHOT"
 
   val verbose   = false
@@ -154,15 +154,7 @@ object Build extends sbt.Build with Zap with Metamodel {
     , metamodel <<= metamodel.dependsOn(clean in Compile)
   )
 
-  lazy val services = play.Project(
-    appName + "-services", appVersion,
-    path = file("modules/services"),
-    settings = scalaSettings
-  ).settings(
-      zap <<= zapTask,
-      zap <<= zap.dependsOn(clean in Compile)
-    )
-    .dependsOn(models)
+
 
   lazy val root = play.Project(
     appName, appVersion,
@@ -172,7 +164,7 @@ object Build extends sbt.Build with Zap with Metamodel {
       zap <<= zapTask,
       zap <<= zap.dependsOn(clean in Compile)
     )
-    .aggregate(models,services)
-    .dependsOn(models,services)
+    .aggregate(models)
+    .dependsOn(models)
 
 }
