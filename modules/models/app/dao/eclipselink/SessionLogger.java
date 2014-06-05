@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
+ *
  * This is a wrapper class for SLF4J. It is used when messages need to be logged
  * through SLF4J.
  * </p>
