@@ -104,7 +104,7 @@ object Build extends sbt.Build with Zap with Metamodel {
   val hibernateVersion = "3.6.9.Final"
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
-  val twitter4jVersion = "4.0.1"
+
 
 
   // resolvers += Resolver.sonatypeRepo("snapshots"),
@@ -123,13 +123,9 @@ object Build extends sbt.Build with Zap with Metamodel {
     //"postgresql" % "postgresql" % postgresqlVersion
 
     "ws.securesocial" %% "securesocial" % securesocialVersion,
-    "org.twitter4j" % "twitter4j-core" % twitter4jVersion
   )
 
-  val servicesDeps = essentialDeps ++ Seq(
-    "ws.securesocial" %% "securesocial" % securesocialVersion,
-    "org.twitter4j" % "twitter4j-core" % twitter4jVersion
-  )
+
 
   val rootDeps = essentialDeps ++ Seq(
     "javax.inject" % "javax.inject" % "1",
@@ -160,7 +156,6 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   lazy val services = play.Project(
     appName + "-services", appVersion,
-    servicesDeps,
     path = file("modules/services"),
     settings = scalaSettings
   ).settings(
