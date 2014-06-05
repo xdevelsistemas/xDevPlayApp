@@ -122,7 +122,7 @@ object Build extends sbt.Build with Zap with Metamodel {
     "org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
     //"postgresql" % "postgresql" % postgresqlVersion
 
-    "ws.securesocial" %% "securesocial" % securesocialVersion,
+    "ws.securesocial" %% "securesocial" % securesocialVersion
   )
 
 
