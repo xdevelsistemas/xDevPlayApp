@@ -1,4 +1,4 @@
-@(user: securesocial.core.Identity)
+@(user: models.Identity)
 @import securesocial.core.IdentityProvider
 
 @main("SecureSocial - Sample Protected Page") {
@@ -10,8 +10,8 @@
     <h2>User Details</h2>
 
     <ul>
-        <li>User Id: @user.id.id</li>
-        <li>Logged in from: @user.id.providerId</li>
+        <li>User Id: @user.uuid<li>
+        <li>Logged in from: @user.provider<li>
         <li>Fist name: @user.firstName</li>
         <li>Last name: @user.lastName</li>
         <li>Full name: @user.fullName</li>
