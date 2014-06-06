@@ -22,26 +22,9 @@
             <li>Authentication method: @linked.authMethod</li>
         </ul>
 
-        @linked.oAuth1Info.map { info =>
-        <h4>OAuth1 Info</h4>
 
-        <ul>
-            <li>Token: @info.token</li>
-            <li>Secret: @info.secret</li>
-        </ul>
-        }
 
-        @linked.oAuth2Info.map { info =>
-        <h4>OAuth2 Info</h4>
-
-        <ul>
-            <li>Access Token: @info.accessToken</li>
-            @info.tokenType.map { t => <li>Token Type: @t</li> }
-            @info.expiresIn.map { exp => <li>Expires in: @exp seconds</li>}
-            @info.refreshToken.map { rt => <li>Refresh Token: @rt</li>}
-        </ul>
-        }
-
+        
         <hr>
     }
 </div>

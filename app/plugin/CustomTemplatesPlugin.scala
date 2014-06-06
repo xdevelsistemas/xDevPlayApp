@@ -76,7 +76,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   def getPasswordChangePage[A](implicit request: SecuredRequest[A], form: Form[ChangeInfo]): Html = {
-    views.html.custom.passwordChange(form)      
+    views.html.custom.passwordChange(form)
   }
 
   /**
