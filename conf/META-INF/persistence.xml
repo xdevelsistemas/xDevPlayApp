@@ -18,6 +18,7 @@
         <class>models.AbstractModel</class>
         <class>models.Identity</class>
         <class>models.User</class>
+        <class>models.Cadastro.BaseEndereco.Uf</class>
 
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
