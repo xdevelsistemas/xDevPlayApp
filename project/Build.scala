@@ -84,7 +84,7 @@ trait Metamodel extends Options {
 
 object Build extends sbt.Build with Zap with Metamodel {
 
-  val appName = "ProconsorcioApp"
+  val appName = "xDevPlayApp"
   val appVersion = "0.1-SNAPSHOT"
 
   val verbose   = false
