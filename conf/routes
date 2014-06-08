@@ -11,22 +11,18 @@ GET         /only-userpass                             controllers.Application.o
 
 
 # Map static resources from the /public folder to the /assets URL path
-#GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET          /assets/*file                         controllers.Assets.at(path="/public", file)
 #mapeamento dos caminhos de rota dos arquivos estáticos do mvp
 #GET         /LandingPage/Script/App/*file              controllers.Assets.at(path="/LandingPage/Script/App", file)
 #GET         /LandingPage/Script/assets/*file           controllers.Assets.at(path="/LandingPage/Script/assets", file)
 #GET         /LandingPage/Script/Fragment/*file         controllers.Assets.at(path="/LandingPage/Script/Fragment", file)
 #GET         /LandingPage/Script/js/*file               controllers.Assets.at(path="/LandingPage/Script/js", file)
 #GET         /LandingPage/Script/Libs/*file             controllers.Assets.at(path="/LandingPage/Script/Libs", file)
-GET         /LandingPage/Script/*file                  controllers.Assets.at(path="/LandingPage/Script", file)
+#GET         /LandingPage/Script/*file              controllers.Assets.at(path="/LandingPage/Script", file)
+#GET         /LandingPage/Content/*file             controllers.Assets.at(path="/LandingPage/Content", file)
 
 
 
-
-GET         /LandingPage/Script/App/*file              controllers.Assets.at(path="/LandingPage/Script/App", file)
-
-GET         /LandingPage/Content/css/*file             controllers.Assets.at(path="/LandingPage/Content/css", file)
-GET         /LandingPage/Content/fontello/*file        controllers.Assets.at(path="/LandingPage/Content/fontello", file)
 
 
 

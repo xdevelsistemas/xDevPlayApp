@@ -12,7 +12,7 @@ public class LandingPage extends Controller {
 
     public static Result index()
     {
-        return ok();
+        return ok(views.html.LandingPage.index.render());
     }
 
 }
