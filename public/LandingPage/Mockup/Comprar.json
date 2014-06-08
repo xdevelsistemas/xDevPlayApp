@@ -1,0 +1,25 @@
+{
+    "titulo": "Quero Comprar",
+    "campos": {
+        "tipoDeConsorcio": {
+            "placeholder": "Consórcios de...",
+            "lista": [
+                {
+                    "codigo": "1",
+                    "tipo": "Imóveis"
+                }
+				
+	            ]
+        },
+        "valorDeCredito": {
+            "placeholder": "Valor de Crédito",
+            "lista": [
+                {
+                    "codigo": "1",
+                    "valor": "até 50.000"
+                }
+            ]
+        }
+    },
+    "textoConfirmar": "Quero pesquisar"
+}

@@ -1,0 +1,9 @@
+{
+    "titulo": "Quero Vender",
+    "campos": {
+        "email": {
+            "placeholder": "E-mail"
+        }
+    },
+    "textoConfirmar": "Quero anunciar"
+}
