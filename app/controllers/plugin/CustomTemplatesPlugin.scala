@@ -2,7 +2,7 @@ package controllers.plugin
 
 import play.api.mvc.{RequestHeader, Request}
 import play.api.templates.{Txt,Html}
-import securesocial.core.{Identity, SecuredRequest, SocialUser}
+import securesocial.core.{Identity, SecuredRequest}
 import play.api.data.Form
 import securesocial.controllers.Registration.RegistrationInfo
 import securesocial.controllers.PasswordChange.ChangeInfo
@@ -21,6 +21,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
                                msg: Option[String] = None): Html =
   {
     views.html.Custom.login(form, msg)
+
   }
 
   /**
