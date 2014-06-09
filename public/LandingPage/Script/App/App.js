@@ -1,6 +1,6 @@
 define(function(require) {
 
-    var Fragment = require("Fragment/Fragment");
+    var Fragment = require("Fragment");
     var Menu = require("App/Menu");
     var Home = require("App/Home");
     var Comprar = require("App/Comprar");

@@ -1,5 +1,6 @@
 require.config({
 //    urlArgs: "bust=" + (new Date()).getTime(),
+    baseUrl: '/LandingPage/Script',
     urlArgs: "v=" + (new Date()).getTime(),
     paths: {
         'text': 'Libs/text',
@@ -7,9 +8,9 @@ require.config({
         'ko.mapping': 'Libs/knockout.mapping',
         'jquery': 'Libs/jquery',
         'domReady': 'Libs/domReady',
-        'Fragment': 'Fragment',
+        'Fragment': 'Frag/Fragment',
         'App': 'App',
-        'Views': 'LandingPage/Views'
+        'Views': '../Views'
     }
 });
 
