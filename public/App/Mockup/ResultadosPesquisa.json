@@ -1,0 +1,40 @@
+{
+    "resultados": [
+        {
+            "codigo": "1",
+            "valorDoBem": "80000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            }
+        },
+        {
+            "codigo": "1",
+            "valorDoBem": "90000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            }
+        },
+        {
+            "codigo": "1",
+            "valorDoBem": "60000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            }
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "busca": {
+        "filtrosEscolhidos": {
+            "tipoDeConsorcio": "-1",
+            "valorDeCredito": "-1",
+            "valorDeParcela": "-1",
+            "administradora": "-1",
+            "estadoDeContemplacao": "-1",
+            "prazoRestante": "-1"
+        },
+        "resultados": [
+            {
+                "codigo": "",
+                "status": "",
+                "negocio": "",
+                "codigoDaCarta": "",
+                "valorDoCredito": "",
+                "tipo": "",
+                "administradora": "",
+                "valorDeEntrada": "",
+                "prazo": ""
+            }
+        ],
+        "textoBtnBusca": ""
+    }
+}

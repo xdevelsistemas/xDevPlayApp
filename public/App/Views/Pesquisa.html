@@ -1,0 +1,169 @@
+<div class="container"  id="pagina-pesquisa">
+    <div class="row">
+
+        <div class="sidebar span3" id="caixa-filtros">
+            <h2 data-bind="text: tituloCaixaFiltros()"></h2>
+
+            <div class="property-filter widget">
+                <div class="content">
+                    <form method="get" action="javascript:void(0);">
+                        <div data-bind="foreach: filtros()">
+                            <div class="location control-group">
+                                <label class="control-label"
+                                       data-bind="text: descricao()">
+                                </label>
+                                <div class="controls">
+                                    <select name="filter_location">
+                                        <option>-</option>
+                                        <!--ko foreach: lista()-->
+                                        <option data-bind="value: codigo(), text: descricao()"></option>
+                                        <!--/ko-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary btn-large"
+                                    data-bind="text: textoBotaoFiltrar()"></button>
+                        </div>
+                        <!-- /.form-actions -->
+                    </form>
+                </div>
+                <!-- /.content -->
+            </div><!-- /.property-filter -->
+
+        </div>
+        <!-- /#sidebar -->
+
+        <div id="main" class="span9 property-listing">
+
+            <h1 class="page-header">Resultados</h1>
+
+            <div class="clearfix">
+
+                <div class="properties-rows">
+                    <div class="filter-wrapper">
+                        <div class="filter pull-right">
+                            <form action="javascript:void(0)" method="get" class="form-sort form-horizontal pull-right">
+
+                                <div class="pager pull-right">
+                                    <ul class="pager">
+                                        <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
+                                        <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
+                                    </ul>
+                                </div><!-- /.pager -->
+
+                                <div class="control-group pull-right">
+                                    <div class="controls">
+                                        <select name="filter_sort_by" id="inputSortBy">
+                                            <option value="price" >Preço</option>
+                                            <option value="published" >Administradora</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group pull-right">
+                                    <div class="controls">
+                                        <select id="inputOrder" name="filter_order" class="chosen">
+                                            <option value="ASC" >Crescente</option>
+                                            <option value="DESC" >Decrescente</option>
+                                        </select>
+                                    </div><!-- /.controls -->
+                                </div><!-- /.control-group -->
+                            </form>
+                            <!-- /.filter -->
+                        </div>
+                    </div>
+                    <!-- /.properties-rows -->        </div>
+
+                <div class="clearfix"></div>
+
+
+                <div class="properties-rows" id="resultadosPesquisa">
+                    <div class="row" data-bind="foreach: resultados()">
+
+                        <div class="property span9">
+                            <div class="row">
+                                <div class="body span9">
+                                    <div class="title-price row">
+                                        <div class="title span9"
+                                             style="margin-bottom: 12px;">
+                                            <h2><a href="property-detail.html"
+                                                   data-bind="text:administradora.nome()">
+                                                </a></h2>
+                                        </div>
+                                        <!-- /.title -->
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="price" data-bind="text: 'R$ '+valorDoBem()"></div>
+                                    <!-- /.price -->
+                                    <!-- /.title -->
+                                    <div class="location" data-bind="text: tipo.nome()"
+                                         style="margin-top: 12px;"></div>
+                                    <!-- /.location -->
+                                    <div class="body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus
+                                            sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti.
+                                            Cras f ...</p>
+                                    </div>
+                                    <!-- /.body -->
+
+                                    <div class="property-info clearfix">
+                                        <div class="more-info">
+                                            <a href="property-detail.html">
+                                                Mais Informações
+                                                <i class="icon icon-normal-right-arrow-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.info -->
+                                </div>
+                                <!-- /.body -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.property -->
+
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.properties-grid -->
+
+                <div class="pagination pagination-centered">
+                    <ul class="unstyled">
+                        <li><a href="#">Primeira</a></li>
+                        <li><a href="#">Anterior</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li class="active"><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">Próxima</a></li>
+                        <li><a href="#">Última</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <!-- /#main -->
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+
+    <script>
+        app.Modelo.Pesquisa.filtros = app.aplicarModelo("Filtros", "#caixa-filtros");
+        app.Modelo.Pesquisa.resultados = app.aplicarModelo("ResultadosPesquisa", "#resultadosPesquisa", function() {
+            $('select[name=filter_sort_by]').change(function() {
+                $('form.form-sort').submit();
+            });
+
+            $('select[name=filter_order]').change(function() {
+                $('form.form-sort').submit();
+            });
+        });
+    </script>
