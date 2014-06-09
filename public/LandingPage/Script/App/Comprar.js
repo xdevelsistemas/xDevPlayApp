@@ -6,7 +6,7 @@ define(function(require) {
         init: function() {
             this._super();
             this.view = $(require("text!Views/Comprar.html"));
-            this.requireModel("/LandingPage/Mockup/Comprar.json");
+            this.requireModel("/assets/LandingPage/Mockup/Comprar.json");
         }
     });
 

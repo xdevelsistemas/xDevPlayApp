@@ -8,7 +8,7 @@ div.comprar-vender-box {
 
 #comprar-vender{
     text-align: center;
-    background: rgba(0, 0, 0, 0.6) url(/LandingPage/Content/img/menu_divider.png) no-repeat center;
+    background: rgba(0, 0, 0, 0.6) url(/assets/LandingPage/Content/img/menu_divider.png) no-repeat center;
     margin-top: 38px;
     padding: 0 0 18px 0;
 	border-radius: 5px;

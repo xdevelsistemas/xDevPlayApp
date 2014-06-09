@@ -1,10 +1,6 @@
 PROJETO xDevPlayApp - BASEADO NO PROJETO PLAY SECURESOCIAL WITH JPA
 
 
-* http://localhost:9000/credentials
-* http://localhost:9000/identities
-* http://localhost:9000/trends
-
 
 Foreword
 ========

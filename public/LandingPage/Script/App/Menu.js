@@ -6,7 +6,7 @@ define(function(require) {
         init: function() {
             this._super();
             this.view = $(require("text!Views/Menu.html"));
-            this.requireModel("/LandingPage/Mockup/Menu.json");
+            this.requireModel("/assets/LandingPage/Mockup/Menu.json");
         }
     });
 

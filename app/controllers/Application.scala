@@ -17,7 +17,7 @@ trait Application {
   val logger = Logger("controllers.Application")
 
   def index() = Action {
-    Redirect("/credentials")
+    Redirect("/home")
   }
 
   // a sample action using the new authorization hook

@@ -1,6 +1,6 @@
 require.config({
 //    urlArgs: "bust=" + (new Date()).getTime(),
-    baseUrl: '/LandingPage/Script',
+    baseUrl: '/assets/LandingPage/Script',
     urlArgs: "v=" + (new Date()).getTime(),
     paths: {
         'text': 'Libs/text',
