@@ -1,18 +1,8 @@
 package dao;
 
-import play.Logger;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.List;
+import javax.persistence.EntityManager;
 
 import play.db.jpa.JPA;
-import play.libs.F;
-import play.libs.Yaml;
-
-import javax.persistence.EntityManager;
 
 
 public class Bootstrap {

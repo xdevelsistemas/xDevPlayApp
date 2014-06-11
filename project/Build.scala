@@ -2,12 +2,18 @@ import sbt._
 import sbt.Keys._
 import play.Project._
 import scala.collection.JavaConverters._
+import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
+
 
 
 trait Options extends sbt.Build {
   val verbose   : Boolean
   val unchecked : Boolean
   val debug     : Boolean
+  
+  override def settings = super.settings ++ Seq(
+      EclipseKeys.skipParents in ThisBuild := false
+  )
 
   def defaultJavaSettings : Seq[String] = {
     val options = Seq("-encoding", "utf-8", "-proc:none")

@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import models.AbstractModel;
-import models.Identity;
 import play.db.jpa.JPA;
 
 

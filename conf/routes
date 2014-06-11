@@ -2,7 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Home page
-GET         /                              controllers.LandingPage.index()
+GET         /                              controllers.Proconsorcio.LandingPage.index()
+GET			/home						   controllers.Proconsorcio.Home.home()
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass
 # Map static resources from the /public folder to the /assets URL path
@@ -45,4 +46,4 @@ GET         /identities                    controllers.Authentication.identities
 #GET     /routes.js                  controllers.Application.javascriptRoutes()
 #GET     /lib/require.js             controllers.WebJarAssets.requirejs
 #GET     /webjars/*file              controllers.WebJarAssets.at(file)
-#GET     /assets/*file               controllers.Assets.at(path="/public", file)
+#GET     /assets/*file               controllers.Assets.at(path="/public", file)            
