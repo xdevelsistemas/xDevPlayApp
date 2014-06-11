@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" lang="en-US">
 <![endif]-->
@@ -76,10 +77,8 @@
 
         <script>
             var app = new App();
-            app.incluirHtml("CabecalhoLogado", ".top", function() {
-                $(".breadcrumb").children('span').text("Quanto vale minha carta?");
-            });
-            app.incluirHtml("Simulador", "#content");
+            app.incluirHtml("Cabecalho", ".top", function(){$(".breadcrumb").children('span').text("Login/Cadastro");});
+            app.incluirHtml("CadastroEnviado", "#content");
             app.incluirHtml("Rodape", "#footer-wrapper");
         </script>
     </body>
