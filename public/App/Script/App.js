@@ -8,7 +8,7 @@ function App() {
 
 App.prototype.getHtml = function(yUrl, yCallback) {
     $.ajax({
-        url: "Views/" + yUrl + ".html",
+        url: "assets/App/Views/" + yUrl + ".html",
         dataType: 'text',
         cache: false,
         type: 'GET',
@@ -54,10 +54,10 @@ App.prototype.aplicarModelo = function(yUrl, yView, yCallback) {
     var xModel = ko.mapping.fromJS({});
     var xView = $(yView);
     $.ajax({
-        url: "Mockup/" + yUrl + ".json",
+        url: "/assets/App/Mockup/" + yUrl + ".json",
         dataType: 'json',
         cache: false,
-        type: 'POST',
+        type: 'GET',
         success: function(data, textStatus, jqXHR) {
             ko.mapping.fromJS(data, xModel);
             ko.applyBindings(xModel, xView[0]);
