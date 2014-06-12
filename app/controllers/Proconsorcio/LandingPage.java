@@ -3,7 +3,7 @@ package controllers.Proconsorcio;
 import play.mvc.Controller;
 import play.mvc.Result;
 import securesocial.core.java.SecureSocial;
-import javax.persistence.*
+import javax.persistence.*;
 
 /**
  * Created by claytonsantosdasilva on 08/06/14.
