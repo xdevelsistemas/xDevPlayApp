@@ -1,14 +1,16 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-# Home page
+# Aplicatico principal
 GET         /                              controllers.Proconsorcio.LandingPage.index()
-GET			/home						   controllers.Proconsorcio.Home.home()
+GET         /home                          controllers.Proconsorcio.Home.home()
+GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterarcodigo()
+
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass
 # Map static resources from the /public folder to the /assets URL path
 #GET         /teste                             controllers.Assets.at(path = "/public/", file = "Home.html")
-GET         /assets/*file                         controllers.Assets.at(path="/public", file)
+GET         /assets/*file                  controllers.Assets.at(path="/public", file)
 # Login page
 GET         /login                         securesocial.controllers.LoginPage.login
 GET         /logout                        securesocial.controllers.LoginPage.logout
