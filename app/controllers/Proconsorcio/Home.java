@@ -14,15 +14,17 @@ import views.html.Proconsorcio.*;
     public static Result home()
     {
 
-        dao.UserIdentity user = (dao.UserIdentity) ctx().args.get(SecureSocial.USER_KEY);
+//        dao.UserIdentity user = (dao.UserIdentity) ctx().args.get(SecureSocial.USER_KEY);
+//
+//        if  (user != null)
+//        {
+//            return ok(views.html.Proconsorcio.logado.render());
+//        }else
+//        {
+//            return ok(views.html.Proconsorcio.index.render());
+//        }
 
-        if  (user != null)
-        {
-            return ok(views.html.Proconsorcio.logado.render());
-        }else
-        {
-            return ok(views.html.Proconsorcio.index.render());
-        }
+        return ok(views.html.Proconsorcio.index.render());
 
     }
 

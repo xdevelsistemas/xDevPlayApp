@@ -1,4 +1,4 @@
-<div class="container"  id="pagina-pesquisa">
+<div class="container" id="pagina-pesquisa">
     <div class="row">
 
         <div class="sidebar span3" id="caixa-filtros">
@@ -10,14 +10,14 @@
                         <div data-bind="foreach: filtros()">
                             <div class="location control-group">
                                 <label class="control-label"
-                                       data-bind="text: descricao()">
+                                data-bind="text: descricao()">
                                 </label>
                                 <div class="controls">
                                     <select name="filter_location">
                                         <option>-</option>
-                                        <!--ko foreach: lista()-->
+                                            <!--ko foreach: lista()-->
                                         <option data-bind="value: codigo(), text: descricao()"></option>
-                                        <!--/ko-->
+                                            <!--/ko-->
                                     </select>
                                 </div>
                             </div>
@@ -25,16 +25,16 @@
 
                         <div class="form-actions">
                             <button class="btn btn-primary btn-large"
-                                    data-bind="text: textoBotaoFiltrar()"></button>
+                            data-bind="text: textoBotaoFiltrar()"></button>
                         </div>
-                        <!-- /.form-actions -->
+                            <!-- /.form-actions -->
                     </form>
                 </div>
-                <!-- /.content -->
-            </div><!-- /.property-filter -->
+                    <!-- /.content -->
+            </div> <!-- /.property-filter -->
 
         </div>
-        <!-- /#sidebar -->
+            <!-- /#sidebar -->
 
         <div id="main" class="span9 property-listing">
 
@@ -52,7 +52,7 @@
                                         <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
                                         <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
                                     </ul>
-                                </div><!-- /.pager -->
+                                </div> <!-- /.pager -->
 
                                 <div class="control-group pull-right">
                                     <div class="controls">
@@ -69,13 +69,13 @@
                                             <option value="ASC" >Crescente</option>
                                             <option value="DESC" >Decrescente</option>
                                         </select>
-                                    </div><!-- /.controls -->
-                                </div><!-- /.control-group -->
+                                    </div> <!-- /.controls -->
+                                </div> <!-- /.control-group -->
                             </form>
-                            <!-- /.filter -->
+                                <!-- /.filter -->
                         </div>
                     </div>
-                    <!-- /.properties-rows -->        </div>
+                        <!-- /.properties-rows --> </div>
 
                 <div class="clearfix"></div>
 
@@ -88,26 +88,27 @@
                                 <div class="body span9">
                                     <div class="title-price row">
                                         <div class="title span9"
-                                             style="margin-bottom: 12px;">
+                                        style="margin-bottom : 12 px ;">
                                             <h2><a href="property-detail.html"
-                                                   data-bind="text:administradora.nome()">
-                                                </a></h2>
+                                            data-bind="text:administradora.nome()">
+                                                </a>
+                                            </h2>
                                         </div>
-                                        <!-- /.title -->
+                                            <!-- /.title -->
                                     </div>
                                     <div class="clear"></div>
                                     <div class="price" data-bind="text: 'R$ '+valorDoBem()"></div>
-                                    <!-- /.price -->
-                                    <!-- /.title -->
+                                        <!-- /.price -->
+                                        <!-- /.title -->
                                     <div class="location" data-bind="text: tipo.nome()"
-                                         style="margin-top: 12px;"></div>
-                                    <!-- /.location -->
+                                    style="margin-top : 12 px ;"></div>
+                                        <!-- /.location -->
                                     <div class="body">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus
                                             sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti.
                                             Cras f ...</p>
                                     </div>
-                                    <!-- /.body -->
+                                        <!-- /.body -->
 
                                     <div class="property-info clearfix">
                                         <div class="more-info">
@@ -117,18 +118,18 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <!-- /.info -->
+                                        <!-- /.info -->
                                 </div>
-                                <!-- /.body -->
+                                    <!-- /.body -->
                             </div>
-                            <!-- /.row -->
+                                <!-- /.row -->
                         </div>
-                        <!-- /.property -->
+                            <!-- /.property -->
 
                     </div>
-                    <!-- /.row -->
+                        <!-- /.row -->
                 </div>
-                <!-- /.properties-grid -->
+                    <!-- /.properties-grid -->
 
                 <div class="pagination pagination-centered">
                     <ul class="unstyled">
@@ -144,26 +145,25 @@
                     </ul>
                 </div>
 
-
             </div>
 
-            <!-- /#main -->
+                <!-- /#main -->
 
         </div>
-        <!-- /.row -->
+            <!-- /.row -->
     </div>
-    <!-- /.container -->
+        <!-- /.container -->
 
 
     <script>
-        app.Modelo.Pesquisa.filtros = app.aplicarModelo("Filtros", "#caixa-filtros");
-        app.Modelo.Pesquisa.resultados = app.aplicarModelo("ResultadosPesquisa", "#resultadosPesquisa", function() {
-            $('select[name=filter_sort_by]').change(function() {
-                $('form.form-sort').submit();
-            });
+    app.Modelo.Pesquisa.filtros = app.aplicarModelo ( "Filtros", "#caixa-filtros" ) ;
+    app.Modelo.Pesquisa.resultados = app.aplicarModelo ( "ResultadosPesquisa", "#resultadosPesquisa", function ( ) {
+    $ ( 'select[name=filter_sort_by]' ).change ( function ( ) {
+    $ ( 'form.form-sort' ).submit ( ) ;
+    } ) ;
 
-            $('select[name=filter_order]').change(function() {
-                $('form.form-sort').submit();
-            });
-        });
+    $ ( 'select[name=filter_order]' ).change ( function ( ) {
+    $ ( 'form.form-sort' ).submit ( ) ;
+    } ) ;
+    } ) ;
     </script>
