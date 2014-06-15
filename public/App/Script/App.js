@@ -8,7 +8,7 @@ function App() {
 
 App.prototype.getHtml = function(yUrl, yCallback) {
     $.ajax({
-        url: "assets/App/Views/" + yUrl + ".html",
+        url: "/assets/App/Views/" + yUrl + ".html",
         dataType: 'text',
         cache: false,
         type: 'GET',

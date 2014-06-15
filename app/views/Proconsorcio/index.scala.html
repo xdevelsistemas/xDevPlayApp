@@ -45,10 +45,7 @@
 
     <body class="home page page-template">
 
-        <div class="top"></div>
-        <div id="content" class="clearfix"></div>
-        <div id="footer-wrapper"></div>
-
+        <div class="top">@views.html.Proconsorcio.Partials.Cabecalho()</div>
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src="@routes.Assets.at("App/Script/js/aviators-settings.js")"></script>
         <script type='text/javascript' src="@routes.Assets.at("App/Content/libraries/chosen/chosen.jquery.min.js")"></script>
@@ -66,16 +63,14 @@
         <script type='text/javascript' src="@routes.Assets.at("App/Script/js/jquery.bxslider.js")"></script>
         <!--<script type='text/javascript' src='Script/js/properta.js'></script>-->
         <script type='text/javascript' src="@routes.Assets.at("App/Script/js/jquery.bxslider.min.js")"></script>
-
         <script src="@routes.Assets.at("App/Script/Libs/knockout.js")"></script>
         <script src="@routes.Assets.at("App/Script/Libs/knockout.mapping.js")"></script>
         <script src="@routes.Assets.at("App/Script/App.js")"></script>
         <!--<script src="Script/Libs/require.js" data-main="Script/Main.js"></script>-->
         <script>
-            var app = new App();
-            app.incluirHtml("Cabecalho", ".top");
-            app.incluirHtml("Pesquisa", "#content");
-            app.incluirHtml("Rodape", "#footer-wrapper");
+        var app = new App();
         </script>
+        <div id="content" class="clearfix">@views.html.Proconsorcio.Partials.Pesquisa()</div>
+        <div id="footer-wrapper">@views.html.Proconsorcio.Partials.Rodape()</div>
     </body>
 </html>
