@@ -1,4 +1,5 @@
-@import securesocial.core.java.SecureSocial;
+@(implicit user:Option[securesocial.core.Identity])
+@import securesocial.core.java.SecureSocial
 <div class="container" id="cabecalho">
     <div class="top-inner inverted">
         <div class="header clearfix">
@@ -37,7 +38,8 @@
 
             <div class="user-area pull-right">
 
-            @if(SecureSocial.currentUser == null){
+
+            @if( user == null){
 
                 <div class="menu-anonymous-container">
                     <ul id="menu-anonymous" class="nav nav-pills">
@@ -81,7 +83,7 @@
                         <a href="#">Conheça o ProConsórcio</a>
                     </li>
 
-                    @if(SecureSocial.currentUser != null){
+                    @if(user != null){
 
                     <li class="menu-item menu-item-parent">
                         <a href="">Minha conta</a>
@@ -92,11 +94,7 @@
                             <li class="menu-item"><a href="#">Fale conosco</a></li>
                         </ul>
                     </li>
-
-
                     }
-
-
                 </ul>
             </div>
         </div>

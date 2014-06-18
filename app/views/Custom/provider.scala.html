@@ -1,5 +1,7 @@
+@*
 @(providerId: String, loginForm: Option[play.api.data.Form[(String, String)]] = None)(implicit request: play.api.mvc.RequestHeader)
-
+*@
+@(request: play.api.mvc.RequestHeader, providerId: String, loginForm: Option[play.api.data.Form[(String, String)]] = None)
 @import securesocial.core.Registry
 @import securesocial.core.IdentityProvider
 @import securesocial.core.providers.UsernamePasswordProvider

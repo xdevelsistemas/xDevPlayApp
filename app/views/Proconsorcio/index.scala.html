@@ -1,3 +1,4 @@
+@(implicit user:Option[securesocial.core.Identity])
 <!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" lang="en-US">
@@ -45,7 +46,7 @@
 
     <body class="home page page-template">
 
-        <div class="top">@views.html.Proconsorcio.Partials.Cabecalho()</div>
+        <div class="top">@views.html.Proconsorcio.Partials.Cabecalho(user)</div>
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src="@routes.Assets.at("App/Script/js/aviators-settings.js")"></script>
         <script type='text/javascript' src="@routes.Assets.at("App/Content/libraries/chosen/chosen.jquery.min.js")"></script>

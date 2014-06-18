@@ -37,7 +37,7 @@
                 <h3>@Messages("securesocial.login.instructions")</h3>
                 <p>
                     @for(p <- externalProviders) {
-                        @provider(p.id)(request)
+                        @provider(request,p.id)
                     }
                 </p>
             </div>
@@ -51,7 +51,7 @@
                     <h3>@Messages("securesocial.login.useEmailAndPasswordOnly")</h3>
                 }
 
-               @provider("userpass", Some(loginForm))(request)
+               @provider(request,"userpass", Some(loginForm))
             </div>
         }
     }

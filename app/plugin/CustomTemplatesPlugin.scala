@@ -2,7 +2,7 @@ package controllers.plugin
 
 import play.api.mvc.{RequestHeader, Request}
 import play.api.templates.{Txt,Html}
-import securesocial.core.{Identity, SecuredRequest, SocialUser}
+import securesocial.core.{SecureSocial, Identity, SecuredRequest, SocialUser}
 import play.api.data.Form
 import securesocial.controllers.Registration.RegistrationInfo
 import securesocial.controllers.PasswordChange.ChangeInfo
@@ -11,6 +11,13 @@ import securesocial.controllers.TemplatesPlugin
 
 class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlugin
 {
+
+
+  implicit def user(implicit request: RequestHeader):Option[Identity] = {
+    SecureSocial.currentUser
+  }
+
+
  /**
    * Returns the html for the login page
    * @param request

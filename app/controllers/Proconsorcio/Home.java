@@ -1,9 +1,14 @@
 package controllers.Proconsorcio;
 
-import play.mvc.Result;
+import play.libs.F;
 import play.mvc.Controller;
+import play.mvc.Result;
+import scala.Option;
+import scala.Some;
 import securesocial.core.java.SecureSocial;
 import views.html.Proconsorcio.*;
+import securesocial.core.*;
+
 
 /**
  * Created by claytonsantosdasilva on 11/06/14.
@@ -13,26 +18,14 @@ import views.html.Proconsorcio.*;
     @SecureSocial.UserAwareAction
     public static Result home()
     {
-
-//        dao.UserIdentity user = (dao.UserIdentity) ctx().args.get(SecureSocial.USER_KEY);
-//
-//        if  (user != null)
-//        {
-//            return ok(views.html.Proconsorcio.logado.render());
-//        }else
-//        {
-//            return ok(views.html.Proconsorcio.index.render());
-//        }
-
-        return ok(views.html.Proconsorcio.index.render());
-
+        return ok(index.render(_user()));
     }
 
 
     @SecureSocial.SecuredAction
     public static Result alterarcodigo()
     {
-        return ok (alterarcodigo.render());
+        return ok (alterarcodigo.render(_user()));
     }
 
 
@@ -44,6 +37,15 @@ import views.html.Proconsorcio.*;
 
 
     public static Result detalhes(String id) { return ok (detalhes.render(id));}
+
+
+
+    private static scala.Option<Identity> _user() {
+        return Option.apply(SecureSocial.currentUser());
+    }
+
+
+
 
 
 }
