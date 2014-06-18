@@ -75,8 +75,6 @@
 
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="login">
-
-
                                         @if(request.flash.get("success").isDefined) {
                                             <div class="alert alert-info">
                                             @request.flash.get("success").get
@@ -87,10 +85,10 @@
                                             </div>
                                         } else {
                                             <form action="@securesocial.core.providers.utils.RoutesHelper.handlePasswordChange.absoluteURL(IdentityProvider.sslEnabled)(request)"
-                                            class="form-horizontal"
                                             autocomplete= "off"
                                             method="POST"
                                             >
+
 
 
                                                 <div class="control-group">
@@ -100,17 +98,11 @@
                                                     </label>
 
                                                     <div class="controls">
-                                                    @helper.inputPassword(
-                                                        passwordChangeForm("currentPassword"),
-                                                        'required -> "required",
-                                                        '_label -> Messages("securesocial.passwordChange.currentPassword"),
-                                                        'class -> "input-xlarge"
-                                                    )
+                                                        <input id="currentPassword" type="password" name="currentPassword" required="required">
                                                     </div>
                                                         <!-- /.controls -->
                                                 </div>
                                                     <!-- /.control-group -->
-
 
                                                 <div class="control-group">
                                                     <label class="control-label">
@@ -119,16 +111,11 @@
                                                     </label>
 
                                                     <div class="controls">
-                                                    @helper.inputPassword(
-                                                        passwordChangeForm("newPassword.password1"),
-                                                        'required -> "required",
-                                                        '_label -> Messages("securesocial.passwordChange.newPassword1"),
-                                                        'class -> "input-xlarge"
-                                                    )
+                                                        <input type="password" id="newPassword.password1" name="newPassword.password1" required="required">
                                                     </div>
-                                                        <!-- /.controls -->
+                                                    <!-- /.controls -->
                                                 </div>
-                                                    <!-- /.control-group -->
+                                                <!-- /.control-group -->
 
                                                 <div class="control-group">
                                                     <label class="control-label">
@@ -137,17 +124,12 @@
                                                     </label>
 
                                                     <div class="controls">
-                                                    @helper.inputPassword(
-                                                        passwordChangeForm("newPassword.password2"),
-                                                        'required -> "required",
-                                                        '_label -> Messages("securesocial.passwordChange.newPassword2"),
-                                                        '_error -> passwordChangeForm.error("newPassword"),
-                                                        'class -> "input-xlarge"
-                                                    )
+                                                        <input type="password" id="newPassword.password1" name="newPassword.password2" required="required">
                                                     </div>
-                                                        <!-- /.controls -->
+                                                    <!-- /.controls -->
                                                 </div>
-                                                    <!-- /.control-group -->
+                                                <!-- /.control-group -->
+
 
 
                                                 <div class="form-actions">
@@ -158,17 +140,6 @@
 
                                             </form>
                                         }
-                                        @*<form method="post" action="javascript:void(0)">*@
-
-                                        @**@
-                                        @**@
-
-                                        @*<div class="form-actions">*@
-                                        @*<input type="submit" value="Alterar senha"*@
-                                        @*class="btn btn-primary arrow-right">*@
-                                        @*</div>*@
-                                        @*<!-- /.form-actions -->*@
-                                        @*</form>*@
                                     </div>
                                         <!-- /.tab-pane -->
                                 </div>

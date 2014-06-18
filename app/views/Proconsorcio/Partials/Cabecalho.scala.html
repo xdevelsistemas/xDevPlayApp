@@ -1,3 +1,4 @@
+@import securesocial.core.java.SecureSocial;
 <div class="container" id="cabecalho">
     <div class="top-inner inverted">
         <div class="header clearfix">
@@ -35,12 +36,25 @@
             </div>
 
             <div class="user-area pull-right">
+
+            @if(SecureSocial.currentUser == null){
+
                 <div class="menu-anonymous-container">
                     <ul id="menu-anonymous" class="nav nav-pills">
                         <li class="menu-item"><a href="/login#cadastro">Cadastrar</a></li>
                         <li class="menu-item"><a href="/login">Entrar</a></li>
                     </ul>
                 </div>
+            }else{
+
+                <div class="menu-anonymous-container">
+                    <ul id="menu-anonymous" class="nav nav-pills">
+                        <li class="menu-item"><a href="/logout">Sair</a></li>
+                    </ul>
+                </div>
+
+            }
+
             </div>
                 <!-- /.user-area -->
         </div>
@@ -57,11 +71,6 @@
                         <!--<li class="menu-item active-menu-item">-->
                     <li class="menu-item">
                         <a href="">Pesquisar</a>
-                            <!--                            <ul class="sub-menu">
-                                                            <li class="menu-item"><a href="frontpage-slider.html">Revolution slider</a></li>
-                                                            <li class="menu-item"><a href="frontpage-map-vertical.html">Hompage - Vertical filter</a></li>
-                                                            <li class="menu-item"><a href="index.html">Hompage - Horizontal filter</a></li>
-                                                        </ul>-->
                     </li>
 
                     <li class="menu-item">
@@ -71,6 +80,23 @@
                     <li class="menu-item">
                         <a href="#">Conheça o ProConsórcio</a>
                     </li>
+
+                    @if(SecureSocial.currentUser != null){
+
+                    <li class="menu-item menu-item-parent">
+                        <a href="">Minha conta</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item"><a href="#">Escritório Online</a></li>
+                            <li class="menu-item"><a href="#">Dados Cadastrais</a></li>
+                            <li class="menu-item"><a href="/password">Alterar Senha</a></li>
+                            <li class="menu-item"><a href="#">Fale conosco</a></li>
+                        </ul>
+                    </li>
+
+
+                    }
+
+
                 </ul>
             </div>
         </div>
