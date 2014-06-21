@@ -32,11 +32,11 @@ import securesocial.core.*;
     @SecureSocial.SecuredAction
     public static Result novacarta()
     {
-        return ok(novacarta.render());
+        return ok (main.render(novacarta.render(),"Nova Carta",_user()));
     }
 
 
-    public static Result detalhes(String id) { return ok (detalhes.render(id));}
+    public static Result detalhes(String id) { return ok (main.render(detalhes.render(id),"Detalhes",_user()));}
 
 
     public static Result pesquisa(String query) {

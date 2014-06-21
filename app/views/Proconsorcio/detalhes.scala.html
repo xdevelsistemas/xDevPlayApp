@@ -1,90 +1,95 @@
 @(id: String)
-<!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" lang="en-US">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" lang="en-US">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en-US">
-        <!--<![endif]-->
+<div class="container" id="pagina-detalhes">
+    <div class="row">
+        <div id="main" class="span12 single-property">
+            <h1 class="page-header fl">Imóvel</h1>
+            <div class="property-detail">
+                <div class="overview">
+                    <div class="overview">
+                        <div class="row">
+                            <div class="span8">
+                                <h2 style="">Rodobens</h2>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Valor do Crédito</th>
+                                            <td class="price">
+                                                R$ 60.000,00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Código da Carta:</th>
+                                            <td><strong>000104</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Negócio:</th>
+                                            <td>
+                                                <span class="contract-type">
+                                                    COMPRA
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Valor de entrada:</th>
+                                            <td>R$ 17.000,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Prazo</th>
+                                            <td>145 dias</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status:</th>
+                                            <td>Reservada</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="span4 pull-right" >
+                                <div class="tab-content">
+                                    <button class="btn btn-primary btn-large edit">
+                                        Editar<span></span>
+                                    </button>
+                                    <button class="btn btn-primary btn-large remove">
+                                        Excluir<span></span>
+                                    </button>
+                                </div>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Aviators, http://themes.byaviators.com">
+                                    <!-- /.span2 -->
+                            </div>
+                                <!-- /.row -->
+                        </div>
+                            <!-- /.overview -->
+                    </div>
+                </div>
+                <h2>Lorem Ipsum</h2>
+                <p>
+                    Quisque non dictum eros. Praesent porta vehicula arcu eu ornare. Donec id egestas arcu. Suspendisse auctor
+                    condimentum ligula ultricies cursus. Vestibulum vel orci vel lacus rhoncus sagittis sed vitae mi. Pellentesque
+                    molestie elit bibendum tincidunt semper. Aliquam ac volutpat risus. In felis felis, posuere commodo aliquet eget,
+                    sagittis sed turpis. Phasellus commodo turpis non nunc egestas, et egestas felis pretium. Pellentesque dignissim
+                    libero vitae tincidunt semper. Nam id ante nisi. Nam sollicitudin, dolor non suscipit feugiat, nibh lacus commodo
+                    metus, nec tempus dui velit sagittis velit. Pellentesque elementum risus rhoncus justo porta, at varius odio
+                    consequat. Duis non augue adipiscing, posuere quam non, tempus urna.
+                </p>
+            </div>
 
-            <!--<link rel="shortcut icon" href="Content/img/favicon.png" type="image/png">-->
-
-            <!--[if lt IE 9]>
-        <script src="Script/js/html5.js" type="text/javascript"></script>
-        <![endif]-->
-
-        <meta name='robots' content='noindex,nofollow'/>
-
-        <link rel='stylesheet' id='font-css'
-        href='http://fonts.googleapis.com/css?family=Open+Sans%3A400%2C700%2C300&#038;subset=latin%2Clatin-ext&#038;ver=3.6'
-        type='text/css' media='all'/>
-
-
-        <link rel='stylesheet' id='revolution-fullwidth' href='/assets/App/Content/libraries/rs-plugin/css/fullwidth.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='revolution-settings' href='/assets/App/Content/libraries/rs-plugin/css/settings.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='bootstrap-css' href='/assets/App/Content/libraries/bootstrap/css/bootstrap.min.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='bootstrap-responsive-css' href='/assets/App/Content/libraries/bootstrap/css/bootstrap-responsive.min.css' type='text/css' media='all'/>
-
-        <link rel='stylesheet' id='pictopro-normal-css' href='/assets/App/Content/icons/pictopro-normal/style.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='justvector-web-font-css' href='/assets/App/Content/icons/justvector-web-font/stylesheet.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='chosen-css' href='/assets/App/Content/libraries/chosen/chosen.css' type='text/css' media='all'/>
-
-        <link rel='stylesheet' id='aviators-css' href='/assets/App/Content/css/jquery.bxslider.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='properta-css' href='/assets/App/Content/css/properta.css' type='text/css' media='all'/>
-
-        <link rel='stylesheet' id='properta-css' href='/assets/App/Content/css/Custom.css' type='text/css' media='all'/>
-
-        <style id="style-main"></style>
-
-        <title>ProConsórcio | Tudo para consórcios! | Login / Cadastro</title>
-    </head>
-
-    <body class="home page page-template">
-
-        <div class="top"></div>
-        <div id="content" class="clearfix">
-            @views.html.Proconsorcio.Partials.Detalhes.render(id);
         </div>
-        <div id="footer-wrapper"></div>
 
-        <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/aviators-settings.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/chosen/chosen.jquery.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/rs-plugin/js/jquery.themepunch.revolution.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/rs-plugin/js/jquery.themepunch.plugins.min.js'></script>
+    </div>
+</div> <!-- /.container -->
 
-        <script type='text/javascript' src='http://maps.googleapis.com/maps/api/js?v=3&#038;sensor=true&#038;ver=3.6'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/aviators-map.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/gmap3.infobox.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/bootstrap.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/retina.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/gmap3.clusterer.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.ezmark.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/carousel.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.bxslider.js'></script>
-            <!--<script type='text/javascript' src='Script/js/properta.js'></script>-->
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.bxslider.min.js'></script>
+<script>
 
-        <script src="/assets/App/Script/Libs/knockout.js"></script>
-        <script src="/assets/App/Script/Libs/knockout.mapping.js"></script>
-        <script src="/assets/App/Script/App.js"></script>
-            <!--<script src="Script/Libs/require.js" data-main="Script/Main.js"></script>-->
-
-        <script>
-        var app = new App ( ) ;
-        app.incluirHtml ( "CabecalhoLogado", ".top", function ( ) {
-        $ ( ".breadcrumb" ).children ( 'span' ).text ( "Escritório Online > Detalhes" ) ;
-        } ) ;
-        //            app.incluirHtml("Detalhes", "#content");
-        app.incluirHtml ( "Rodape", "#footer-wrapper" ) ;
-        </script>
-    </body>
-</html>
+require(['jquery'], function(){
+    ( function ( ) {
+        function checkHash ( ) {
+            if ( window.location.hash == '#cadastro' )
+            $ ( "a[href=#register]" ).trigger ( 'click' ) ;
+        }
+        checkHash ( ) ;
+        $ ( window ).on ( 'hashchange', function ( ) {
+            checkHash ( ) ;
+        }) ;
+    }) ( ) ;
+});
+</script>
