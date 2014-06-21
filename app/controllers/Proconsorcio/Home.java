@@ -18,14 +18,14 @@ import securesocial.core.*;
     @SecureSocial.UserAwareAction
     public static Result home()
     {
-        return ok(index.render(_user()));
+        return ok(main.render(index.render(),"Pesquisa", _user()));
     }
 
 
     @SecureSocial.SecuredAction
     public static Result alterarcodigo()
     {
-        return ok (alterarcodigo.render(_user()));
+        return ok (main.render(alterarcodigo.render(),"Alterar Código",_user()));
     }
 
 
@@ -37,6 +37,15 @@ import securesocial.core.*;
 
 
     public static Result detalhes(String id) { return ok (detalhes.render(id));}
+
+
+    public static Result pesquisa(String query) {
+        return ok (main.render(pesquisa.render(query),"Pesquisa",_user()));
+    }
+
+    public static Result pesquisa() {
+        return ok (main.render(pesquisa.render(""),"Pesquisa",_user()));
+    }
 
 
 

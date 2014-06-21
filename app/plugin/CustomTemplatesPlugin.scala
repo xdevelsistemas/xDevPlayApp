@@ -83,8 +83,10 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   def getPasswordChangePage[A](implicit request: SecuredRequest[A], form: Form[ChangeInfo]): Html = {
-     views.html.Proconsorcio.alterarsenha(form)
 
+     implicit def title = { "Alterar Senha" }
+
+     views.html.Proconsorcio.main(views.html.Proconsorcio.alterarsenha(form))
   }
 
   /**

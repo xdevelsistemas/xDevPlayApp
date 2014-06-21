@@ -1,4 +1,4 @@
-@(implicit user:Option[securesocial.core.Identity])
+@(title: String)(implicit user:Option[securesocial.core.Identity])
 @import securesocial.core.java.SecureSocial
 <div class="container" id="cabecalho">
     <div class="top-inner inverted">
@@ -112,7 +112,7 @@
 
         <div class="breadcrumb pull-left">
                 <!-- Breadcrumb NavXT 4.4.0 -->
-            <a title="ProConsórcio" href="/home" class="home">ProConsórcio</a> &gt; <span>Pesquisar</span>
+            <a title="ProConsórcio" href="/home" class="home">ProConsórcio</a> &gt; <span>@title</span>
         </div>
 
             <!-- /.breadcrumb -->

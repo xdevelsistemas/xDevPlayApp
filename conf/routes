@@ -4,9 +4,10 @@
 # Aplicatico principal
 GET         /                              controllers.Proconsorcio.LandingPage.index()
 GET         /home                          controllers.Proconsorcio.Home.home()
+GET         /pesquisa/:query               controllers.Proconsorcio.Home.pesquisa(query)
 GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterarcodigo()
 GET         /novacarta                     controllers.Proconsorcio.Home.novacarta()
-GET         /detalhes/:id                     controllers.Proconsorcio.Home.detalhes(id)
+GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
 
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass
