@@ -165,18 +165,9 @@ textarea {
 }
 
 @media (min-width: 1199px) {
-    padding-left:
+    /*padding-left: 20px;*/
+    /*padding-right: 20px;*/
 
-    20
-    px
-
-    ;
-    padding-right:
-
-    20
-    px
-
-    ;
     input[type="text"], input[type="email"], input[type="number"], input[type="password"], textarea, .uneditable-input, #inputDate {
         height: 35px;
         margin-bottom: 5px;

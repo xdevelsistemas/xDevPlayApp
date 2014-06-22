@@ -3,7 +3,7 @@
  */
 require(['Libs/domReady'], function (domReady) {
     domReady(function () {
-            require(["knockout", "komapping"], function (ko, mapping) {
+            require(["jquery","knockout", "komapping"], function ($, ko, mapping) {
                 window.ko = ko;
                 window.ko.mapping = mapping;
 

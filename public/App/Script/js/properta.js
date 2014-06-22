@@ -1,10 +1,10 @@
-jQuery(function(jQuery) {
-		jQuery('.map .property-filter').show();
+$(function($) {
+		$('.map .property-filter').show();
 
     function InitCarousel() {
 
-        if (jQuery('.carousel .content ul').length !== 0) {
-            jQuery('.carousel .content ul').carouFredSel({
+        if ($('.carousel .content ul').length !== 0) {
+            $('.carousel .content ul').carouFredSel({
                 scroll: {
                     items: 1
                 },
@@ -24,8 +24,8 @@ jQuery(function(jQuery) {
             });
         }
 
-        if (jQuery('.carousel-wrapper .content ul').length !== 0) {
-            jQuery('.carousel-wrapper .content ul').carouFredSel({
+        if ($('.carousel-wrapper .content ul').length !== 0) {
+            $('.carousel-wrapper .content ul').carouFredSel({
                 scroll: {
                     items: 1
                 },
@@ -48,29 +48,29 @@ jQuery(function(jQuery) {
     InitCarousel();
 });
 
-jQuery(document).ready(function(jQuery) {    
-    jQuery('input[type=checkbox]').not('.no-ezmark').ezMark();
-    jQuery('input[type=radio]').not('.no-ezmark').ezMark();
+$(document).ready(function($) {    
+    $('input[type=checkbox]').not('.no-ezmark').ezMark();
+    $('input[type=radio]').not('.no-ezmark').ezMark();
 
-    jQuery('.properties-grid .property .title').hover(function() {
-        jQuery(this).closest('.property').addClass('hover');
+    $('.properties-grid .property .title').hover(function() {
+        $(this).closest('.property').addClass('hover');
     }, function() {
-        jQuery(this).closest('.property').removeClass('hover');
+        $(this).closest('.property').removeClass('hover');
     });
 
-    jQuery('.property-filter .property-types .property-type').live('click', function(e) {
+    $(document).on('click','.property-filter .property-types .property-type', function(e) {
         e.preventDefault();
-        if (jQuery(this).hasClass('active')) {
-            jQuery(this).removeClass('active');
-            jQuery('input[type=checkbox]', this).attr('checked', null).change();
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('input[type=checkbox]', this).attr('checked', null).change();
         } else {
-            jQuery(this).addClass('active');
-            jQuery('input[type=checkbox]', this).attr('checked', 'checked').change();
+            $(this).addClass('active');
+            $('input[type=checkbox]', this).attr('checked', 'checked').change();
         }
     });
 
-    jQuery('.property-filter .property-types').attr('style', '');
-    jQuery('.property-filter .property-types').bxSlider({
+    $('.property-filter .property-types').attr('style', '');
+    $('.property-filter .property-types').bxSlider({
         slideWidth: 180,
         infiniteLoop: false,
         moveSlides: 1,
@@ -84,7 +84,7 @@ jQuery(document).ready(function(jQuery) {
 
 
 
-    jQuery('.bxslider').bxSlider({
+    $('.bxslider').bxSlider({
 	    auto: true,
         slideWidth: 180,
         moveSlides: 1,
@@ -104,21 +104,21 @@ jQuery(document).ready(function(jQuery) {
 	//InitImageSlider();
 
     function InitPropertyCarousel() {
-        jQuery('.property-detail .gallery .content img').on({
+        $('.property-detail .gallery .content img').on({
             click: function(e) {
-                var src = jQuery(this).attr('src');
-                var img = jQuery(this).closest('.gallery').find('.preview img');
+                var src = $(this).attr('src');
+                var img = $(this).closest('.gallery').find('.preview img');
 
                 img.attr('src', src);
 
-                jQuery('.property-detail .gallery .content li').each(function() {
-                    jQuery(this).removeClass('active');
+                $('.property-detail .gallery .content li').each(function() {
+                    $(this).removeClass('active');
                 });
 
-                jQuery(this).closest('li').addClass('active');
+                $(this).closest('li').addClass('active');
             }
         });
-        jQuery('.property-detail .gallery .content a').on({
+        $('.property-detail .gallery .content a').on({
             click: function(e) {
                 e.preventDefault();
             }
@@ -126,15 +126,15 @@ jQuery(document).ready(function(jQuery) {
     }
 
     function InitChosen() {
-        jQuery('select').each(function(index) {
-            jQuery(this).chosen({
+        $('select').each(function(index) {
+            $(this).chosen({
                 disable_search_threshold: 20
             });
         })
     }
 
 	function InitImageSlider() {
-		jQuery('.iosSlider').iosSlider({
+		$('.iosSlider').iosSlider({
 			desktopClickDrag: true,
 			snapToChildren: true,
 			infiniteSlider: true,
@@ -142,24 +142,24 @@ jQuery(document).ready(function(jQuery) {
 			onSlideComplete: function(args) {
 				if(!args.slideChanged) return false;
 
-				jQuery(args.sliderObject).find('.slider-info').attr('style', '');
+				$(args.sliderObject).find('.slider-info').attr('style', '');
 
-				jQuery(args.currentSlideObject).find('.slider-info').animate({
+				$(args.currentSlideObject).find('.slider-info').animate({
 					left: '15px',
 					opacity: '.9'
 				}, 'easeOutQuint');
 			},
 			onSliderLoaded: function(args) {
-				jQuery(args.sliderObject).find('.slider-info').attr('style', '');
+				$(args.sliderObject).find('.slider-info').attr('style', '');
 
-				jQuery(args.currentSlideObject).find('.slider-info').animate({
+				$(args.currentSlideObject).find('.slider-info').animate({
 					left: '15px',
 					opacity: '.9'
 				}, 'easeOutQuint');
 			},
 			onSlideChange: function(args) {
-				jQuery('.slider .navigation li').removeClass('active');
-				jQuery('.slider .navigation li:eq(' + (args.currentSlideNumber - 1) + ')').addClass('active');
+				$('.slider .navigation li').removeClass('active');
+				$('.slider .navigation li:eq(' + (args.currentSlideNumber - 1) + ')').addClass('active');
 			},
 			autoSlide: true,
 			scrollbar: true,
@@ -171,26 +171,26 @@ jQuery(document).ready(function(jQuery) {
 	}
 
     function InitSubmissionProgressBar() {
-        jQuery('.submission-form .span4').hover(function() {
-            var index = jQuery(this).index();
-            jQuery(this).addClass('active');
-            jQuery('.progressbar .number').eq(index).addClass('active');
+        $('.submission-form .span4').hover(function() {
+            var index = $(this).index();
+            $(this).addClass('active');
+            $('.progressbar .number').eq(index).addClass('active');
 
         }, function() {
-            var index = jQuery(this).index();
-            jQuery(this).removeClass('active');
-            jQuery('.progressbar .number').eq(index).removeClass('active');
+            var index = $(this).index();
+            $(this).removeClass('active');
+            $('.progressbar .number').eq(index).removeClass('active');
         });
 
-        jQuery('.progressbar .item').hover(function() {
-            var index = jQuery(this).index();
-            jQuery('.number', this).addClass('active');
-            jQuery('.submission-form .span4').eq(index).addClass('active');
+        $('.progressbar .item').hover(function() {
+            var index = $(this).index();
+            $('.number', this).addClass('active');
+            $('.submission-form .span4').eq(index).addClass('active');
 
         }, function() {
-            var index = jQuery(this).index();
-            jQuery('.number', this).removeClass('active');
-            jQuery('.submission-form .span4').eq(index).removeClass('active');
+            var index = $(this).index();
+            $('.number', this).removeClass('active');
+            $('.submission-form .span4').eq(index).removeClass('active');
         });
     }
 });
