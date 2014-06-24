@@ -5,9 +5,12 @@
 GET         /                              controllers.Proconsorcio.LandingPage.index()
 GET         /home                          controllers.Proconsorcio.Home.home()
 GET         /pesquisa/:query               controllers.Proconsorcio.Home.pesquisa(query)
+GET         /pesquisa                      controllers.Proconsorcio.Home.pesquisa(query: String = "")
 GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterarcodigo()
 GET         /novacarta                     controllers.Proconsorcio.Home.novacarta()
 GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
+GET         /simulador                     controllers.Proconsorcio.Home.simulador()
+
 
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass

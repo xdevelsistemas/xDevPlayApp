@@ -251,7 +251,7 @@ ul.menu {
     margin:0;
 }
 ul.menu li{
-    float:left;
+    float:right;
 }
 ul.menu li a{
     display:inline-block;
@@ -342,7 +342,7 @@ ul#contact_follow{
     margin:10px 10px 0 0;
     padding:0;
     font-size:18px;
-    float:right;
+    float:left;
 }
 ul#contact_follow li{
     display:inline-block;

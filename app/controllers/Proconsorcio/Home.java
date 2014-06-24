@@ -43,11 +43,10 @@ import securesocial.core.*;
         return ok (main.render(pesquisa.render(query),"Pesquisa",_user()));
     }
 
-    public static Result pesquisa() {
-        return ok (main.render(pesquisa.render(""),"Pesquisa",_user()));
+
+    public static Result simulador() {
+        return ok (main.render(simulador.render(),"Simulador",_user()));
     }
-
-
 
     private static scala.Option<Identity> _user() {
         return Option.apply(SecureSocial.currentUser());
