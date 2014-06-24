@@ -19,34 +19,29 @@
 
             @if( provider.authMethod == UserPassword ) {
                 <form action = "@securesocial.core.providers.utils.RoutesHelper.authenticateByPost("userpass").absoluteURL(IdentityProvider.sslEnabled)(request)"
-                      class="form-horizontal" autocomplete="off" method="POST">
+                       autocomplete="off" method="POST">
 
-                       
 
-                    <div class="control-group">
-                        <label class="control-label">
-                            Login
-                            <span class="form-required">*</span>
-                        </label>
 
-                        <div class="controls">
-                            <input type="text" name="username" required="required">
-                        </div>
-                            <!-- /.controls -->
-                    </div>
-                        <!-- /.control-group -->
+                    @if( UsernamePasswordProvider.withUserNameSupport ) {
+                        @helper.inputText(
+                            loginForm.get("username"),
+                            '_label -> Messages("securesocial.signup.username"),
+                            'required -> "required"
+                        )
+                    } else {
+                        @helper.inputText(
+                            loginForm.get("username"),
+                            '_label -> Messages("securesocial.signup.email1"),
+                            'required -> "required"
+                        )
+                    }
 
-                    <div class="control-group">
-                        <label class="control-label">
-                            Senha
-                            <span class="form-required">*</span>
-                        </label>
-
-                        <div class="controls">
-                            <input type="password" name="password" required="required">
-                        </div>
-                            <!-- /.controls -->
-                    </div>
+                    @helper.inputPassword(
+                        loginForm.get("password"),
+                        '_label -> Messages("securesocial.signup.password1"),
+                        'required -> "required"
+                    )
 
 
 
