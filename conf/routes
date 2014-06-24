@@ -47,8 +47,8 @@ GET         /not-authorized                securesocial.controllers.ProviderCont
 #master: GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
 
 # Authentication information
-GET         /credentials                   controllers.Authentication.credentials
-GET         /identities                    controllers.Authentication.identities
+#GET         /credentials                   controllers.Authentication.credentials
+#GET         /identities                    controllers.Authentication.identities
 
 
 

@@ -170,9 +170,9 @@ object Build extends sbt.Build with Zap with Metamodel {
     settings = scalaSettings
   ).settings(
       zap <<= zapTask,
-      zap <<= zap.dependsOn(clean in Compile),
-      Play2WarPlugin.play2WarSettings: _*
-    )
+      zap <<= zap.dependsOn(clean in Compile)
+
+    ).settings(Play2WarPlugin.play2WarSettings: _*)
     .aggregate(models)
     .dependsOn(models)
 
