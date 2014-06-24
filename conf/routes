@@ -10,6 +10,9 @@ GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterar
 GET         /novacarta                     controllers.Proconsorcio.Home.novacarta()
 GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
 GET         /simulador                     controllers.Proconsorcio.Home.simulador()
+GET         /dadoscadastrais               controllers.Proconsorcio.Home.dadoscadastrais()
+GET         /escritorio                    controllers.Proconsorcio.Home.escritorio()
+GET         /faleconosco                   controllers.Proconsorcio.Home.faleconosco()
 
 
 # Example of protected page

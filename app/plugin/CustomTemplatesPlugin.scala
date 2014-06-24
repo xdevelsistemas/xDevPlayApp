@@ -8,6 +8,7 @@ import securesocial.controllers.Registration.RegistrationInfo
 import securesocial.controllers.PasswordChange.ChangeInfo
 
 import securesocial.controllers.TemplatesPlugin
+import views.html.Proconsorcio.{faleconosco, main}
 
 class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlugin
 {
@@ -27,7 +28,9 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
   override def getLoginPage[A](implicit request: Request[A], form: Form[(String, String)],
                                msg: Option[String] = None): Html =
   {
-    views.html.Custom.login(form, msg)
+    //views.html.Custom.login(form, msg)
+    views.html.Proconsorcio.main.render(views.html.Proconsorcio.login(form,msg), "Login", _user)
+
   }
 
   /**
@@ -196,6 +199,10 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
 
   def getNotAuthorizedPage[A](implicit request: Request[A]): Html = {
     views.html.Custom.notAuthorized()
+  }
+
+  private def _user(implicit request: RequestHeader): Option[Identity] = {
+    return SecureSocial.currentUser
   }
 
 }

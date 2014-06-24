@@ -2,6 +2,7 @@
     max-height: 42px;
 }
 
+
 @media (max-width: 445px){
     .menu-item a {
         color: white!important;

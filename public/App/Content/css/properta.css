@@ -4683,14 +4683,10 @@ body a, body a:focus, body a:hover, body a:active {
 }
 
 @media (min-width: 1199px) {
-    font-size:
 
-    14
-    px
-
-    ;
     body .page-header {
         padding-bottom: 5px
+        font-size:14px;
     }
 
 }

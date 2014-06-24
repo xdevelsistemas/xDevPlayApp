@@ -1,84 +1,74 @@
-<!--[if IE 7]>
-<html class="ie ie7" lang="en-US">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" lang="en-US">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en-US">
-        <!--<![endif]-->
+@(loginForm: play.api.data.Form[(String, String)], errorMsg: Option[String] = None)(implicit request: play.api.mvc.RequestHeader)
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Aviators, http://themes.byaviators.com">
+@import helper._
+@import securesocial.core.Registry
+@import securesocial.core.AuthenticationMethod._
+@import securesocial.core.providers.UsernamePasswordProvider.UsernamePassword
+@views.html.Proconsorcio._
 
-            <!--<link rel="shortcut icon" href="Content/img/favicon.png" type="image/png">-->
+<div class="container" id="pagina-loginCadastro">
+    <div class="row">
 
-            <!--[if lt IE 9]>
-        <script src="Script/js/html5.js" type="text/javascript"></script>
-        <![endif]-->
+        <div id="main" class="span12">
 
-        <meta name='robots' content='noindex,nofollow'/>
+            <div class="login-register">
+                <h2>Área de Login</h2>
+                <div class="row">
+                    @errorMsg.map { msg =>
+                        <div class="alert alert-error">
+                            @Messages(msg)
+                        </div>
+                    }
+                    @request.flash.get("success").map { msg =>
+                        <div class="alert alert-info">
+                            @msg
+                        </div>
+                    }
+                    @request.flash.get("error").map { msg =>
+                        <div class="alert alert-error">
+                            @msg
+                        </div>
+                    }
+                    <div class="span6 offset3">
+                    @defining(Registry.providers.all.values.filter(_.id != UsernamePassword)) { externalProviders =>
 
-        <link rel='stylesheet' id='font-css'
-        href='http://fonts.googleapis.com/css?family=Open+Sans%3A400%2C700%2C300&#038;subset=latin%2Clatin-ext&#038;ver=3.6'
-        type='text/css' media='all'/>
+                        @if(externalProviders.size > 0) {
+                            <div class="clearfix">
+                                <h1>@Messages("securesocial.login.instructions")</h1>
+                                <p>
+                                @for(p <- externalProviders) {
+                                    @provider(request, p.id)
+                                }
+                                </p>
+                            </div>
+                        }
+
+                        @if(externalProviders.size > 0) {
+                            <h1>@Messages("securesocial.login.useEmailAndPassword")</h1>
+                        } else {
+                            <h1>@Messages("securesocial.login.useEmailAndPasswordOnly")</h1>
+                        }
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="login">
+                        @Registry.providers.get(UsernamePassword).map { up => @provider(request, "userpass", Some(loginForm))}
+                        </div>
+                    </div>
+                        <!-- /.tab-content -->
+                    </div>
+                        <!-- /.span4-->
 
 
-        <link rel='stylesheet' id='revolution-fullwidth' href='/assets/App/Content/libraries/rs-plugin/css/fullwidth.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='revolution-settings' href='/assets/AppContent/libraries/rs-plugin/css/settings.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='bootstrap-css' href='/assets/AppContent/libraries/bootstrap/css/bootstrap.min.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='bootstrap-responsive-css' href='/assets/App/Content/libraries/bootstrap/css/bootstrap-responsive.min.css' type='text/css' media='all'/>
+                }
+                </div>
+                    <!-- /.row -->
+                <hr>
+            </div>
+                <!-- /.login-register -->
 
-        <link rel='stylesheet' id='pictopro-normal-css' href='/assets/App/Content/icons/pictopro-normal/style.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='justvector-web-font-css' href='/assets/App/Content/icons/justvector-web-font/stylesheet.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='chosen-css' href='/assets/App/Content/libraries/chosen/chosen.css' type='text/css' media='all'/>
+        </div>
+            <!-- /#main -->
 
-        <link rel='stylesheet' id='aviators-css' href='/assets/App/Content/css/jquery.bxslider.css' type='text/css' media='all'/>
-        <link rel='stylesheet' id='properta-css' href='/assets/App/Content/css/properta.css' type='text/css' media='all'/>
-
-        <link rel='stylesheet' id='properta-css' href='/assets/App/Content/css/Custom.css' type='text/css' media='all'/>
-
-        <style id="style-main"></style>
-
-        <title>ProConsórcio | Tudo para consórcios! | Login / Cadastro</title>
-    </head>
-
-    <body class="home page page-template">
-
-        <div class="top"></div>
-        <div id="content" class="clearfix"></div>
-        <div id="footer-wrapper"></div>
-
-        <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/aviators-settings.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/chosen/chosen.jquery.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/rs-plugin/js/jquery.themepunch.revolution.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Content/libraries/rs-plugin/js/jquery.themepunch.plugins.min.js'></script>
-
-        <script type='text/javascript' src='http://maps.googleapis.com/maps/api/js?v=3&#038;sensor=true&#038;ver=3.6'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/aviators-map.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/gmap3.infobox.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/bootstrap.min.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/retina.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/gmap3.clusterer.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.ezmark.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/carousel.js'></script>
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.bxslider.js'></script>
-            <!--<script type='text/javascript' src='Script/js/properta.js'></script>-->
-        <script type='text/javascript' src='/assets/App/Script/js/jquery.bxslider.min.js'></script>
-
-        <script src="/assets/App/Script/Libs/knockout.js"></script>
-        <script src="/assets/App/Script/Libs/knockout.mapping.js"></script>
-        <script src="/assets/App/Script/App.js"></script>
-            <!--<script src="Script/Libs/require.js" data-main="Script/Main.js"></script>-->
-
-        <script>
-        var app = new App ( ) ;
-        app.incluirHtml ( "Cabecalho", ".top", function ( ) { $ ( ".breadcrumb" ).children ( 'span' ).text ( "Login/Cadastro" ) ; } ) ;
-        app.incluirHtml ( "LoginCadastro", "#content" ) ;
-        app.incluirHtml ( "Rodape", "#footer-wrapper" ) ;
-        </script>
-    </body>
-</html>
+    </div>
+        <!-- /.row -->
+</div>
+    <!-- /.container -->

@@ -1,4 +1,4 @@
-@(id: String)
+@(id: String)(implicit user: Option[securesocial.core.Identity])
 <div class="container" id="pagina-detalhes">
     <div class="row">
         <div id="main" class="span12 single-property">
@@ -7,7 +7,11 @@
                 <div class="overview">
                     <div class="overview">
                         <div class="row">
+                            @if(user.isDefined){
                             <div class="span8">
+                            }else{
+                            <div class="span12">
+                            }
                                 <h2 style="">Rodobens</h2>
                                 <table>
                                     <tbody>
@@ -44,6 +48,8 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @if(user.isDefined) {
+
                             <div class="span4 pull-right" >
                                 <div class="tab-content">
                                     <button class="btn btn-primary btn-large edit">
@@ -53,6 +59,8 @@
                                         Excluir<span></span>
                                     </button>
                                 </div>
+
+                            }
 
                                     <!-- /.span2 -->
                             </div>
