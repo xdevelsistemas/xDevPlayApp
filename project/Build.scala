@@ -3,6 +3,7 @@ import sbt.Keys._
 import play.Project._
 import scala.collection.JavaConverters._
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
+import com.github.play2war.plugin._
 
 
 
@@ -12,7 +13,8 @@ trait Options extends sbt.Build {
   val debug     : Boolean
   
   override def settings = super.settings ++ Seq(
-      EclipseKeys.skipParents in ThisBuild := false
+      EclipseKeys.skipParents in ThisBuild := false,
+      Play2WarKeys.servletVersion := "3.1"
   )
 
   def defaultJavaSettings : Seq[String] = {
@@ -91,7 +93,7 @@ trait Metamodel extends Options {
 object Build extends sbt.Build with Zap with Metamodel {
 
   val appName = "xDevPlayApp"
-  val appVersion = "0.1-SNAPSHOT"
+  val appVersion = "0.1-Proconsorcio-0.1"
 
   val verbose   = false
   val unchecked = false
@@ -168,7 +170,8 @@ object Build extends sbt.Build with Zap with Metamodel {
     settings = scalaSettings
   ).settings(
       zap <<= zapTask,
-      zap <<= zap.dependsOn(clean in Compile)
+      zap <<= zap.dependsOn(clean in Compile),
+      Play2WarPlugin.play2WarSettings: _*
     )
     .aggregate(models)
     .dependsOn(models)
