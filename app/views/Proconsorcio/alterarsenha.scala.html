@@ -97,5 +97,11 @@
     <!-- /.row -->
 </div>
     <!-- /.container -->
-
+    @if(user.isDefined) {
+        @user.get.passwordInfo.map { info =>
+            <a class="btn" href="@securesocial.core.providers.utils.RoutesHelper.changePasswordPage.absoluteURL(IdentityProvider.sslEnabled)">
+                Change Password
+            </a>
+        }
+    }
 
