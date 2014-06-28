@@ -49,7 +49,7 @@ ADD         conf /root/conf
 ADD         public /root/public
 ADD         sbt /root/
 ADD         project   /root/project
-
+ADD	    modules /root/modules
 # TEST AND BUILD THE PROJECT -- FAILURE WILL HALT IMAGE CREATION
 RUN         cd /root; /usr/local/activator/activator test stage
 RUN         rm /root/target/universal/stage/bin/*.bat
