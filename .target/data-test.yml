@@ -1,0 +1,21 @@
+# Users
+
+- &admin !!models.User
+    email:    "admin@example.com"
+    realName: "Administrator"
+
+
+# Identities
+
+- &admin_1 !!models.Identity
+    user:                 *admin
+    username:             "admin@example.com"
+    provider:             "userpass"
+    firstName:            "Administrator"
+    lastName:             ""
+    fullName:             "Administrator"
+    email:                "admin@example.com"
+    authMethod:           "userPassword"
+    hasPasswordInfo:      true
+    passwordInfoHasher:   "bcrypt"
+    passwordInfoPassword: "$2a$10$toxg36HQRNRlsJMvzR8tfufkn8VoWVWq0rjqXDeK7jv7gUUH6Q4.u"
