@@ -1,6 +1,5 @@
 package models.Cadastro.BaseEndereco;
 import  models.Base.*;
-
 import javax.persistence.*;
 
 /**
@@ -9,9 +8,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(uniqueConstraints={
-        @UniqueConstraint(columnNames={"SIGLA"})
+        @UniqueConstraint(columnNames={"ID_UF","NAME"})
 })
-public class Uf extends xDevEntity {
+public class Cidade extends xDevEntity {
 
     public String get_name() {
         return _name;
@@ -24,15 +23,25 @@ public class Uf extends xDevEntity {
     @Column(name = "NAME")
     private String _name;
 
-    public String get_sigla() {
-        return _sigla;
+    public Uf get_Uf() {
+        return _uf;
     }
 
-    @Column(name = "SIGLA")
-    public void set_sigla(String _sigla) {
-        this._sigla = _sigla;
+    public void set_Uf(Uf uf) {
+        this._uf = uf;
     }
 
-    private String _sigla;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_UF")
+    private Uf _uf;
+
+
+
+
+
+
+
+
+
 
 }
