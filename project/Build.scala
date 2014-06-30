@@ -113,7 +113,7 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
 
-  val MySQlVersion = "5.1.12"
+  val MySQlVersion = "5.1.31"
 
 
 
