@@ -16,7 +16,6 @@ WORKDIR /root
 
 EXPOSE 9000
 
-
 #comando para executar a aplicacao rodando na porta 900
 ENTRYPOINT /root/target/universal/stage/bin/$(ls /root/target/universal/stage/bin/) -J-Xms128M -J-Xmx512M -J-server  -DConfig=application.conf  -DapplyEvolutions.default=true
 
