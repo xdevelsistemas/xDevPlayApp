@@ -1,0 +1,17 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Authentication": {
+        "Bucket": "proconsorcio-docker",
+        "Key": "dockercfg"
+    },
+    "Image": {
+        "Name": "claytonsilva/xdevplayapp:proconsorcio",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+            "ContainerPort": "9000"
+        }
+    ],
+    "Logging": "/src/logs"
+}
