@@ -5,7 +5,6 @@ ADD         app /root/app
 ADD         test /root/test
 ADD         conf /root/conf
 ADD         public /root/public
-ADD         sbt /root/
 ADD         project   /root/project
 ADD	    modules /root/modules
 # TEST AND BUILD THE PROJECT -- FAILURE WILL HALT IMAGE CREATION
