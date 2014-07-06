@@ -59,7 +59,7 @@ object CustomRegistration extends Controller {
   val Logradouro = "logradouro"
   val NumLogradouro = "numLogradouro"
   val Rg = "rg"
-  val UfRg = "ufRg"
+  //val UfRg = "ufRg"
   val DocFederal = "docFederal"
   val NumBanco = "numBanco"
   val NumAgencia = "numAgencia"
@@ -82,7 +82,7 @@ object CustomRegistration extends Controller {
                                logradouro:Option[String],
                                numLogradouro:Option[String],
                                rg:Option[String],
-                               ufRg:Option[String],
+                               //ufRg:Option[String],
                                docFederal:Option[String],
                                numBanco:Option[String],
                                numAgencia:Option[String],
@@ -114,7 +114,7 @@ object CustomRegistration extends Controller {
       Logradouro -> text ,
       NumLogradouro -> text ,
       Rg -> text ,
-      UfRg -> text ,
+      //UfRg -> text ,
       DocFederal -> text ,
       NumBanco -> text ,
       NumAgencia -> text ,
@@ -143,7 +143,7 @@ object CustomRegistration extends Controller {
         logradouro,
         numLogradouro,
         rg,
-        ufRg,
+        //ufRg,
         docFederal,
         numBanco,
         numAgencia,
@@ -164,7 +164,7 @@ object CustomRegistration extends Controller {
               Some(logradouro),
               Some(numLogradouro),
               Some(rg),
-              Some(ufRg),
+              //Some(ufRg),
               Some(docFederal),
               Some(numBanco),
               Some(numAgencia),
@@ -188,7 +188,7 @@ object CustomRegistration extends Controller {
         info.logradouro.getOrElse(""),
         info.numLogradouro.getOrElse(""),
         info.rg.getOrElse(""),
-        info.ufRg.getOrElse(""),
+        //info.ufRg.getOrElse(""),
         info.docFederal.getOrElse(""),
         info.numBanco.getOrElse(""),
         info.numAgencia.getOrElse(""),
@@ -220,7 +220,7 @@ object CustomRegistration extends Controller {
       Logradouro -> text ,
       NumLogradouro -> text ,
       Rg -> text ,
-      UfRg -> text ,
+      //UfRg -> text ,
       DocFederal -> text ,
       NumBanco -> text ,
       NumAgencia -> text ,
@@ -247,7 +247,7 @@ object CustomRegistration extends Controller {
         logradouro,
         numLogradouro,
         rg,
-        ufRg,
+        //ufRg,
         docFederal,
         numBanco,
         numAgencia,
@@ -268,7 +268,7 @@ object CustomRegistration extends Controller {
         Some(logradouro),
         Some(numLogradouro),
         Some(rg),
-        Some(ufRg),
+        //Some(ufRg),
         Some(docFederal),
         Some(numBanco),
         Some(numAgencia),
@@ -291,7 +291,7 @@ object CustomRegistration extends Controller {
           info.logradouro.getOrElse(""),
           info.numLogradouro.getOrElse(""),
           info.rg.getOrElse(""),
-          info.ufRg.getOrElse(""),
+          //info.ufRg.getOrElse(""),
           info.docFederal.getOrElse(""),
           info.numBanco.getOrElse(""),
           info.numAgencia.getOrElse(""),
@@ -404,7 +404,7 @@ object CustomRegistration extends Controller {
             if (Logger.isDebugEnabled) {
               Logger.debug("[securesocial] errors " + errors)
             }
-            BadRequest(views.html.Custom.Registration.signUp(errors, t.uuid))
+            BadRequest(views.html.Proconsorcio.Registration.signUp(errors, t.uuid))
           },
           info => {
             val id = if (UsernamePasswordProvider.withUserNameSupport) info.userName.get else t.email
