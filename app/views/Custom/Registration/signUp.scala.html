@@ -1,6 +1,7 @@
-@(signUpForm:play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
+@(signUpForm:play.api.data.Form[_root_.plugin.CustomRegistration.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
 @import securesocial.core.providers.UsernamePasswordProvider
 @import securesocial.core.IdentityProvider
+
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
 
@@ -15,7 +16,7 @@
         </div>
     }
 
-    <form action="@securesocial.core.providers.utils.RoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)"
+    <form action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)"
           class="form-horizontal"
           autocomplete= "off"
           method="POST"
@@ -31,15 +32,10 @@
 
             @helper.inputText(
                 signUpForm("firstName"),
-                '_label -> Messages("securesocial.signup.firstName"),
+                '_label -> Messages("Nome Completo"),
                 'class -> "input-xlarge"
             )
 
-            @helper.inputText(
-                signUpForm("lastName"),
-                '_label -> Messages("securesocial.signup.lastName"),
-                'class -> "input-xlarge"
-            )
 
             @helper.inputPassword(
                 signUpForm("password.password1"),
@@ -53,6 +49,111 @@
                 '_error -> signUpForm.error("password"),
                 'class -> "input-xlarge"
             )
+
+
+            @helper.inputText(
+                signUpForm("numCep"),
+                '_label -> Messages("Cep"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("uf"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("cidade"),
+                '_label -> Messages("Cidade"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("bairro"),
+                '_label -> Messages("Bairro"),
+                'class -> "input-xlarge"
+            )
+
+
+            @helper.inputText(
+                signUpForm("logradouro"),
+                '_label -> Messages("Logradouro (Exemplo: nome  da rua, avenida ...)"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("numLogradouro"),
+                '_label -> Messages("Número/Complemento"),
+                'class -> "input-xlarge"
+            )
+
+
+
+            @helper.inputText(
+                signUpForm("rg"),
+                '_label -> Messages("Identidade"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("ufRg"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("docFederal"),
+                '_label -> Messages("CPF/CNPJ"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("numBanco"),
+                'class -> "input-xlarge"
+            )
+
+
+
+            @helper.inputText(
+                signUpForm("numAgencia"),
+                '_label -> Messages("Agência"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("dvAgencia"),
+                '_label -> Messages("Dígito da Agência (Se Houver)"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("numConta"),
+                '_label -> Messages("Número da Conta"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputText(
+                signUpForm("dvConta"),
+                '_label -> Messages("Dígito da Conta (Se Houver)"),
+                'class -> "input-xlarge"
+            )
+
+
+
+
+
+            @helper.inputPassword(
+                signUpForm("numCodigo.numCodigo1"),
+                '_label -> Messages("Código de Compra/Venda"),
+                'class -> "input-xlarge"
+            )
+
+            @helper.inputPassword(
+                signUpForm("numCodigo.numCodigo2"),
+                '_label -> Messages("Repita o Código de Compra/Venda"),
+                '_error -> signUpForm.error("password"),
+                'class -> "input-xlarge"
+            )
+
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">@Messages("securesocial.signup.createAccount")</button>

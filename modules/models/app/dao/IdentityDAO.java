@@ -2,15 +2,13 @@ package dao;
 
 import java.util.Iterator;
 import java.util.ListIterator;
-
-import javax.persistence.EntityManager;
+import scala.Option;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import models.Identity;
 import models.User;
-import scala.Option;
+
 
 
 public class IdentityDAO extends AbstractDAO<models.Identity> {

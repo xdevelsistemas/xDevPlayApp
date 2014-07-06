@@ -64,5 +64,7 @@ mails.unknownEmail.subject=Solicitação para reiniciar a senha
 mails.passwordResetOk.subject=Confirmação de alteração de senha
 
 # mensagens genéricas
-Required=Requerido
+error.required=Esse campo é requerido
+error.invalid=Você precisa entrar com o formato correto
+constraint.required=Requerido
 

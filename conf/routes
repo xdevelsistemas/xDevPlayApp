@@ -5,7 +5,7 @@
 GET         /                              controllers.Proconsorcio.LandingPage.index()
 GET         /home                          controllers.Proconsorcio.Home.home()
 GET         /pesquisa/:query               controllers.Proconsorcio.Home.pesquisa(query)
-GET         /pesquisa                      controllers.Proconsorcio.Home.pesquisa(query: String = "")
+GET         /pesquisa                      controllers.Proconsorcio.Home.pesquisa_clean()
 GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterarcodigo()
 GET         /novacarta                     controllers.Proconsorcio.Home.novacarta()
 GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
@@ -13,6 +13,10 @@ GET         /simulador                     controllers.Proconsorcio.Home.simulad
 GET         /dadoscadastrais               controllers.Proconsorcio.Home.dadoscadastrais()
 GET         /escritorio                    controllers.Proconsorcio.Home.escritorio()
 GET         /faleconosco                   controllers.Proconsorcio.Home.faleconosco()
+GET         /getendereco/:cep              controllers.Proconsorcio.Home.getEndereco(cep)
+GET         /getuf                         controllers.Proconsorcio.Home.getUF()
+GET         /getbanco                      controllers.Proconsorcio.Home.getBanco()
+GET         /signupteste                   controllers.Proconsorcio.Home.cadteste()
 
 
 # Example of protected page
@@ -25,10 +29,10 @@ GET         /login                         securesocial.controllers.LoginPage.lo
 GET         /logout                        securesocial.controllers.LoginPage.logout
 
 # User Registration and password handling (only needed if you are using UsernamePasswordProvider)
-GET         /signup                        securesocial.controllers.Registration.startSignUp
-POST        /signup                        securesocial.controllers.Registration.handleStartSignUp
-GET         /signup/:token                 securesocial.controllers.Registration.signUp(token)
-POST        /signup/:token                 securesocial.controllers.Registration.handleSignUp(token)
+GET         /signup                        plugin.CustomRegistration.startSignUp
+POST        /signup                        plugin.CustomRegistration.handleStartSignUp
+GET         /signup/:token                 plugin.CustomRegistration.signUp(token)
+POST        /signup/:token                 plugin.CustomRegistration.handleSignUp(token)
 GET         /reset                         securesocial.controllers.Registration.startResetPassword
 POST        /reset                         securesocial.controllers.Registration.handleStartResetPassword
 GET         /reset/:token                  securesocial.controllers.Registration.resetPassword(token)

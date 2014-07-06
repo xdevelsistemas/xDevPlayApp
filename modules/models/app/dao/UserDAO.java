@@ -17,6 +17,7 @@ public class UserDAO extends AbstractDAO<models.User> {
             o.realName = i.identityId().userId();
         }
 
+
         if (save) save(o);
 
         return o;

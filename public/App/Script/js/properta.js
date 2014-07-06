@@ -48,7 +48,11 @@ $(function($) {
     InitCarousel();
 });
 
-$(document).ready(function($) {    
+
+
+$(document).ready(function($) {
+    $('.datepicker').datepicker();
+    $('.datepicker').mask('99/99/9999');
     $('input[type=checkbox]').not('.no-ezmark').ezMark();
     $('input[type=radio]').not('.no-ezmark').ezMark();
 

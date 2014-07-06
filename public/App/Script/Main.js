@@ -3,9 +3,11 @@ require.config({
         "urlArgs": "v=" + (new Date()).getTime(),
         "paths": {
             'text': 'Libs/text',
+            'modernizr' : 'Libs/modernizr',
             'knockout': 'Libs/knockout',
             'komapping': 'Libs/knockout.mapping',
             'jquery': 'Libs/jquery',
+            'maskedinput': 'Libs/jquery.maskedinput',
             'domReady': 'Libs/domReady',
             'Fragment': 'Frag/Fragment',
             'App': 'App/App',
@@ -14,7 +16,7 @@ require.config({
             // injecoes da home
             'aviatorsmap': 'js/aviators-map',
             'gmap3': 'js/gmap3.infobox.min',
-            'bootstrap': 'js/bootstrap.min',
+            'bootstrap': '../Content/libraries/bootstrap2/js/bootstrap.min',
             'retina': 'js/retina',
             'gmap3clusterer': 'js/gmap3.clusterer',
             'js-ezmark': 'js/jquery.ezmark',
@@ -23,9 +25,12 @@ require.config({
             'aviatorssettings' : 'js/aviators-settings',
             'properta' : 'js/properta',
             'chosen' : '../Content/libraries/chosen/chosen.jquery.min',
+            'select2' : '../Content/libraries/select2/select2',
+            'select2-ptbr' : '../Content/libraries/select2/select2_locale_pt-BR',
+            'ajax-chosen' : '../Content/libraries/chosen/ajax.chosen',
             'themepunch.revolution' : '../Content/libraries/rs-plugin/js/jquery.themepunch.revolution.min',
-            'themepunch.plugins' : '../Content/libraries/rs-plugin/js/jquery.themepunch.plugins.min'
-
+            'themepunch.plugins' : '../Content/libraries/rs-plugin/js/jquery.themepunch.plugins.min',
+            'bootstrap-datepicker': '../Content/libraries/datepicker/js/bootstrap-datepicker'
         }
 
 });

@@ -115,6 +115,8 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val MySQlVersion = "5.1.31"
 
+  val xStreamVersion = "1.2.2"
+
 
 
   resolvers += Resolver.sonatypeRepo("releases")
@@ -128,7 +130,8 @@ object Build extends sbt.Build with Zap with Metamodel {
     javaJdbc,
     javaJpa,
     "org.eclipse.persistence" % "eclipselink" % eclipselinkVersion,
-    "org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    //"org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    "xstream" % "xstream" % xStreamVersion,
     "mysql" % "mysql-connector-java" % MySQlVersion,
     "ws.securesocial" %% "securesocial" % securesocialVersion
   )

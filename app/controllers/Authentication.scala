@@ -16,16 +16,16 @@ trait Authentication {
 
   val logger = Logger("controllers.Authentication")
 
-  def credentials = SecuredAction { implicit request =>
-    logger.warn("logging from application")
-    Ok(views.html.credentials(request.user))
-  }
-
-  def identities = SecuredAction { implicit request =>
-    import play.api.Play.current
-    Ok(views.html.identities(
-      request.user,
-      com.typesafe.plugin.use[AuthenticationService].findByEmail(request.user.email)))
-  }
+//  def credentials = SecuredAction { implicit request =>
+//    logger.warn("logging from application")
+//    Ok(views.html.credentials(request.user))
+//  }
+//
+//  def identities = SecuredAction { implicit request =>
+//    import play.api.Play.current
+//    Ok(views.html.identities(
+//      request.user,
+//      com.typesafe.plugin.use[AuthenticationService].findByEmail(request.user.email)))
+//  }
 
 }

@@ -4,8 +4,6 @@ import models.Cadastro.BaseEndereco.Cidade;
 import models.Cadastro.BaseEndereco.Logradouro;
 import models.Cadastro.BaseEndereco.Uf;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.http.impl.auth.UnsupportedDigestAlgorithmException;
-import sun.security.provider.MD5;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,6 +32,18 @@ public class User extends AbstractModel {
     @Column(name="NUM_RG")
     private String _numRg;
 
+    @Column(name="UF_RG")
+    private String _ufRg;
+
+
+
+    @Column(name="NUM_DOC_FEDERAL")
+
+    private String _numDocFederal;
+
+
+
+
     @Column(name="NUM_CEP")
     private String _numCep;
     @Column(name="LOGRADOURO")
@@ -44,6 +54,102 @@ public class User extends AbstractModel {
     private String _complemento;
     @Column(name="NOME_CIDADE")
     private String _nomeCidade;
+
+    @Column(name="NOME_BAIRRO")
+    private String _nomeBairro;
+
+
+    @Column(name="NUM_BANCO")
+    private String _numBanco;
+
+
+
+    @Column(name="NUM_AGENCIA")
+    private String _numAgencia;
+
+    @Column(name="DV_AGENCIA")
+    private String _dvAgencia;
+
+    @Column(name="NUM_CONTA")
+    private String _numConta;
+
+    @Column(name="DV_CONTA")
+    private String _dvConta;
+
+    @Column(name="CODIGO_ACESSO")
+    private String _codigoAcesso;
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_UF")
+    private Uf _uf;
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_CIDADE")
+    private Cidade _cidade;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_LOGRADOURO")
+    private Logradouro _logradouro;
+
+
+    public String get_numDocFederal() {
+        return _numDocFederal;
+    }
+
+    public void set_numDocFederal(String _numDocFederal) {
+        this._numDocFederal = _numDocFederal;
+    }
+
+    public String get_ufRg() {
+        return _ufRg;
+    }
+
+    public void set_ufRg(String _ufRg) {
+        this._ufRg = _ufRg;
+    }
+
+
+    public String get_numBanco() {
+        return _numBanco;
+    }
+
+    public void set_numBanco(String _numBanco) {
+        this._numBanco = _numBanco;
+    }
+
+    public String get_numAgencia() {
+        return _numAgencia;
+    }
+
+    public void set_numAgencia(String _numAgencia) {
+        this._numAgencia = _numAgencia;
+    }
+
+    public String get_dvAgencia() {
+        return _dvAgencia;
+    }
+
+    public void set_dvAgencia(String _dvAgencia) {
+        this._dvAgencia = _dvAgencia;
+    }
+
+    public String get_numConta() {
+        return _numConta;
+    }
+
+    public void set_numConta(String _numConta) {
+        this._numConta = _numConta;
+    }
+
+    public String get_dvConta() {
+        return _dvConta;
+    }
+
+    public void set_dvConta(String _dvConta) {
+        this._dvConta = _dvConta;
+    }
 
 
     public Date get_birthDate() {
@@ -102,13 +208,29 @@ public class User extends AbstractModel {
         this._nomeCidade = _nomeCidade;
     }
 
+
+    public String get_nomeBairro() {
+        return _nomeBairro;
+    }
+
+    public void set_nomeBairro(String _nomeBairro) {
+        this._nomeBairro = _nomeBairro;
+    }
+
     public String get_codigoAcesso() {
         return _codigoAcesso;
     }
 
     public void set_codigoAcesso(String _codigoAcesso) {
 
-        this._codigoAcesso = DigestUtils.md5Hex(_codigoAcesso);
+        try{
+            this._codigoAcesso = util.MD5.hash(_codigoAcesso);
+        }catch (NoSuchAlgorithmException ex)
+        {
+            this._codigoAcesso  = null;
+        }
+
+
     }
 
     public Uf get_uf() {
@@ -135,22 +257,6 @@ public class User extends AbstractModel {
         this._logradouro = _logradouro;
     }
 
-    @Column(name="CODIGO_ACESSO")
-    private String _codigoAcesso;
-
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_UF")
-    private Uf _uf;
-
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_CIDADE")
-    private Cidade _cidade;
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_LOGRADOURO")
-    private Logradouro _logradouro;
 
 
 

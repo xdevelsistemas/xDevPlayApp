@@ -22,7 +22,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="reset">
 
-                                <form action="@securesocial.core.providers.utils.RoutesHelper.handleStartSignUp().absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete="off" method="post">
+                                <form action="@_root_.plugin.CustomRoutesHelper.handleStartSignUp().absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete="off" method="post">
 
                                     @helper.inputText(
                                         startForm("email"),

@@ -1,13 +1,10 @@
-@(signUpForm:play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
+@(signUpForm:play.api.data.Form[_root_.plugin.CustomRegistration.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
 @import securesocial.core.providers.UsernamePasswordProvider
 @import securesocial.core.IdentityProvider
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
 
-@securesocial.views.html.main( Messages("securesocial.signup.title") ) {
-    <div class="page-header">
-        <h1>@Messages("securesocial.signup.title")</h1>
-    </div>
+
 
     @request.flash.get("error").map { msg =>
         <div class="alert alert-error">
@@ -15,49 +12,278 @@
         </div>
     }
 
-    <form action="@securesocial.core.providers.utils.RoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)"
-          class="form-horizontal"
-          autocomplete= "off"
-          method="POST"
-    >
-        <fieldset>
-            @if( UsernamePasswordProvider.withUserNameSupport ) {
-                @helper.inputText(
-                    signUpForm("userName"),
-                    '_label -> Messages("securesocial.signup.username"),
-                    'class -> "input-xlarge"
-                )
-            }
+<form action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
+    <div class="container" id="pagina-signUp">
+        <div class="row">
+            <div id="main" class="span12">
 
-            @helper.inputText(
-                signUpForm("firstName"),
-                '_label -> Messages("securesocial.signup.firstName"),
-                'class -> "input-xlarge"
-            )
 
-            @helper.inputText(
-                signUpForm("lastName"),
-                '_label -> Messages("securesocial.signup.lastName"),
-                'class -> "input-xlarge"
-            )
+                    <div class="login-register">
+                        <h2>Dados Cadastrais</h2>
 
-            @helper.inputPassword(
-                signUpForm("password.password1"),
-                '_label -> Messages("securesocial.signup.password1"),
-                'class -> "input-xlarge"
-            )
+                        <div class="row">
+                            <div class="span4">
+                                <h1>Dados Pessoais</h1>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="dadosPessoais">
+                                        @if( UsernamePasswordProvider.withUserNameSupport ) {
 
-            @helper.inputPassword(
-                signUpForm("password.password2"),
-                '_label -> Messages("securesocial.signup.password2"),
-                '_error -> signUpForm.error("password"),
-                'class -> "input-xlarge"
-            )
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Nome de Usuário
+                                                </label>
+                                                <div class="controls">
+                                                    @helper.inputText(
+                                                        signUpForm("userName"),
+                                                        '_label -> "",
+                                                        'required -> "required"
+                                                    )
+                                                </div>
+                                                    <!-- /.controls -->
+                                            </div>
+                                                <!-- /.control-group -->
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">@Messages("securesocial.signup.createAccount")</button>
-                <a class="btn" href="@securesocial.core.providers.utils.RoutesHelper.login()">@Messages("securesocial.signup.cancel")</a>
+
+
+                                        }
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Nome Completo
+                                            </label>
+                                            <div class="controls">
+                                                @helper.inputText(
+                                                    signUpForm("firstName"),
+                                                    '_label -> "",
+                                                    'required -> "required"
+                                                )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Data de Nascimento
+                                            </label>
+                                            <div class="controls">
+                                                @helper.inputText(
+                                                    signUpForm("birthDate"),
+                                                    '_label -> "",
+                                                    'required -> "required"
+                                                )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                CPF ou CNPJ
+                                            </label>
+                                            <div class="controls">
+                                                <div class="controls">
+                                                @helper.inputRadioGroup(
+                                                    signUpForm("tpDoc"),
+                                                    options = options("cpf"->"CPF","cnpj"->"CNPJ"),
+                                                    '_label -> "Tipo",
+                                                    'required -> "required"
+                                                )
+                                                </div>
+                                                <div class="controls">
+                                                @helper.inputText(
+                                                    signUpForm("docFederal"),
+                                                    '_label -> "",
+                                                    'required -> "required"
+                                                )
+                                                </div>
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                RG
+                                            </label>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                signUpForm("rg"),
+                                                '_label -> "",
+                                                'required -> "required"
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                    </div>
+                                        <!-- /.tab-pane -->
+                                </div>
+                                    <!-- /.tab-content -->
+
+
+                            </div>
+                                <!-- /.span4-->
+
+                            <div class="span4">
+                                <h1>Endereço</h1>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="endereco">
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                CEP
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls" >
+                                            @helper.inputText(
+                                                signUpForm("numCep"),
+                                                '_label -> "",
+                                                'required -> "required",
+                                                'class -> "span2"
+                                            )
+                                            <button class="btn btn-success span1"><i class="glyphicon-search" style="color: #ffffff"></i><span></span></button>
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Estado
+                                            </label>
+                                            <div class="controls">
+                                                <select required="required" name="uf">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Cidade
+                                            </label>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                signUpForm("cidade"),
+                                                '_label -> "",
+                                                'required -> "required"
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Bairro
+                                            </label>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                signUpForm("bairro"),
+                                                '_label -> "",
+                                                'required -> "required"
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Endereço
+                                            </label>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                signUpForm("logradouro"),
+                                                '_label -> "",
+                                                'required -> "required"
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Número e Complemento
+                                            </label>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                signUpForm("numLogradouro"),
+                                                '_label -> "",
+                                                'required -> "required"
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+                                    </div>
+                                        <!-- /.tab-pane -->
+                                </div>
+                                    <!-- /.tab-content -->
+
+
+                            </div>
+                                <!-- /.span4-->
+
+                            <div class="span4">
+                                <h1>Informações Bancárias e Controle de Acesso</h1>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="endereco">
+
+
+
+
+
+                                    </div>
+                                        <!-- /.tab-pane -->
+                                </div>
+                                    <!-- /.tab-content -->
+                            </div>
+
+
+
+
+                            <div class="span12 submission-form">
+                                <hr>
+                                <div class="form-actions">
+                                    <input type="submit" class="btn btn-primary" value="Salvar">
+                                </div>
+                            </div>
+
+                        </div>
+                            <!-- /.row -->
+                    </div>
+                        <!-- /.login-register -->
+
+
             </div>
-        </fieldset>
-    </form>
-}
+                <!-- /#main -->
+
+        </div>
+            <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+
+</form>
+
+
+<script>
+$(document).ready(function(){
+        $("#cep").mask("99999-999");//cep
+        $("#docFederal").mask("999.999.999-99");//Inicia o campo como CPF
+        $("#tipoDoc").change(function(){
+            $("#docFederal").unmask();//Remove a mascara
+            if($(this).val()=="cpf"){//Acaso seja CPF
+                $("#docFederal").mask("999.999.999-99");
+            } else {//Acaso seja Cnpj
+                $("#docFederal").mask("99.999.999/9999-99");
+            }
+        })
+});
+
+</script>

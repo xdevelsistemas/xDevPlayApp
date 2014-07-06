@@ -1,14 +1,11 @@
-package controllers.plugin
+package plugin
 
-import play.api.mvc.{RequestHeader, Request}
-import play.api.templates.{Txt,Html}
-import securesocial.core.{SecureSocial, Identity, SecuredRequest, SocialUser}
 import play.api.data.Form
-import securesocial.controllers.Registration.RegistrationInfo
+import play.api.mvc.{Request, RequestHeader}
+import play.api.templates.{Html, Txt}
 import securesocial.controllers.PasswordChange.ChangeInfo
-
 import securesocial.controllers.TemplatesPlugin
-import views.html.Proconsorcio.{faleconosco, main}
+import securesocial.core.{Identity, SecureSocial, SecuredRequest}
 
 class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlugin
 {
@@ -40,8 +37,11 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @tparam A
    * @return
    */
-  override def getSignUpPage[A](implicit request: Request[A], form: Form[RegistrationInfo], token: String): Html = {
-    views.html.Custom.Registration.signUp(form, token)
+
+
+  override  def getSignUpPage[A](implicit request: Request[A], form: Form[securesocial.controllers.Registration.RegistrationInfo], token: String): Html = {
+    //views.html.Custom.Registration.signUp(form, token)
+    null
   }
 
   /**

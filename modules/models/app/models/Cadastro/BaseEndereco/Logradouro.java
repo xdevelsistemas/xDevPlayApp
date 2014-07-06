@@ -36,8 +36,16 @@ public class Logradouro  extends xDevEntity {
         return _cidade;
     }
 
-    public void set_cidade(Cidade _cidade) {
-        this._cidade = _cidade;
+    public void set_cidade(Cidade cidade) {
+        this._cidade = cidade;
+    }
+
+    public Bairro get_bairro() {
+        return _bairro;
+    }
+
+    public void set_bairro(Bairro bairro) {
+        this._bairro = bairro;
     }
 
     public String get_tipoLogradouro() {
@@ -57,7 +65,11 @@ public class Logradouro  extends xDevEntity {
     }
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "id_cidade")
+    @JoinColumn(name = "ID_CIDADE")
     private Cidade _cidade;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "ID_BAIRRO")
+    private Bairro _bairro;
 
 }

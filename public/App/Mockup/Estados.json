@@ -1,0 +1,126 @@
+[
+        {
+            "id": "AC",
+            "text": "Acre"
+        },
+        {
+            "id": "AL",
+            "text": "Alagoas"
+        },
+        {
+            "id": "AM",
+            "text": "Amazonas"
+
+        },
+        {
+            "id": "AP",
+            "text": "Amapá"
+        },
+        {
+            "id": "BA",
+            "text": "Bahia"
+
+        },
+        {
+            "id": "CE",
+            "text": "Ceará"
+
+        },
+        {
+            "id": "DF",
+            "text": "Distrito Federal"
+
+        },
+        {
+            "id": "ES",
+            "text": "Espírito Santo"
+
+        },
+        {
+            "id": "GO",
+            "text": "Goiás"
+
+        },
+        {
+            "id": "MA",
+            "text": "Maranhão"
+
+        },
+        {
+            "id": "MG",
+            "text": "Minas Gerais"
+        },
+        {
+            "id": "MS",
+            "text": "Mato Grosso do Sul"
+
+        },
+        {
+            "id": "MT",
+            "text": "Mato Grosso"
+
+        },
+        {
+            "id": "PA",
+            "text": "Pará"
+
+        },
+        {
+            "id": "PB",
+            "text": "Paraíba"
+
+        },
+        {
+            "id": "PE",
+            "text": "Pernambuco"
+
+        },
+        {
+            "id": "PI",
+            "text": "Piauí"
+
+        },
+        {
+            "id": "PR",
+            "text": "Paraná"
+
+        },
+        {
+            "id": "RJ",
+            "text": "Rio de Janeiro"
+        },
+        {
+            "id": "RN",
+            "text": "Rio Grande do Norte"
+
+        },
+        {
+            "id": "RO",
+            "text": "Rondônia"
+
+        },
+        {
+            "id": "RS",
+            "text": "Rio Grande do Sul"
+
+        },
+        {
+            "id": "SC",
+            "text": "Santa Catarina"
+
+        },
+        {
+            "id": "SE",
+            "text": "Sergipe"
+
+        },
+        {
+            "id": "SP",
+            "text": "São Paulo"
+
+        },
+        {
+            "id": "TO",
+            "text": "Tocantins"
+
+        }]
