@@ -31,6 +31,7 @@ securesocial.signup.invalidLink=O link que você entrou é inválido
 securesocial.signup.signUpDone=Obrigado por se cadastrar.  Você já pode entrar
 securesocial.signup.invalidPassword=Insira pelo menos {0} caracteres
 
+
 # Password reset
 securesocial.password.title=Reiniciar Senha
 securesocial.password.passwordUpdated=Sua senha foi devidamente atualizada

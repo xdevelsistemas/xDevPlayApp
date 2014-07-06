@@ -24,7 +24,6 @@ import securesocial.core.providers.{Token, UsernamePasswordProvider}
 import scala.language.reflectiveCalls
 
 
-
 /**
  * A controller to handle user registration.
  *
@@ -71,27 +70,9 @@ object CustomRegistration extends Controller {
   val NumCodigo2 = "numCodigo2"
 
 
-  case class RegistrationInfo( userName: Option[String],
-                               firstName: String,
-                               birthDate:String,
-                               password: String,
-                               numCep :Option[String],
-                               uf:Option[String],
-                               cidade:Option[String],
-                               bairro:Option[String],
-                               logradouro:Option[String],
-                               numLogradouro:Option[String],
-                               rg:Option[String],
-                               //ufRg:Option[String],
-                               docFederal:Option[String],
-                               numBanco:Option[String],
-                               numAgencia:Option[String],
-                               //dvAgencia:Option[String],
-                               numConta:Option[String],
-                               //dvConta:Option[String],
-                               numCodigo:String)
 
-  val formWithUsername = Form[RegistrationInfo](
+
+  val formWithUsername = Form[models.Cadastro.RegistrationInfo](
     mapping(
       UserName -> nonEmptyText.verifying(Messages(UserNameAlreadyTaken), userName => {
         UserService.find(IdentityId(userName, providerId)).isEmpty
@@ -115,7 +96,7 @@ object CustomRegistration extends Controller {
       NumLogradouro -> text ,
       Rg -> text ,
       //UfRg -> text ,
-      DocFederal -> text ,
+      DocFederal -> nonEmptyText ,
       NumBanco -> text ,
       NumAgencia -> text ,
       //DvAgencia -> text ,
@@ -152,7 +133,7 @@ object CustomRegistration extends Controller {
         //dvConta,
         numCodigo
 
-         ) => RegistrationInfo(
+         ) => models.Cadastro.RegistrationInfo(
               Some(userName),
               firstName,
               birthDate,
@@ -165,7 +146,7 @@ object CustomRegistration extends Controller {
               Some(numLogradouro),
               Some(rg),
               //Some(ufRg),
-              Some(docFederal),
+              docFederal,
               Some(numBanco),
               Some(numAgencia),
               //Some(dvAgencia),
@@ -189,7 +170,7 @@ object CustomRegistration extends Controller {
         info.numLogradouro.getOrElse(""),
         info.rg.getOrElse(""),
         //info.ufRg.getOrElse(""),
-        info.docFederal.getOrElse(""),
+        info.docFederal,
         info.numBanco.getOrElse(""),
         info.numAgencia.getOrElse(""),
         //info.dvAgencia.getOrElse(""),
@@ -200,7 +181,7 @@ object CustomRegistration extends Controller {
   )
 
 
-  val formWithoutUsername = Form[RegistrationInfo](
+  val formWithoutUsername = Form[models.Cadastro.RegistrationInfo](
     mapping(
       FirstName -> nonEmptyText,
       BirthDate -> nonEmptyText,
@@ -221,7 +202,7 @@ object CustomRegistration extends Controller {
       NumLogradouro -> text ,
       Rg -> text ,
       //UfRg -> text ,
-      DocFederal -> text ,
+      DocFederal -> nonEmptyText ,
       NumBanco -> text ,
       NumAgencia -> text ,
       //DvAgencia -> text ,
@@ -256,7 +237,7 @@ object CustomRegistration extends Controller {
         //dvConta,
         numCodigo
 
-         ) => RegistrationInfo(
+         ) => models.Cadastro.RegistrationInfo(
         None,
         firstName,
         birthDate,
@@ -269,7 +250,7 @@ object CustomRegistration extends Controller {
         Some(numLogradouro),
         Some(rg),
         //Some(ufRg),
-        Some(docFederal),
+        docFederal,
         Some(numBanco),
         Some(numAgencia),
         //Some(dvAgencia),
@@ -292,7 +273,7 @@ object CustomRegistration extends Controller {
           info.numLogradouro.getOrElse(""),
           info.rg.getOrElse(""),
           //info.ufRg.getOrElse(""),
-          info.docFederal.getOrElse(""),
+          info.docFederal,
           info.numBanco.getOrElse(""),
           info.numAgencia.getOrElse(""),
           //info.dvAgencia.getOrElse(""),
@@ -355,7 +336,7 @@ object CustomRegistration extends Controller {
     if (registrationEnabled) {
       startForm.bindFromRequest.fold (
         errors => {
-          BadRequest(views.html.Custom.Registration.startSignUp(errors))
+          BadRequest(views.html.Proconsorcio.Registration.startSignUp(errors))
         },
         email => {
           // check if there is already an account for this email address
@@ -404,7 +385,7 @@ object CustomRegistration extends Controller {
             if (Logger.isDebugEnabled) {
               Logger.debug("[securesocial] errors " + errors)
             }
-            BadRequest(views.html.Proconsorcio.Registration.signUp(errors, t.uuid))
+            BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None))
           },
           info => {
             val id = if (UsernamePasswordProvider.withUserNameSupport) info.userName.get else t.email
@@ -422,7 +403,8 @@ object CustomRegistration extends Controller {
             val saved = UserService.save(user)
 
             //todo se nao funcionar o preeenchimento dos usuários irei colocar aqui as persistencias
-            //User.completarCadastro(mail,form.get)
+
+            models.User.completarCadastro(user.email,form.bindFromRequest().value)
 
 
             UserService.deleteToken(t.uuid)

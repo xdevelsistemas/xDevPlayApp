@@ -16,7 +16,6 @@ GET         /faleconosco                   controllers.Proconsorcio.Home.falecon
 GET         /getendereco/:cep              controllers.Proconsorcio.Home.getEndereco(cep)
 GET         /getuf                         controllers.Proconsorcio.Home.getUF()
 GET         /getbanco                      controllers.Proconsorcio.Home.getBanco()
-GET         /signupteste                   controllers.Proconsorcio.Home.cadteste()
 
 
 # Example of protected page

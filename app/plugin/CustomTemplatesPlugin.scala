@@ -76,7 +76,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   def getResetPasswordPage[A](implicit request: Request[A], form: Form[(String, String)], token: String): Html = {
-    views.html.Custom.Registration.resetPasswordPage(form, token)
+    views.html.Proconsorcio.Registration.resetPasswordPage(form, token)
   }
 
    /**

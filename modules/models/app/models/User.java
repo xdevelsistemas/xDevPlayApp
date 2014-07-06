@@ -1,15 +1,20 @@
 package models;
-
+import models.Cadastro.RegistrationInfo;
+import play.db.jpa.JPA;
+import scala.Option;
 import models.Cadastro.BaseEndereco.Cidade;
 import models.Cadastro.BaseEndereco.Logradouro;
 import models.Cadastro.BaseEndereco.Uf;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotNull;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -52,6 +57,13 @@ public class User extends AbstractModel {
     private String _numLogradouro;
     @Column(name="COMPLEMENTO")
     private String _complemento;
+
+
+
+    @Column(name="SIGLA_UF")
+    private String _siglaUf;
+
+
     @Column(name="NOME_CIDADE")
     private String _nomeCidade;
 
@@ -172,12 +184,20 @@ public class User extends AbstractModel {
         return _numCep;
     }
 
-    public void set_numCep(String _numCep) {
-        this._numCep = _numCep;
+    public String get_siglaUf() {
+        return _siglaUf;
+    }
+
+    public void set_siglaUf(String _siglaUf) {
+        this._siglaUf = _siglaUf;
     }
 
     public String get_nomeLogradouro() {
         return _nomeLogradouro;
+    }
+
+    public void set_numCep(String _numCep) {
+        this._numCep = _numCep;
     }
 
     public void set_nomeLogradouro(String _nomeLogradouro) {
@@ -258,6 +278,94 @@ public class User extends AbstractModel {
     }
 
 
+    public static User findByemail(String email) {
 
+        CriteriaBuilder cb = JPA.em().getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(models.User.class);
+        Root<User> root = cq.from(User.class);
+        final Predicate[] predicates = new Predicate[] {
+                cb.equal(root.get("email"), email) };
+        cq.where(predicates);
+        try {
+            User result = JPA.em().createQuery(cq).getSingleResult();
+            return result;
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+    }
+
+
+
+
+    public static void  completarCadastro(Option<String> mail,Option <RegistrationInfo> form)
+    {
+        if (!form.isEmpty() && !mail.isEmpty()){
+            User user = findByemail(mail.get());
+            if  (user!= null) {
+
+               JPA.em().getTransaction().begin();
+
+
+                RegistrationInfo info = form.get();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                try {
+                    user.set_birthDate(formatter.parse(info.birthDate()));
+                } catch (ParseException e) {
+
+                    JPA.em().getTransaction().rollback();
+
+                }
+
+                user.set_numDocFederal(info.docFederal());
+
+                if (!info.numCep().isEmpty()) {
+                    user.set_numCep(info.numCep().get());
+                }
+
+
+                if (!info.uf().isEmpty()) {
+                    user.set_siglaUf(info.uf().get());
+                }
+
+                if (!info.cidade().isEmpty()) {
+                    user.set_nomeCidade(info.cidade().get());
+                }
+
+                if (!info.bairro().isEmpty()) {
+                    user.set_nomeBairro(info.bairro().get());
+                }
+
+                if (!info.logradouro().isEmpty()) {
+                    user.set_nomeLogradouro(info.logradouro().get());
+                }
+
+                if (!info.numLogradouro().isEmpty()) {
+                    user.set_numCep(info.numLogradouro().get());
+                }
+
+                if (!info.numBanco().isEmpty()) {
+                    user.set_numBanco(info.numBanco().get());
+                }
+
+                if (!info.numAgencia().isEmpty()) {
+                    user.set_numAgencia(info.numAgencia().get());
+                }
+
+                if (!info.numConta().isEmpty()) {
+                    user.set_numConta(info.numConta().get());
+                }
+
+                user.set_codigoAcesso(info.numCodigo());
+
+                JPA.em().getTransaction().commit();
+
+            }
+
+
+
+        }
+
+    }
 
 }

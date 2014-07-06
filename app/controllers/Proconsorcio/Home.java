@@ -70,13 +70,7 @@ import br.com.republicavirtual.*;
     }
 
 
-    public static Result cadteste() {
 
-
-
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUpTeste.render(plugin.CustomRegistration.form()), "Dados Cadastrais", _user()));
-
-    }
 
     public static Result getEndereco(String cep){
         return ok(Json.toJson(((CepServiceVO)CepService.buscaCEP(cep))));
