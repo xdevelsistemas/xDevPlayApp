@@ -1,1 +1,2 @@
-@views.html.Proconsorcio.pesquisa("")
+@(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] )
+@views.html.Proconsorcio.pesquisa(userdao,user,new String())

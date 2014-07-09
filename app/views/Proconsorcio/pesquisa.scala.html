@@ -1,6 +1,19 @@
-@(implicit query: String)
+@(implicit userdao : dao.UserDAO,  user : Option[securesocial.core.Identity],query: String)
 <div class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     <div class="row">
+        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get)) ){
+            <div class="alert alert-info"  role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                @{user.get.firstName}, Finalize seus dados Cadastrais clicando  <a  href="/dadoscadastrais"><strong style="color: darkblue"> Aqui </strong> </a>
+            </div>
+        }
+
+        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get)) ){
+            <div class="alert alert-info "  role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                @{user.get.firstName}, Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color: darkblue"> Aqui </strong> </a>
+            </div>
+        }
 
         <div class="sidebar span3" id="caixa-filtros">
             <h2 data-bind="text: tituloCaixaFiltros()"></h2>

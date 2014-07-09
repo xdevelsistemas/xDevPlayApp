@@ -90,14 +90,18 @@ public class AbstractDAO<T extends AbstractModel> {
             em.getTransaction().begin();
         }
 
-        if (o.uuid != null) {
+        em.persist(o);
+        em.getTransaction().commit();
+        return o;
+
+        /*if (o.uuid != null) {
             T temp_o = em.merge(o);
             em.getTransaction().commit();
             return o;
         } else {
             em.persist(o);
             return o;
-        }
+        }*/
 
 
     }

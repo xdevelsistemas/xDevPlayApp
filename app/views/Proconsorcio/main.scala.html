@@ -58,9 +58,10 @@
     </head>
 
     <body class="home page page-template">
-        @*<script type='text/javascript' src="@routes.Assets.at("App/Script/Libs/knockout.js")"></script>*@
-        <div class="top">@views.html.Proconsorcio.Partials.Cabecalho(title)</div>
-        <div id="content" class="clearfix">@content</div>
+        <div class="top ">@views.html.Proconsorcio.Partials.Cabecalho(title)</div>
+        <div id="content" class="clearfix">
+        @content
+        </div>
         <div id="footer-wrapper">
         @views.html.Proconsorcio.Partials.Rodape()
         </div>

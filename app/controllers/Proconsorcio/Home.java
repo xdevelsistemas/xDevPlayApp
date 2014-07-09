@@ -32,7 +32,8 @@ import static play.data.Form.form;
     @SecureSocial.UserAwareAction
     public static Result home()
     {
-        return ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.index.render(), "Pesquisa", _user()));
+        return ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.index.render(_userdao(),_user()), "Pesquisa", _user()));
+
     }
 
 
@@ -56,11 +57,11 @@ import static play.data.Form.form;
 
 
     public static Result pesquisa(String query) {
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(query), "Pesquisa", _user()));
+        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(_userdao(),_user(),query), "Pesquisa", _user()));
     }
 
     public static Result pesquisa_clean() {
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(""), "Pesquisa", _user()));
+        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(_userdao(),_user(),""), "Pesquisa", _user()));
     }
 
 
@@ -81,15 +82,15 @@ import static play.data.Form.form;
                 (
                 new Some<String>(usuario.uuid),
                 usuario.realName,
-                df.format(usuario.get_birthDate()),
-                (new scala.Some<String>(usuario.get_numCep())),
-                usuario.get_siglaUf(),
-                usuario.get_nomeCidade(),
-                usuario.get_nomeBairro(),
-                usuario.get_nomeLogradouro(),
-                usuario.get_numLogradouro(),
-                (new scala.Some<String>(usuario.get_numRg())),
-                usuario.get_numDocFederal()
+                usuario.get_birthDate()==null?(new String("")):df.format(usuario.get_birthDate()),
+                (new scala.Some<String>(usuario.get_numCep()==null?(new String("")):usuario.get_numCep())),
+                usuario.get_siglaUf()==null?(new String("")):usuario.get_siglaUf(),
+                usuario.get_nomeCidade()==null?(new String("")):usuario.get_nomeCidade(),
+                usuario.get_nomeBairro()==null?(new String("")):usuario.get_nomeBairro(),
+                usuario.get_nomeLogradouro()==null?(new String("")):usuario.get_nomeLogradouro(),
+                usuario.get_numLogradouro()==null?(new String("")):usuario.get_numLogradouro(),
+                (new scala.Some<String>(usuario.get_numRg()==null?(new String("")):usuario.get_numRg())),
+                usuario.get_numDocFederal()==null?(new String("")):usuario.get_numDocFederal()
         );
 
 
@@ -114,6 +115,12 @@ import static play.data.Form.form;
 
     private static scala.Option<Identity> _user() {
         return Option.apply(SecureSocial.currentUser());
+    }
+
+
+    private static UserDAO _userdao() {
+        return new UserDAO();
+
     }
 
 

@@ -164,23 +164,67 @@ public class UserDAO extends AbstractDAO<models.User> {
                     user.set_numLogradouro(info.numLogradouro());
                 }
 
-
-
-
-
-
                 save(user);
-
-
-
 
 
             }
 
 
 
+
+
+
+
         }
 
+
+
+    }
+
+
+    public  boolean verificaCadastro(String  email){
+        models.User xUser = findOne("email",email);
+        boolean xreturn  = true;
+        if (xUser != null){
+
+
+            if (xUser.get_birthDate() == null
+                    || xUser.realName == null
+                    || xUser.get_birthDate() == null
+                    || xUser.get_numDocFederal() == null
+                    || xUser.get_siglaUf() == null
+                    || xUser.get_nomeCidade() == null
+                    || xUser.get_nomeBairro() == null
+                    || xUser.get_nomeLogradouro() == null
+                    || xUser.get_numLogradouro() == null
+
+                    ){
+                return false;
+            }
+
+
+        }
+
+
+        return xreturn;
+    }
+
+
+    public  boolean verificanumCodigo(String  email){
+        models.User xUser = findOne("email",email);
+        boolean xreturn  = true;
+        if (xUser != null){
+
+
+            if (xUser.get_codigoAcesso() == null){
+                return false;
+            }
+
+
+        }
+
+
+        return xreturn;
     }
 
 }
