@@ -37,10 +37,6 @@ public class User extends AbstractModel {
     @Column(name="NUM_RG")
     private String _numRg;
 
-    @Column(name="UF_RG")
-    private String _ufRg;
-
-
 
     @Column(name="NUM_DOC_FEDERAL")
 
@@ -71,22 +67,6 @@ public class User extends AbstractModel {
     private String _nomeBairro;
 
 
-    @Column(name="NUM_BANCO")
-    private String _numBanco;
-
-
-
-    @Column(name="NUM_AGENCIA")
-    private String _numAgencia;
-
-    @Column(name="DV_AGENCIA")
-    private String _dvAgencia;
-
-    @Column(name="NUM_CONTA")
-    private String _numConta;
-
-    @Column(name="DV_CONTA")
-    private String _dvConta;
 
     @Column(name="CODIGO_ACESSO")
     private String _codigoAcesso;
@@ -114,54 +94,8 @@ public class User extends AbstractModel {
         this._numDocFederal = _numDocFederal;
     }
 
-    public String get_ufRg() {
-        return _ufRg;
-    }
-
-    public void set_ufRg(String _ufRg) {
-        this._ufRg = _ufRg;
-    }
 
 
-    public String get_numBanco() {
-        return _numBanco;
-    }
-
-    public void set_numBanco(String _numBanco) {
-        this._numBanco = _numBanco;
-    }
-
-    public String get_numAgencia() {
-        return _numAgencia;
-    }
-
-    public void set_numAgencia(String _numAgencia) {
-        this._numAgencia = _numAgencia;
-    }
-
-    public String get_dvAgencia() {
-        return _dvAgencia;
-    }
-
-    public void set_dvAgencia(String _dvAgencia) {
-        this._dvAgencia = _dvAgencia;
-    }
-
-    public String get_numConta() {
-        return _numConta;
-    }
-
-    public void set_numConta(String _numConta) {
-        this._numConta = _numConta;
-    }
-
-    public String get_dvConta() {
-        return _dvConta;
-    }
-
-    public void set_dvConta(String _dvConta) {
-        this._dvConta = _dvConta;
-    }
 
 
     public Date get_birthDate() {
@@ -277,95 +211,5 @@ public class User extends AbstractModel {
         this._logradouro = _logradouro;
     }
 
-
-    public static User findByemail(String email) {
-
-        CriteriaBuilder cb = JPA.em().getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(models.User.class);
-        Root<User> root = cq.from(User.class);
-        final Predicate[] predicates = new Predicate[] {
-                cb.equal(root.get("email"), email) };
-        cq.where(predicates);
-        try {
-            User result = JPA.em().createQuery(cq).getSingleResult();
-            return result;
-        } catch (javax.persistence.NoResultException e) {
-            return null;
-        }
-    }
-
-
-
-
-    public static void  completarCadastro(Option<String> mail,Option <RegistrationInfo> form)
-    {
-        if (!form.isEmpty() && !mail.isEmpty()){
-            User user = findByemail(mail.get());
-            if  (user!= null) {
-
-               JPA.em().getTransaction().begin();
-
-
-                RegistrationInfo info = form.get();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-                try {
-                    user.set_birthDate(formatter.parse(info.birthDate()));
-                } catch (ParseException e) {
-
-                    JPA.em().getTransaction().rollback();
-
-                }
-
-                user.set_numDocFederal(info.docFederal());
-
-                if (!info.numCep().isEmpty()) {
-                    user.set_numCep(info.numCep().get());
-                }
-
-
-                if (!info.uf().isEmpty()) {
-                    user.set_siglaUf(info.uf().get());
-                }
-
-                if (!info.cidade().isEmpty()) {
-                    user.set_nomeCidade(info.cidade().get());
-                }
-
-                if (!info.bairro().isEmpty()) {
-                    user.set_nomeBairro(info.bairro().get());
-                }
-
-                if (!info.logradouro().isEmpty()) {
-                    user.set_nomeLogradouro(info.logradouro().get());
-                }
-
-                if (!info.numLogradouro().isEmpty()) {
-                    user.set_numCep(info.numLogradouro().get());
-                }
-
-                if (!info.numBanco().isEmpty()) {
-                    user.set_numBanco(info.numBanco().get());
-                }
-
-                if (!info.numAgencia().isEmpty()) {
-                    user.set_numAgencia(info.numAgencia().get());
-                }
-
-                if (!info.numConta().isEmpty()) {
-                    user.set_numConta(info.numConta().get());
-                }
-
-                user.set_codigoAcesso(info.numCodigo());
-
-                JPA.em().getTransaction().commit();
-
-            }
-
-
-
-        }
-
-    }
 
 }

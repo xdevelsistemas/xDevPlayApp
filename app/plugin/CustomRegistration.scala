@@ -58,13 +58,7 @@ object CustomRegistration extends Controller {
   val Logradouro = "logradouro"
   val NumLogradouro = "numLogradouro"
   val Rg = "rg"
-  //val UfRg = "ufRg"
   val DocFederal = "docFederal"
-  val NumBanco = "numBanco"
-  val NumAgencia = "numAgencia"
-  //val DvAgencia = "dvAgencia"
-  val NumConta = "numConta"
-  //val DvConta = "dvConta"
   val NumCodigo = "numCodigo"
   val NumCodigo1 = "numCodigo1"
   val NumCodigo2 = "numCodigo2"
@@ -88,20 +82,14 @@ object CustomRegistration extends Controller {
         ).verifying(Messages(PasswordsDoNotMatch), passwords => passwords._1 == passwords._2)
         ),
 
-      NumCep -> nonEmptyText,
-      Uf -> text ,
-      Cidade -> text ,
-      Bairro -> text ,
-      Logradouro -> text ,
-      NumLogradouro -> text ,
+      NumCep -> text,
+      Uf -> nonEmptyText ,
+      Cidade -> nonEmptyText ,
+      Bairro -> nonEmptyText ,
+      Logradouro -> nonEmptyText ,
+      NumLogradouro -> nonEmptyText ,
       Rg -> text ,
-      //UfRg -> text ,
       DocFederal -> nonEmptyText ,
-      NumBanco -> text ,
-      NumAgencia -> text ,
-      //DvAgencia -> text ,
-      NumConta -> text ,
-      //DvConta -> text ,
       (NumCodigo ->
         tuple(
           NumCodigo1 -> nonEmptyText.verifying(use[PasswordValidator].errorMessage,
@@ -124,13 +112,7 @@ object CustomRegistration extends Controller {
         logradouro,
         numLogradouro,
         rg,
-        //ufRg,
         docFederal,
-        numBanco,
-        numAgencia,
-        //dvAgencia,
-        numConta,
-        //dvConta,
         numCodigo
 
          ) => models.Cadastro.RegistrationInfo(
@@ -139,19 +121,13 @@ object CustomRegistration extends Controller {
               birthDate,
               password._1,
               Some(numCep),
-              Some(uf),
-              Some(cidade),
-              Some(bairro),
-              Some(logradouro),
-              Some(numLogradouro),
+              uf,
+              cidade,
+              bairro,
+              logradouro,
+              numLogradouro,
               Some(rg),
-              //Some(ufRg),
               docFederal,
-              Some(numBanco),
-              Some(numAgencia),
-              //Some(dvAgencia),
-              Some(numConta),
-              //Some(dvConta),
               numCodigo._1
          )
       )
@@ -163,19 +139,13 @@ object CustomRegistration extends Controller {
         info.birthDate,
         ("", ""),
         info.numCep.getOrElse(""),
-        info.uf.getOrElse(""),
-        info.cidade.getOrElse(""),
-        info.bairro.getOrElse(""),
-        info.logradouro.getOrElse(""),
-        info.numLogradouro.getOrElse(""),
+        info.uf,
+        info.cidade,
+        info.bairro,
+        info.logradouro,
+        info.numLogradouro,
         info.rg.getOrElse(""),
-        //info.ufRg.getOrElse(""),
         info.docFederal,
-        info.numBanco.getOrElse(""),
-        info.numAgencia.getOrElse(""),
-        //info.dvAgencia.getOrElse(""),
-        info.numConta.getOrElse(""),
-        //info.dvConta.getOrElse(""),
         ("", "")
       ))
   )
@@ -195,19 +165,13 @@ object CustomRegistration extends Controller {
         ),
 
       NumCep -> text ,
-      Uf -> text ,
-      Cidade -> text ,
-      Bairro -> text ,
-      Logradouro -> text ,
-      NumLogradouro -> text ,
+      Uf -> nonEmptyText ,
+      Cidade -> nonEmptyText ,
+      Bairro -> nonEmptyText ,
+      Logradouro -> nonEmptyText ,
+      NumLogradouro -> nonEmptyText ,
       Rg -> text ,
-      //UfRg -> text ,
       DocFederal -> nonEmptyText ,
-      NumBanco -> text ,
-      NumAgencia -> text ,
-      //DvAgencia -> text ,
-      NumConta -> text ,
-      //DvConta -> text ,
       (NumCodigo ->
         tuple(
           NumCodigo1 -> nonEmptyText.verifying(use[PasswordValidator].errorMessage,
@@ -228,13 +192,7 @@ object CustomRegistration extends Controller {
         logradouro,
         numLogradouro,
         rg,
-        //ufRg,
         docFederal,
-        numBanco,
-        numAgencia,
-        //dvAgencia,
-        numConta,
-        //dvConta,
         numCodigo
 
          ) => models.Cadastro.RegistrationInfo(
@@ -243,19 +201,13 @@ object CustomRegistration extends Controller {
         birthDate,
         password._1,
         Some(numCep),
-        Some(uf),
-        Some(cidade),
-        Some(bairro),
-        Some(logradouro),
-        Some(numLogradouro),
+        uf,
+        cidade,
+        bairro,
+        logradouro,
+        numLogradouro,
         Some(rg),
-        //Some(ufRg),
         docFederal,
-        Some(numBanco),
-        Some(numAgencia),
-        //Some(dvAgencia),
-        Some(numConta),
-        //Some(dvConta),
         numCodigo._1
       )
         )
@@ -266,19 +218,13 @@ object CustomRegistration extends Controller {
           info.birthDate,
           ("", ""),
           info.numCep.getOrElse(""),
-          info.uf.getOrElse(""),
-          info.cidade.getOrElse(""),
-          info.bairro.getOrElse(""),
-          info.logradouro.getOrElse(""),
-          info.numLogradouro.getOrElse(""),
+          info.uf,
+          info.cidade,
+          info.bairro,
+          info.logradouro,
+          info.numLogradouro,
           info.rg.getOrElse(""),
-          //info.ufRg.getOrElse(""),
           info.docFederal,
-          info.numBanco.getOrElse(""),
-          info.numAgencia.getOrElse(""),
-          //info.dvAgencia.getOrElse(""),
-          info.numConta.getOrElse(""),
-          //info.dvConta.getOrElse(""),
           ("", "")
         ))
   )
@@ -404,7 +350,7 @@ object CustomRegistration extends Controller {
 
             //todo se nao funcionar o preeenchimento dos usuários irei colocar aqui as persistencias
 
-            models.User.completarCadastro(user.email,form.bindFromRequest().value)
+            (new dao.UserDAO()).completarCadastro(user.email,form.bindFromRequest().value)
 
 
             UserService.deleteToken(t.uuid)

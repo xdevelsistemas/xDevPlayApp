@@ -1,23 +1,42 @@
-<div class="container" id="pagina-dadosCadastrais">
-    <div class="row">
-        <div id="main" class="span12">
-            <form method="post">
+@(userForms:play.api.data.Form[models.Cadastro.AlterarDadosInfo],uuid: String)(implicit request: play.api.mvc.RequestHeader)
+    @import helper._
+    @implicitFieldConstructor = @{ FieldConstructor(defaultFieldConstructor.f) }
 
-            <div class="login-register">
-                <h2>Dados Cadastrais</h2>
 
-                <div class="row">
-                    <div class="span6">
-                        <h1>Dados Pessoais</h1>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="dadosPessoais">
+@request.flash.get("error").map { msg =>
+    <div class="alert alert-error">
+        @msg
+    </div>
+}
+
+<form action="/dadoscadastrais" autocomplete= "off" method="POST">
+    <div class="container" id="pagina-signUp">
+
+        @helper.inputText(
+            userForms("uuid"),
+            '_label -> "",
+            'style -> "display: none"
+        )
+
+        <div class="row">
+            <div id="main" class="span12">
+                <div class="login-register">
+                    <h2>Dados Cadastrais</h2>
+                    <div class="row">
+                        <div class="span6">
+                            <h1>Dados Pessoais</h1>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="dadosPessoais">
                                     <div class="control-group">
                                         <label class="control-label">
                                             Nome Completo
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
                                         <div class="controls">
-                                            <input type="text" required="required" name="nome">
+                                        @helper.inputText(
+                                            userForms("firstName"),
+                                            '_label -> "",
+                                            'placeholder -> "Nome Completo"
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -26,23 +45,37 @@
                                     <div class="control-group">
                                         <label class="control-label">
                                             Data de Nascimento
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
-                                        <div class="controls">
-                                            <input type="date" required="required" name="nascimento">
+                                        <div class="controls date"  data-date-format="dd/mm/yyyy">
+                                        @helper.inputText(
+                                            userForms("birthDate"),
+                                            '_label -> "",
+                                            'placeholder -> "Data de Nascimento",
+                                            'class -> "datepicker"
+                                        )
                                         </div>
-                                            <!-- /.controls -->
                                     </div>
                                         <!-- /.control-group -->
 
 
+
                                     <div class="control-group">
-                                        <label class="control-label">
-                                            CPF ou CNPJ
-                                            <span class="form-required" title="This field is required.">*</span>
-                                        </label>
+                                        <div class="radio-group-form">
+                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
+                                            <label for="cpf">CPF</label>
+                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
+                                            <label for="cnpj">CNPJ</label>
+                                        </div>
                                         <div class="controls">
-                                            <input type="text" required="required" name="cpfCnpj" disabled>
+                                            <div class="controls">
+                                            </div>
+                                            <div class="controls">
+                                            @helper.inputText(
+                                                userForms("docFederal"),
+                                                'placeholder -> "CPF ou CNPJ",
+                                                '_label -> ""
+                                            )
+                                            </div>
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -51,76 +84,81 @@
                                     <div class="control-group">
                                         <label class="control-label">
                                             RG
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
                                         <div class="controls">
-                                            <input type="text" required="required" name="rg">
+                                        @helper.inputText(
+                                            userForms("rg"),
+                                            'placeholder -> "Identidade",
+                                            '_label -> ""
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
                                         <!-- /.control-group -->
 
+                                </div>
+                                    <!-- /.tab-pane -->
                             </div>
-                                <!-- /.tab-pane -->
+                                <!-- /.tab-content -->
+
+
                         </div>
-                            <!-- /.tab-content -->
+                            <!-- /.span4-->
 
-                        <hr>
-                    </div>
-                        <!-- /.span4-->
 
-                    <div class="span6">
-                        <h1>Endereço</h1>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="endereco">
+
+                        <div class="span6">
+                            <h1>Endereço</h1>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="endereco">
 
 
                                     <div class="control-group">
                                         <label class="control-label">
-                                            Endereço
-                                            <span class="form-required" title="This field is required.">*</span>
+                                            Cep
                                         </label>
-                                        <div class="controls">
-                                            <input type="text" required="required" name="endereco">
+                                        <div class="controls" >
+                                            @helper.inputText(
+                                                userForms("numCep"),
+                                                'placeholder -> "Cep do seu Endereço",
+                                                '_label -> ""
+                                            )
+                                            <button class="btn btn-success" id="btnCep">
+                                                Completar Cadastro Pelo Cep
+                                            </button>
                                         </div>
                                             <!-- /.controls -->
                                     </div>
                                         <!-- /.control-group -->
 
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Complemento
-                                            <span class="form-required" title="This field is required.">*</span>
-                                        </label>
-                                        <div class="controls">
-                                            <input type="text" required="required" name="complemento" maxlength="50">
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
 
                                     <div class="control-group">
                                         <label class="control-label">
                                             Estado
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
+                                        @*<br>*@
                                         <div class="controls">
-                                            <select required="required" name="uf">
-                                                <option selected disabled>-</option>
-                                                <option>ES</option>
-                                                <option>RJ</option>
-                                                <option>SP</option>
-                                            </select>
+                                        @helper.inputText(
+                                            userForms("uf"),
+                                            '_label -> ""
+                                            //'class -> "span3"
+
+                                        )
                                         </div>
                                     </div>
+
+
 
                                     <div class="control-group">
                                         <label class="control-label">
                                             Cidade
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
                                         <div class="controls">
-                                            <input type="text" required="required" name="cidade">
+                                        @helper.inputText(
+                                            userForms("cidade"),
+                                            'placeholder -> "Cidade",
+                                            '_label -> ""
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -129,10 +167,29 @@
                                     <div class="control-group">
                                         <label class="control-label">
                                             Bairro
-                                            <span class="form-required" title="This field is required.">*</span>
                                         </label>
                                         <div class="controls">
-                                            <input type="text" required="required" name="bairro">
+                                        @helper.inputText(
+                                            userForms("bairro"),
+                                            'placeholder -> "Bairro",
+                                            '_label -> ""
+                                        )
+                                        </div>
+                                            <!-- /.controls -->
+                                    </div>
+                                        <!-- /.control-group -->
+
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Endereço
+                                        </label>
+                                        <div class="controls">
+                                        @helper.inputText(
+                                            userForms("logradouro"),
+                                            'placeholder -> "Rua, Avenida, ..",
+                                            '_label -> ""
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -140,152 +197,58 @@
 
                                     <div class="control-group">
                                         <label class="control-label">
-                                            CEP
-                                            <span class="form-required" title="This field is required.">*</span>
+                                            Número e Complemento
                                         </label>
                                         <div class="controls">
-                                            <input type="text" required="required" name="cep">
+                                        @helper.inputText(
+                                            userForms("numLogradouro"),
+                                            'placeholder -> "Número e Complemento",
+                                            '_label -> ""
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
                                         <!-- /.control-group -->
-
-
+                                </div>
+                                    <!-- /.tab-pane -->
                             </div>
-                                <!-- /.tab-pane -->
+                                <!-- /.tab-content -->
+
+
                         </div>
-                            <!-- /.tab-content -->
-
-                        <hr>
-                    </div>
-                        <!-- /.span4-->
-
-                    @*<div class="span4">*@
-                        @*<h1>Acesso</h1>*@
-                        @*<div class="tab-content">*@
-                            @*<div class="tab-pane active" id="acesso">*@
-                                @*<form method="post"*@
-                                @*action="javascript:void(0)">*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*E-mail*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="email" required="required" name="email[email]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*Confirmação do E-mail*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="email" required="required" name="email[confirmacao]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*Nova senha*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="form-requisitos">*@
-                                            @*A senha deve conter no mínimo 8 caracteres e pelo menos 1 letra maiúscula e 2 números.*@
-                                        @*</div>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="text" required="required" name="senha[senha]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*Confirmar nova senha*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="text" required="required" name="senha[confirmacao]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*Código de acesso*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="form-requisitos">*@
-                                            @*O código de acesso deve ser diferente da senha e conter no mínimo 8 caracteres e pelo menos 1 letra maiúscula e 2 números.*@
-                                        @*</div>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="text" required="required" name="codigoAcesso[codigoAcesso]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                    @*<div class="control-group">*@
-                                        @*<label class="control-label">*@
-                                            @*Confirmar código de acesso*@
-                                            @*<span class="form-required" title="This field is required.">*</span>*@
-                                        @*</label>*@
-                                        @*<div class="controls">*@
-                                            @*<input type="text" required="required" name="codigoAcesso[confirmacao]">*@
-                                        @*</div>*@
-                                            @*<!-- /.controls -->*@
-                                    @*</div>*@
-                                        @*<!-- /.control-group -->*@
-
-                                @*</form>*@
-                            @*</div>*@
-                                @*<!-- /.tab-pane -->*@
-                        @*</div>*@
-                            @*<!-- /.tab-content -->*@
-
-                        @*<hr>*@
-                    @*</div>*@
-                        @*<!-- /.span4-->*@
+                            <!-- /.span4-->
 
 
-                    <div class="span12 submission-form">
-                        <div class="form-actions">
-                            <input type="submit" class="btn btn-primary" value="Salvar">
+
+
+
+
+                        <div class="span12 submission-form">
+                            <hr>
+                            <div class="form-actions">
+                                <input type="submit" class="btn btn-primary" value="Salvar">
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
+                        <!-- /.row -->
                 </div>
-                    <!-- /.row -->
-            </div>
-                <!-- /.login-register -->
+                    <!-- /.login-register -->
 
-            </form>
+
+            </div>
+                <!-- /#main -->
 
         </div>
-            <!-- /#main -->
-
+            <!-- /.row -->
     </div>
-        <!-- /.row -->
-</div>
-<!-- /.container -->
+        <!-- /.container -->
 
-<script>
-(function() {
-function checkHash() {
-if (window.location.hash == '#cadastro')
-$("a[href=#register]").trigger('click');
+
+</form>
+<script type="application/javascript"  src="@routes.Assets.at("App/Script/App/SignUp.js")"></script>
+<script type="application/javascript">
+function jqueryLoaded() {
+SignUpload ( ) ;
 }
-checkHash();
-$(window).on('hashchange', function() {
-checkHash();
-});
-})();
 </script>

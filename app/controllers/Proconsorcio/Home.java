@@ -1,12 +1,28 @@
 package controllers.Proconsorcio;
 
+
+import dao.UserDAO;
+import models.Cadastro.AlterarDadosInfo;
+import models.Cadastro.RegistrationInfo;
+import models.User;
+import play.api.data.Form;
+import play.api.data.Mapping;
+import play.api.mvc.Request;
+import play.api.mvc.RequestHeader;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import scala.Option;
+import scala.Some;
 import securesocial.core.java.SecureSocial;
 import securesocial.core.*;
 import play.libs.Json;
 import br.com.republicavirtual.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import static play.data.Form.form;
 
 /**
  * Created by claytonsantosdasilva on 11/06/14.
@@ -20,17 +36,19 @@ import br.com.republicavirtual.*;
     }
 
 
-    @SecureSocial.SecuredAction
-    public static Result alterarcodigo()
-    {
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.alterarcodigo.render(), "Alterar Código", _user()));
-    }
+
 
 
     @SecureSocial.SecuredAction
     public static Result novacarta()
     {
         return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.novacarta.render(), "Nova Carta", _user()));
+    }
+
+    @SecureSocial.SecuredAction
+    public static Result alterarcodigo()
+    {
+        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.alterarcodigo.render(), "Alterar Codigo", _user()));
     }
 
 
@@ -50,14 +68,43 @@ import br.com.republicavirtual.*;
         return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.simulador.render(), "Simulador", _user()));
     }
 
+
+
     @SecureSocial.SecuredAction
     public static Result dadoscadastrais() {
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais.render(), "Dados Cadastrais", _user()));
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        User usuario =  new UserDAO().findOne("email",_user().get().email().get());
+
+
+
+        AlterarDadosInfo regdata = new AlterarDadosInfo
+                (
+                new Some<String>(usuario.uuid),
+                usuario.realName,
+                df.format(usuario.get_birthDate()),
+                (new scala.Some<String>(usuario.get_numCep())),
+                usuario.get_siglaUf(),
+                usuario.get_nomeCidade(),
+                usuario.get_nomeBairro(),
+                usuario.get_nomeLogradouro(),
+                usuario.get_numLogradouro(),
+                (new scala.Some<String>(usuario.get_numRg())),
+                usuario.get_numDocFederal()
+        );
+
+
+
+        Form<AlterarDadosInfo> userForm = models.Cadastro.RegistrationObjects.formAlterarDados();
+        userForm = userForm.fill(regdata);
+
+        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm,usuario.uuid,Http.Context.current()._requestHeader()), "Dados Cadastrais", _user()));
+
+
     }
 
     @SecureSocial.SecuredAction
     public static Result escritorio() {
-        return ok (views.html.Proconsorcio.main.render(views.html.Proconsorcio.escritorio.render(), "Escritório Online", _user()));
+        return ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.escritorio.render(), "Escritório Online", _user()));
     }
 
 
@@ -85,12 +132,4 @@ import br.com.republicavirtual.*;
     }
 
 
-
-
-
-
-
-
 }
-
-

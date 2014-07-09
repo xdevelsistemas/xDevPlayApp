@@ -1,5 +1,5 @@
 package models.Cadastro.BaseEndereco;
-import  models.Base.*;
+import models.AbstractModel;
 import javax.persistence.*;
 
 /**
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames={"ID_UF","NAME"})
 })
-public class Cidade extends xDevEntity {
+public class Cidade extends AbstractModel {
 
     public String get_name() {
         return _name;

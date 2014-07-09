@@ -1,3 +1,9 @@
+dd.error {
+    color: red;
+    font-weight: bolder;
+}
+
+
 .logo img{
     max-height: 42px;
 }

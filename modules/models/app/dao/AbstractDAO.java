@@ -19,8 +19,22 @@ public class AbstractDAO<T extends AbstractModel> {
     protected final EntityManager em;
     protected final CriteriaBuilder cb;
 
+
+
+
     protected AbstractDAO(Class<T> classType) {
-        this.em = JPA.em();
+        EntityManager temp_em;
+
+
+        try {
+            temp_em = JPA.em();
+        }catch (Exception e)
+        {
+            temp_em = JPA.em("default");
+        }
+
+
+        this.em = temp_em;
         this.cb = em.getCriteriaBuilder();
         this.classType = classType;
         try {
@@ -72,12 +86,20 @@ public class AbstractDAO<T extends AbstractModel> {
 
     //TODO code review
     public T save(T o) {
+        if (!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+        }
+
         if (o.uuid != null) {
-            return em.merge(o);
+            T temp_o = em.merge(o);
+            em.getTransaction().commit();
+            return o;
         } else {
             em.persist(o);
             return o;
         }
+
+
     }
 
     public void delete(UUID uuid) {

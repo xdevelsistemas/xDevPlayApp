@@ -11,6 +11,7 @@ GET         /novacarta                     controllers.Proconsorcio.Home.novacar
 GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
 GET         /simulador                     controllers.Proconsorcio.Home.simulador()
 GET         /dadoscadastrais               controllers.Proconsorcio.Home.dadoscadastrais()
+POST        /dadoscadastrais               controllers.Proconsorcio.Handles.handleDadosCadastrais()
 GET         /escritorio                    controllers.Proconsorcio.Home.escritorio()
 GET         /faleconosco                   controllers.Proconsorcio.Home.faleconosco()
 GET         /getendereco/:cep              controllers.Proconsorcio.Home.getEndereco(cep)

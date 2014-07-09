@@ -4,7 +4,7 @@ package models.Cadastro;
  * Created by claytonsantosdasilva on 25/06/14.
  */
 
-import  models.Base.*;
+import models.AbstractModel;
 import models.User;
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by claytonsantosdasilva on 25/06/14.
  */
-public class CodigoAcessoHistorico extends xDevEntity {
+public class CodigoAcessoHistorico extends AbstractModel {
 // os codigos de acesso a principio serão guardados em md5
 
     public String get_codigoAcesso() {
