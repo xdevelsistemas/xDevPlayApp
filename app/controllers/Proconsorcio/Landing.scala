@@ -11,7 +11,7 @@ import securesocial.core.java.SecureSocial
  */
 object LandingPage extends xDevController{
   def Home = UserAwareAction { implicit request =>
-    if(_user == null){Ok(views.html.LandingPage.main())}else{Redirect("/home")}
+    if(!_user.isDefined){Ok(views.html.LandingPage.main())}else{Redirect("/home")}
   }
 
 }

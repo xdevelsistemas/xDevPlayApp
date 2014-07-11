@@ -53,25 +53,6 @@ function SignUpload(){
                 return {results: data};
             }
         },
-//        initSelection: function(element, callback) {
-//            // the input tag has a value attribute preloaded that points to a preselected movie's id
-//            // this function resolves that id attribute to an object that select2 can render
-//            // using its formatResult renderer - that way the movie name is shown preselected
-//            var id=$(element).val();
-//            if (id!=="") {
-//                $.ajax("/getbanco", {
-//                    dataType: "json"
-//                }).done(function(data) {
-//                    var data_filter = [];
-//                    $.each(data, function(index,elem){
-//                        if  (id == elem.id)
-//                        {
-//                            callback(elem);
-//                        }
-//                    })
-//                });
-//            }
-//        },
         width: 'resolve',
         escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
     });
@@ -98,7 +79,7 @@ function SignUpload(){
 
 
 function checkJquery() {
-    if (window.jQuery && window.jQuery.mask) {
+    if (window.jQuery && window.jQuery.mask && $().select2) {
 
         jqueryLoaded();
     } else {

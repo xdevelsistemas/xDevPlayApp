@@ -5,6 +5,7 @@ require(['Libs/domReady'], function (domReady) {
     domReady(function () {
         require(['jquery'], function (jquery) {
             require(['js-ezmark', 'chosen' , 'jsbxslider', 'maskedinput', 'select2', 'bootstrap-datepicker'], function (ezmark, chosen, jsbxslider,maskedinput, select2 , bootstrapdatepicker ) {
+                jquery.select2 = select2;
                 require(['ajax-chosen','properta', 'aviatorsmap', 'bootstrap', 'retina', 'gmap3clusterer', 'carousel', 'aviatorssettings', 'themepunch.revolution', 'themepunch.plugins'], function (
                 ajaxchosen,
                 properta,
