@@ -12,6 +12,7 @@ object Application extends Controller with SecureSocial with Application
 
 
 trait Application {
+
   this: SecureSocial =>
 
   val logger = Logger("controllers.Application")
