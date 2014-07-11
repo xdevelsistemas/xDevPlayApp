@@ -1,3 +1,11 @@
+@(userForms:play.api.data.Form[models.Cadastro.AlteraCodigoInfo], msg: String)(implicit request: play.api.mvc.RequestHeader)
+@import helper._
+@import securesocial.core.SecureSocial
+    @implicitFieldConstructor = @{ FieldConstructor(defaultFieldConstructor.f) }
+
+
+
+
 <div class="container" id="pagina-alterarCodigo">
     <div class="row">
 
@@ -5,7 +13,17 @@
 
             <div class="login-register">
                 <h2>Alterar Código de Acesso</h2>
-
+                @request.flash.get("error").map { msg =>
+                    <div class="alert alert-error">
+                        @msg
+                    </div>
+                }
+                @if(!msg.isEmpty){
+                    <div class="alert alert-success"  role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                        @msg
+                    </div>
+                }
                 <div class="row">
                     <div class="span8 offset2">
 
@@ -13,27 +31,41 @@
                             <div class="tab-pane active" id="login">
                                 <form method="post">
 
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Código de acesso atual
-                                            <span class="form-required">*</span>
-                                        </label>
+                                    @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get)) {
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Código de acesso atual
+                                            </label>
 
-                                        <div class="controls">
-                                            <input type="text" name="atual" required="required">
+                                            <div class="controls">
+                                            @helper.inputPassword(
+                                                userForms("codigoAtual"),
+                                                '_label -> ""
+                                            )
+                                            </div>
+                                                <!-- /.controls -->
                                         </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
+                                            <!-- /.control-group -->
+                                    }else{
+                                        <div style="display: none">
+                                        @helper.inputPassword(
+                                            userForms("codigoAtual"),
+                                            '_label -> ""
+                                        )
+                                        </div>
+
+                                    }
 
                                     <div class="control-group">
                                         <label class="control-label">
                                             Novo código de acesso
-                                            <span class="form-required">*</span>
                                         </label>
 
                                         <div class="controls">
-                                            <input type="text" name="novo" required="required">
+                                        @helper.inputPassword(
+                                            userForms("numCodigo.password1"),
+                                            '_label -> ""
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -42,11 +74,14 @@
                                     <div class="control-group">
                                         <label class="control-label">
                                             Confirme o novo código de acesso
-                                            <span class="form-required">*</span>
                                         </label>
 
                                         <div class="controls">
-                                            <input type="text" name="confirmacao" required="required">
+                                        @helper.inputPassword(
+                                            userForms("numCodigo.password2"),
+                                            '_label -> "",
+                                            '_error -> userForms.error("numCodigo")
+                                        )
                                         </div>
                                             <!-- /.controls -->
                                     </div>

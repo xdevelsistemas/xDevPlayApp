@@ -1,4 +1,4 @@
-@(userForms:play.api.data.Form[models.Cadastro.AlterarDadosInfo],uuid: String)(implicit request: play.api.mvc.RequestHeader)
+@(userForms:play.api.data.Form[models.Cadastro.AlterarDadosInfo],msg: String)(implicit request: play.api.mvc.RequestHeader)
     @import helper._
     @implicitFieldConstructor = @{ FieldConstructor(defaultFieldConstructor.f) }
 
@@ -11,17 +11,16 @@
 
 <form action="/dadoscadastrais" autocomplete= "off" method="POST">
     <div class="container" id="pagina-signUp">
-
-        @helper.inputText(
-            userForms("uuid"),
-            '_label -> "",
-            'style -> "display: none"
-        )
-
         <div class="row">
             <div id="main" class="span12">
                 <div class="login-register">
                     <h2>Dados Cadastrais</h2>
+                    @if(!msg.isEmpty){
+                        <div class="alert alert-success"  role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                            @msg
+                        </div>
+                    }
                     <div class="row">
                         <div class="span6">
                             <h1>Dados Pessoais</h1>

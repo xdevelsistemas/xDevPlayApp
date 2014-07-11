@@ -268,9 +268,9 @@ object CustomRegistration extends Controller {
   def startSignUp = Action { implicit request =>
     if (registrationEnabled) {
       if ( SecureSocial.enableRefererAsOriginalUrl ) {
-        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null)))
+        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null,request)))
       } else {
-        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null))
+        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null,request))
       }
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -313,7 +313,7 @@ object CustomRegistration extends Controller {
         Logger.debug("[securesocial] trying sign up with token %s".format(token))
       }
       executeForToken(token, true, { _ =>
-        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(form,token), "Login", null))
+        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(form,token), "Login", null,request))
       })
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -331,7 +331,7 @@ object CustomRegistration extends Controller {
             if (Logger.isDebugEnabled) {
               Logger.debug("[securesocial] errors " + errors)
             }
-            BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None))
+            BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None,request))
           },
           info => {
             val id = if (UsernamePasswordProvider.withUserNameSupport) info.userName.get else t.email

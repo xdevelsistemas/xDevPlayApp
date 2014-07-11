@@ -12,6 +12,7 @@ import play.api.i18n.Messages
 import play.api.mvc._
 import play.api.templates.Html
 import play.api.{Logger, Play}
+import securesocial.controllers.Registration
 import securesocial.core.providers.utils._
 import securesocial.core.providers.{Token, UsernamePasswordProvider}
 import scala.language.reflectiveCalls
@@ -33,8 +34,7 @@ case class RegistrationInfo( userName: Option[String],
                              docFederal:String,
                              numCodigo:String)
 
-case class AlterarDadosInfo( uuid:Option[String],
-                             firstName: String,
+case class AlterarDadosInfo( firstName: String,
                              birthDate:String,
                              numCep :Option[String],
                              uf:String,
@@ -46,17 +46,22 @@ case class AlterarDadosInfo( uuid:Option[String],
                              docFederal:String)
 
 
+case class AlteraCodigoInfo ( codigoAtual: Option[String],
+                              numCodigo:String)
+
+
+
+
 object  RegistrationObjects extends Object {
-  val uuid     = "uuid"
+
   val UserName = "userName"
   val FirstName = "firstName"
   val LastName = "lastName"
   val Password = "password"
-  val Password1 = "password1"
-  val Password2 = "password2"
   val Email = "email"
   val Success = "success"
   val Error = "error"
+  val NumCodigo = "numCodigo"
 
   // campos personalizados
   val BirthDate = "birthDate"
@@ -68,9 +73,14 @@ object  RegistrationObjects extends Object {
   val NumLogradouro = "numLogradouro"
   val Rg = "rg"
   val DocFederal = "docFederal"
-  val NumCodigo = "numCodigo"
-  val NumCodigo1 = "numCodigo1"
-  val NumCodigo2 = "numCodigo2"
+
+
+  val InvalidPasswordMessage = "securesocial.passwordChange.invalidPassword"
+  val CodigoAtual = "codigoAtual"
+  val Password1 = "password1"
+  val Password2 = "password2"
+
+
 
   val formRegistration = Form[RegistrationInfo](
     mapping(
@@ -142,7 +152,6 @@ object  RegistrationObjects extends Object {
 
   val formAlterarDados = Form[AlterarDadosInfo](
     mapping(
-      uuid -> text,
       FirstName -> nonEmptyText,
       BirthDate -> nonEmptyText,
       NumCep -> text ,
@@ -156,7 +165,6 @@ object  RegistrationObjects extends Object {
     )
       // binding
       ((
-        uuid,
          firstName,
          birthDate,
          numCep,
@@ -169,7 +177,6 @@ object  RegistrationObjects extends Object {
          docFederal
 
          ) => AlterarDadosInfo(
-        Some(uuid),
         firstName,
         birthDate,
         Some(numCep),
@@ -185,7 +192,6 @@ object  RegistrationObjects extends Object {
       // unbinding
       (info =>
         Some(
-          info.uuid.getOrElse(""),
           info.firstName,
           info.birthDate,
           info.numCep.getOrElse(""),
@@ -198,5 +204,29 @@ object  RegistrationObjects extends Object {
           info.docFederal
         ))
   )
+
+
+
+    val formAlterarCodigo =
+      Form[models.Cadastro.AlteraCodigoInfo](
+        mapping(
+          CodigoAtual -> text,
+          (NumCodigo ->
+            tuple(
+              Password1 -> nonEmptyText.verifying(use[PasswordValidator].errorMessage,
+                p => use[PasswordValidator].isValid(p)),
+              Password2 -> nonEmptyText
+            ).verifying(Messages(Registration.PasswordsDoNotMatch), passwords => passwords._1 == passwords._2)
+            )
+
+        )((codigoAtual, numCodigo) => models.Cadastro.AlteraCodigoInfo(Some(codigoAtual), numCodigo._1))
+          ((changeInfo: models.Cadastro.AlteraCodigoInfo) => Some("", ("", "")))
+      )
+
+
+
+
+
+
 
 }

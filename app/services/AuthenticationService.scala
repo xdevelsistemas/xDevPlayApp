@@ -69,7 +69,7 @@ class AuthenticationService(application: Application) extends UserServicePlugin(
     if ( logger.isDebugEnabled )
       logger.debug("Identity: save %s".format(identity.identityId))
 
-    JPA.withTransaction("default", false, new F.Function0[Identity] {
+    JPA.withTransaction("default",false, new F.Function0[Identity] {
       def apply: Identity = {
         val identityDAO = new IdentityDAO
         // first see if there is an Identity with this IdentityId already.
@@ -77,7 +77,7 @@ class AuthenticationService(application: Application) extends UserServicePlugin(
         // create and save new models.Identity
         maybeIdentity match {
           case Some(existing) =>
-            identity
+            identityDAO.modify(identity,true)
           case None =>
             identityDAO.create(identity, true)
         }

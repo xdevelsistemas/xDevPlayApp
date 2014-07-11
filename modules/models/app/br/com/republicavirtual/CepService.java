@@ -1,17 +1,15 @@
 package br.com.republicavirtual;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.Annotations;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
 
 public class CepService {
 
@@ -93,9 +91,14 @@ public class CepService {
             e.printStackTrace();
         }
 
-        return new CepServiceVO();
+        return  new CepServiceVO();
+
+
 
     }
+
+
+
 
 
     private static String convertUTF8toISO(String str) {

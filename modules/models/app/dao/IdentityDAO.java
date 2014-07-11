@@ -23,6 +23,26 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
         return create(u, i, save);
     }
 
+    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+    public securesocial.core.Identity modify (securesocial.core.Identity i,boolean save) {
+
+        Identity r     = findOne("email",i.email().get());
+
+        if (i.passwordInfo().isDefined() && r.hasPasswordInfo) {
+
+            r.hasPasswordInfo = i.passwordInfo().isDefined();
+            r.passwordInfoHasher = i.passwordInfo().isDefined() ? i.passwordInfo().get().hasher() : null;
+            r.passwordInfoPassword = i.passwordInfo().isDefined() ? i.passwordInfo().get().password() : null;
+            r.passwordInfoSalt = i.passwordInfo().isDefined() ? toStr(i.passwordInfo().get().salt()) : null;
+        }
+
+        //if (save) save(r);
+        em.persist(r);
+
+
+        return i;
+    }
+
     public UserIdentity create(User u, securesocial.core.Identity i, boolean save) {
 
         final models.Identity r = new models.Identity();
@@ -91,6 +111,9 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
             return null;
         }
     }
+
+
+
 
     public Iterable<UserIdentity> findManyByEmail(final String email) {
         CriteriaQuery<models.Identity> cq = cb.createQuery(models.Identity.class);

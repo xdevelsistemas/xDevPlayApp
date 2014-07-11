@@ -1,9 +1,15 @@
 package br.com.republicavirtual;
 
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import play.api.libs.json.*;
+import scala.Function1;
+
+import java.util.Map;
 
 @XStreamAlias("webservicecep")
-public class CepServiceVO {
+public class CepServiceVO  implements Writes<CepServiceVO>
+{
 
     @XStreamAlias("uf")
     private String uf;
@@ -82,4 +88,34 @@ public class CepServiceVO {
         this.uf = uf;
     }
 
+
+    /**
+     * Convert the object into a JsValue
+     *
+     * @param o
+     */
+    @Override
+    public JsValue writes(CepServiceVO o) {
+        return null;
+    }
+
+    /**
+     * transforms the resulting JsValue using transformer function
+     *
+     * @param transformer
+     */
+    @Override
+    public Writes<CepServiceVO> transform(Function1<JsValue, JsValue> transformer) {
+        return null;
+    }
+
+    /**
+     * transforms resulting JsValue using Writes[JsValue]
+     *
+     * @param transformer
+     */
+    @Override
+    public Writes<CepServiceVO> transform(Writes<JsValue> transformer) {
+        return null;
+    }
 }

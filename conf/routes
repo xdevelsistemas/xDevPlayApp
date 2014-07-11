@@ -2,21 +2,22 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Aplicatico principal
-GET         /                              controllers.Proconsorcio.LandingPage.index()
-GET         /home                          controllers.Proconsorcio.Home.home()
-GET         /pesquisa/:query               controllers.Proconsorcio.Home.pesquisa(query)
-GET         /pesquisa                      controllers.Proconsorcio.Home.pesquisa_clean()
-GET         /alterarcodigo                 controllers.Proconsorcio.Home.alterarcodigo()
-GET         /novacarta                     controllers.Proconsorcio.Home.novacarta()
-GET         /detalhes/:id                  controllers.Proconsorcio.Home.detalhes(id)
-GET         /simulador                     controllers.Proconsorcio.Home.simulador()
-GET         /dadoscadastrais               controllers.Proconsorcio.Home.dadoscadastrais()
-POST        /dadoscadastrais               controllers.Proconsorcio.Handles.handleDadosCadastrais()
-GET         /escritorio                    controllers.Proconsorcio.Home.escritorio()
-GET         /faleconosco                   controllers.Proconsorcio.Home.faleconosco()
-GET         /getendereco/:cep              controllers.Proconsorcio.Home.getEndereco(cep)
-GET         /getuf                         controllers.Proconsorcio.Home.getUF()
-GET         /getbanco                      controllers.Proconsorcio.Home.getBanco()
+GET         /                              controllers.Proconsorcio.LandingPage.Home
+GET         /home                          controllers.Proconsorcio.Application.home
+GET         /pesquisa/:query               controllers.Proconsorcio.Application.pesquisa(query)
+GET         /pesquisa                      controllers.Proconsorcio.Application.pesquisa_clean
+GET         /alterarcodigo                 controllers.Proconsorcio.Application.alterarcodigo
+POST        /alterarcodigo                 controllers.Proconsorcio.Application.handleAlterarCodigo
+GET         /novacarta                     controllers.Proconsorcio.Application.novacarta
+GET         /detalhes/:id                  controllers.Proconsorcio.Application.detalhes(id)
+GET         /simulador                     controllers.Proconsorcio.Application.simulador
+GET         /dadoscadastrais               controllers.Proconsorcio.Application.dadoscadastrais()
+POST        /dadoscadastrais               controllers.Proconsorcio.Application.handleDadosCadastrais()
+GET         /escritorio                    controllers.Proconsorcio.Application.escritorio()
+GET         /faleconosco                   controllers.Proconsorcio.Application.faleconosco()
+GET         /getendereco/:cep              controllers.Proconsorcio.Application.getEndereco(cep)
+GET         /getuf                         controllers.Proconsorcio.Application.getUF()
+GET         /getbanco                      controllers.Proconsorcio.Application.getBanco()
 
 
 # Example of protected page

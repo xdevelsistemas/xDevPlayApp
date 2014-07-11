@@ -26,7 +26,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
                                msg: Option[String] = None): Html =
   {
     //views.html.Custom.login(form, msg)
-    views.html.Proconsorcio.main.render(views.html.Proconsorcio.login(form,msg), "Login", _user)
+    views.html.Proconsorcio.main.render(views.html.Proconsorcio.login(form,msg), "Login", _user,request)
 
   }
 
@@ -52,7 +52,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   override def getStartSignUpPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(form), "Registrar", _user)
+    views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(form), "Registrar", _user,request)
     //views.html.Custom.Registration.startSignUp(form)
   }
 
@@ -65,7 +65,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    */
   override def getStartResetPasswordPage[A](implicit request: Request[A], form: Form[String]): Html = {
     //views.html.Custom.Registration.startResetPassword(form)
-    views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startResetPassword(form), "Resetar Senha", _user)
+    views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startResetPassword(form), "Resetar Senha", _user,request)
   }
 
   /**
