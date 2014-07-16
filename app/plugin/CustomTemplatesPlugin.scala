@@ -104,12 +104,12 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
 
    /*
   def getSignUpEmail(token: String)(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.signUpEmail(token).body
+    views.html.Proconsorcio.mails.Registration.signUpEmail(token).body
   }
   */
 
   def getSignUpEmail(token: String)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.signUpEmail(token)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.signUpEmail(token)))
   }
 
   /**
@@ -122,12 +122,12 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
 
   /* 
   def getAlreadyRegisteredEmail(user: SocialUser)(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.alreadyRegisteredEmail(user).body
+    views.html.Proconsorcio.mails.Registration.alreadyRegisteredEmail(user).body
   }
   */
 
   def getAlreadyRegisteredEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.alreadyRegisteredEmail(user)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.alreadyRegisteredEmail(user)))
   }
 
 
@@ -140,11 +140,11 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    */
   /* 
   def getWelcomeEmail(user: SocialUser)(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.welcomeEmail(user).body
+    views.html.Proconsorcio.mails.Registration.welcomeEmail(user).body
   }
   */
   def getWelcomeEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.welcomeEmail(user)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.welcomeEmail(user)))
   }
 
   /**
@@ -156,12 +156,12 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    */
   /*
   def getUnknownEmailNotice()(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.unknownEmailNotice(request).body
+    views.html.Proconsorcio.mails.Registration.unknownEmailNotice(request).body
   }
   */
 
   def getUnknownEmailNotice()(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.unknownEmailNotice(request)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.unknownEmailNotice(request)))
   }
 
   /**
@@ -174,11 +174,11 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    */
    /*
   def getSendPasswordResetEmail(user: SocialUser, token: String)(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.passwordResetEmail(user, token).body
+    views.html.Proconsorcio.mails.Registration.passwordResetEmail(user, token).body
   }
   */
   def getSendPasswordResetEmail(user: Identity, token: String)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.passwordResetEmail(user, token)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.passwordResetEmail(user, token)))
   }
 
 
@@ -191,11 +191,11 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    */
   /* 
   def getPasswordChangedNoticeEmail(user: SocialUser)(implicit request: play.api.mvc.RequestHeader): String = {
-    views.html.Custom.mails.passwordChangedNotice(user).body
+    views.html.Proconsorcio.mails.Registration.passwordChangedNotice(user).body
   }
   */
   def getPasswordChangedNoticeEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.Custom.mails.passwordChangedNotice(user)))
+    (None, Some(views.html.Proconsorcio.mails.Registration.passwordChangedNotice(user)))
   }
 
 

@@ -1,0 +1,10 @@
+@(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader)
+@import securesocial.core.IdentityProvider
+<html>
+<body>
+<p>Bem Vindo @user.firstName ao ProConsórcios</p>
+<p>
+    Sua Conta está pronta.
+    Clique <a href="@securesocial.core.providers.utils.RoutesHelper.login.absoluteURL(IdentityProvider.sslEnabled)(request)">aqui</a> para entrar</p>
+</body>
+</html>
