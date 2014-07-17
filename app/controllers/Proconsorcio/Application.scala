@@ -80,8 +80,7 @@ object Application extends xDevController{
       if (usuario.get_numLogradouro == null) (new String("")) else usuario.get_numLogradouro,
       (new Some[String](if (usuario.get_numRg == null) (new String("")) else usuario.get_numRg)),
       if (usuario.get_numDocFederal == null) (new String("")) else usuario.get_numDocFederal)
-    var userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados
-    userForm = userForm.fill(regdata)
+    val userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados.fill(regdata)
 
 
     Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm, "", request), "Dados Cadastrais", _user,request))
