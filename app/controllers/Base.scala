@@ -1,6 +1,8 @@
 package controllers
 
 import play.api.mvc._
+import play.db.jpa.JPA
+import play.libs.F
 import securesocial.core.{SecureSocial, Identity}
 
 /**
@@ -12,6 +14,24 @@ class xDevController extends Controller  with securesocial.core.SecureSocial {
   def _user(implicit request: RequestHeader): Option[Identity] = {
     return SecureSocial.currentUser
   }
+
+
+
+//  def persist (block: Unit ) = {
+//    def exec = block
+//    JPA.withTransaction("default", false, new F.Function0[Void]  {
+//      def apply: Void = {
+//
+//        exec
+//
+//        return null
+//      }
+//
+//    })
+//
+//  }
+
+
 
   def _userdao : dao.UserDAO = new dao.UserDAO()
 

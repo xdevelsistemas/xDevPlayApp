@@ -16,6 +16,8 @@ import play.api.i18n.Messages
 import play.api.mvc._
 import play.api.templates.Html
 import play.api.{Logger, Play}
+import play.db.jpa.JPA
+import play.libs.F
 import securesocial.controllers.ProviderController
 import securesocial.controllers.Registration._
 import securesocial.core._
@@ -348,9 +350,15 @@ object CustomRegistration extends Controller {
             )
             val saved = UserService.save(user)
 
-            //todo se nao funcionar o preeenchimento dos usuários irei colocar aqui as persistencias
+            //TODO encapsular persistencias
+            JPA.withTransaction("default", false, new F.Function0[Void] {
+              def apply: Void = {
+                (new dao.UserDAO()).completarCadastro(user.email,form.bindFromRequest().value)
+                return null
+              }
+            })
 
-            (new dao.UserDAO()).completarCadastro(user.email,form.bindFromRequest().value)
+
 
 
             UserService.deleteToken(t.uuid)

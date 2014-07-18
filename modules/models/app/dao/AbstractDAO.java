@@ -83,21 +83,12 @@ public class AbstractDAO<T extends AbstractModel> {
         List<T> results = em.createQuery(cq).getResultList();
         return results;
     }
-    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+
     public T save(T o) {
-        if (!em.getTransaction().isActive()){
-            em.getTransaction().begin();
-        }
-
-
-
         if (o.uuid != null) {
-            T temp_o = em.merge(o);
-            em.getTransaction().commit();
-            return o;
+            return em.merge(o);
         } else {
             em.persist(o);
-            em.getTransaction().commit();
             return o;
         }
 

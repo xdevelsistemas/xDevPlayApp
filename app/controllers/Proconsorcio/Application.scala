@@ -1,5 +1,6 @@
 package controllers.Proconsorcio
 
+
 import com.typesafe.plugin._
 import play.api.data.Forms._
 import play.api.i18n.Messages
@@ -12,7 +13,10 @@ import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
 import models.User
 import play.api.data._
 import play.api.mvc.{Action}
+import play.db.jpa.JPA
+import play.libs.F
 import securesocial.controllers.Registration
+import securesocial.core.Identity
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
 
@@ -136,7 +140,15 @@ object Application extends xDevController{
       },
 
       success => {
-        (new UserDAO()).alterarCadastro(((RegistrationObjects.formAlterarDados)bindFromRequest()).value,_user.get.email.get)
+
+        //TODO encapsular persistencias
+        JPA.withTransaction("default", false, new F.Function0[Void] {
+          def apply: Void = {
+            _userdao.alterarCadastro(((RegistrationObjects.formAlterarDados)bindFromRequest()).value,_user.get.email.get)
+            return null
+          }
+        })
+
         play.api.mvc.Results.Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais((RegistrationObjects.formAlterarDados)bindFromRequest(),"Dados Alterados com Sucesso!"), "Dados Cadastrais",_user,request))
       }
 
@@ -168,7 +180,8 @@ object Application extends xDevController{
             ).verifying(Messages(Registration.PasswordsDoNotMatch), passwords => passwords._1 == passwords._2)
             )
         )
-        ((codigoAtual, numCodigo) => models.Cadastro.AlteraCodigoInfo(Some(codigoAtual), numCodigo._1))
+        ((codigoAtual, numCodigo) => models.Cadastro.AlteraCodigoInfo(Some(codigoAtual), numCodigo._1)
+          )
           ((changeInfo: models.Cadastro.AlteraCodigoInfo) => Some("", ("", "")))
       )
 
@@ -180,7 +193,13 @@ object Application extends xDevController{
       },
 
       success => {
-        _userdao.AlteranumCodigo(_user.get.email.get,formAlterarCodigo.bindFromRequest().value.get.numCodigo)
+        //TODO encapsular persistencias
+        JPA.withTransaction("default", false, new F.Function0[Void] {
+          def apply: Void = {
+            _userdao.AlteranumCodigo(_user.get.email.get, formAlterarCodigo.bindFromRequest().value.get.numCodigo)
+            return null
+          }
+        })
         Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.alterarcodigo(RegistrationObjects.formAlterarCodigo,"Código Alterado com Sucesso!"), "Alterar Código de Compra/Venda", _user,request))
       }
 

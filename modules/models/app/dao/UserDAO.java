@@ -41,7 +41,7 @@ public class UserDAO extends AbstractDAO<models.User> {
 
 
 
-    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+
     public  void  completarCadastro(Option<String> mail,Option <RegistrationInfo> form)
     {
         if (!form.isEmpty() && !mail.isEmpty()){
@@ -104,9 +104,6 @@ public class UserDAO extends AbstractDAO<models.User> {
                 save(user);
 
 
-
-
-
             }
 
 
@@ -115,7 +112,7 @@ public class UserDAO extends AbstractDAO<models.User> {
 
     }
 
-    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+
     public  void alterarCadastro(Option <AlterarDadosInfo> form, String email)
     {
         if (!form.isEmpty() && !email.isEmpty() ){
@@ -257,7 +254,7 @@ public class UserDAO extends AbstractDAO<models.User> {
         return xreturn;
     }
 
-    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+
     public boolean AlteranumCodigo(String email, String pass){
         models.User xUser = findOne("email",email);
         if (xUser != null){

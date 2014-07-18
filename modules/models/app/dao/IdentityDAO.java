@@ -23,7 +23,7 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
         return create(u, i, save);
     }
 
-    //TODO corrigir as persistencias utilizando classe anonima JPA.withTransaction
+
     public securesocial.core.Identity modify (securesocial.core.Identity i,boolean save) {
 
         Identity r     = findOne("email",i.email().get());
