@@ -207,6 +207,10 @@ object  RegistrationObjects extends Object {
 
 
 
+
+
+
+
     val formAlterarCodigo =
       Form[models.Cadastro.AlteraCodigoInfo](
         mapping(

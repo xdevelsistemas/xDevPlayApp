@@ -18,7 +18,7 @@ GET         /faleconosco                   controllers.Proconsorcio.Application.
 GET         /getendereco/:cep              controllers.Proconsorcio.Application.getEndereco(cep)
 GET         /getuf                         controllers.Proconsorcio.Application.getUF()
 GET         /getbanco                      controllers.Proconsorcio.Application.getBanco()
-
+POST        /signupmail                    plugin.CustomRegistration.handleStartSignUpMail()
 
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass

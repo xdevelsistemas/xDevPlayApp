@@ -8,8 +8,8 @@ import play.api.libs.json._
 import java.text.{SimpleDateFormat}
 import br.com.republicavirtual.{CepServiceVO, CepService}
 import controllers.xDevController
-import dao.{UserDAO}
-import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
+import dao.{IdentityDAO, UserDAO}
+import models.Cadastro.{ RegistrationObjects, AlterarDadosInfo}
 import models.User
 import play.api.data._
 import play.api.mvc.{Action}
@@ -72,7 +72,7 @@ object Application extends xDevController{
 
 
   def dadoscadastrais = SecuredAction { implicit request =>
-    val usuario: User = new UserDAO().findOne("email", _user.get.email.get)
+    val usuario: User = (new IdentityDAO).findOneByEmailAndProvider( _user.get.email.get,_user.get.identityId.providerId).user()
     val regdata: AlterarDadosInfo = new AlterarDadosInfo(
       usuario.realName,
       if (usuario.get_birthDate == null) (new String("")) else (new SimpleDateFormat("dd/MM/yyyy")).format(usuario.get_birthDate),
