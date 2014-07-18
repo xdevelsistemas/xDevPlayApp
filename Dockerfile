@@ -12,6 +12,7 @@ ADD	    modules /root/modules
 RUN         cd /root; /usr/local/activator/activator test stage
 RUN         rm /root/target/universal/stage/bin/*.bat
 # TESTS PASSED -- CONFIGURE IMAGE
+
 WORKDIR /root
 
 
