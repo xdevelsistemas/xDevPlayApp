@@ -270,9 +270,9 @@ object CustomRegistration extends Controller {
   def startSignUp = Action { implicit request =>
     if (registrationEnabled) {
       if ( SecureSocial.enableRefererAsOriginalUrl ) {
-        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request)))
+        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.App.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request)))
       } else {
-        Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request))
+        Ok(views.html.App.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request))
       }
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -315,7 +315,7 @@ object CustomRegistration extends Controller {
         Logger.debug("[securesocial] trying sign up with token %s".format(token))
       }
       executeForToken(token, true, { _ =>
-        Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.signUp(form,token), "Login", null,request))
+        Ok(views.html.App.main.render(views.html.App.Registration.signUp(form,token), "Login", null,request))
       })
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -333,7 +333,7 @@ object CustomRegistration extends Controller {
             if (Logger.isDebugEnabled) {
               Logger.debug("[securesocial] errors " + errors)
             }
-            BadRequest(views.html.Proconsorcio.main.render(views.html.App.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None,request))
+            BadRequest(views.html.App.main.render(views.html.App.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None,request))
           },
           info => {
             val id = if (UsernamePasswordProvider.withUserNameSupport) info.userName.get else t.email

@@ -41,33 +41,33 @@ object Application extends xDevController{
 
 
   def home  = UserAwareAction  { implicit request =>
-    Ok(views.html.Proconsorcio.main.render(
+    Ok(views.html.App.main.render(
       views.html.Proconsorcio.index.render(_userdao, _user)
       , "Pesquisa", _user,request))
   }
 
 
   def novacarta = SecuredAction { implicit request =>
-     Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.novacarta.render,"Nova Carta", _user,request))
+     Ok(views.html.App.main.render(views.html.Proconsorcio.novacarta.render,"Nova Carta", _user,request))
   }
 
 
 
   def detalhes(id: String) = Action { implicit request =>
-    Ok(views.html.Proconsorcio.main(views.html.Proconsorcio.detalhes.apply(id)(_user,request))("Pesquisa",_user,request))
+    Ok(views.html.App.main(views.html.Proconsorcio.detalhes.apply(id)(_user,request))("Pesquisa",_user,request))
   }
 
 
   def pesquisa(query: String) = Action { implicit request =>
-     Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query), "Pesquisa", _user,request))
+     Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query), "Pesquisa", _user,request))
   }
 
   def pesquisa_clean =  Action { implicit request =>
-     Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, ""), "Pesquisa", _user,request))
+     Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, ""), "Pesquisa", _user,request))
   }
 
   def simulador = Action { implicit request =>
-     Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.simulador.render(), "Simulador", _user,request))
+     Ok(views.html.App.main.render(views.html.Proconsorcio.simulador.render(), "Simulador", _user,request))
   }
 
 
@@ -87,16 +87,16 @@ object Application extends xDevController{
     val userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados.fill(regdata)
 
 
-    Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm, "", request), "Dados Cadastrais", _user,request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm, "", request), "Dados Cadastrais", _user,request))
   }
 
 
   def escritorio  = SecuredAction { implicit request =>
-    Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.escritorio.render, "Escritório Online", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio.render, "Escritório Online", _user, request))
   }
 
   def faleconosco = Action { implicit request =>
-    Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.faleconosco.render, "Fale Conosco", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render, "Fale Conosco", _user, request))
   }
 
 
@@ -135,7 +135,7 @@ object Application extends xDevController{
 
     RegistrationObjects.formAlterarDados.bindFromRequest.fold (
       errors => {
-        play.api.mvc.Results.BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais(errors,""), "Dados Cadastrais", _user,request))
+        play.api.mvc.Results.BadRequest(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(errors,""), "Dados Cadastrais", _user,request))
 
       },
 
@@ -149,7 +149,7 @@ object Application extends xDevController{
           }
         })
 
-        play.api.mvc.Results.Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.dadoscadastrais((RegistrationObjects.formAlterarDados)bindFromRequest(),"Dados Alterados com Sucesso!"), "Dados Cadastrais",_user,request))
+        play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais((RegistrationObjects.formAlterarDados)bindFromRequest(),"Dados Alterados com Sucesso!"), "Dados Cadastrais",_user,request))
       }
 
     )
@@ -159,7 +159,7 @@ object Application extends xDevController{
 
   def alterarcodigo = SecuredAction { implicit request =>
 
-    Ok(views.html.Proconsorcio.main.render(
+    Ok(views.html.App.main.render(
       views.html.Proconsorcio.alterarcodigo(RegistrationObjects.formAlterarCodigo,"")
       , "Alterar Codigo", _user,request))
   }
@@ -188,7 +188,7 @@ object Application extends xDevController{
     formAlterarCodigo.bindFromRequest.fold (
 
       errors => {
-        BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.alterarcodigo(errors,""), "Alterar Código de Compra/Venda", _user,request))
+        BadRequest(views.html.App.main.render(views.html.Proconsorcio.alterarcodigo(errors,""), "Alterar Código de Compra/Venda", _user,request))
 
       },
 
@@ -200,7 +200,7 @@ object Application extends xDevController{
             return null
           }
         })
-        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.alterarcodigo(RegistrationObjects.formAlterarCodigo,"Código Alterado com Sucesso!"), "Alterar Código de Compra/Venda", _user,request))
+        Ok(views.html.App.main.render(views.html.Proconsorcio.alterarcodigo(RegistrationObjects.formAlterarCodigo,"Código Alterado com Sucesso!"), "Alterar Código de Compra/Venda", _user,request))
       }
 
     )

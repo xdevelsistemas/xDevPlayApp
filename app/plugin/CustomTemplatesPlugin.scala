@@ -26,7 +26,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
                                msg: Option[String] = None): Html =
   {
     //views.html.Custom.login(form, msg)
-    views.html.Proconsorcio.main.render(views.html.Proconsorcio.login(form,msg), "Login", _user,request)
+    views.html.App.main.render(views.html.App.login(form,msg), "Login", _user,request)
 
   }
 
@@ -52,7 +52,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   override def getStartSignUpPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    views.html.Proconsorcio.main.render(views.html.App.Registration.startSignUp(form), "Registrar", _user,request)
+    views.html.App.main.render(views.html.App.Registration.startSignUp(form), "Registrar", _user,request)
   }
 
   /**
@@ -63,7 +63,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   override def getStartResetPasswordPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    views.html.Proconsorcio.main.render(views.html.App.Registration.startResetPassword(form), "Resetar Senha", _user,request)
+    views.html.App.main.render(views.html.App.Registration.startResetPassword(form), "Resetar Senha", _user,request)
   }
 
   /**
@@ -74,7 +74,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
    * @return
    */
   def getResetPasswordPage[A](implicit request: Request[A], form: Form[(String, String)], token: String): Html = {
-    views.html.Proconsorcio.main.render(views.html.App.Registration.resetPasswordPage(form, token), "Resetar Senha", _user,request)
+    views.html.App.main.render(views.html.App.Registration.resetPasswordPage(form, token), "Resetar Senha", _user,request)
   }
 
    /**
@@ -89,7 +89,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
 
      implicit def title = { "Alterar Senha" }
 
-     views.html.Proconsorcio.main(views.html.Proconsorcio.alterarsenha(form))
+     views.html.App.main(views.html.App.changePassword(form))
   }
 
   /**
@@ -198,7 +198,7 @@ class CustomTemplatesPlugin(application: play.Application) extends TemplatesPlug
 
 
   def getNotAuthorizedPage[A](implicit request: Request[A]): Html = {
-    views.html.Proconsorcio.main.render(views.html.App.notAuthorized(), "Não Autorizado", _user,request)
+    views.html.App.main.render(views.html.App.notAuthorized(), "Não Autorizado", _user,request)
   }
 
   private def _user(implicit request: RequestHeader): Option[Identity] = {
