@@ -1,0 +1,57 @@
+<div class="container" id="pagina-cadastroEnviado">
+    <div class="row">
+
+        <div id="main" class="span12">
+
+            <div class="login-register">
+                <h2>Seu cadastro foi enviado, obrigado.</h2>
+
+                <div class="row">
+
+                    <div class="span6 offset3">
+                        <article class="status-publish entry" style="line-height: 1.6em;">
+                            <header class="entry-header">
+                                <h1 class="page-header entry-title">
+                                    Atenção!
+                                </h1>
+
+                            </header>
+                                <!-- .entry-header -->
+
+                            <div class="entry-content">
+                                <p>
+                                    Recebemos o seu cadastro. Agora falta pouco para terminá-lo.
+                                    Enviamos um e-mail para você completar o seu cadastro.
+                                    Basta acessar o link no e-mail e seguir as instruções passadas pela mensagem.
+                                </p>
+                            </div>
+                                <!-- .entry-content -->
+                        </article>
+                            <!-- /#post -->
+                    </div>
+
+                </div>
+                    <!-- /.row -->
+            </div>
+                <!-- /.login-register -->
+
+        </div>
+            <!-- /#main -->
+
+    </div>
+        <!-- /.row -->
+</div>
+<!-- /.container -->
+
+<script>
+(function() {
+function checkHash() {
+if (window.location.hash == '#cadastro')
+$("a[href=#register]").trigger('click');
+}
+checkHash();
+$(window).on('hashchange', function() {
+checkHash();
+});
+})();
+</script>

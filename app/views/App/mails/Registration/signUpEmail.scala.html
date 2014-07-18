@@ -1,0 +1,15 @@
+@(token: String)(implicit request: play.api.mvc.RequestHeader)
+@import securesocial.core.IdentityProvider
+<html>
+    <body>
+    <p>Olá, Obrigado por demonstrar interesse em urtilizar o Proconsórcio</p>
+
+    <p>Estamos quase lá para terminarmos o seu cadastro!</p>
+    <p>Complete seus dados aqui
+        <a href="@_root_.plugin.CustomRoutesHelper.signUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)">link</a> para poder usufruir de nossa aplicação.
+    </p>
+    <p>
+        Bons Negócios
+    </p>
+    </body>
+</html>

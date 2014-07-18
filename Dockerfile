@@ -5,6 +5,7 @@ ADD         app /root/app
 ADD         test /root/test
 ADD         conf /root/conf
 ADD         public /root/public
+ADD         sbt /root/
 ADD         project   /root/project
 ADD	    modules /root/modules
 # TEST AND BUILD THE PROJECT -- FAILURE WILL HALT IMAGE CREATION
@@ -16,6 +17,6 @@ WORKDIR /root
 
 EXPOSE 9000
 
-#comando para executar a aplicacao rodando na porta 900
-ENTRYPOINT /root/target/universal/stage/bin/$(ls /root/target/universal/stage/bin/) -J-Xms128M -J-Xmx512M -J-server  -DConfig=application.conf  -DapplyEvolutions.default=true
+#comando para executar a aplicacao rodando na porta 9000
+ENTRYPOINT /root/target/universal/stage/bin/$(ls /root/target/universal/stage/bin/) -J-Xms128M -J-Xmx512M -J-server  -DConfig=application.prod.conf  -DapplyEvolutions.default=true
 

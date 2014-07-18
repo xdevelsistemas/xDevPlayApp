@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import models.AbstractModel;
-import models.Identity;
 import play.db.jpa.JPA;
 
 
@@ -20,8 +19,22 @@ public class AbstractDAO<T extends AbstractModel> {
     protected final EntityManager em;
     protected final CriteriaBuilder cb;
 
+
+
+
     protected AbstractDAO(Class<T> classType) {
-        this.em = JPA.em();
+        EntityManager temp_em;
+
+
+        try {
+            temp_em = JPA.em();
+        }catch (Exception e)
+        {
+            temp_em = JPA.em("default");
+        }
+
+
+        this.em = temp_em;
         this.cb = em.getCriteriaBuilder();
         this.classType = classType;
         try {
@@ -71,7 +84,6 @@ public class AbstractDAO<T extends AbstractModel> {
         return results;
     }
 
-    //TODO code review
     public T save(T o) {
         if (o.uuid != null) {
             return em.merge(o);
@@ -79,6 +91,8 @@ public class AbstractDAO<T extends AbstractModel> {
             em.persist(o);
             return o;
         }
+
+
     }
 
     public void delete(UUID uuid) {

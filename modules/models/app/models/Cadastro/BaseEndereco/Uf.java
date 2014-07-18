@@ -1,9 +1,7 @@
 package models.Cadastro.BaseEndereco;
-import  models.Base.*;
+import models.AbstractModel;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 /**
  * Created by claytonsantosdasilva on 05/06/14.
@@ -11,18 +9,30 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints={
-        @UniqueConstraint(columnNames={"name"})
+        @UniqueConstraint(columnNames={"SIGLA"})
 })
-public class Uf extends xDevEntity {
+public class Uf extends AbstractModel {
 
-    public String getName() {
-        return name;
+    public String get_name() {
+        return _name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void set_name(String name) {
+        this._name = name;
     }
 
-    private String name;
+    @Column(name = "NAME")
+    private String _name;
+
+    public String get_sigla() {
+        return _sigla;
+    }
+
+    @Column(name = "SIGLA")
+    public void set_sigla(String _sigla) {
+        this._sigla = _sigla;
+    }
+
+    private String _sigla;
 
 }

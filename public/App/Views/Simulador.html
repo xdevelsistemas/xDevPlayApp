@@ -1,0 +1,109 @@
+<div class="container" id="pagina-detalhes">
+    <div class="row">
+
+        <div id="main" class="span12 single-property">
+
+            <h1 class="page-header fl">Quanto vale a minha carta?</h1>
+
+            <div class="property-detail">
+
+                <div class="overview">
+                    <div class="overview">
+                        <div class="row">
+                            <div class="span8">
+                                <h2>Descubra em um instante com o nosso simulador!</h2>
+                                <p>
+                                    Quisque non dictum eros. Praesent porta vehicula arcu eu ornare. Donec id egestas arcu. Suspendisse auctor
+                                    condimentum ligula ultricies cursus. Vestibulum vel orci vel lacus rhoncus sagittis sed vitae mi. Pellentesque
+                                    molestie elit bibendum tincidunt semper. Aliquam ac volutpat risus. In felis felis, posuere commodo aliquet eget,
+                                    sagittis sed turpis. Phasellus commodo turpis non nunc egestas, et egestas felis pretium. Pellentesque dignissim
+                                    libero vitae tincidunt semper. Nam id ante nisi. Nam sollicitudin, dolor non suscipit feugiat, nibh lacus commodo
+                                    metus, nec tempus dui velit sagittis velit. Pellentesque elementum risus rhoncus justo porta, at varius odio
+                                    consequat. Duis non augue adipiscing, posuere quam non, tempus urna.
+                                </p>
+                            </div>
+                            <div class="span4 pull-right" >
+                                <div class="tab-content">
+                                    <form method="post"
+                                          action="javascript:void(0)">
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Valor de Crédito
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="credito">
+                                            </div>
+                                            <!-- /.controls -->
+                                        </div>
+                                        <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Valor das Prestações
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="prestacao">
+                                            </div>
+                                            <!-- /.controls -->
+                                        </div>
+                                        <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Prazo Restante (em meses)
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="prazo">
+                                            </div>
+                                            <!-- /.controls -->
+                                        </div>
+                                        <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                RESULTADO
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="resultado" disabled>
+                                            </div>
+                                            <!-- /.controls -->
+                                        </div>
+                                        <!-- /.control-group -->
+
+                                        <button class="btn btn-primary btn-large">
+                                            Calcular
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- /.span2 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.overview -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div> <!-- /.container -->
+
+<script>
+    (function() {
+        function checkHash() {
+            if (window.location.hash == '#cadastro')
+                $("a[href=#register]").trigger('click');
+        }
+        checkHash();
+        $(window).on('hashchange', function() {
+            checkHash();
+        });
+    })();
+</script>

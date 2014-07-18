@@ -1,0 +1,141 @@
+<div class="container" id="pagina-detalhes">
+    <div class="row">
+
+        <div id="main" class="span12 single-property">
+
+            <h1 class="page-header fl">Imóvel</h1>
+                <!--<span>Burrville</span>-->
+
+            <div class="property-detail">
+
+
+
+                <div class="overview">
+                    <div class="overview">
+                        <div class="row">
+                            <div class="span8">
+                                <h2 style="
+                                ">Rodobens</h2>
+
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Valor do Crédito</th>
+                                            <td class="price">
+                                                R$ 60.000,00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Código da Carta:</th>
+                                            <td><strong>000104</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Valor de entrada:</th>
+                                            <td>R$ 17.000,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Prazo</th>
+                                            <td>145 dias</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status:</th>
+                                            <td>Reservada</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Data de Vencimento:</th>
+                                            <td>
+                                                01/04/2022
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="span4 pull-right" >
+                                <div class="tab-content">
+                                    <form method="post"
+                                    action="javascript:void(0)">
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Ação
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <select required="required" name="acao">
+                                                    <option selected disabled>Selecione uma ação</option>
+                                                    <option>Ação 1</option>
+                                                    <option>Ação 2</option>
+                                                    <option>Ação 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Código de acesso
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="codigoAcesso[codigoAcesso]">
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Confirmar código de acesso
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" required="required" name="codigoAcesso[confirmacao]">
+                                            </div>
+                                                <!-- /.controls -->
+                                        </div>
+                                            <!-- /.control-group -->
+
+                                    </form>
+
+                                    <button class="btn btn-primary btn-large">
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+
+                                <!-- /.span2 -->
+                        </div>
+                            <!-- /.row -->
+                    </div>
+                        <!-- /.overview -->
+                </div>
+
+                <h2>Lorem Ipsum</h2>
+
+                <p>
+                    Quisque non dictum eros. Praesent porta vehicula arcu eu ornare. Donec id egestas arcu. Suspendisse auctor
+                    condimentum ligula ultricies cursus. Vestibulum vel orci vel lacus rhoncus sagittis sed vitae mi. Pellentesque
+                    molestie elit bibendum tincidunt semper. Aliquam ac volutpat risus. In felis felis, posuere commodo aliquet eget,
+                    sagittis sed turpis. Phasellus commodo turpis non nunc egestas, et egestas felis pretium. Pellentesque dignissim
+                    libero vitae tincidunt semper. Nam id ante nisi. Nam sollicitudin, dolor non suscipit feugiat, nibh lacus commodo
+                    metus, nec tempus dui velit sagittis velit. Pellentesque elementum risus rhoncus justo porta, at varius odio
+                    consequat. Duis non augue adipiscing, posuere quam non, tempus urna.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</div> <!-- /.container -->
+
+<script>
+(function() {
+function checkHash() {
+if (window.location.hash == '#cadastro')
+$("a[href=#register]").trigger('click');
+}
+checkHash();
+$(window).on('hashchange', function() {
+checkHash();
+});
+})();
+</script>

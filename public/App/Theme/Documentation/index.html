@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Realia - Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Aviators - byaviators.com">
+    <style>
+        pre {
+            font-size: 10px !important;
+        }
+
+        .com {
+            color: #93a1a1;
+        }
+
+        .lit {
+            color: #195f91;
+        }
+
+        .pun, .opn, .clo {
+            color: #93a1a1;
+        }
+
+        .fun {
+            color: #dc322f;
+        }
+
+        .str, .atv {
+            color: #D14;
+        }
+
+        .kwd, .prettyprint .tag {
+            color: #1e347b;
+        }
+
+        .typ, .atn, .dec, .var {
+            color: teal;
+        }
+
+        .pln {
+            color: #48484c;
+        }
+
+        .prettyprint {
+            padding: 8px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+        }
+
+        .prettyprint.linenums {
+            -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+            -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+            box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+        }
+
+            /* Specify class=linenums on a pre to get line numbering */
+        ol.linenums {
+            margin: 0 0 0 33px; /* IE indents via margin-left */
+        }
+
+        ol.linenums li {
+            padding-left: 12px;
+            color: #bebec5;
+            line-height: 20px;
+            text-shadow: 0 1px 0 #fff;
+        }
+    </style>
+    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/doc.js"></script>
+</head>
+
+<body>
+<div class="container">
+<div class="row">
+<div class="sidebar span2">
+    <ul class="nav nav-tabs nav-stacked affix" style="margin-top: 20px; width: 140px;">
+        <li><a href="#section-package-structure">Package structure</a></li>
+        <li><a href="#section-router">Router</a></li>
+        <li><a href="#section-templates">Templates</a></li>
+        <li><a href="#section-assets">Assets</a></li>
+    </ul>
+</div>
+<!-- /.sidebar -->
+
+<div class="content span10">
+    <br>
+
+    <div class="well hero-unit">
+
+        <h1 class="page-header">Thank you for buying Properta</h1>
+
+        <p>
+            If you have any questions don't hesitate and contact us at <a
+                href="info@byaviators.com">info@byaviators.com</a>.
+        </p>
+
+        <p>
+            Live version is available at <a href="http://html.properta.byaviators.com">http://html.properta.byaviators.com</a>.
+            In the downloaded version are not available sample images from live version.
+        </p>
+    </div>
+
+    <p>
+        Here is the list of all important components used in the theme. Everything is possible to find in our
+        HTML version but it is better to look in the PHP version where everything is divided into the
+        smaller files. HTML files are generated from PHP source codes. Theme is build on Boostrap.
+    </p>
+
+    <section id="section-package-structure">
+        <h1 class="page-header">Package structure</h1>
+
+        <p>
+            Package contains both - PHP and HTML versions of the theme. This documentation will focus on PHP
+            version as HTML plain codes are generated from PHP Files.
+        </p>
+
+        <h2>
+            Folder structure </h2>
+
+        <p>PHP version is placed in php folder of package and looks like.:</p>
+        <ul>
+            <li>
+                Assets
+                <ul>
+                    <li>
+                        css
+                    </li>
+                    <li>
+                        js
+                    </li>
+                    <li>
+                        img
+                    </li>
+                    <li>...</li>
+                </ul>
+            </li>
+            <li>
+                pages
+                <ul>
+                    <li>
+                        agencies
+                    </li>
+                    <li>
+                        agents
+                    </li>
+                    <li>
+                        properties
+                    </li>
+                    <li>
+                        ...
+                    </li>
+                </ul>
+            </li>
+            <li>
+                templates
+                <ul>
+                    <li>header</li>
+                    <li>main</li>
+                    <li>sidebar</li>
+                    <li>footer</li>
+                </ul>
+            </li>
+            <li>
+                index.php
+            </li>
+        </ul>
+        </h2>
+    </section>
+
+    <section id="section-router">
+        <h1 class="page-header">Router</h1>
+
+        <p>
+            Template uses very simple routing system. Router checks for pages in 'pages' directory. If the
+            proper include file is found, it will be displayed. If its not found, router will return 404 status
+            code and display appropriate page.
+        </p>
+
+        <h2>Examples</h2>
+
+        <p>
+            <strong>Route: /faq</strong> - Router opens '/pages/' directory and searches for file or faq.php
+        </p>
+
+        <p>
+            <strong>Route: /properties</strong> - Router opens '/pages/' directory and searches for file or
+            directory named properties.php. If available, page is displayed. If nothing is found, router will
+            make final try an search for index.php in context of /pages/properties/ folder. If index.php is
+            found, its displayed.
+        </p>
+
+        <p>
+            <strong>Route: /properties/property-detail</strong> - Router opens '/pages/properties/' directory
+            and searches for file named property-detail.php. If available, page is displayed.
+        </p>
+
+        <p>
+            <strong>Route: /properties/i-dont-exist</strong> - Router opens '/pages/properties/' directory
+            and searches for file named i-dont-exist.php. File will not be found and router will return 404
+            status code.
+        </p>
+    </section>
+
+
+    <section id="section-templates">
+        <h1 class="page-header">Templates</h1>
+
+        <p>
+            Template is divided into 4 main regions - Header, Footer, Main, Sidebar.
+            <br/>
+            Appropriate directories can be found if 'templates' directory.
+            <br/>
+            Each region contains set of reusable blocks - pieces of content, forms, listings.. etc.
+        </p>
+
+        <ul>
+            <li>Header
+                <ul>
+                    <li>
+                        block-map-extended-search.php - contains code for extended map <strong>vertical</strong> filter
+                    </li>
+                    <li>
+                        block-map-filter-horizontal.php - contains code for extended map <strong>horizontal</strong>
+                        filter
+                    </li>
+                    <li>
+                        navigation.php - contains code for displaying main navigation of theme.
+                    </li>
+                    <li>
+                        top.php - contains code for displaying language switcher, logo and social menu links.
+                    </li>
+                </ul>
+            </li>
+            <li>Main
+                <ul>
+                    <li>block-carousel-properties.php - displays properties in carousel form - displayed on frontpage
+                    </li>
+                    <li>block-featured-properties.php - displays grid of "featured" properties - displayed on
+                        frontpage
+                    </li>
+                    <li>block-features.php - displays grid of site features - displayed on frontpage</li>
+                    <li>block-partner.php - displays grid of site partners - displayed on frontpage</li>
+                    <li>block-recent-properties.php - displays grid of "recent" properties - displayed on frontpage</li>
+                </ul>
+            </li>
+            <li>Sidebar
+                <ul>
+                    <li>block-agencies.php - displays list of agencies for sidebar</li>
+                    <li>block-enquire-now.php - displays "enquire now" form which is displayed on property detail page
+                    </li>
+                    <li>block-extended-search.php - displays extended search form</li>
+                    <li>block-most-recent.php - displays list of "most recent" properties</li>
+                    <li>block-quick-search.php - displays simple search form - one field</li>
+                </ul>
+            </li>
+            <li>Footer - footer looks the same in the whole theme, thus it was not divided into smaller pieces.</li>
+        </ul>
+
+    </section>
+
+    <section id="section-assets">
+        <h1 class="page-header">Assets</h1>
+
+        <p>
+            All the required assets are included in main index.php file - css, js.
+        </p>
+
+        <p>
+            The main css files is located in '/assets/css/properta.css'. However this is generated from sass files
+            located
+            in '/assets/scss'.
+        </p>
+
+        <p>
+            If you dont have experience with sass and compass you can simply replace your properta.css (This file
+            generated
+            and thus its in minified version) with properta.ext.css - which is nicely structured.
+        </p>
+
+        <h2>Icons</h2>
+            <p>This template contains free set of pictopro icons. This set can be found in '/assets/icons'. Both sets contain Read Me.txt files which are explaining how to use PictoPro icons.</p>
+
+        <h2>Libraries</h2>
+        <p>This template contains 3rd party libraries:</p>
+        <ul>
+            <li>Bootstrap - to read more about Twitter bootstrap follow <a href="http://getbootstrap.com/2.3.2/">this link</a></li>
+            <li>Revolution Slider - documentation is available <a href="http://www.orbis-ingenieria.com/code/documentation/documentation.html">here</a></li>
+            <li>Chosen - info page is available <a href="http://harvesthq.github.io/chosen/">here</a></li>
+        </ul>
+
+    </section>
+</div>
+<!-- /.content -->
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container-->
+<script type="text/javascript"
+        src="http://twitter.github.io/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.prettyPrint && prettyPrint()
+    });
+</script>
+</body>
+</html>

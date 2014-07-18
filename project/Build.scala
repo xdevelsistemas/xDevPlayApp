@@ -2,12 +2,20 @@ import sbt._
 import sbt.Keys._
 import play.Project._
 import scala.collection.JavaConverters._
+import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
+import com.github.play2war.plugin._
+
 
 
 trait Options extends sbt.Build {
   val verbose   : Boolean
   val unchecked : Boolean
   val debug     : Boolean
+  
+  override def settings = super.settings ++ Seq(
+      EclipseKeys.skipParents in ThisBuild := false,
+      Play2WarKeys.servletVersion := "3.1"
+  )
 
   def defaultJavaSettings : Seq[String] = {
     val options = Seq("-encoding", "utf-8", "-proc:none")
@@ -85,7 +93,7 @@ trait Metamodel extends Options {
 object Build extends sbt.Build with Zap with Metamodel {
 
   val appName = "xDevPlayApp"
-  val appVersion = "0.1-SNAPSHOT"
+  val appVersion = "0.1-Proconsorcio-0.1"
 
   val verbose   = false
   val unchecked = false
@@ -105,7 +113,9 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
 
-  val MySQlVersion = "5.1.12"
+  val MySQlVersion = "5.1.31"
+
+  val xStreamVersion = "1.2.2"
 
 
 
@@ -120,7 +130,8 @@ object Build extends sbt.Build with Zap with Metamodel {
     javaJdbc,
     javaJpa,
     "org.eclipse.persistence" % "eclipselink" % eclipselinkVersion,
-    "org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    //"org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    "xstream" % "xstream" % xStreamVersion,
     "mysql" % "mysql-connector-java" % MySQlVersion,
     "ws.securesocial" %% "securesocial" % securesocialVersion
   )
@@ -163,7 +174,8 @@ object Build extends sbt.Build with Zap with Metamodel {
   ).settings(
       zap <<= zapTask,
       zap <<= zap.dependsOn(clean in Compile)
-    )
+
+    ).settings(Play2WarPlugin.play2WarSettings: _*)
     .aggregate(models)
     .dependsOn(models)
 

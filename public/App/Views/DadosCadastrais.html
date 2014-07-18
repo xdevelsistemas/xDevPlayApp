@@ -1,0 +1,294 @@
+<div class="container" id="pagina-dadosCadastrais">
+    <div class="row">
+
+        <div id="main" class="span12">
+
+            <div class="login-register">
+                <h2>Dados Cadastrais</h2>
+
+                <div class="row">
+                    <div class="span4">
+                        <h1>Dados Pessoais</h1>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="dadosPessoais">
+                                <form method="post"
+                                      action="javascript:void(0)">
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Nome Completo
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="nome">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Data de Nascimento
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="date" required="required" name="nascimento">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            CPF ou CNPJ
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="cpfCnpj" disabled>
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            RG
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="rg">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+
+                        <hr>
+                    </div>
+                    <!-- /.span4-->
+
+                    <div class="span4">
+                        <h1>Endereço</h1>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="endereco">
+                                <form method="post"
+                                      action="javascript:void(0)">
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Endereço
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="endereco">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Complemento
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="complemento" maxlength="50">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Estado
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select required="required" name="uf">
+                                                <option selected disabled>-</option>
+                                                <option>ES</option>
+                                                <option>RJ</option>
+                                                <option>SP</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Cidade
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="cidade">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Bairro
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="bairro">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            CEP
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="cep">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+
+                        <hr>
+                    </div>
+                    <!-- /.span4-->
+
+                    <div class="span4">
+                        <h1>Acesso</h1>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="acesso">
+                                <form method="post"
+                                      action="javascript:void(0)">
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            E-mail
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="email" required="required" name="email[email]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Confirmação do E-mail
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="email" required="required" name="email[confirmacao]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Nova senha
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="form-requisitos">
+                                            A senha deve conter no mínimo 8 caracteres e pelo menos 1 letra maiúscula e 2 números.
+                                        </div>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="senha[senha]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Confirmar nova senha
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="senha[confirmacao]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Código de acesso
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="form-requisitos">
+                                            O código de acesso deve ser diferente da senha e conter no mínimo 8 caracteres e pelo menos 1 letra maiúscula e 2 números.
+                                        </div>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="codigoAcesso[codigoAcesso]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Confirmar código de acesso
+                                            <span class="form-required" title="This field is required.">*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" required="required" name="codigoAcesso[confirmacao]">
+                                        </div>
+                                        <!-- /.controls -->
+                                    </div>
+                                    <!-- /.control-group -->
+
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+
+                        <hr>
+                    </div>
+                    <!-- /.span4-->
+
+
+                    <div class="span12 submission-form">
+                        <div class="form-actions">
+                            <input type="submit" class="btn btn-primary" value="Salvar">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.login-register -->
+
+        </div>
+        <!-- /#main -->
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+<script>
+    (function() {
+        function checkHash() {
+            if (window.location.hash == '#cadastro')
+                $("a[href=#register]").trigger('click');
+        }
+        checkHash();
+        $(window).on('hashchange', function() {
+            checkHash();
+        });
+    })();
+</script>

@@ -2,15 +2,13 @@ package dao;
 
 import java.util.Iterator;
 import java.util.ListIterator;
-
-import javax.persistence.EntityManager;
+import scala.Option;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import models.Identity;
 import models.User;
-import scala.Option;
+
 
 
 public class IdentityDAO extends AbstractDAO<models.Identity> {
@@ -23,6 +21,26 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
         final UserDAO userDAO = new UserDAO();
         final User u = userDAO.create(i, save);
         return create(u, i, save);
+    }
+
+
+    public securesocial.core.Identity modify (securesocial.core.Identity i,boolean save) {
+
+        Identity r     =  findOneByEmailAndProviderIdentity(i.email().get(),i.identityId().providerId());
+
+        if (i.passwordInfo().isDefined() && r.hasPasswordInfo) {
+
+            r.hasPasswordInfo = i.passwordInfo().isDefined();
+            r.passwordInfoHasher = i.passwordInfo().isDefined() ? i.passwordInfo().get().hasher() : null;
+            r.passwordInfoPassword = i.passwordInfo().isDefined() ? i.passwordInfo().get().password() : null;
+            r.passwordInfoSalt = i.passwordInfo().isDefined() ? toStr(i.passwordInfo().get().salt()) : null;
+        }
+
+        //if (save) save(r);
+        em.persist(r);
+
+
+        return i;
     }
 
     public UserIdentity create(User u, securesocial.core.Identity i, boolean save) {
@@ -93,6 +111,25 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
             return null;
         }
     }
+
+
+    public Identity findOneByEmailAndProviderIdentity (final String email, final String provider) {
+        CriteriaQuery<models.Identity> cq = cb.createQuery(models.Identity.class);
+        Root<models.Identity> root = cq.from(models.Identity.class);
+        final Predicate[] predicates = new Predicate[] {
+                cb.equal(root.get("email"), email),
+                cb.equal(root.get("provider"), provider) };
+        cq.where(predicates);
+        try {
+            Identity result = em.createQuery(cq).getSingleResult();
+            return result;
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+    }
+
+
+
 
     public Iterable<UserIdentity> findManyByEmail(final String email) {
         CriteriaQuery<models.Identity> cq = cb.createQuery(models.Identity.class);

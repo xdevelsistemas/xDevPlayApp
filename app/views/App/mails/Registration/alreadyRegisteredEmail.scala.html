@@ -1,0 +1,11 @@
+@(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader)
+@import securesocial.core.IdentityProvider
+
+<html>
+    <body>
+        <p>Olá @user.firstName,</p>
+
+        <p>Você tentou se inscrever, mas você já tem uma conta conosco. Se você não lembra da sua senha acesse
+            <a href="@securesocial.core.providers.utils.RoutesHelper.startResetPassword().absoluteURL(IdentityProvider.sslEnabled)(request)">aqui</a> para trocá-la.</p>
+    </body>
+</html>

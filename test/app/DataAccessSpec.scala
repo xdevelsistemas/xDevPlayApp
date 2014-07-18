@@ -9,8 +9,8 @@ import dao.{IdentityDAO, UserDAO}
 import play.db.jpa.JPA
 import play.libs.F.Callback0
 
-//class DataAccessSpec extends PlaySpecification with Mockito with SpecSettings {
-//
+class DataAccessSpec extends PlaySpecification with Mockito with SpecSettings {
+
 //  "IdentityDAO" should {
 //    "be able to find Identity given its IdentityId" in {
 //      new WithApplication(FakeApplication(withoutPlugins = withoutPlugins)) {
@@ -157,5 +157,5 @@ import play.libs.F.Callback0
 //      }
 //    }
 //  }
-//
-//}
+
+}
