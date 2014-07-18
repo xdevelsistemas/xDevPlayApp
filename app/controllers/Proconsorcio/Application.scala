@@ -33,8 +33,8 @@ object Application extends xDevController{
 
 
 
-  private def checkCurrentPassword(email: String , pass: String) = {
-    _userdao.verificanumCodigoDigitado(email,pass)
+  private def checkCurrentPassword(email: String , providerId : String , pass: String) = {
+    _userdao.verificanumCodigoDigitado(email,providerId,pass)
   }
 
 
@@ -144,7 +144,7 @@ object Application extends xDevController{
         //TODO encapsular persistencias
         JPA.withTransaction("default", false, new F.Function0[Void] {
           def apply: Void = {
-            _userdao.alterarCadastro(((RegistrationObjects.formAlterarDados)bindFromRequest()).value,_user.get.email.get)
+            _userdao.alterarCadastro(((RegistrationObjects.formAlterarDados)bindFromRequest()).value,_user.get.email.get, _user.get.identityId.providerId)
             return null
           }
         })
@@ -171,7 +171,7 @@ object Application extends xDevController{
       Form[models.Cadastro.AlteraCodigoInfo](
         mapping(
           CodigoAtual -> text.verifying(
-            Messages(InvalidPasswordMessage), checkCurrentPassword(_user.get.email.get,_)),
+            Messages(InvalidPasswordMessage), checkCurrentPassword(_user.get.email.get,_user.get.identityId.providerId ,_)),
           (NumCodigo ->
             tuple(
               Password1 -> nonEmptyText.verifying(use[PasswordValidator].errorMessage,
@@ -196,7 +196,7 @@ object Application extends xDevController{
         //TODO encapsular persistencias
         JPA.withTransaction("default", false, new F.Function0[Void] {
           def apply: Void = {
-            _userdao.AlteranumCodigo(_user.get.email.get, formAlterarCodigo.bindFromRequest().value.get.numCodigo)
+            _userdao.AlteranumCodigo(_user.get.email.get,_user.get.identityId.providerId, formAlterarCodigo.bindFromRequest().value.get.numCodigo)
             return null
           }
         })

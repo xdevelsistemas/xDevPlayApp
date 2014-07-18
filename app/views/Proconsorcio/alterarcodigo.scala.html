@@ -31,7 +31,7 @@
                             <div class="tab-pane active" id="login">
                                 <form method="post">
 
-                                    @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get)) {
+                                    @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get, SecureSocial.currentUser.get.identityId.providerId)) {
                                         <div class="control-group">
                                             <label class="control-label">
                                                 Código de acesso atual

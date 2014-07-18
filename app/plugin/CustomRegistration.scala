@@ -353,7 +353,7 @@ object CustomRegistration extends Controller {
             //TODO encapsular persistencias
             JPA.withTransaction("default", false, new F.Function0[Void] {
               def apply: Void = {
-                (new dao.UserDAO()).completarCadastro(user.email,form.bindFromRequest().value)
+                (new dao.UserDAO()).completarCadastro(user.email,Some(user.identityId.providerId) ,form.bindFromRequest().value)
                 return null
               }
             })

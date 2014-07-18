@@ -25,6 +25,7 @@ public class UserDAO extends AbstractDAO<models.User> {
     public models.User create(securesocial.core.Identity i, boolean save) {
         models.User o = new models.User();
         o.email = i.email().get();
+        o.providerId = i.identityId().providerId();
         if (i.fullName() != null) {
             o.realName = i.fullName();
         } else if (i.firstName() != null) {
@@ -42,10 +43,11 @@ public class UserDAO extends AbstractDAO<models.User> {
 
 
 
-    public  void  completarCadastro(Option<String> mail,Option <RegistrationInfo> form)
+    public  void  completarCadastro(Option<String> mail,Option<String> providerId ,Option <RegistrationInfo> form)
     {
-        if (!form.isEmpty() && !mail.isEmpty()){
-            models.User user = findOne("email",mail.get());
+        if (!form.isEmpty() && !mail.isEmpty() && !providerId.isEmpty() ){
+            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(mail.get(),providerId.get()).user();
+
             if  (user!= null) {
 
                 //em.getTransaction().begin();
@@ -113,10 +115,10 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public  void alterarCadastro(Option <AlterarDadosInfo> form, String email)
+    public  void alterarCadastro(Option <AlterarDadosInfo> form, String email, String providerId)
     {
         if (!form.isEmpty() && !email.isEmpty() ){
-            models.User user = findOne("email", email);
+            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
             if  (user!= null) {
 
 
@@ -183,8 +185,8 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public  boolean verificaCadastro(String  email){
-        models.User xUser = findOne("email",email);
+    public  boolean verificaCadastro(String  email, String providerId ){
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
         boolean xreturn  = true;
         if (xUser != null){
 
@@ -211,8 +213,8 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public  boolean verificanumCodigo(String  email){
-        models.User xUser = findOne("email",email);
+    public  boolean verificanumCodigo(String  email, String providerId){
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
         boolean xreturn  = true;
         if (xUser != null){
 
@@ -228,8 +230,8 @@ public class UserDAO extends AbstractDAO<models.User> {
         return xreturn;
     }
 
-    public  boolean verificanumCodigoDigitado(String email, String pass){
-        models.User xUser = findOne("email",email);
+    public  boolean verificanumCodigoDigitado(String email,String providerId , String pass){
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
         boolean xreturn  = true;
         if (xUser != null){
 
@@ -255,8 +257,8 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public boolean AlteranumCodigo(String email, String pass){
-        models.User xUser = findOne("email",email);
+    public boolean AlteranumCodigo(String email, String providerId , String pass){
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
         if (xUser != null){
 
           xUser.set_codigoAcesso(pass);

@@ -26,7 +26,7 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
 
     public securesocial.core.Identity modify (securesocial.core.Identity i,boolean save) {
 
-        Identity r     = findOne("email",i.email().get());
+        Identity r     =  findOneByEmailAndProviderIdentity(i.email().get(),i.identityId().providerId());
 
         if (i.passwordInfo().isDefined() && r.hasPasswordInfo) {
 
@@ -107,6 +107,22 @@ public class IdentityDAO extends AbstractDAO<models.Identity> {
         try {
             Identity result = em.createQuery(cq).getSingleResult();
             return wrap(result);
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+    }
+
+
+    public Identity findOneByEmailAndProviderIdentity (final String email, final String provider) {
+        CriteriaQuery<models.Identity> cq = cb.createQuery(models.Identity.class);
+        Root<models.Identity> root = cq.from(models.Identity.class);
+        final Predicate[] predicates = new Predicate[] {
+                cb.equal(root.get("email"), email),
+                cb.equal(root.get("provider"), provider) };
+        cq.where(predicates);
+        try {
+            Identity result = em.createQuery(cq).getSingleResult();
+            return result;
         } catch (javax.persistence.NoResultException e) {
             return null;
         }

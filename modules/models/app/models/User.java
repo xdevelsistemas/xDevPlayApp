@@ -20,7 +20,7 @@ import java.util.Date;
 
 @Entity
 @Table(uniqueConstraints={
-        @UniqueConstraint(columnNames={"email"})
+        @UniqueConstraint(columnNames={"email","providerId"})
 })
 public class User extends AbstractModel {
 
@@ -29,6 +29,9 @@ public class User extends AbstractModel {
 
     @NotNull(message="Campo 'Nome' não pode ser nulo")
     public String realName;
+
+    @NotNull(message="Campo 'Nome' não pode ser nulo")
+    public String providerId;
 
     @Temporal(TemporalType.DATE)
     @Column(name="BIRTHDATE")

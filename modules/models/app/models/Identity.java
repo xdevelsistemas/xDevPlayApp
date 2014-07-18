@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames={"username", "provider"}),
-        @UniqueConstraint(columnNames={"email"})
+        @UniqueConstraint(columnNames={"email","provider"})
 })
 public class Identity extends AbstractModel {
 
