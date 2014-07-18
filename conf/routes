@@ -37,7 +37,7 @@ POST        /signup/:token                 plugin.CustomRegistration.handleSignU
 GET         /reset                         securesocial.controllers.Registration.startResetPassword
 POST        /reset                         securesocial.controllers.Registration.handleStartResetPassword
 GET         /reset/:token                  securesocial.controllers.Registration.resetPassword(token)
-POST        /reset/:token                  securesocial.controllers.Registration.handleResetPassword(token)
+POST        /reset/:token                  plugin.CustomRegistration.handleResetPassword(token)
 GET         /password                      securesocial.controllers.PasswordChange.page
 POST        /password                      securesocial.controllers.PasswordChange.handlePasswordChange
 

@@ -18,7 +18,7 @@ import play.api.templates.Html
 import play.api.{Logger, Play}
 import play.db.jpa.JPA
 import play.libs.F
-import securesocial.controllers.ProviderController
+import securesocial.controllers.{TemplatesPlugin, ProviderController}
 import securesocial.controllers.Registration._
 import securesocial.core._
 import securesocial.core.providers.utils._
@@ -270,9 +270,9 @@ object CustomRegistration extends Controller {
   def startSignUp = Action { implicit request =>
     if (registrationEnabled) {
       if ( SecureSocial.enableRefererAsOriginalUrl ) {
-        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null,request)))
+        SecureSocial.withRefererAsOriginalUrl(Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request)))
       } else {
-        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.startSignUp(startForm), "Registrar", null,request))
+        Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.startSignUp(startForm), "Registrar", null,request))
       }
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -284,7 +284,7 @@ object CustomRegistration extends Controller {
     if (registrationEnabled) {
       startForm.bindFromRequest.fold (
         errors => {
-          BadRequest(views.html.Proconsorcio.Registration.startSignUp(errors))
+          BadRequest(views.html.App.Registration.startSignUp(errors))
         },
         email => {
           // check if there is already an account for this email address
@@ -315,7 +315,7 @@ object CustomRegistration extends Controller {
         Logger.debug("[securesocial] trying sign up with token %s".format(token))
       }
       executeForToken(token, true, { _ =>
-        Ok(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(form,token), "Login", null,request))
+        Ok(views.html.Proconsorcio.main.render(views.html.App.Registration.signUp(form,token), "Login", null,request))
       })
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
@@ -333,7 +333,7 @@ object CustomRegistration extends Controller {
             if (Logger.isDebugEnabled) {
               Logger.debug("[securesocial] errors " + errors)
             }
-            BadRequest(views.html.Proconsorcio.main.render(views.html.Proconsorcio.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None,request))
+            BadRequest(views.html.Proconsorcio.main.render(views.html.App.Registration.signUp(errors, t.uuid), "Dados Cadastrais", None,request))
           },
           info => {
             val id = if (UsernamePasswordProvider.withUserNameSupport) info.userName.get else t.email
@@ -381,6 +381,34 @@ object CustomRegistration extends Controller {
   }
 
 
+
+  def handleResetPassword(token: String) = Action { implicit request =>
+    executeForToken(token, false, { t=>
+      changePasswordForm.bindFromRequest.fold( errors => {
+        BadRequest(use[TemplatesPlugin].getResetPasswordPage(request, errors, token))
+      },
+        p => {
+          val (toFlash, eventSession) = UserService.findByEmailAndProvider(t.email, UsernamePasswordProvider.UsernamePassword) match {
+            case Some(user) => {
+              val hashed = Registry.hashers.currentHasher.hash(p._1)
+              val updated = UserService.save( SocialUser(user).copy(passwordInfo = Some(hashed)) )
+              UserService.deleteToken(token)
+              Mailer.sendPasswordChangedNotice(updated)
+              val eventSession = Events.fire(new PasswordResetEvent(updated))
+              ( (Success -> Messages(PasswordUpdated)), eventSession)
+            }
+            case _ => {
+              Logger.error("[securesocial] could not find user with email %s during password reset".format(t.email))
+              ( (Error -> Messages(ErrorUpdatingPassword)), None)
+            }
+          }
+          val result = Redirect(onHandleResetPasswordGoTo).flashing(toFlash)
+          eventSession.map( result.withSession(_) ).getOrElse(result)
+        })
+    })
+  }
+
+
 }
 
 object CustomRoutesHelper {
@@ -393,6 +421,7 @@ object CustomRoutesHelper {
     def signUp(token: String): Call
     def handleStartSignUp(): Call
     def startSignUp(): Call
+    def handleResetPassword(token : String) : Call
 
   }]
 
@@ -404,6 +433,8 @@ object CustomRoutesHelper {
   def handleStartSignUp() = registrationMethods.handleStartSignUp()
 
   def startSignUp() = registrationMethods.startSignUp()
+
+  def handleResetPassword(token: String) = registrationMethods.handleResetPassword(token)
 
 
 }
