@@ -15,7 +15,7 @@
             </div>
         }
 
-        <div class="sidebar span3" id="caixa-filtros">
+        <div class="sidebar span3" id="caixa-filtros" ng-app="App" ng-controller="Filtros">
             <h2 data-bind="text: tituloCaixaFiltros()"></h2>
 
             <div class="property-filter widget">
@@ -38,8 +38,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <button class="btn btn-primary btn-large"
-                            data-bind="text: textoBotaoFiltrar()"></button>
+                            <button class="btn btn-primary btn-large" ng-click="pay()">{{textoBotaoFiltrar}}</button>
                         </div>
                             <!-- /.form-actions -->
                     </form>
