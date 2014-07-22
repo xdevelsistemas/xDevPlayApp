@@ -1,29 +1,49 @@
+html, body{
+    height: 100%;
+}
+
+
+#page-container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -89px;
+}
+
+#push{
+    height: 89px;
+}
+#footer-wrapper{
+    height: 84px;
+}
+
+
+
 dd.error {
     color: red;
     font-weight: bolder;
 }
 
-
-.logo img{
+.logo img {
     max-height: 42px;
 }
 
-
-@media (max-width: 445px){
+@media (max-width: 445px) {
     .menu-item a {
-        color: white!important;
-    }   
+        color: white !important;
+    }
 }
 
-#content{
+#content {
     min-height: 400px;
     padding-top: 1em;
 }
 
-#pagina-dadosCadastrais .tab-content{
+#pagina-dadosCadastrais .tab-content {
     min-height: 544px;
 }
-#pagina-novaCarta .tab-content{
+
+#pagina-novaCarta .tab-content {
     min-height: 296px;
 }
 
@@ -60,7 +80,7 @@ select {
     right: 5px;
 }
 
-#pagina-escritorio{
+#pagina-escritorio {
     overflow: auto;
 }
 
@@ -70,7 +90,8 @@ select {
     position: relative;
     margin-bottom: 8px;
 }
-#pagina-detalhes button.btn.btn-primary.btn-large ::after{
+
+#pagina-detalhes button.btn.btn-primary.btn-large ::after {
     -webkit-transition: 0.2s;
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
@@ -90,9 +111,10 @@ select {
     right: 0;
 }
 
-#pagina-detalhes button.btn.btn-primary.btn-large.edit ::after{
+#pagina-detalhes button.btn.btn-primary.btn-large.edit ::after {
     content: "\e06e";
 }
-#pagina-detalhes button.btn.btn-primary.btn-large.remove ::after{
+
+#pagina-detalhes button.btn.btn-primary.btn-large.remove ::after {
     content: "\e04b";
 }
