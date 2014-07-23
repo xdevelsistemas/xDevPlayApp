@@ -1,3 +1,6 @@
+require([], function($){
+
+});
 angular.module('Pesquisa', [])
     .controller('Filtros', function ($scope, $http) {
         $http.get('/assets/App/Mockup/Filtros.json').success(function (data) {
