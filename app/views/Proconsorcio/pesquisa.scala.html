@@ -10,7 +10,6 @@
                 Aqui </strong> </a>
             </div>
         }
-
         @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
             <div class="alert alert-info " role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
@@ -50,7 +49,7 @@
 
             <h1 class="page-header">Resultados</h1>
 
-            <div class="clearfix">
+            <div class="clearfix"></div>
 
                 <div class="properties-rows">
                     <div class="filter-wrapper">
@@ -87,28 +86,30 @@
                 <div class="clearfix"></div>
 
                 <div ng-controller="Resultados" class="properties-rows" id="resultadosPesquisa">
-                    <div ng-repeat="resultado in resultados" class="property span9">
-                        <div class="row">
-                            <div class="body span9">
-                                <div class="title-price row">
-                                    <div class="title span9">
-                                        <h2><a href="property-detail.html">
-                                            {{resultado.administradora.nome}}</a></h2>
+                    <div class="row">
+                        <div ng-repeat="resultado in resultados" class="property span9">
+                            <div class="row">
+                                <div class="body span9">
+                                    <div class="title-price row">
+                                        <div class="title span9">
+                                            <h2><a href="property-detail.html">
+                                                {{resultado.administradora.nome}}</a></h2>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clear">
-                                </div>
-                                <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
-                                <div class="location">{{resultado.tipo.nome}}</div>
-                                <div class="body">
-                                    <p>{{resultado.descricaoBreve}}</p>
-                                </div>
-                                <div class="property-info clearfix">
-                                    <div class="more-info">
-                                        <a href="{{'/detalhes/' + codigo}}">
-                                            Mais Informações
-                                            <i class="icon icon-normal-right-arrow-circle"></i>
-                                        </a>
+                                    <div class="clear">
+                                    </div>
+                                    <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
+                                    <div class="location">{{resultado.tipo.nome}}</div>
+                                    <div class="body">
+                                        <p>{{resultado.descricaoBreve}}</p>
+                                    </div>
+                                    <div class="property-info clearfix">
+                                        <div class="more-info">
+                                            <a href="{{'/detalhes/' + codigo}}">
+                                                Mais Informações
+                                                <i class="icon icon-normal-right-arrow-circle"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -129,8 +130,6 @@
                         <li><a href="#">Última</a></li>
                     </ul>
                 </div>
-
-            </div>
 
         </div>
     </div>
