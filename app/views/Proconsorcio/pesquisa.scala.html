@@ -1,5 +1,5 @@
 @(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
-<div ng-app="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+<div nong-app="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
             <div class="alert alert-info" role="alert">
@@ -135,4 +135,4 @@
     </div>
 </div>
 
-<script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>
+@*<script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>*@
