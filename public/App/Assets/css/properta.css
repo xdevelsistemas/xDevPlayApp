@@ -52,7 +52,7 @@
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
     transition: 0.2s;
-    background-image: url("../../Content/img/down-arrow.png") !important;
+    background-image: url("../../Assets/img/down-arrow.png") !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: 8px 6px !important;
