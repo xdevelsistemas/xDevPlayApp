@@ -30,5 +30,5 @@ require(['domReady!', 'angular', 'app', 'jquery', 'jqPlugins'],
     function () {
         $("select").chosen();
         angular.bootstrap(document, ['Pesquisa']);
-        $("body").css({opacity:'1'});
+        $("#all-content").css({opacity:'1'});
     });
