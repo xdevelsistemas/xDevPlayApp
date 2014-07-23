@@ -1,53 +1,50 @@
-@(implicit userdao : dao.UserDAO,  user : Option[securesocial.core.Identity],query: String)
-<div class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
+<div ng-app="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     <div class="row">
-        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get,user.get.identityId.providerId)) ){
-            <div class="alert alert-info"  role="alert">
+        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+            <div class="alert alert-info" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                @{user.get.firstName}, Finalize seus dados Cadastrais clicando  <a  href="/dadoscadastrais"><strong style="color: darkblue"> Aqui </strong> </a>
+                @{
+                    user.get.firstName
+                }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
+                Aqui </strong> </a>
             </div>
         }
 
-        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get,user.get.identityId.providerId)) ){
-            <div class="alert alert-info "  role="alert">
+        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
+            <div class="alert alert-info " role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                @{user.get.firstName}, Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color: darkblue"> Aqui </strong> </a>
+                @{
+                    user.get.firstName
+                }
+                , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
+                Aqui </strong> </a>
             </div>
         }
 
-        <div class="sidebar span3" id="caixa-filtros" ng-app="App" ng-controller="Filtros">
-            <h2 data-bind="text: tituloCaixaFiltros()"></h2>
-
+        <div ng-controller="Filtros" class="sidebar span3" id="caixa-filtros">
+            <h2>{{tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
                     <form method="get" action="javascript:void(0);">
-                        <div data-bind="foreach: filtros()">
-                            <div class="location control-group">
-                                <label class="control-label"
-                                data-bind="text: descricao()">
-                                </label>
-                                <div class="controls">
-                                    <select name="filter_location">
-                                        <option>-</option>
-                                            <!--ko foreach: lista()-->
-                                        <option data-bind="value: codigo(), text: descricao()"></option>
-                                            <!--/ko-->
-                                    </select>
-                                </div>
+                        <div ng-repeat="filtro in filtros" class="location control-group">
+                            <label class="control-label">{{filtro.descricao}}</label>
+                            <div class="controls">
+                                <select name="filter_location">
+                                    <option selected disabled></option>
+                                    <option ng-repeat="item in filtro.lista"
+                                    value="{{item.codigo}}">{{item.descricao}}</option>
+                                </select>
                             </div>
                         </div>
-
                         <div class="form-actions">
-                            <button class="btn btn-primary btn-large" ng-click="pay()">{{textoBotaoFiltrar}}</button>
+                            <button class="btn btn-primary btn-large" ng-click="filtrar()">
+                                {{textoBotaoFiltrar}}</button>
                         </div>
-                            <!-- /.form-actions -->
                     </form>
                 </div>
-                    <!-- /.content -->
-            </div> <!-- /.property-filter -->
-
+            </div>
         </div>
-            <!-- /#sidebar -->
 
         <div id="main" class="span9 property-listing">
 
@@ -58,15 +55,14 @@
                 <div class="properties-rows">
                     <div class="filter-wrapper">
                         <div class="filter pull-right">
-                            <form action="javascript:void(0)" method="get" class="form-sort form-horizontal pull-right">
-
+                            <form action="javascript:void(0)" method="get"
+                            class="form-sort form-horizontal pull-right">
                                 <div class="pager pull-right">
                                     <ul class="pager">
                                         <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
                                         <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
                                     </ul>
-                                </div> <!-- /.pager -->
-
+                                </div>
                                 <div class="control-group pull-right">
                                     <div class="controls">
                                         <select name="filter_sort_by" id="inputSortBy">
@@ -75,74 +71,50 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="control-group pull-right">
                                     <div class="controls">
                                         <select id="inputOrder" name="filter_order" class="chosen">
                                             <option value="ASC" >Crescente</option>
                                             <option value="DESC" >Decrescente</option>
                                         </select>
-                                    </div> <!-- /.controls -->
-                                </div> <!-- /.control-group -->
+                                    </div>
+                                </div>
                             </form>
-                                <!-- /.filter -->
                         </div>
                     </div>
-                        <!-- /.properties-rows --> </div>
+                </div>
 
                 <div class="clearfix"></div>
 
-
-                <div class="properties-rows" id="resultadosPesquisa">
-                    <div class="row" data-bind="foreach: resultados()">
-
-                        <div class="property span9">
-                            <div class="row">
-                                <div class="body span9">
-                                    <div class="title-price row">
-                                        <div class="title span9" style="margin-bottom : 12px ;">
-                                            <h2><a href="property-detail.html"
-                                            data-bind="text:administradora.nome()">
-                                                </a>
-                                            </h2>
-                                        </div>
-                                            <!-- /.title -->
+                <div ng-controller="Resultados" class="properties-rows" id="resultadosPesquisa">
+                    <div ng-repeat="resultado in resultados" class="property span9">
+                        <div class="row">
+                            <div class="body span9">
+                                <div class="title-price row">
+                                    <div class="title span9">
+                                        <h2><a href="property-detail.html">
+                                            {{resultado.administradora.nome}}</a></h2>
                                     </div>
-                                    <div class="clear">
-                                    </div>
-                                    <div class="price" data-bind="text: 'R$ '+valorDoBem()" style="margin-top : 12px ;"></div>
-                                    <!-- /.price -->
-                                    <!-- /.title -->
-                                    <div class="location" data-bind="text: tipo.nome()" style="margin-top : 12px ;"></div>
-                                    <!-- /.location -->
-                                    <div class="body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus
-                                            sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti.
-                                            Cras f ...
-                                        </p>
-                                    </div>
-                                        <!-- /.body -->
-
-                                    <div class="property-info clearfix">
-                                        <div class="more-info">
-                                            <a data-bind="attr{ href: /detalhes/ +codigo() }">
-                                                Mais Informações
-                                                <i class="icon icon-normal-right-arrow-circle"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                        <!-- /.info -->
                                 </div>
-                                    <!-- /.body -->
+                                <div class="clear">
+                                </div>
+                                <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
+                                <div class="location">{{resultado.tipo.nome}}</div>
+                                <div class="body">
+                                    <p>{{resultado.descricaoBreve}}</p>
+                                </div>
+                                <div class="property-info clearfix">
+                                    <div class="more-info">
+                                        <a href="{{'/detalhes/' + codigo}}">
+                                            Mais Informações
+                                            <i class="icon icon-normal-right-arrow-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                                <!-- /.row -->
                         </div>
-                            <!-- /.property -->
-
                     </div>
-                        <!-- /.row -->
                 </div>
-                    <!-- /.properties-grid -->
 
                 <div class="pagination pagination-centered">
                     <ul class="unstyled">
@@ -160,12 +132,8 @@
 
             </div>
 
-                <!-- /#main -->
-
         </div>
-            <!-- /.list -->
     </div>
-        <!-- /.row -->
 </div>
-<!--/.container -->
+
 <script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>

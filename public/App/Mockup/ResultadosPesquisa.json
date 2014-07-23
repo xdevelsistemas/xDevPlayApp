@@ -10,7 +10,8 @@
             "administradora": {
                 "codigo": "1",
                 "nome": "Carro"
-            }
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
         },
         {
             "codigo": "1",
@@ -22,7 +23,8 @@
             "administradora": {
                 "codigo": "1",
                 "nome": "Carro"
-            }
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
         },
         {
             "codigo": "1",
@@ -34,7 +36,8 @@
             "administradora": {
                 "codigo": "1",
                 "nome": "Carro"
-            }
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
         }
     ]
 }

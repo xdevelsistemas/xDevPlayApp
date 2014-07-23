@@ -1,7 +1,6 @@
-html, body{
+html, body {
     height: 100%;
 }
-
 
 #page-container {
     min-height: 100%;
@@ -10,14 +9,13 @@ html, body{
     margin: 0 auto -89px;
 }
 
-#push{
+#push {
     height: 89px;
 }
-#footer-wrapper{
+
+#footer-wrapper {
     height: 84px;
 }
-
-
 
 dd.error {
     color: red;
@@ -117,4 +115,12 @@ select {
 
 #pagina-detalhes button.btn.btn-primary.btn-large.remove ::after {
     content: "\e04b";
+}
+
+#resultadosPesquisa .price, #resultadosPesquisa .location {
+    margin-top: 12px;
+}
+
+#resultadosPesquisa .title-price .title {
+    margin-bottom: 12px;
 }
