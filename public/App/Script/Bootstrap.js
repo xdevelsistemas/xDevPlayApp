@@ -5,6 +5,8 @@
 define([
     'require',
     'angular',
+    'jquery',
+    'jqueryPlugins',
     'App',
     'Routes'
 ], function (require, ng) {
@@ -15,7 +17,13 @@ define([
      * using the `run` function on the top-level module
      */
 
+
     require(['domReady!'], function (document) {
         ng.bootstrap(document, ['App']);
+        //TODO arrancar essa gambiarra e passar para uma directive
+        window.setTimeout(function () {
+            $("select").chosen();
+            $("#all-content").css({opacity: '1'});
+        }, 250);
     });
 });

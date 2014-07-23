@@ -5,10 +5,16 @@
  */
 require.config({
 
+    "urlArgs": "v=" + (new Date()).getTime(),
+
     paths: {
         'angular': '../Libs/angular/angular',
         'angular-route': '../Libs/angular-route/angular-route',
-        'domReady': '../Libs/requirejs-domready/domReady'
+        'domReady': '../Libs/requirejs-domready/domReady',
+        'jquery': '../Libs/jquery',
+        'jqueryPlugins': '../Libs/jqueryPlugins',
+        'select2localePtBR': '../Libs/select2/select2_locale_pt-BR',
+        'properta': 'js/properta'
     },
 
     /**
@@ -21,7 +27,9 @@ require.config({
         },
         'angular-route': {
             deps: ['angular']
-        }
+        },
+        'select2localePtBR': ['jqueryPlugins'],
+        'properta': ['select2localePtBR']
     },
 
     deps: [
