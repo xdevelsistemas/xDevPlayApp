@@ -25,20 +25,22 @@
             <h2>{{tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
-                    <form method="get" action="javascript:void(0);">
+                    <form method="get" action="/pesquisa">
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label class="control-label">{{filtro.descricao}}</label>
                             <div class="controls">
-                                <select name="filter_location">
-                                    <option selected disabled></option>
-                                    <option ng-repeat="item in filtro.lista"
-                                    value="{{item.codigo}}">{{item.descricao}}</option>
+                                <select ng-model="filtro.selecionado"
+                                ng-options="item.codigo as item.descricao for item in filtro.lista">
+                                    <option value="-1">-</option>
                                 </select>
+                                <input name="{{filtro.codigo}}" type="hidden" value="{{filtro.selecionado}}">
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button class="btn btn-primary btn-large" ng-click="filtrar()">
+                            <button class="btn btn-primary btn-large" type="submit">
                                 {{textoBotaoFiltrar}}</button>
+                            @*<button class="btn btn-primary btn-large" ng-click="filtrar()">*@
+                            @*{{textoBotaoFiltrar}}</button>*@
                         </div>
                     </form>
                 </div>
@@ -51,88 +53,88 @@
 
             <div class="clearfix"></div>
 
-                <div class="properties-rows">
-                    <div class="filter-wrapper">
-                        <div class="filter pull-right">
-                            <form action="javascript:void(0)" method="get"
-                            class="form-sort form-horizontal pull-right">
-                                <div class="pager pull-right">
-                                    <ul class="pager">
-                                        <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
-                                        <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
-                                    </ul>
+            <div class="properties-rows">
+                <div class="filter-wrapper">
+                    <div class="filter pull-right">
+                        <form action="javascript:void(0)" method="get"
+                        class="form-sort form-horizontal pull-right">
+                            <div class="pager pull-right">
+                                <ul class="pager">
+                                    <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
+                                    <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="control-group pull-right">
+                                <div class="controls">
+                                    <select name="filter_sort_by" id="inputSortBy">
+                                        <option value="price" >Preço</option>
+                                        <option value="published" >Administradora</option>
+                                    </select>
                                 </div>
-                                <div class="control-group pull-right">
-                                    <div class="controls">
-                                        <select name="filter_sort_by" id="inputSortBy">
-                                            <option value="price" >Preço</option>
-                                            <option value="published" >Administradora</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="control-group pull-right">
+                                <div class="controls">
+                                    <select id="inputOrder" name="filter_order" class="chosen">
+                                        <option value="ASC" >Crescente</option>
+                                        <option value="DESC" >Decrescente</option>
+                                    </select>
                                 </div>
-                                <div class="control-group pull-right">
-                                    <div class="controls">
-                                        <select id="inputOrder" name="filter_order" class="chosen">
-                                            <option value="ASC" >Crescente</option>
-                                            <option value="DESC" >Decrescente</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-                <div ng-controller="Pesquisa-Resultados" class="properties-rows" id="resultadosPesquisa">
-                    <div class="row">
-                        <div ng-repeat="resultado in resultados" class="property span9">
-                            <div class="row">
-                                <div class="body span9">
-                                    <div class="title-price row">
-                                        <div class="title span9">
-                                            <h2><a href="property-detail.html">
-                                                {{resultado.administradora.nome}}</a></h2>
-                                        </div>
+            <div ng-controller="Pesquisa-Resultados" class="properties-rows" id="resultadosPesquisa">
+                <div class="row">
+                    <div ng-repeat="resultado in resultados" class="property span9">
+                        <div class="row">
+                            <div class="body span9">
+                                <div class="title-price row">
+                                    <div class="title span9">
+                                        <h2><a href="property-detail.html">
+                                                {{resultado.administradora.nome}}</a>
+                                        </h2>
                                     </div>
-                                    <div class="clear">
+                                </div>
+                                <div class="clear">
                                     </div>
-                                    <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
-                                    <div class="location">{{resultado.tipo.nome}}</div>
-                                    <div class="body">
-                                        <p>{{resultado.descricaoBreve}}</p>
-                                    </div>
-                                    <div class="property-info clearfix">
-                                        <div class="more-info">
-                                            <a href="{{'/detalhes/' + codigo}}">
+                                <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
+                                <div class="location">{{resultado.tipo.nome}}</div>
+                                <div class="body">
+                                    <p>{{resultado.descricaoBreve}}</p>
+                                </div>
+                                <div class="property-info clearfix">
+                                    <div class="more-info">
+                                        <a href="{{'/detalhes/' + codigo}}">
                                                 Mais Informações
-                                                <i class="icon icon-normal-right-arrow-circle"></i>
-                                            </a>
-                                        </div>
+                                            <i class="icon icon-normal-right-arrow-circle"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="pagination pagination-centered">
-                    <ul class="unstyled">
-                        <li><a href="#">Primeira</a></li>
-                        <li><a href="#">Anterior</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li class="active"><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">Próxima</a></li>
-                        <li><a href="#">Última</a></li>
-                    </ul>
-                </div>
+            <div class="pagination pagination-centered">
+                <ul class="unstyled">
+                    <li><a href="#">Primeira</a></li>
+                    <li><a href="#">Anterior</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li class="active"><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Próxima</a></li>
+                    <li><a href="#">Última</a></li>
+                </ul>
+            </div>
 
         </div>
     </div>
 </div>
-
 @*<script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>*@

@@ -3,20 +3,25 @@
     "textoBotaoFiltrar": "Filtrar!",
     "filtros": [
         {
-            "codigo": "1",
+            "codigo": "tipo",
             "descricao": "Quero consórcios de",
+            "selecionado": "2",
             "lista": [
+                {
+                    "codigo": "-1",
+                    "descricao": "-"
+                },
                 {
                     "codigo": "1",
                     "descricao": "Imóveis"
                 },
                 {
-                    "codigo": "2",
-                    "descricao": "Carros"
+                    "codigo": "6",
+                    "descricao": "Caminhões"
                 },
                 {
-                    "codigo": "3",
-                    "descricao": "Caminhões"
+                    "codigo": "2",
+                    "descricao": "Carros"
                 },
                 {
                     "codigo": "4",
@@ -29,8 +34,9 @@
             ]
         },
         {
-            "codigo": "2",
+            "codigo": "administradora",
             "descricao": "Administradora",
+            "selecionado": "-1",
             "lista": [
                 {
                     "codigo": "1",
@@ -39,8 +45,9 @@
             ]
         },
         {
-            "codigo": "3",
+            "codigo": "valor_credito",
             "descricao": "Valor de Crédito",
+            "selecionado": "1",
             "lista": [
                 {
                     "codigo": "1",
@@ -53,8 +60,9 @@
             ]
         },
         {
-            "codigo": "4",
+            "codigo": "contemplacao",
             "descricao": "Contemplação",
+            "selecionado": "-1",
             "lista": [
                 {
                     "codigo": "1",
@@ -67,8 +75,9 @@
             ]
         },
         {
-            "codigo": "5",
+            "codigo": "valor_parcelas",
             "descricao": "Valor das parcelas",
+            "selecionado": "-1",
             "lista": [
                 {
                     "codigo": "1",
@@ -81,8 +90,9 @@
             ]
         },
         {
-            "codigo": "6",
+            "codigo": "prazo_restante",
             "descricao": "Prazo restante",
+            "selecionado": "1",
             "lista": [
                 {
                     "codigo": "1",
@@ -96,7 +106,6 @@
                     "codigo": "3",
                     "descricao": "acima de 2 meses"
                 }
-
             ]
         }
     ]
