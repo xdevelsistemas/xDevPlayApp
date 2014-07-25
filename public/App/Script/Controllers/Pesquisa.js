@@ -16,12 +16,20 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         });
 
         $scope.buscarResultados = function () {
-            var objQuery = QueryString.toObject(QUERY_FILTROS);
+            var qFiltros = "";
+            var xFiltros = $scope.filtros;
+            for (var k in xFiltros) {
+                qFiltros += xFiltros[k].codigo + "=" + xFiltros[k].selecionado;
+                if (k < Object.keys(xFiltros).length - 1)
+                    qFiltros += "&";
+            }
+            var objQuery = QueryString.toObject(qFiltros);
             var query = $.param(angular.extend(objQuery, {
                 ordenador: $scope.ordenadores.selecionado,
                 ordem: $scope.ordem.selecionada,
                 pagina: $scope.paginas.selecionada
             }));
+            console.log(('/assets/App/Mockup/ResultadosPesquisa.json' + '?' + query));
             $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + '?' + query).success(function (data) {
                 angular.extend($scope, data);
             });
@@ -76,5 +84,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             var t = parseInt($scope.paginas.total);
             return t < 5 ? t : 5;
         }
-    }]);
+    }
+    ])
+    ;
 });
