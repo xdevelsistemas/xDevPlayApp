@@ -58,8 +58,8 @@
                         class="form-sort form-horizontal pull-right">
                             <div class="pager pull-right">
                                 <ul class="pager">
-                                    <li><a href="#" ng-click="buscarResultados()"><i class="icon icon-normal-left-arrow-small"></i></a></li>
-                                    <li><a href="#" ng-click="buscarResultados()"><i class="icon icon-normal-right-arrow-small"></i></a></li>
+                                    <li><a href="#" ng-click="voltarPagina()"><i class="icon icon-normal-left-arrow-small"></i></a></li>
+                                    <li><a href="#" ng-click="passarPagina()"><i class="icon icon-normal-right-arrow-small"></i></a></li>
                                 </ul>
                             </div>
                             <div class="control-group pull-right">
@@ -118,15 +118,15 @@
 
             <div class="pagination pagination-centered">
                 <ul class="unstyled">
-                    <li><a href="#">Primeira</a></li>
-                    <li><a href="#">Anterior</a></li>
+                    <li><a href="#" ng-click="primeiraPagina()">Primeira</a></li>
+                    <li><a href="#" ng-click="voltarPagina()">Anterior</a></li>
                     <li><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
                     <li class="active"><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
-                    <li><a href="#">Próxima</a></li>
-                    <li><a href="#">Última</a></li>
+                    <li><a href="#" ng-click="passarPagina()">Próxima</a></li>
+                    <li><a href="#" ng-click="ultimaPagina()">Última</a></li>
                 </ul>
             </div>
 

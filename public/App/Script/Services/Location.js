@@ -8,11 +8,15 @@ define(['./__module__'], function (services) {
             search: {
                 toObj: function () {
                     var search = location.search.substring(1);
-                    return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+                    try {
+                        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+                    }
+                    catch (e) {
+                        return new Object();
+                    }
                 }
             }
         }
     }
-    ])
-    ;
+    ]);
 });

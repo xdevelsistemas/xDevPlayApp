@@ -27,6 +27,37 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $scope.paginas.selecionada = '1';
             $scope.buscarResultados();
         }
+
+        $scope.passarPagina = function () {
+            var p = parseInt($scope.paginas.selecionada);
+            var t = parseInt($scope.paginas.total);
+            console.log('antes da condição', p);
+            if (p < t) {
+                $scope.paginas.selecionada = p + 1;
+                console.log('dentro da condição', $scope.paginas.selecionada);
+                $scope.buscarResultados();
+            }
+        }
+
+        $scope.voltarPagina = function () {
+            var p = parseInt($scope.paginas.selecionada);
+            console.log('antes da condição', p);
+            if (p > 1) {
+                console.log('dentro da condição', p);
+                $scope.paginas.selecionada = p - 1;
+                $scope.buscarResultados();
+            }
+        }
+
+        $scope.ultimaPagina = function () {
+            $scope.paginas.selecionada = $scope.paginas.total;
+            $scope.buscarResultados();
+        }
+        $scope.primeiraPagina = function () {
+            $scope.paginas.selecionada = 1;
+            $scope.buscarResultados();
+        }
+
     }]);
 });
 
