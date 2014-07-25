@@ -124,11 +124,10 @@
                 <ul class="unstyled">
                     <li><a href="#" ng-click="primeiraPagina()">Primeira</a></li>
                     <li><a href="#" ng-click="voltarPagina()">Anterior</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li class="active"><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    <li ng-repeat="n in [] | Range:paginasExibidas()"
+                    ng-class="{active: paginaSelecionada($index+paginasPassadas())}">
+                        <a href="#" ng-click="irParaPagina($index+paginasPassadas())">
+                            {{$index+paginasPassadas()}}</a></li>
                     <li><a href="#" ng-click="passarPagina()">Próxima</a></li>
                     <li><a href="#" ng-click="ultimaPagina()">Última</a></li>
                 </ul>
@@ -137,4 +136,3 @@
         </div>
     </div>
 </div>
-@*<script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>*@
