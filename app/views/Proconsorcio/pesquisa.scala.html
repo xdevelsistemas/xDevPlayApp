@@ -1,5 +1,5 @@
 @(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
-<div nong-app="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+<div ng-controller="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
             <div class="alert alert-info" role="alert">
@@ -21,7 +21,7 @@
             </div>
         }
 
-        <div ng-controller="Pesquisa-Filtros" class="sidebar span3" id="caixa-filtros">
+        <div class="sidebar span3" id="caixa-filtros">
             <h2>{{tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
@@ -39,8 +39,6 @@
                         <div class="form-actions">
                             <button class="btn btn-primary btn-large" type="submit">
                                 {{textoBotaoFiltrar}}</button>
-                            @*<button class="btn btn-primary btn-large" ng-click="filtrar()">*@
-                            @*{{textoBotaoFiltrar}}</button>*@
                         </div>
                     </form>
                 </div>
@@ -60,23 +58,21 @@
                         class="form-sort form-horizontal pull-right">
                             <div class="pager pull-right">
                                 <ul class="pager">
-                                    <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
-                                    <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
+                                    <li><a href="#" ng-click="buscarResultados()"><i class="icon icon-normal-left-arrow-small"></i></a></li>
+                                    <li><a href="#" ng-click="buscarResultados()"><i class="icon icon-normal-right-arrow-small"></i></a></li>
                                 </ul>
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select name="filter_sort_by" id="inputSortBy">
-                                        <option value="price" >Preço</option>
-                                        <option value="published" >Administradora</option>
+                                    <select ng-model="ordenadores.selecionado" ng-change="ordenarResultado()"
+                                    ng-options="ordenador.codigo as ordenador.descricao for ordenador in ordenadores.lista">
                                     </select>
                                 </div>
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select id="inputOrder" name="filter_order" class="chosen">
-                                        <option value="ASC" >Crescente</option>
-                                        <option value="DESC" >Decrescente</option>
+                                    <select ng-model="ordem.selecionada" ng-change="ordenarResultado()"
+                                    ng-options="ordem.codigo as ordem.descricao for ordem in ordem.lista">
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +83,7 @@
 
             <div class="clearfix"></div>
 
-            <div ng-controller="Pesquisa-Resultados" class="properties-rows" id="resultadosPesquisa">
+            <div class="properties-rows" id="resultadosPesquisa">
                 <div class="row">
                     <div ng-repeat="resultado in resultados" class="property span9">
                         <div class="row">

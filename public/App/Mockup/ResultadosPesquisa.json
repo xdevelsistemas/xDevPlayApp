@@ -39,5 +39,35 @@
             },
             "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
         }
-    ]
+    ],
+    "paginas": {
+        "total": "10",
+        "selecionada": "1"
+    },
+    "ordenadores": {
+        "selecionado": "administradora",
+        "lista": [
+            {
+                "codigo": "preco",
+                "descricao": "Preço"
+            },
+            {
+                "codigo": "administradora",
+                "descricao": "Administradora"
+            }
+        ]
+    },
+    "ordem": {
+        "selecionada": "desc",
+        "lista": [
+            {
+                "codigo": "asc",
+                "descricao": "Crescente"
+            },
+            {
+                "codigo": "desc",
+                "descricao": "Decrescente"
+            }
+        ]
+    }
 }

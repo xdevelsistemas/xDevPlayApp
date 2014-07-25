@@ -1,15 +1,16 @@
-@(signUpForm:play.api.data.Form[models.Cadastro.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
+@(signUpForm: play.api.data.Form[models.Cadastro.RegistrationInfo], token: String)(implicit request: play.api.mvc.RequestHeader)
 @import securesocial.core.providers.UsernamePasswordProvider
 @import securesocial.core.IdentityProvider
 @import helper._
-@implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
-
+    @implicitFieldConstructor = @{
+        FieldConstructor(securesocial.views.html.inputFieldConstructor.f)
+    }
 
 
 @request.flash.get("error").map { msg =>
-        <div class="alert alert-error">
-            @msg
-        </div>
+    <div class="alert alert-error">
+        @msg
+    </div>
 }
 
 <form action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
@@ -23,7 +24,7 @@
                             <h1>Dados Pessoais</h1>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="dadosPessoais">
-                                    @if( UsernamePasswordProvider.withUserNameSupport ) {
+                                    @if(UsernamePasswordProvider.withUserNameSupport) {
 
                                         <div class="control-group">
                                             <label class="control-label">
@@ -60,7 +61,7 @@
                                         <label class="control-label">
                                             Data de Nascimento
                                         </label>
-                                        <div class="controls date"  data-date-format="dd/mm/yyyy">
+                                        <div class="controls date" data-date-format="dd/mm/yyyy">
                                         @helper.inputText(
                                             signUpForm("birthDate"),
                                             '_label -> "",
@@ -158,7 +159,6 @@
                                         )
                                         </div>
                                     </div>
-
 
 
                                     <div class="control-group">
@@ -303,8 +303,6 @@
                         </div>
 
 
-
-
                         <div class="span12 submission-form">
                             <hr>
                             <div class="form-actions">
@@ -328,9 +326,9 @@
 
 
 </form>
-<script type="application/javascript"  src="@routes.Assets.at("App/Script/App/SignUp.js")"></script>
+<script type="application/javascript" src="@routes.Assets.at("App/Script/_view_scripts/SignUp.js")"></script>
 <script type="application/javascript">
-function jqueryLoaded() {
+function jqueryLoaded ( ) {
 SignUpload ( ) ;
 }
 </script>
