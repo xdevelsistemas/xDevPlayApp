@@ -12,11 +12,13 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         });
 
         $scope.buscarResultados = function () {
-            var query = $.param(angular.extend(Location.toObject(QUERY_FILTROS), {
+            var objQuery = Location.toObject(QUERY_FILTROS);
+            console.log('objQuery', objQuery);
+            var query = $.param(angular.extend(objQuery), {
                 ordenador: $scope.ordenadores.selecionado,
                 ordem: $scope.ordem.selecionada,
                 pagina: $scope.paginas.selecionada
-            }));
+            });
             console.log(query);
             $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + '?' + query).success(function (data) {
                 angular.extend($scope, data);
@@ -31,22 +33,24 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.passarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
             var t = parseInt($scope.paginas.total);
-            console.log('antes da condição', p);
+            console.log('p', p);
             if (p < t) {
+                console.log('menor que o total(' + t + ')');
                 $scope.paginas.selecionada = p + 1;
-                console.log('dentro da condição', $scope.paginas.selecionada);
                 $scope.buscarResultados();
             }
+            console.log('selecionada', $scope.paginas.selecionada);
         }
 
         $scope.voltarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
-            console.log('antes da condição', p);
+            console.log('p', p);
             if (p > 1) {
-                console.log('dentro da condição', p);
+                console.log('maior que 1');
                 $scope.paginas.selecionada = p - 1;
                 $scope.buscarResultados();
             }
+            console.log('selecionada', $scope.paginas.selecionada);
         }
 
         $scope.ultimaPagina = function () {

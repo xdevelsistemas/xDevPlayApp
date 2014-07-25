@@ -3,7 +3,12 @@ define(['./__module__'], function (services) {
     services.factory('Location', [function () {
         return {
             toObject: function (query) {
-                return JSON.parse('{"' + decodeURI(query).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+                try {
+                    return JSON.parse('{"' + decodeURI(query).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+                }
+                catch (e) {
+                    return new Object();
+                }
             },
             search: {
                 toObj: function () {
