@@ -1,45 +1,54 @@
 {
-    "resultados": [
-        {
-            "codigo": "1",
-            "valorDoBem": "80000",
-            "tipo": {
-                "codigo": "1",
-                "nome": "Rodobens"
-            },
-            "administradora": {
-                "codigo": "1",
-                "nome": "Carro"
-            },
-            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
+    "resultados": {
+        "titulo": {
+            "nenhum": "Nenhum resultado encontrado",
+            "um": "Somente um resultados encontrado",
+            "varios": "%l Resultados encontrados"
         },
-        {
-            "codigo": "1",
-            "valorDoBem": "90000",
-            "tipo": {
+        "textoDetalhes": "Mais Informações",
+        "total": "3",
+        "lista": [
+            {
                 "codigo": "1",
-                "nome": "Rodobens"
+                "valorDoBem": "80000",
+                "tipo": {
+                    "codigo": "1",
+                    "nome": "Rodobens"
+                },
+                "administradora": {
+                    "codigo": "1",
+                    "nome": "Carro"
+                },
+                "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
             },
-            "administradora": {
-                "codigo": "1",
-                "nome": "Carro"
+            {
+                "codigo": "123",
+                "valorDoBem": "90000",
+                "tipo": {
+                    "codigo": "1",
+                    "nome": "Rodobens"
+                },
+                "administradora": {
+                    "codigo": "1",
+                    "nome": "Carro"
+                },
+                "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
             },
-            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
-        },
-        {
-            "codigo": "1",
-            "valorDoBem": "60000",
-            "tipo": {
-                "codigo": "1",
-                "nome": "Rodobens"
-            },
-            "administradora": {
-                "codigo": "1",
-                "nome": "Carro"
-            },
-            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
-        }
-    ],
+            {
+                "codigo": "42",
+                "valorDoBem": "60000",
+                "tipo": {
+                    "codigo": "1",
+                    "nome": "Rodobens"
+                },
+                "administradora": {
+                    "codigo": "1",
+                    "nome": "Carro"
+                },
+                "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
+            }
+        ]
+    },
     "paginas": {
         "total": "15",
         "selecionada": "7"

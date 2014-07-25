@@ -47,7 +47,7 @@
 
         <div id="main" class="span9 property-listing">
 
-            <h1 class="page-header">Resultados</h1>
+            <h1 class="page-header">{{tituloResultados()}}</h1>
 
             <div class="clearfix"></div>
 
@@ -89,7 +89,7 @@
 
             <div class="properties-rows" id="resultadosPesquisa">
                 <div class="row">
-                    <div ng-repeat="resultado in resultados" class="property span9">
+                    <div ng-repeat="resultado in resultados.lista" class="property span9">
                         <div class="row">
                             <div class="body span9">
                                 <div class="title-price row">
@@ -108,8 +108,8 @@
                                 </div>
                                 <div class="property-info clearfix">
                                     <div class="more-info">
-                                        <a href="{{'/detalhes/' + codigo}}">
-                                            Mais Informações
+                                        <a href="{{'/detalhes/' + resultado.codigo}}">
+                                            {{resultados.textoDetalhes}}
                                             <i class="icon icon-normal-right-arrow-circle"></i>
                                         </a>
                                     </div>

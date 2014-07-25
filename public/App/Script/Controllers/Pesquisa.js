@@ -5,8 +5,15 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         $scope.paginas = {
             selecionada: 1,
-            total: 10
-        }
+            total: 1
+        };
+        $scope.resultados = {
+            titulo: {
+                um: "",
+                nenhum: "",
+                varios: ""
+            }
+        };
 
         $http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
             angular.extend($scope, data);
@@ -29,10 +36,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 ordem: $scope.ordem.selecionada,
                 pagina: $scope.paginas.selecionada
             }));
-            console.log(('/assets/App/Mockup/ResultadosPesquisa.json' + '?' + query));
             $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + '?' + query).success(function (data) {
                 angular.extend($scope, data);
             });
+        };
+
+        $scope.tituloResultados = function () {
+            var l = $scope.resultados.lista.length;
+            if (l == 0)return $scope.resultados.titulo.nenhum;
+            else if (l == 1)return $scope.resultados.titulo.um;
+            else return $scope.resultados.titulo.varios.replace("%l", l);
         };
 
         $scope.irParaPagina = function (codigo) {
@@ -41,34 +54,29 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
 
         $scope.ordenarResultado = function () {
-            $scope.paginas.selecionada = 1;
-            $scope.buscarResultados();
+            $scope.irParaPagina(1);
         };
 
         $scope.passarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
             var t = parseInt($scope.paginas.total);
             if (p < t) {
-                $scope.paginas.selecionada = p + 1;
-                $scope.buscarResultados();
+                $scope.irParaPagina(p + 1);
             }
         };
         $scope.voltarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
             if (p > 1) {
-                $scope.paginas.selecionada = p - 1;
-                $scope.buscarResultados();
+                $scope.irParaPagina(p - 1);
             }
         };
-
         $scope.ultimaPagina = function () {
-            $scope.paginas.selecionada = $scope.paginas.total;
-            $scope.buscarResultados();
+            $scope.irParaPagina($scope.paginas.total);
         };
         $scope.primeiraPagina = function () {
-            $scope.paginas.selecionada = 1;
-            $scope.buscarResultados();
+            $scope.irParaPagina(1);
         };
+
         $scope.paginaSelecionada = function (codigo) {
             return (parseInt(codigo) == $scope.paginas.selecionada);
         };
@@ -87,4 +95,5 @@ define(['./__module__', 'jquery'], function (controllers, $) {
     }
     ])
     ;
-});
+})
+;
