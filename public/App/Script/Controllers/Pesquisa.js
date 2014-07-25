@@ -1,6 +1,6 @@
 define(['./__module__', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('Pesquisa', ['$scope', '$http', 'Location', function ($scope, $http, Location) {
+    controllers.controller('Pesquisa', ['$scope', '$http', 'QueryString', function ($scope, $http, QueryString) {
         var QUERY_FILTROS = window.location.search;
 
         $http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
@@ -11,7 +11,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         });
 
         $scope.buscarResultados = function () {
-            var objQuery = Location.toObject(QUERY_FILTROS);
+            var objQuery = QueryString.toObject(QUERY_FILTROS);
+            console.log(objQuery);
             var query = $.param(angular.extend(objQuery, {
                 ordenador: $scope.ordenadores.selecionado,
                 ordem: $scope.ordem.selecionada,
@@ -25,7 +26,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.ordenarResultado = function () {
             $scope.paginas.selecionada = 1;
             $scope.buscarResultados();
-        }
+        };
 
         $scope.passarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
@@ -34,7 +35,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 $scope.paginas.selecionada = p + 1;
                 $scope.buscarResultados();
             }
-        }
+        };
 
         $scope.voltarPagina = function () {
             var p = parseInt($scope.paginas.selecionada);
@@ -42,16 +43,22 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 $scope.paginas.selecionada = p - 1;
                 $scope.buscarResultados();
             }
-        }
+        };
 
         $scope.ultimaPagina = function () {
             $scope.paginas.selecionada = $scope.paginas.total;
             $scope.buscarResultados();
-        }
+        };
+
         $scope.primeiraPagina = function () {
             $scope.paginas.selecionada = 1;
             $scope.buscarResultados();
-        }
+        };
+
+        $scope.paginaSelecionada = function (codigo) {
+            if (codigo == $scope.paginas.selecionada)
+                return 'active';
+        };
 
     }]);
 });
