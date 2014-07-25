@@ -12,7 +12,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 um: "",
                 nenhum: "",
                 varios: ""
-            }
+            },
+            lista: []
         };
 
         $http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
@@ -93,7 +94,5 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             return t < 5 ? t : 5;
         }
     }
-    ])
-    ;
-})
-;
+    ]);
+});
