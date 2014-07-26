@@ -1,15 +1,15 @@
 [
-        {
-            "id": "001",
-            "text": "Brasil"
-        },
-        {
-            "id": "341",
-            "text": "Itaú"
-        },
-        {
-            "id": "237",
-            "text": "Bradesco"
+    {
+        "id": "001",
+        "text": "Brasil"
+    },
+    {
+        "id": "341",
+        "text": "Itaú"
+    },
+    {
+        "id": "237",
+        "text": "Bradesco"
 
-        }
+    }
 ]
