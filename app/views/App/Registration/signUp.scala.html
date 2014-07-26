@@ -13,7 +13,7 @@
     </div>
 }
 
-<form action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
+<form ng-controller="SignUp" action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
     <div class="container" id="pagina-signUp">
         <div class="row">
             <div id="main" class="span12">
@@ -136,7 +136,7 @@
                                                 'placeholder -> "Cep do seu Endereço",
                                                 '_label -> ""
                                             )
-                                            <button class="btn btn-success" id="btnCep">
+                                            <button class="btn btn-primary" id="btnCep">
                                                 Completar Cadastro Pelo Cep
                                             </button>
                                         </div>
@@ -326,12 +326,12 @@
 
 
 </form>
-<script type="application/javascript" src="@routes.Assets.at("App/Script/_view_scripts/SignUp.js")"></script>
+@*<script type="application/javascript" src="@routes.Assets.at("App/Script/_view_scripts/SignUp.js")"></script>
 <script type="application/javascript">
 function jqueryLoaded ( ) {
 SignUpload ( ) ;
 }
-</script>
+</script>*@
 
 
 

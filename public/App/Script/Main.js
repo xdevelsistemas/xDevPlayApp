@@ -5,6 +5,7 @@
  */
 require.config({
 
+    //TODO  configurar a versão da aplicação aqui
     "urlArgs": "v=" + (new Date()).getTime(),
 
     paths: {
