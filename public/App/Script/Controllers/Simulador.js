@@ -7,11 +7,14 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             valorPrestacao: '',
             prazoRestante: '',
             resultado: '',
+            //TODO  revisar a fórmula
             calcular: function () {
+                var T = 0.0075;
                 var c = parseFloat(this.valorCredito);
                 var p = parseFloat(this.valorPrestacao);
                 var t = parseFloat(this.prazoRestante);
-                var r = c + p + t;
+                var X = Math.pow((1+T), t);
+                var r = c - ( p * ( (X-1) / (X*T) );
                 if (isNaN(r)) r = '';
                 this.resultado = r;
             },
