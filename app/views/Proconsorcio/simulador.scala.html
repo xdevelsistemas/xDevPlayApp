@@ -1,9 +1,9 @@
 <div class="container" id="pagina-detalhes">
     <div class="row">
 
-        <div id="main" class="col-lg-12 single-property">
+        <div ng-controller="Simulador" id="main" class="col-lg-12 single-property">
 
-            <h1 class="page-header fl">Quanto vale a minha carta?</h1>
+            <h1 class="page-header fl">{{strings.titulo}}</h1>
 
             <div class="property-detail">
 
@@ -11,69 +11,57 @@
                     <div class="overview">
                         <div class="row-fluid">
                             <div class="span6">
-                                <h2>Descubra em um instante com o nosso simulador!</h2>
-                                <p>
-                                    Quisque non dictum eros. Praesent porta vehicula arcu eu ornare. Donec id egestas arcu. Suspendisse auctor
-                                    condimentum ligula ultricies cursus. Vestibulum vel orci vel lacus rhoncus sagittis sed vitae mi. Pellentesque
-                                    molestie elit bibendum tincidunt semper. Aliquam ac volutpat risus. In felis felis, posuere commodo aliquet eget,
-                                    sagittis sed turpis. Phasellus commodo turpis non nunc egestas, et egestas felis pretium. Pellentesque dignissim
-                                    libero vitae tincidunt semper. Nam id ante nisi. Nam sollicitudin, dolor non suscipit feugiat, nibh lacus commodo
-                                    metus, nec tempus dui velit sagittis velit. Pellentesque elementum risus rhoncus justo porta, at varius odio
-                                    consequat. Duis non augue adipiscing, posuere quam non, tempus urna.
-                                </p>
+                                <h2>{{strings.subtitulo}}</h2>
+                                <p>{{strings.texto}}</p>
                             </div>
                             <div class="span6">
                                 <div class="tab-content">
                                     <form method="post">
                                         <div class="control-group">
-                                            <label class="control-label">
-                                                Valor de Crédito
+                                            <label class="control-label">{{strings.valorCredito}}
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input type="text" required="required" name="credito">
+                                                <input ng-model="valorCredito" type="number" required="required" name="credito">
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
                                         <div class="control-group">
-                                            <label class="control-label">
-                                                Valor das Prestações
+                                            <label class="control-label">{{strings.valorPrestacoes}}
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input type="text" required="required" name="prestacao">
+                                                <input ng-model="valorPrestacao" type="number" required="required" name="prestacao">
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
                                         <div class="control-group">
-                                            <label class="control-label">
-                                                Prazo Restante (em meses)
+                                            <label class="control-label">{{strings.prazoRestante}}
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input type="text" required="required" name="prazo">
+                                                <input ng-model="prazoRestante" type="number" required="required" name="prazoRestante">
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
                                         <div class="control-group">
-                                            <label class="control-label">
-                                                RESULTADO
+                                            <label class="control-label">{{strings.resultado}}
                                             </label>
                                             <div class="controls">
-                                                <input type="text" required="required" name="resultado" disabled>
+                                                <input ng-value="resultado" type="text" name="resultado" disabled>
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
-                                        <button class="btn btn-primary btn-large">
-                                            Calcular
+                                        <button ng-click = "calcular()" class="btn btn-primary btn-large">
+                                            {{strings.botaoCalcular}}
                                         </button>
                                     </form>
                                 </div>

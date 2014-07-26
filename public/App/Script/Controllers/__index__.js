@@ -7,5 +7,5 @@
 define([
     './Pesquisa',
     './SignUp',
-    './Mensagem'
+    './Simulador'
 ]);
