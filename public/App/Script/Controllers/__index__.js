@@ -7,5 +7,6 @@
 define([
     './Pesquisa',
     './SignUp',
+    './NovaCarta',
     './Simulador'
 ]);

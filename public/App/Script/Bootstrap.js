@@ -121,7 +121,7 @@ define([
             });
 
             InitSubmissionProgressBar();
-            InitChosen();
+            //InitChosen();
             InitPropertyCarousel();
 
             // @todo - what was purpose of this ?
@@ -149,13 +149,13 @@ define([
                 })
             }
 
-            function InitChosen() {
-                $('select').each(function (index) {
-                    $(this).chosen({
-                        disable_search_threshold: 20
-                    });
-                })
-            }
+//            function InitChosen() {
+//                $('select').each(function (index) {
+//                    $(this).chosen({
+//                        disable_search_threshold: 20
+//                    });
+//                })
+//            }
 
             function InitImageSlider() {
                 $('.iosSlider').iosSlider({
@@ -220,12 +220,7 @@ define([
         });
         //END OF PROPERTA JS
 
-
         ng.bootstrap(document, ['App']);
-        //TODO arrancar essa gambiarra e passar para uma directive
-        window.setTimeout(function () {
-            $("select").chosen();
-            $("#all-content").css({opacity: '1'});
-        }, 250);
+
     });
 });

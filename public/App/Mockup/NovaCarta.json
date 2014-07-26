@@ -1,0 +1,53 @@
+{
+    "strings": {
+        "titulo": "Nova Carta",
+        "tipo": "Tipo",
+        "administradora": "Administradora",
+        "status": "Status",
+        "prazoRestante": "Prazo Restante",
+        "valorCredito": "Valor de Crédito",
+        "valorEntrada": "Valor de Entrada",
+        "valorPrestacao": "Valor de Prestação",
+        "cota": "Cota",
+        "botaoAnunciar": "Anunciar",
+        "textoConfirmar": "Você confirma que os dados conferem?"
+    },
+    "tipos": [
+        {
+            "codigo": "1",
+            "descricao": "Imóveis"
+        },
+        {
+            "codigo": "6",
+            "descricao": "Caminhões"
+        },
+        {
+            "codigo": "2",
+            "descricao": "Carros"
+        },
+        {
+            "codigo": "4",
+            "descricao": "Motos"
+        },
+        {
+            "codigo": "5",
+            "descricao": "Serviços"
+        }
+    ],
+    "administradoras": [
+        {
+            "codigo": "1",
+            "descricao": "Rodobens"
+        }
+    ],
+    "status": [
+        {
+            "codigo": "1",
+            "descricao": "Contemplada"
+        },
+        {
+            "codigo": "2",
+            "descricao": "Não contemplada"
+        }
+    ]
+}

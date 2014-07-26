@@ -13,7 +13,12 @@
         <!--<![endif]-->
 
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="utf-8"/>
+        <meta name='application-name' content='ProConsórcio'/>
+        <meta name='author' content='xDevel'/>
+        <meta name='description' content='Tudo para consórcios!'/>
+        <meta name='keywords' content='consorcio compra venda troca imovel automovel carro moto caminhao servico'/>
+        <meta name='robots' content='noindex,nofollow'/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <link rel='stylesheet' id='font-css' href='http://fonts.googleapis.com/css?family=Open+Sans%3A400%2C700%2C300&#038;subset=latin%2Clatin-ext&#038;ver=3.6' type='text/css' media='all'/>
@@ -40,8 +45,6 @@
         <script src="@routes.Assets.at("App/Libs/requirejs/require.js")" data-main="@routes.Assets.at("App/Script/Main")"></script>
         <script src='http://maps.googleapis.com/maps/api/js?v=3&#038;sensor=true&#038;ver=3.6'></script>
 
-        <meta name='robots' content='noindex,nofollow'/>
-
         <title>ProConsórcio | Tudo para consórcios!</title>
     </head>
 
@@ -56,5 +59,6 @@
             </div>
             <div id="footer-wrapper">@views.html.Proconsorcio.Partials.Rodape()</div>
         </div>
+        <xd-page-fade-in></xd-page-fade-in>
     </body>
 </html>

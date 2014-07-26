@@ -29,7 +29,7 @@
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label class="control-label">{{filtro.descricao}}</label>
                             <div class="controls">
-                                <select ng-model="filtro.selecionado"
+                                <select ng-model="filtro.selecionado" xd-chosen
                                 ng-options="item.codigo as item.descricao for item in filtro.lista">
                                     <option value="-1">-</option>
                                 </select>
@@ -68,14 +68,16 @@
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="ordenadores.selecionado" ng-change="ordenarResultado()"
+                                    <select ng-model="ordenadores.selecionado" xd-chosen
+                                    ng-change="ordenarResultado()"
                                     ng-options="ordenador.codigo as ordenador.descricao for ordenador in ordenadores.lista">
                                     </select>
                                 </div>
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="ordem.selecionada" ng-change="ordenarResultado()"
+                                    <select ng-model="ordem.selecionada" xd-chosen
+                                    ng-change="ordenarResultado()"
                                     ng-options="ordem.codigo as ordem.descricao for ordem in ordem.lista">
                                     </select>
                                 </div>

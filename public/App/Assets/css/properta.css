@@ -625,7 +625,7 @@ textarea {
         background-color: #1A4269;
     }
 
-    .menu-item.menu-item-parent:hover{
+    .menu-item.menu-item-parent:hover {
         background-color: inherit;
     }
 
@@ -4203,7 +4203,6 @@ ul.tabs li.active a, ul.tabs li.active a:hover, ul.tabs li.active a:focus {
 
 .login-register h2 {
     font-size: 24px;
-    text-align: center;
     margin-top: 20px
 }
 
