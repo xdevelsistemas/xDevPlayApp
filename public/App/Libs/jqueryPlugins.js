@@ -1,8 +1,8 @@
 (function () {
 
     var paths = [
-        //'../Libs/rs-plugin/bootstrap2/js/bootstrap.min',
-        '../Libs/rs-plugin/bootstrap3/js/bootstrap.min',
+        '../Libs/rs-plugin/bootstrap2/js/bootstrap.min',
+        //'../Libs/rs-plugin/bootstrap3/js/bootstrap.min',
         '../Libs/jquery.maskedinput',
         '../Libs/js/aviators-map',
         '../Libs/js/gmap3.infobox.min',

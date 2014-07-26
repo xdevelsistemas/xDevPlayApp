@@ -55,7 +55,7 @@
             box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
         }
 
-            /* Specify class=linenums on a pre to get line numbering */
+        /* Specify class=linenums on a pre to get line numbering */
         ol.linenums {
             margin: 0 0 0 33px; /* IE indents via margin-left */
         }
@@ -87,212 +87,218 @@
 <!-- /.sidebar -->
 
 <div class="content span10">
-    <br>
+<br>
 
-    <div class="well hero-unit">
+<div class="well hero-unit">
 
-        <h1 class="page-header">Thank you for buying Properta</h1>
-
-        <p>
-            If you have any questions don't hesitate and contact us at <a
-                href="info@byaviators.com">info@byaviators.com</a>.
-        </p>
-
-        <p>
-            Live version is available at <a href="http://html.properta.byaviators.com">http://html.properta.byaviators.com</a>.
-            In the downloaded version are not available sample images from live version.
-        </p>
-    </div>
+    <h1 class="page-header">Thank you for buying Properta</h1>
 
     <p>
-        Here is the list of all important components used in the theme. Everything is possible to find in our
-        HTML version but it is better to look in the PHP version where everything is divided into the
-        smaller files. HTML files are generated from PHP source codes. Theme is build on Boostrap.
+        If you have any questions don't hesitate and contact us at <a
+            href="info@byaviators.com">info@byaviators.com</a>.
     </p>
 
-    <section id="section-package-structure">
-        <h1 class="page-header">Package structure</h1>
+    <p>
+        Live version is available at <a
+            href="http://html.properta.byaviators.com">http://html.properta.byaviators.com</a>.
+        In the downloaded version are not available sample images from live version.
+    </p>
+</div>
 
-        <p>
-            Package contains both - PHP and HTML versions of the theme. This documentation will focus on PHP
-            version as HTML plain codes are generated from PHP Files.
-        </p>
+<p>
+    Here is the list of all important components used in the theme. Everything is possible to find in our
+    HTML version but it is better to look in the PHP version where everything is divided into the
+    smaller files. HTML files are generated from PHP source codes. Theme is build on Boostrap.
+</p>
 
-        <h2>
-            Folder structure </h2>
+<section id="section-package-structure">
+    <h1 class="page-header">Package structure</h1>
 
-        <p>PHP version is placed in php folder of package and looks like.:</p>
-        <ul>
-            <li>
-                Assets
-                <ul>
-                    <li>
-                        css
-                    </li>
-                    <li>
-                        js
-                    </li>
-                    <li>
-                        img
-                    </li>
-                    <li>...</li>
-                </ul>
-            </li>
-            <li>
-                pages
-                <ul>
-                    <li>
-                        agencies
-                    </li>
-                    <li>
-                        agents
-                    </li>
-                    <li>
-                        properties
-                    </li>
-                    <li>
-                        ...
-                    </li>
-                </ul>
-            </li>
-            <li>
-                templates
-                <ul>
-                    <li>header</li>
-                    <li>main</li>
-                    <li>sidebar</li>
-                    <li>footer</li>
-                </ul>
-            </li>
-            <li>
-                index.php
-            </li>
-        </ul>
-        </h2>
-    </section>
+    <p>
+        Package contains both - PHP and HTML versions of the theme. This documentation will focus on PHP
+        version as HTML plain codes are generated from PHP Files.
+    </p>
 
-    <section id="section-router">
-        <h1 class="page-header">Router</h1>
+    <h2>
+        Folder structure </h2>
 
-        <p>
-            Template uses very simple routing system. Router checks for pages in 'pages' directory. If the
-            proper include file is found, it will be displayed. If its not found, router will return 404 status
-            code and display appropriate page.
-        </p>
+    <p>PHP version is placed in php folder of package and looks like.:</p>
+    <ul>
+        <li>
+            Assets
+            <ul>
+                <li>
+                    css
+                </li>
+                <li>
+                    js
+                </li>
+                <li>
+                    img
+                </li>
+                <li>...</li>
+            </ul>
+        </li>
+        <li>
+            pages
+            <ul>
+                <li>
+                    agencies
+                </li>
+                <li>
+                    agents
+                </li>
+                <li>
+                    properties
+                </li>
+                <li>
+                    ...
+                </li>
+            </ul>
+        </li>
+        <li>
+            templates
+            <ul>
+                <li>header</li>
+                <li>main</li>
+                <li>sidebar</li>
+                <li>footer</li>
+            </ul>
+        </li>
+        <li>
+            index.php
+        </li>
+    </ul>
+    </h2>
+</section>
 
-        <h2>Examples</h2>
+<section id="section-router">
+    <h1 class="page-header">Router</h1>
 
-        <p>
-            <strong>Route: /faq</strong> - Router opens '/pages/' directory and searches for file or faq.php
-        </p>
+    <p>
+        Template uses very simple routing system. Router checks for pages in 'pages' directory. If the
+        proper include file is found, it will be displayed. If its not found, router will return 404 status
+        code and display appropriate page.
+    </p>
 
-        <p>
-            <strong>Route: /properties</strong> - Router opens '/pages/' directory and searches for file or
-            directory named properties.php. If available, page is displayed. If nothing is found, router will
-            make final try an search for index.php in context of /pages/properties/ folder. If index.php is
-            found, its displayed.
-        </p>
+    <h2>Examples</h2>
 
-        <p>
-            <strong>Route: /properties/property-detail</strong> - Router opens '/pages/properties/' directory
-            and searches for file named property-detail.php. If available, page is displayed.
-        </p>
+    <p>
+        <strong>Route: /faq</strong> - Router opens '/pages/' directory and searches for file or faq.php
+    </p>
 
-        <p>
-            <strong>Route: /properties/i-dont-exist</strong> - Router opens '/pages/properties/' directory
-            and searches for file named i-dont-exist.php. File will not be found and router will return 404
-            status code.
-        </p>
-    </section>
+    <p>
+        <strong>Route: /properties</strong> - Router opens '/pages/' directory and searches for file or
+        directory named properties.php. If available, page is displayed. If nothing is found, router will
+        make final try an search for index.php in context of /pages/properties/ folder. If index.php is
+        found, its displayed.
+    </p>
+
+    <p>
+        <strong>Route: /properties/property-detail</strong> - Router opens '/pages/properties/' directory
+        and searches for file named property-detail.php. If available, page is displayed.
+    </p>
+
+    <p>
+        <strong>Route: /properties/i-dont-exist</strong> - Router opens '/pages/properties/' directory
+        and searches for file named i-dont-exist.php. File will not be found and router will return 404
+        status code.
+    </p>
+</section>
 
 
-    <section id="section-templates">
-        <h1 class="page-header">Templates</h1>
+<section id="section-templates">
+    <h1 class="page-header">Templates</h1>
 
-        <p>
-            Template is divided into 4 main regions - Header, Footer, Main, Sidebar.
-            <br/>
-            Appropriate directories can be found if 'templates' directory.
-            <br/>
-            Each region contains set of reusable blocks - pieces of content, forms, listings.. etc.
-        </p>
+    <p>
+        Template is divided into 4 main regions - Header, Footer, Main, Sidebar.
+        <br/>
+        Appropriate directories can be found if 'templates' directory.
+        <br/>
+        Each region contains set of reusable blocks - pieces of content, forms, listings.. etc.
+    </p>
 
-        <ul>
-            <li>Header
-                <ul>
-                    <li>
-                        block-map-extended-search.php - contains code for extended map <strong>vertical</strong> filter
-                    </li>
-                    <li>
-                        block-map-filter-horizontal.php - contains code for extended map <strong>horizontal</strong>
-                        filter
-                    </li>
-                    <li>
-                        navigation.php - contains code for displaying main navigation of theme.
-                    </li>
-                    <li>
-                        top.php - contains code for displaying language switcher, logo and social menu links.
-                    </li>
-                </ul>
-            </li>
-            <li>Main
-                <ul>
-                    <li>block-carousel-properties.php - displays properties in carousel form - displayed on frontpage
-                    </li>
-                    <li>block-featured-properties.php - displays grid of "featured" properties - displayed on
-                        frontpage
-                    </li>
-                    <li>block-features.php - displays grid of site features - displayed on frontpage</li>
-                    <li>block-partner.php - displays grid of site partners - displayed on frontpage</li>
-                    <li>block-recent-properties.php - displays grid of "recent" properties - displayed on frontpage</li>
-                </ul>
-            </li>
-            <li>Sidebar
-                <ul>
-                    <li>block-agencies.php - displays list of agencies for sidebar</li>
-                    <li>block-enquire-now.php - displays "enquire now" form which is displayed on property detail page
-                    </li>
-                    <li>block-extended-search.php - displays extended search form</li>
-                    <li>block-most-recent.php - displays list of "most recent" properties</li>
-                    <li>block-quick-search.php - displays simple search form - one field</li>
-                </ul>
-            </li>
-            <li>Footer - footer looks the same in the whole theme, thus it was not divided into smaller pieces.</li>
-        </ul>
+    <ul>
+        <li>Header
+            <ul>
+                <li>
+                    block-map-extended-search.php - contains code for extended map <strong>vertical</strong> filter
+                </li>
+                <li>
+                    block-map-filter-horizontal.php - contains code for extended map <strong>horizontal</strong>
+                    filter
+                </li>
+                <li>
+                    navigation.php - contains code for displaying main navigation of theme.
+                </li>
+                <li>
+                    top.php - contains code for displaying language switcher, logo and social menu links.
+                </li>
+            </ul>
+        </li>
+        <li>Main
+            <ul>
+                <li>block-carousel-properties.php - displays properties in carousel form - displayed on frontpage
+                </li>
+                <li>block-featured-properties.php - displays grid of "featured" properties - displayed on
+                    frontpage
+                </li>
+                <li>block-features.php - displays grid of site features - displayed on frontpage</li>
+                <li>block-partner.php - displays grid of site partners - displayed on frontpage</li>
+                <li>block-recent-properties.php - displays grid of "recent" properties - displayed on frontpage</li>
+            </ul>
+        </li>
+        <li>Sidebar
+            <ul>
+                <li>block-agencies.php - displays list of agencies for sidebar</li>
+                <li>block-enquire-now.php - displays "enquire now" form which is displayed on property detail page
+                </li>
+                <li>block-extended-search.php - displays extended search form</li>
+                <li>block-most-recent.php - displays list of "most recent" properties</li>
+                <li>block-quick-search.php - displays simple search form - one field</li>
+            </ul>
+        </li>
+        <li>Footer - footer looks the same in the whole theme, thus it was not divided into smaller pieces.</li>
+    </ul>
 
-    </section>
+</section>
 
-    <section id="section-assets">
-        <h1 class="page-header">Assets</h1>
+<section id="section-assets">
+    <h1 class="page-header">Assets</h1>
 
-        <p>
-            All the required assets are included in main index.php file - css, js.
-        </p>
+    <p>
+        All the required assets are included in main index.php file - css, js.
+    </p>
 
-        <p>
-            The main css files is located in '/assets/css/properta.css'. However this is generated from sass files
-            located
-            in '/assets/scss'.
-        </p>
+    <p>
+        The main css files is located in '/assets/css/properta.css'. However this is generated from sass files
+        located
+        in '/assets/scss'.
+    </p>
 
-        <p>
-            If you dont have experience with sass and compass you can simply replace your properta.css (This file
-            generated
-            and thus its in minified version) with properta.ext.css - which is nicely structured.
-        </p>
+    <p>
+        If you dont have experience with sass and compass you can simply replace your properta.css (This file
+        generated
+        and thus its in minified version) with properta.ext.css - which is nicely structured.
+    </p>
 
-        <h2>Icons</h2>
-            <p>This template contains free set of pictopro icons. This set can be found in '/assets/icons'. Both sets contain Read Me.txt files which are explaining how to use PictoPro icons.</p>
+    <h2>Icons</h2>
 
-        <h2>Libraries</h2>
-        <p>This template contains 3rd party libraries:</p>
-        <ul>
-            <li>Bootstrap - to read more about Twitter bootstrap follow <a href="http://getbootstrap.com/2.3.2/">this link</a></li>
-            <li>Revolution Slider - documentation is available <a href="http://www.orbis-ingenieria.com/code/documentation/documentation.html">here</a></li>
-            <li>Chosen - info page is available <a href="http://harvesthq.github.io/chosen/">here</a></li>
-        </ul>
+    <p>This template contains free set of pictopro icons. This set can be found in '/assets/icons'. Both sets contain
+        Read Me.txt files which are explaining how to use PictoPro icons.</p>
 
-    </section>
+    <h2>Libraries</h2>
+
+    <p>This template contains 3rd party libraries:</p>
+    <ul>
+        <li>Bootstrap - to read more about Twitter bootstrap follow <a href="http://getbootstrap.com/2.3.2/">this
+            link</a></li>
+        <li>Revolution Slider - documentation is available <a
+                href="http://www.orbis-ingenieria.com/code/documentation/documentation.html">here</a></li>
+        <li>Chosen - info page is available <a href="http://harvesthq.github.io/chosen/">here</a></li>
+    </ul>
+
+</section>
 </div>
 <!-- /.content -->
 </div>
