@@ -14,7 +14,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 var p = parseFloat(this.valorPrestacao);
                 var t = parseFloat(this.prazoRestante);
                 var X = Math.pow((1+T), t);
-                var r = c - ( p * ( (X-1) / (X*T) );
+                var r = c - ( p * ( (X-1) / (X*T) ) );
                 if (isNaN(r)) r = '';
                 this.resultado = r;
             },
