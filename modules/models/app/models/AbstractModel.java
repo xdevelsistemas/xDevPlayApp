@@ -14,29 +14,29 @@ public class AbstractModel implements Serializable {
     @Id
     @UuidGenerator(name="UUID")
     @GeneratedValue(generator="UUID")
-    @NotNull(message="field 'uuid' cannot be NULL")
+    @NotNull(message="Campo 'uuid' não pode ser nulo")
     //see: https://github.com/ancoron/pg-inet-maven/wiki/Support-custom-data-types-in-EclipseLink
     public String uuid;
 
     @Version
-    @NotNull(message="field 'version' cannot be NULL")
+    @NotNull(message="Campo 'version' não pode ser nulo")
     public int version;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull(message="field 'created' cannot be NULL")
+    @NotNull(message="Campo 'created' não pode ser nulo")
     public Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull(message="field 'updated' cannot be NULL")
+    @NotNull(message="Campo 'updated' não pode ser nulo")
     public Date updated;
 
     @PrePersist
-    void prePersist() {
+    public void prePersist() {
         this.created = this.updated = new Date();
     }
 
     @PreUpdate
-    void preUpdate() {
+    public void preUpdate() {
         this.updated = new Date();
     }
 

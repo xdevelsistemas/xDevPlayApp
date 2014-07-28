@@ -23,6 +23,10 @@
         <class>models.Cadastro.BaseEndereco.Bairro</class>
         <class>models.Cadastro.BaseEndereco.Cidade</class>
         <class>models.Cadastro.CodigoAcessoHistorico</class>
+        <class>models.Proconsorcio.Administradora</class>
+        <class>models.Proconsorcio.Carta</class>
+        <class>models.Proconsorcio.Sequenciador</class>
+        <class>models.Proconsorcio.TipoCarta</class>
 
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
