@@ -1,8 +1,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ProConsórcio - Tudo para consórcios!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ProConsórcio - Tudo para consórcios!</title>
 
         <link rel="apple-touch-icon" type="image/x-icon" href="@routes.Assets.at("LandingPage/Content/img/apple-touch-icon-57x57-precomposed.png")">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="@routes.Assets.at("LandingPage/Content/img/apple-touch-icon-72x72-precomposed.png")">
@@ -14,10 +14,12 @@
         <link href="@routes.Assets.at("LandingPage/Content/css/style.css")" rel="stylesheet">
         <link href="@routes.Assets.at("LandingPage/Content/fontello/css/fontello.css")" rel="stylesheet" >
         <link href="@routes.Assets.at("LandingPage/Content/fontello/css/animation.css")" rel="stylesheet" >
-        <link href="@routes.Assets.at("LandingPage/Content/css/datepicker.min.css")" rel="stylesheet">
-        <link href="@routes.Assets.at("LandingPage/Content/css/weather.css")" rel="stylesheet" />
+        <link href="@routes.Assets.at("LandingPage/Lib/select2-3.5.1/select2.css")" rel="stylesheet" >
 
         <link href="@routes.Assets.at("LandingPage/Content/css/Custom.css")" rel="stylesheet" />
+
+        <script src="@routes.Assets.at("/LandingPage/Lib/require.js")"
+        data-main="@routes.Assets.at("/LandingPage/Script/main")"></script>
 
             <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -44,7 +46,7 @@
                     </nav>
 
                     <div class="row">
-                        <div class="col-md-offset-2 col-md-8" style="text-align : center">
+                        <div class="col-md-offset-2 col-md-8 xd-align-certer">
                             <div class="img-container">
                                 <img src="/assets/LandingPage/Content/img/logo.png">
                             </div>
@@ -52,7 +54,7 @@
                     </div>
 
                     <div class="row countdown">
-                        <div class="col-md-6" style="text-align : center">
+                        <div class="col-md-6 xd-align-certer">
                             <div class="video-container">
                                 <iframe src="//www.youtube.com/embed/C0DPdy98e4c" frameborder="0" allowfullscreen></iframe>
                             </div>
@@ -66,8 +68,7 @@
                                     <form role="form" method="post" action="/signupmail" id="check_avail"
                                     autocomplete="off">
                                         <div class="form-group">
-                                            <select class="form-control select"
-                                            style="background : white url ( '/assets/LandingPage/Content/img/down.png' ) no-repeat right center ;">
+                                            <select class="form-control select">
                                                 <option selected disabled>Consórcios de...</option>
                                                 <optgroup>
                                                     <option>Carros</option>
@@ -126,13 +127,6 @@
             </ul>
         </div> <!-- End background slider -->
 
-
-        <!-- JQUERY -->
-        <script src="@routes.Assets.at("LandingPage/Script/js/jquery-1.10.2.min.js")"></script>
-        <script src="@routes.Assets.at("LandingPage/Script/js/jquery.superslides.min.js")"></script>
-        <script src="@routes.Assets.at("LandingPage/Script/js/retina.min.js")"></script>
-        <script src="@routes.Assets.at("LandingPage/Script/js/jquery.placeholder.min.js")"></script>
-        <script src="@routes.Assets.at("LandingPage/Script/js/functions.js")"></script>
     </body>
 </html>
 

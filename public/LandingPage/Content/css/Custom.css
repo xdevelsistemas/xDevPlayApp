@@ -64,6 +64,14 @@ nav {
     margin-top: 48px;
 }
 
-select{
+select {
     cursor: pointer;
+}
+
+.select {
+    background: white url('/assets/LandingPage/Content/img/down.png') no-repeat right center;
+}
+
+.xd-align-certer {
+    text-align: center;
 }
