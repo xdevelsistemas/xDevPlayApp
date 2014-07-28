@@ -63,3 +63,7 @@ nav {
 .row.countdown {
     margin-top: 48px;
 }
+
+select{
+    cursor: pointer;
+}
