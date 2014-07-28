@@ -47,70 +47,61 @@
                         </ul>
                     </nav>
 
-                    <div class="row countdown">
+                    <div class="row">
                         <div class="col-md-offset-2 col-md-8" style="text-align : center">
                             <div class="img-container">
                                 <img src="/assets/LandingPage/Content/img/logo.png">
                             </div>
                         </div>
-                        <div class="col-md-offset-2 col-md-8" style="text-align : center">
+                    </div>
+
+                    <div class="row countdown">
+                        <div class="col-md-6" style="text-align : center">
                             <div class="video-container">
                                 <iframe src="//www.youtube.com/embed/C0DPdy98e4c" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1" id="comprar-vender">
-                                    <div id="book" class="comprar-vender-box">
-                                        <h4>Quero Comprar</h4>
+                        <div class="col-md-6">
+                            <div class="col-md-12" id="comprar-vender">
+                                <div id="book" class="comprar-vender-box">
+                                    <h4>Quero Comprar</h4>
 
-                                        <form role="form" method="post" action="/signupmail" id="check_avail"
-                                        autocomplete="off">
-                                            <div class="form-group">
-                                                <select class="form-control select"
-                                                style="background : white url ( '/assets/LandingPage/Content/img/down.png' ) no-repeat right center ;">
-                                                    <option selected disabled>Consórcios de...</option>
-                                                    <optgroup>
-                                                        <option>Carros</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control select"
-                                                style="background : white url ( '/assets/LandingPage/Content/img/down.png' ) no-repeat right center ;">
-                                                    <option selected disabled>Valor de Crédito</option>
-                                                    <optgroup data-bind="foreach:  campos.valorDeCredito.lista">
-                                                        <option>até 50.000</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn-check">Pesquisar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div id="book2" class="comprar-vender-box">
-                                        <h4>Quero Vender</h4>
+                                    <form role="form" method="post" action="/signupmail" id="check_avail"
+                                    autocomplete="off">
+                                        <div class="form-group">
+                                            <select class="form-control select"
+                                            style="background : white url ( '/assets/LandingPage/Content/img/down.png' ) no-repeat right center ;">
+                                                <option selected disabled>Consórcios de...</option>
+                                                <optgroup>
+                                                    <option>Carros</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn-check">Pesquisar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="book2" class="comprar-vender-box">
+                                    <h4>Quero Vender</h4>
 
-                                        <form role="form" method="post" action="/signupmail" id="check_avail"
-                                        autocomplete="off">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="email"
-                                                placeholder="E-mail">
-                                                <span class="input-icon"><i class="icon-mail-3"></i></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn-check">Anunciar</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <form role="form" method="post" action="/signupmail" id="check_avail"
+                                    autocomplete="off">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="email"
+                                            placeholder="E-mail">
+                                            <span class="input-icon"><i class="icon-mail-3"></i></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn-check">Anunciar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div id="message-booking"></div>
                     </div>

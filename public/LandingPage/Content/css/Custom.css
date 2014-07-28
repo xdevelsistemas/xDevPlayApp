@@ -6,12 +6,12 @@ div.comprar-vender-box {
     margin-top: 28px;
 }
 
-#comprar-vender{
+#comprar-vender {
     text-align: center;
     background: rgba(0, 0, 0, 0.6) url(/assets/LandingPage/Content/img/menu_divider.png) no-repeat center;
     margin-top: 38px;
     padding: 0 0 18px 0;
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
 .form-group {
@@ -22,19 +22,24 @@ div.comprar-vender-box {
 .img-container {
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
+    padding-top: 42px;
+    height: 0;
+    overflow: hidden;
 }
+
 .img-container {
-    padding-bottom: 18%;
-    padding-top: 5%; height: 0; overflow: hidden;
-    margin-top: -4px;
+    padding-bottom: 15%;
+    /* padding-top: 5%; */
+    height: 0;
+    overflow: hidden;
+    margin-top: 42px;
     text-align: center;
 }
 
 .video-container iframe,
 .video-container object,
 .video-container embed,
-.img-container img{
+.img-container img {
     position: absolute;
     top: 0;
     left: 0;
@@ -42,20 +47,19 @@ div.comprar-vender-box {
     height: 100%;
 }
 
-.img-container img{
+.img-container img {
     height: auto;
     max-width: 451px;
     position: relative;
 }
 
-
-nav{
+nav {
     top: 0;
     bottom: inherit;
-    position: absolute; 
-    margin-top: 0; 
+    position: absolute;
+    margin-top: 0;
 }
 
-.row.countdown{
+.row.countdown {
     margin-top: 48px;
 }
