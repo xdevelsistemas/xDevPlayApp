@@ -27,7 +27,7 @@
         <![endif]-->
 
     </head>
-    <body>
+    <body ng-controller="Main">
 
         <div id="wrapper">
             <div id="main">
@@ -65,14 +65,13 @@
                                 <div id="book" class="comprar-vender-box">
                                     <h4>Quero Comprar</h4>
 
-                                    <form role="form" method="post" action="/signupmail" id="check_avail"
+                                    <form role="form" method="get" action="/pesquisa" id="check_avail"
                                     autocomplete="off">
                                         <div class="form-group">
-                                            <select class="form-control select">
-                                                <option selected disabled>Consórcios de...</option>
-                                                <optgroup>
-                                                    <option>Carros</option>
-                                                </optgroup>
+                                            <select ng-model="tipos.selecionado" class="form-control select" name="tipo">
+                                                <option value="-1" selected disabled>Consórcios de...</option>
+                                                <option ng-repeat="tipo in tipos.lista" ng-value="tipo.codigo">
+                                                    {{tipo.descricao}}</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

@@ -5,6 +5,7 @@ require.config({
 
     paths: {
         'domready': "../Lib/domReady",
+        'angular': "../Lib/angular/angular.min",
         'retina': "../Lib/retina.min",
         'jquery': "../Lib/jquery-1.10.2.min",
         'superslides': "../Lib/jquery.superslides.min",
@@ -14,6 +15,12 @@ require.config({
     },
 
     shim: {
+        'angular': {
+            exports: 'angular'
+        },
+        'angular-route': {
+            deps: ['angular']
+        },
         'superslides': ['jquery'],
         'placeholder': ['jquery'],
         'select2': ['jquery'],
@@ -21,7 +28,15 @@ require.config({
     }
 });
 
-require(['jquery', 'domready!', 'retina', 'superslides', 'placeholder', 'select2PtBR'], function ($) {
+require(['angular', 'jquery', 'domready!', 'retina', 'superslides', 'placeholder', 'select2PtBR'], function (angular, $) {
+    angular.module('App', [])
+        .controller('Main', ['$scope', '$http', function ($scope, $http) {
+            $http.get('/assets/LandingPage/Mockup/Tipos.json').success(function (data) {
+                angular.extend($scope, data);
+            });
+        }]);
+    angular.bootstrap(document, ['App']);
+
     $('#slides').superslides({
         play: 6000,
         pagination: false,
