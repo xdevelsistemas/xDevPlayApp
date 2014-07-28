@@ -1,6 +1,7 @@
 {
     "tituloCaixaFiltros": "Pesquisar Consórcios",
     "textoBotaoFiltrar": "Filtrar!",
+    "textoBotaoLimpar": "Limpar Filtros",
     "filtros": [
         {
             "codigo": "tipo",

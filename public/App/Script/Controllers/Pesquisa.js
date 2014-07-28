@@ -23,6 +23,15 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             angular.extend($scope, data);
         });
 
+        $scope.limpar = function () {
+            event.preventDefault();
+            $.each($scope.filtros, function (key, value) {
+                value.selecionado = -1;
+                console.log(value);
+            });
+            $("#caixa-filtros select").val(-1).trigger("liszt:updated");
+        };
+
         $scope.buscarResultados = function () {
             var qFiltros = "";
             var xFiltros = $scope.filtros;
