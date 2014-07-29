@@ -33,8 +33,11 @@ require.config({
         'jquery': {
             deps: ['domReady!']
         },
+        'jqueryPlugins': {
+            deps: ['jquery', 'domReady!']
+        },
         'bootstrap': ["jquery", 'domReady!'],
-        'jqueryPlugins': ['jquery', 'domReady!'],
+        //'jqueryPlugins': ['jquery', 'domReady!'],
         'datatables': ['jquery'],
         'select2localePtBR': ['jqueryPlugins']
     },

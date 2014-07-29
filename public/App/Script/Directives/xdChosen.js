@@ -1,9 +1,9 @@
 define(['./__module__', 'jquery'], function (directives) {
     'use strict';
-    directives.directive('xdChosen', [function () {
+    directives.directive('jquery', 'xdChosen', [function ($) {
         return function (scope, elm, attr) {
             window.setTimeout(function () {
-                elm.chosen();
+                $(elm[0]).chosen();
             }, 20);
         };
     }]);
