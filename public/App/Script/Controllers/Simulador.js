@@ -3,8 +3,13 @@ define(['./__module__', 'jquery'], function (controllers, $) {
     controllers.controller('Simulador', ['$scope', '$http', function ($scope, $http) {
 
         angular.extend($scope, {
+            valorCredito: '',
+            valorPrestacao: '',
+            prazoRestante: '',
+            resultado: '',
             //TODO  revisar a fórmula
-            calcular: function () {
+            calcular: function (isValid) {
+                if (!isValid) return console.log("simulador", "valores inválidos");
                 var T = 0.0075;
                 var c = parseFloat($("input[name='valorCredito']").cleanVal());
                 var p = parseFloat($("input[name='valorPrestacao']").cleanVal());

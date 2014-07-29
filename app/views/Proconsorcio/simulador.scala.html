@@ -16,55 +16,53 @@
                             </div>
                             <div class="span6">
                                 <div class="tab-content">
-                                    <form method="post">
-                                        <div class="control-group">
-                                            <label class="control-label">{{strings.valorCredito}}
-                                                <span class="form-required" title="This field is required.">*</span>
+                                    <form name="simForm" novalidate ng-submit="calcular(simForm.$valid)">
+                                        <div class="form-group">
+                                            <label>{{strings.valorCredito}}*
+                                                <span class="form-required" ng-show="simForm.valorCredito.$invalid && simForm.valorCredito.$dirty">
+                                                    por favor, preencha este campo</span>
                                             </label>
-                                            <div class="controls">
-                                                <input type="text" required="required" name="valorCredito"
-                                                xd-mask-money-brl>
-                                            </div>
+                                            <input class="form-control" type="text" xd-mask-money-brl ng-minlength="3"
+                                            ng-required="true" ng-model="valorCredito" name="valorCredito">
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
-                                        <div class="control-group">
-                                            <label class="control-label">{{strings.valorPrestacoes}}
-                                                <span class="form-required" title="This field is required.">*</span>
+                                        <div class="form-group">
+                                            <label>{{strings.valorPrestacoes}}*
+                                                <span class="form-required"
+                                                ng-show="simForm.valorPrestacao.$invalid && simForm.valorPrestacao.$dirty">
+                                                    por favor, preencha este campo</span>
                                             </label>
-                                            <div class="controls">
-                                                <input type="text" required="required"
-                                                xd-mask-money-brl name="valorPrestacao">
-                                            </div>
+                                            <input class="form-control" type="text" xd-mask-money-brl ng-minlength="3"
+                                            ng-required="true" ng-model="valorPrestacao" name="valorPrestacao">
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
-                                        <div class="control-group">
-                                            <label class="control-label">{{strings.prazoRestante}}
-                                                <span class="form-required" title="This field is required.">*</span>
+                                        <div class="form-group">
+                                            <label>{{strings.prazoRestante}}*
+                                                <span class="form-required"
+                                                ng-show="simForm.prazoRestante.$invalid && simForm.prazoRestante.$dirty">
+                                                    por favor, preencha este campo</span>
                                             </label>
-                                            <div class="controls">
-                                                <input type="text" required="required"
-                                                xd-mask-positive-number name="prazoRestante">
-                                            </div>
+                                            <input class="form-control" type="text" xd-mask-positive-number ng-minlength="1"
+                                            ng-required="true" ng-model="prazoRestante" name="prazoRestante">
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
-                                        <div class="control-group">
-                                            <label class="control-label">{{strings.resultado}}
+                                        <div class="form-group">
+                                            <label>{{strings.resultado}} (R$)
                                             </label>
-                                            <div class="controls">
-                                                <input type="text" name="resultado"
-                                                xd-mask-money-brl disabled>
-                                            </div>
+                                            <input class="form-control" type="text"
+                                            ng-model="resultado" name="resultado" disabled>
                                                 <!-- /.controls -->
                                         </div>
                                             <!-- /.control-group -->
 
-                                        <button ng-click = "calcular()" class="btn btn-primary btn-large">
+                                        <button type="submit" class="btn btn-primary btn-large"
+                                        ng-disabled="simForm.$invalid">
                                             {{strings.botaoCalcular}}
                                         </button>
                                     </form>

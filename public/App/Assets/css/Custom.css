@@ -137,3 +137,8 @@ select {
 #simulador input {
     text-align: right;
 }
+
+.form-required {
+    color: red;
+    font-size: 0.9em;
+}
