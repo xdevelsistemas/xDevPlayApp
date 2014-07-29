@@ -1,7 +1,7 @@
 <div class="container" id="pagina-detalhes">
     <div class="row">
 
-        <div ng-controller="Simulador" id="main" class="col-lg-12 single-property">
+        <div ng-controller="Simulador" id="simulador" class="col-lg-12 single-property">
 
             <h1 class="page-header fl">{{strings.titulo}}</h1>
 
@@ -22,7 +22,8 @@
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input ng-model="valorCredito" type="number" required="required" name="credito">
+                                                <input type="text" required="required" name="valorCredito"
+                                                xd-mask-money-brl>
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
@@ -33,7 +34,8 @@
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input ng-model="valorPrestacao" type="number" required="required" name="prestacao">
+                                                <input type="text" required="required"
+                                                xd-mask-money-brl name="valorPrestacao">
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
@@ -44,7 +46,8 @@
                                                 <span class="form-required" title="This field is required.">*</span>
                                             </label>
                                             <div class="controls">
-                                                <input ng-model="prazoRestante" type="number" required="required" name="prazoRestante">
+                                                <input type="text" required="required"
+                                                xd-mask-positive-number name="prazoRestante">
                                             </div>
                                                 <!-- /.controls -->
                                         </div>
@@ -54,7 +57,8 @@
                                             <label class="control-label">{{strings.resultado}}
                                             </label>
                                             <div class="controls">
-                                                <input ng-value="resultado" type="text" name="resultado" disabled>
+                                                <input type="text" name="resultado"
+                                                xd-mask-money-brl disabled>
                                             </div>
                                                 <!-- /.controls -->
                                         </div>

@@ -20,7 +20,7 @@ define([
 
     require(['domReady!'], function (document) {
         $('.datepicker').datepicker();
-        $('.datepicker').mask('99/99/9999');
+        //$('.datepicker').mask('99/99/9999');
 
         ng.bootstrap(document, ['App']);
     });

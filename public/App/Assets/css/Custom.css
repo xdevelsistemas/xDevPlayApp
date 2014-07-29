@@ -130,6 +130,10 @@ select {
     margin-bottom: 12px;
 }
 
-.limpar-filtros{
+.limpar-filtros {
     background-color: #003f4f;
+}
+
+#simulador input {
+    text-align: right;
 }
