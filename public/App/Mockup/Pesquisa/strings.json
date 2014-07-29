@@ -1,0 +1,11 @@
+{
+    "tituloCaixaFiltros": "Pesquisar Consórcios",
+    "botaoFiltrar": "Filtrar!",
+    "botaoLimpar": "Limpar Filtros",
+    "tituloResultados": {
+        "nenhum": "Nenhum resultado encontrado",
+        "um": "Somente um resultados encontrado",
+        "varios": "%l Resultados encontrados"
+    },
+    "detalhes": "Mais Informações"
+}

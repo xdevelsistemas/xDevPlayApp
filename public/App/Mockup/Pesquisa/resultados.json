@@ -1,0 +1,74 @@
+{
+    "total": "3",
+    "lista": [
+        {
+            "codigo": "1",
+            "valorDoBem": "80000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
+        },
+        {
+            "codigo": "123",
+            "valorDoBem": "90000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
+        },
+        {
+            "codigo": "42",
+            "valorDoBem": "60000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "descricaoBreve": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti."
+        }
+    ],
+    "paginas": {
+        "total": "15",
+        "selecionada": "7"
+    },
+    "ordenadores": {
+        "selecionado": "administradora",
+        "lista": [
+            {
+                "codigo": "preco",
+                "descricao": "Preço"
+            },
+            {
+                "codigo": "administradora",
+                "descricao": "Administradora"
+            }
+        ]
+    },
+    "ordem": {
+        "selecionada": "desc",
+        "lista": [
+            {
+                "codigo": "asc",
+                "descricao": "Crescente"
+            },
+            {
+                "codigo": "desc",
+                "descricao": "Decrescente"
+            }
+        ]
+    }
+}
