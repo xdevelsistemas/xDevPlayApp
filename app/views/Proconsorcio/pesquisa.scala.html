@@ -22,7 +22,7 @@
         }
 
         <div class="sidebar span3" id="caixa-filtros">
-            <h2>{{tituloCaixaFiltros}}</h2>
+            <h2>{{strings.tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
                     <form method="get" action="/pesquisa">
@@ -38,10 +38,10 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn btn-primary btn-large" type="submit">
-                                {{textoBotaoFiltrar}}</button>
+                                {{strings.botaoFiltrar}}</button>
                             <button class="btn btn-primary btn-large"
                             calss ="limpar-filtros" ng-click="limpar()">
-                                {{textoBotaoLimpar}}</button>
+                                {{strings.botaoLimpar}}</button>
                         </div>
                     </form>
                 </div>
@@ -71,17 +71,17 @@
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="ordenadores.selecionado" xd-chosen
+                                    <select ng-model="resultados.ordenadores.selecionado" xd-chosen
                                     ng-change="ordenarResultado()"
-                                    ng-options="ordenador.codigo as ordenador.descricao for ordenador in ordenadores.lista">
+                                    ng-options="ordenador.codigo as ordenador.descricao for ordenador in resultados.ordenadores.lista">
                                     </select>
                                 </div>
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="ordem.selecionada" xd-chosen
+                                    <select ng-model="resultados.ordem.selecionada" xd-chosen
                                     ng-change="ordenarResultado()"
-                                    ng-options="ordem.codigo as ordem.descricao for ordem in ordem.lista">
+                                    ng-options="ordem.codigo as ordem.descricao for ordem in resultados.ordem.lista">
                                     </select>
                                 </div>
                             </div>

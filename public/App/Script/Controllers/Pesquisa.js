@@ -3,31 +3,127 @@ define(['./__module__', 'jquery'], function (controllers, $) {
     controllers.controller('Pesquisa', ['$scope', '$http', 'QueryString', function ($scope, $http, QueryString) {
         var QUERY_FILTROS = window.location.search;
 
-        $scope.paginas = {
-            selecionada: 1,
-            total: 1
+        $scope.strings = {
+            "tituloCaixaFiltros": "Pesquisar Consórcios",
+            "botaoFiltrar": "Filtrar!",
+            "botaoLimpar": "Limpar Filtros",
+            "tituloResultados": {
+                "nenhum": "Nenhum resultado encontrado",
+                "um": "Somente um resultados encontrado",
+                "varios": "%l Resultados encontrados"
+            },
+            "detalhes": "Mais Informações"
         };
         $scope.resultados = {
-            titulo: {
-                um: "",
-                nenhum: "",
-                varios: ""
+            "total": "0",
+            "lista": [],
+            "paginas": {
+                "total": "1",
+                "selecionada": "1"
             },
-            lista: []
+            "ordenadores": {
+                "selecionado": "preco",
+                "lista": [
+                    {
+                        "codigo": "preco",
+                        "descricao": "Preço"
+                    },
+                    {
+                        "codigo": "administradora",
+                        "descricao": "Administradora"
+                    }
+                ]
+            },
+            "ordem": {
+                "selecionada": "asc",
+                "lista": [
+                    {
+                        "codigo": "asc",
+                        "descricao": "Crescente"
+                    },
+                    {
+                        "codigo": "desc",
+                        "descricao": "Decrescente"
+                    }
+                ]
+            }
         };
 
-        $http.get('/assets/App/Mockup/Filtros/tipo.json' + QUERY_FILTROS).success(function (data) {
-            angular.extend($scope, data);
-        });
+        $scope.filtros = {
+            "administradora": {
+                "codigo": "administradora",
+                "descricao": "Administradora",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            },
+            "contemplacao": {
+                "codigo": "contemplacao",
+                "descricao": "Contemplação",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            },
+            "prazoRestante": {
+                "codigo": "prazo_restante",
+                "descricao": "Prazo restante",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            },
+            "tipo": {
+                "codigo": "tipo",
+                "descricao": "Quero consórcios de",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            },
+            "valorCredito": {
+                "codigo": "valor_credito",
+                "descricao": "Valor de Crédito",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            },
+            "valorParcelas": {
+                "codigo": "valor_parcelas",
+                "descricao": "Valor das parcelas",
+                "selecionado": "-1",
+                "lista": [
+                    {
+                        "codigo": "-1",
+                        "descricao": "-"
+                    }
+                ]
+            }
+        }
 
-
-
-        $http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
-            angular.extend($scope, data);
-        });
-        $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + QUERY_FILTROS).success(function (data) {
-            angular.extend($scope, data);
-        });
+        /*$http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
+         angular.extend($scope, data);
+         });
+         $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + QUERY_FILTROS).success(function (data) {
+         angular.extend($scope, data);
+         });*/
 
         $scope.limpar = function () {
             event.preventDefault();
@@ -59,9 +155,9 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         $scope.tituloResultados = function () {
             var l = $scope.resultados.lista.length;
-            if (l == 0)return $scope.resultados.titulo.nenhum;
-            else if (l == 1)return $scope.resultados.titulo.um;
-            else return $scope.resultados.titulo.varios.replace("%l", l);
+            if (l == 0)return $scope.strings.tituloResultados.nenhum;
+            else if (l == 1)return $scope.strings.tituloResultados.um;
+            else return $scope.strings.tituloResultados.varios.replace("%l", l);
         };
 
         $scope.irParaPagina = function (codigo) {
@@ -105,7 +201,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             else return 1;
         };
         $scope.paginasExibidas = function () {
-            var t = parseInt($scope.paginas.total);
+            var t = parseInt($scope.resultados.paginas.total);
             return t < 5 ? t : 5;
         }
     }
