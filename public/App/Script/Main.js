@@ -25,21 +25,22 @@ require.config({
      */
     shim: {
         'angular': {
-            exports: 'angular'
+            exports: 'angular',
+            deps: ['jquery']
         },
         'angular-route': {
             deps: ['angular']
         },
-        'jquery': {
-            deps: ['domReady!']
-        },
         'jqueryPlugins': {
             deps: ['jquery', 'domReady!']
         },
-        'bootstrap': ["jquery", 'domReady!'],
-        //'jqueryPlugins': ['jquery', 'domReady!'],
-        'datatables': ['jquery'],
-        'select2localePtBR': ['jqueryPlugins']
+        'datatables': {
+            deps: ['jquery', 'domReady!']
+        },
+        'select2localePtBR': {
+            deps: ['jquery', 'domReady!']
+        },
+        'bootstrap': ["jquery", 'domReady!']
     },
 
     deps: [
