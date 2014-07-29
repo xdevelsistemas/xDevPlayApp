@@ -6,6 +6,7 @@ define([
     'require',
     'angular',
     'jquery',
+    'bootstrap',
     'datatables',
     'jqueryPlugins',
     'App',
