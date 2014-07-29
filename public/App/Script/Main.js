@@ -13,8 +13,8 @@ require.config({
         'angular-route': '../Libs/angular-route/angular-route',
         'domReady': '../Libs/requirejs-domready/domReady',
         "bootstrap": '../Libs/rs-plugin/bootstrap2/js/bootstrap.min',
-        //"bootstrap": '../Libs/rs-plugin/bootstrap3/js/bootstrap.min',
         'jquery': '../Libs/jquery',
+        'datatables': '../Libs/DataTables/js/jquery.dataTables',
         'jqueryPlugins': '../Libs/jqueryPlugins',
         'select2localePtBR': '../Libs/select2/select2_locale_pt-BR'
     },
@@ -30,10 +30,13 @@ require.config({
         'angular-route': {
             deps: ['angular']
         },
+        'jquery': {
+            deps: ['domReady!']
+        },
         'bootstrap': ["jquery", 'domReady!'],
-        'jqueryPlugins': ['bootstrap'],
-        'select2localePtBR': ['jqueryPlugins'],
-        'properta': ['select2localePtBR']
+        'jqueryPlugins': ['jquery', 'domReady!'],
+        'datatables': ['jquery'],
+        'select2localePtBR': ['jqueryPlugins']
     },
 
     deps: [

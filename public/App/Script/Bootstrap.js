@@ -6,6 +6,7 @@ define([
     'require',
     'angular',
     'jquery',
+    'datatables',
     'jqueryPlugins',
     'App',
     'Routes'
@@ -18,7 +19,7 @@ define([
      */
 
 
-    require(['domReady!'], function (document) {
+    require(['domReady!'], function () {
         $('.datepicker').datepicker();
         //$('.datepicker').mask('99/99/9999');
 
