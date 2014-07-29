@@ -1,0 +1,31 @@
+{
+    "codigo": "tipo",
+    "descricao": "Quero consórcios de",
+    "selecionado": "-1",
+    "lista": [
+        {
+            "codigo": "-1",
+            "descricao": "-"
+        },
+        {
+            "codigo": "1",
+            "descricao": "Imóveis"
+        },
+        {
+            "codigo": "6",
+            "descricao": "Caminhões"
+        },
+        {
+            "codigo": "2",
+            "descricao": "Carros"
+        },
+        {
+            "codigo": "4",
+            "descricao": "Motos"
+        },
+        {
+            "codigo": "5",
+            "descricao": "Serviços"
+        }
+    ]
+}

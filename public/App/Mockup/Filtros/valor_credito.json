@@ -1,0 +1,15 @@
+{
+    "codigo": "valor_credito",
+    "descricao": "Valor de Crédito",
+    "selecionado": "1",
+    "lista": [
+        {
+            "codigo": "1",
+            "descricao": "até R$ 5.000,00"
+        },
+        {
+            "codigo": "2",
+            "descricao": "acima de R$ 5.000,00"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "codigo": "contemplacao",
+    "descricao": "Contemplação",
+    "selecionado": "-1",
+    "lista": [
+        {
+            "codigo": "1",
+            "descricao": "Contemplada"
+        },
+        {
+            "codigo": "2",
+            "descricao": "Não contemplada"
+        }
+    ]
+}

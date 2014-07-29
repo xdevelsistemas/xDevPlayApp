@@ -16,6 +16,12 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             lista: []
         };
 
+        $http.get('/assets/App/Mockup/Filtros/tipo.json' + QUERY_FILTROS).success(function (data) {
+            angular.extend($scope, data);
+        });
+
+
+
         $http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
             angular.extend($scope, data);
         });
