@@ -1,12 +1,7 @@
 {
     "codigo": "tipo",
     "descricao": "Quero consórcios de",
-    "selecionado": "-1",
     "lista": [
-        {
-            "codigo": "-1",
-            "descricao": "-"
-        },
         {
             "codigo": "1",
             "descricao": "Imóveis"

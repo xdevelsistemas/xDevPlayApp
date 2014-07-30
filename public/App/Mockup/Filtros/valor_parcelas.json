@@ -1,7 +1,6 @@
 {
     "codigo": "valor_parcelas",
     "descricao": "Valor das parcelas",
-    "selecionado": "-1",
     "lista": [
         {
             "codigo": "1",

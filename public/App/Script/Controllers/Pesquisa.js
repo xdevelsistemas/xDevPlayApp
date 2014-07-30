@@ -118,18 +118,26 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
         }
 
-        /*$http.get('/assets/App/Mockup/Filtros.json' + QUERY_FILTROS).success(function (data) {
-         angular.extend($scope, data);
-         });
-         $http.get('/assets/App/Mockup/ResultadosPesquisa.json' + QUERY_FILTROS).success(function (data) {
-         angular.extend($scope, data);
-         });*/
+        $.each(['administradora', 'contemplacao', 'prazoRestante', 'tipo', 'valorCredito', 'valorParcelas'], function (key, value) {
+            $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
+                angular.extend($scope.filtros[value], data);
+            });
+        });
+
+        var xFiltersQuery = '?pagina=' + $scope.resultados.paginas.selecionada + '&';
+        $.each($scope.filtros, function (key, value) {
+            xFiltersQuery += value.codigo + '=' + value.selecionado + '&';
+        });
+        xFiltersQuery += 'ordenador=' + $scope.resultados.ordenadores.selecionado + '&';
+        xFiltersQuery += 'ordem=' + $scope.resultados.ordem.selecionada;
+        $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery).success(function (data) {
+            angular.extend($scope.resultados, data);
+        });
 
         $scope.limpar = function () {
             event.preventDefault();
             $.each($scope.filtros, function (key, value) {
                 value.selecionado = -1;
-                console.log(value);
             });
             $("#caixa-filtros select").val(-1).trigger("liszt:updated");
         };
@@ -137,6 +145,22 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.buscarResultados = function () {
             var qFiltros = "";
             var xFiltros = $scope.filtros;
+            $.each(xFiltros, function (key, value) {
+                qFiltros += value.codigo + "=" + value.selecionado;
+                if (k < Object.keys(xFiltros).length - 1)
+                    qFiltros += "&";
+            });
+            var objQuery = QueryString.toObject(qFiltros);
+            var query = $.param(angular.extend(objQuery, {
+                ordenador: $scope.resultados.ordenadores.selecionado,
+                ordem: $scope.resultados.ordem.selecionada,
+                pagina: $scope.resultados.paginas.selecionada
+            }));
+            $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + '?' + query).success(function (data) {
+                angular.extend($scope.resultados, data);
+            });
+            return;
+
             for (var k in xFiltros) {
                 qFiltros += xFiltros[k].codigo + "=" + xFiltros[k].selecionado;
                 if (k < Object.keys(xFiltros).length - 1)
@@ -161,7 +185,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
 
         $scope.irParaPagina = function (codigo) {
-            $scope.paginas.selecionada = codigo;
+            $scope.resultados.paginas.selecionada = codigo;
             $scope.buscarResultados();
         };
 
@@ -170,31 +194,31 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
 
         $scope.passarPagina = function () {
-            var p = parseInt($scope.paginas.selecionada);
-            var t = parseInt($scope.paginas.total);
+            var p = parseInt($scope.resultados.paginas.selecionada);
+            var t = parseInt($scope.resultados.paginas.total);
             if (p < t) {
                 $scope.irParaPagina(p + 1);
             }
         };
         $scope.voltarPagina = function () {
-            var p = parseInt($scope.paginas.selecionada);
+            var p = parseInt($scope.resultados.paginas.selecionada);
             if (p > 1) {
                 $scope.irParaPagina(p - 1);
             }
         };
         $scope.ultimaPagina = function () {
-            $scope.irParaPagina($scope.paginas.total);
+            $scope.irParaPagina($scope.resultados.paginas.total);
         };
         $scope.primeiraPagina = function () {
             $scope.irParaPagina(1);
         };
 
         $scope.paginaSelecionada = function (codigo) {
-            return (parseInt(codigo) == $scope.paginas.selecionada);
+            return (parseInt(codigo) == $scope.resultados.paginas.selecionada);
         };
         $scope.paginasPassadas = function () {
-            var p = parseInt($scope.paginas.selecionada);
-            var t = parseInt($scope.paginas.total);
+            var p = parseInt($scope.resultados.paginas.selecionada);
+            var t = parseInt($scope.resultados.paginas.total);
             if (t < 5) return 1;
             else if (p > t - 2) return p - (4 - (t - p));
             else if (p > 2) return p - 2;
