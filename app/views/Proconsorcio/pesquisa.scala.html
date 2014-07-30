@@ -25,12 +25,12 @@
             <h2>{{strings.tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
-                    <form method="get" action="/pesquisa">
+                    <form method="get" ng-submit="buscarResultados()">
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label class="control-label">{{filtro.descricao}}</label>
                             <div class="controls">
                                 <select ng-model="filtro.selecionado" xd-chosen
-                                ng-options="item.codigo as item.descricao for item in filtro.lista">
+                                ng-options="item.descricao as item.descricao for item in filtro.lista">
                                     <option value="-1">-</option>
                                 </select>
                                 <input name="{{filtro.codigo}}" type="hidden" value="{{filtro.selecionado}}">
