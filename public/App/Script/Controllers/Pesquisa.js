@@ -161,6 +161,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
 
         $scope.irParaPagina = function (codigo) {
+            if ($scope.resultados.paginas.selecionada == codigo) return;
             $scope.resultados.paginas.selecionada = codigo;
             $scope.buscarResultados();
         };
