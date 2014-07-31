@@ -29,7 +29,7 @@
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="login">
-                                <form method="post">
+                                <form method="post" action="@request.uri">
 
                                     @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get, SecureSocial.currentUser.get.identityId.providerId)) {
                                         <div class="control-group">

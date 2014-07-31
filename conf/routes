@@ -20,6 +20,10 @@ GET         /getuf                         controllers.Proconsorcio.Application.
 GET         /getbanco                      controllers.Proconsorcio.Application.getBanco()
 POST        /signupmail                    plugin.CustomRegistration.handleStartSignUpMail()
 
+
+#apis rest para comunicação com frontend via angularjs
+
+
 # Example of protected page
 GET         /only-userpass                 controllers.Application.onlyUserPass
 # Map static resources from the /public folder to the /assets URL path

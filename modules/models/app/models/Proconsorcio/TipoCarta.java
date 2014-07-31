@@ -12,28 +12,22 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(uniqueConstraints={
-        @UniqueConstraint(columnNames={"_name"})
+        @UniqueConstraint(columnNames={"name"})
 })
 public class TipoCarta extends AbstractModel {
-    @Column(name = "NAME")
-    private String _name;
+    @Column
+    public String name;
 
-    @Column(name = "ATIVO" , nullable = false )
-    public boolean _ativo;
+    @Column(nullable = false )
+    public boolean ativo;
 
-    public String get_name() {
-        return _name;
+    @Override
+    public void prePersist()
+    {
+        super.prePersist();
+
+        this.ativo = true;
     }
 
-    public void set_name(String _name) {
-        this._name = _name;
-    }
 
-    public boolean is_ativo() {
-        return _ativo;
-    }
-
-    public void set_ativo(boolean _ativo) {
-        this._ativo = _ativo;
-    }
 }

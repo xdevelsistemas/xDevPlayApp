@@ -75,15 +75,15 @@ object Application extends xDevController{
     val usuario: User = (new IdentityDAO).findOneByEmailAndProvider( _user.get.email.get,_user.get.identityId.providerId).user()
     val regdata: AlterarDadosInfo = new AlterarDadosInfo(
       usuario.realName,
-      if (usuario.get_birthDate == null) (new String("")) else (new SimpleDateFormat("dd/MM/yyyy")).format(usuario.get_birthDate),
-      (new Some[String](if (usuario.get_numCep == null) (new String("")) else usuario.get_numCep)),
-      if (usuario.get_siglaUf == null) (new String("")) else usuario.get_siglaUf,
-      if (usuario.get_nomeCidade == null) (new String("")) else usuario.get_nomeCidade,
-      if (usuario.get_nomeBairro == null) (new String("")) else usuario.get_nomeBairro,
-      if (usuario.get_nomeLogradouro == null) (new String("")) else usuario.get_nomeLogradouro,
-      if (usuario.get_numLogradouro == null) (new String("")) else usuario.get_numLogradouro,
-      (new Some[String](if (usuario.get_numRg == null) (new String("")) else usuario.get_numRg)),
-      if (usuario.get_numDocFederal == null) (new String("")) else usuario.get_numDocFederal)
+      if (usuario.birthDate.equals(null)) (new String("")) else (new SimpleDateFormat("dd/MM/yyyy")).format(usuario.birthDate),
+      (new Some[String](if (usuario.numCep.equals(null)) (new String("")) else usuario.numCep)),
+      if (usuario.siglaUf.equals(null)) (new String("")) else usuario.siglaUf,
+      if (usuario.nomeCidade.equals(null)) (new String("")) else usuario.nomeCidade,
+      if (usuario.nomeBairro.equals(null)) (new String("")) else usuario.nomeBairro,
+      if (usuario.nomeLogradouro.equals(null)) (new String("")) else usuario.nomeLogradouro,
+      if (usuario.numLogradouro.equals(null)) (new String("")) else usuario.numLogradouro,
+      (new Some[String](if (usuario.numRg.equals(null)) (new String("")) else usuario.numRg)),
+      if (usuario.numDocFederal.equals(null)) (new String("")) else usuario.numDocFederal)
     val userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados.fill(regdata)
 
 
