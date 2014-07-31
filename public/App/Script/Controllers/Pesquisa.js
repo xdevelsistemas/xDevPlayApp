@@ -89,20 +89,20 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             //procura pelos filtros
             $.each(['administradora', 'contemplacao', 'prazo_restante', 'tipo', 'valor_credito', 'valor_parcelas'], function (key, value) {
                 $scope.filtros[value].selecionado = FILTROS[value];
-                console.log(">>>", $scope.filtros[value]);
+                //console.log(">>>", $scope.filtros[value]);
                 $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
                     angular.extend($scope.filtros[value], data);
-                    console.log("<<<", $scope.filtros[value]);
+                    //console.log("<<<", $scope.filtros[value]);
                 });
             });
             //procura pelos ordenadores
             $.each(['ordenador', 'ordem'], function (key, value) {
                 if (FILTROS[value] != undefined)
-                    $scope.ordenadores[value].selecionado = FILTROS[value] != undefined;
-                console.log(">>>", $scope.ordenadores[value]);
+                    $scope.ordenadores[value].selecionado = FILTROS[value];
+                //console.log(">>>", $scope.ordenadores[value]);
                 $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
                     angular.extend($scope.ordenadores[value], data);
-                    console.log("<<<", $scope.ordenadores[value]);
+                    //console.log("<<<", $scope.ordenadores[value]);
                 });
             });
             //chama a função sem passar true para requisitar em ajax
@@ -123,6 +123,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             });
 
             if (notAjax) {
+                xFiltersQuery = xFiltersQuery.slice(0, xFiltersQuery.length - 1);
                 xFiltersQuery = encodeURI(xFiltersQuery);
                 window.location = '/pesquisa' + xFiltersQuery;
             } else {
