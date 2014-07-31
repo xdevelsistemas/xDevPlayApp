@@ -33,6 +33,9 @@ require.config({
         'angular-route': {
             deps: ['angular']
         },
+        'domReady': {
+            deps: ['angular']
+        },
         'jqueryPlugins': {
             deps: ['jquery', 'domReady!']
         },

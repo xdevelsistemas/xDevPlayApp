@@ -25,7 +25,7 @@
             <h2>{{strings.tituloCaixaFiltros}}</h2>
             <div class="property-filter widget">
                 <div class="content">
-                    <form method="get" ng-submit="buscarResultados()">
+                    <form method="get" ng-submit="buscarResultados(true)">
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label class="control-label">{{filtro.descricao}}</label>
                             <div class="controls">

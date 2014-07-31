@@ -101,7 +101,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     console.log("<<<", $scope.ordenadores[value]);
                 });
             });
-
+            //chama a função sem passar true para requisitar em ajax
             $scope.buscarResultados();
         };
 
@@ -112,19 +112,25 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             });
         };
 
-        $scope.buscarResultados = function () {
-            var xFiltersQuery = '?pagina=' + $scope.resultados.paginas.selecionada + '&';
+        $scope.buscarResultados = function (notAjax) {
+            var xFiltersQuery = '?';
             $.each($scope.filtros, function (key, value) {
                 xFiltersQuery += value.codigo + '=' + value.selecionado + '&';
             });
-            xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
-            xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
-            xFiltersQuery = encodeURI(xFiltersQuery);
-            $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery)
-                .success(function (data) {
-                    //angular.extend($scope.resultados, data);
-                    $.extend(true, $scope.resultados, data);
-                });
+
+            if (notAjax) {
+                xFiltersQuery = encodeURI(xFiltersQuery);
+                window.location = '/pesquisa' + xFiltersQuery;
+            } else {
+                xFiltersQuery += 'pagina=' + $scope.resultados.paginas.selecionada + '&'
+                xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
+                xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
+                xFiltersQuery = encodeURI(xFiltersQuery);
+                $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery)
+                    .success(function (data) {
+                        $.extend(true, $scope.resultados, data);
+                    });
+            }
         };
 
         $scope.tituloResultados = function () {
@@ -190,6 +196,5 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
 
         $scope.aoAbrir();
-    }
-    ]);
+    }]);
 });
