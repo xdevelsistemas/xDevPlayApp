@@ -29,11 +29,14 @@
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label class="control-label">{{filtro.descricao}}</label>
                             <div class="controls">
-                                <select ng-model="filtro.selecionado" xd-chosen
-                                ng-options="item.descricao as item.descricao for item in filtro.lista">
+                                <select ng-model="filtro.selecionado" ui-select2="{width:'resolve'}"
+                                data-placeholder="Selecione uma opção">
+                                    <option value=""></option>
                                     <option value="-1">-</option>
+                                    <option ng-repeat="item in filtro.lista"
+                                    ng-value="item.descricao"
+                                    ng-bind="item.descricao"></option>
                                 </select>
-                                <input name="{{filtro.codigo}}" type="hidden" value="{{filtro.selecionado}}">
                             </div>
                         </div>
                         <div class="form-actions">
@@ -51,6 +54,7 @@
         <div id="main" class="span9 property-listing">
 
             <h1 class="page-header">{{tituloResultados()}}</h1>
+            <h2 class="page-header pull-right">{{subtituloResultados()}}</h2>
 
             <div class="clearfix"></div>
 
@@ -71,17 +75,23 @@
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="resultados.ordenadores.selecionado" xd-chosen
-                                    ng-change="ordenarResultado()"
-                                    ng-options="ordenador.codigo as ordenador.descricao for ordenador in resultados.ordenadores.lista">
+                                    <select ng-model="ordenadores.ordenador.selecionado"
+                                    ui-select2="{width:'resolve', minimumResultsForSearch:-1}"
+                                    ng-change="ordenarResultado()">
+                                        <option value=""></option>
+                                        <option ng-repeat="ordenador in ordenadores.ordenador.lista"
+                                        ng-value="ordenador.codigo" ng-bind="ordenador.descricao"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="control-group pull-right">
                                 <div class="controls">
-                                    <select ng-model="resultados.ordem.selecionada" xd-chosen
-                                    ng-change="ordenarResultado()"
-                                    ng-options="ordem.codigo as ordem.descricao for ordem in resultados.ordem.lista">
+                                    <select ng-model="ordenadores.ordem.selecionado"
+                                    ui-select2="{width:'resolve', minimumResultsForSearch:-1}"
+                                    ng-change="ordenarResultado()">
+                                        <option value=""></option>
+                                        <option ng-repeat="ordem in ordenadores.ordem.lista"
+                                        ng-value="ordem.codigo" ng-bind="ordem.descricao"></option>
                                     </select>
                                 </div>
                             </div>
@@ -109,12 +119,12 @@
                                 <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
                                 <div class="location">{{resultado.tipo.nome}}</div>
                                 <div class="body">
-                                    <p>{{resultado.descricaoBreve}}</p>
+                                    <p></p>
                                 </div>
                                 <div class="property-info clearfix">
                                     <div class="more-info">
                                         <a href="{{'/detalhes/' + resultado.codigo}}">
-                                            {{resultados.detalhes}}
+                                            {{strings.detalhes}}
                                             <i class="icon icon-normal-right-arrow-circle"></i>
                                         </a>
                                     </div>

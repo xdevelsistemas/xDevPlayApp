@@ -52,31 +52,5 @@
     "paginas": {
         "total": "15",
         "selecionada": "7"
-    },
-    "ordenadores": {
-        "selecionado": "administradora",
-        "lista": [
-            {
-                "codigo": "preco",
-                "descricao": "Preço"
-            },
-            {
-                "codigo": "administradora",
-                "descricao": "Administradora"
-            }
-        ]
-    },
-    "ordem": {
-        "selecionada": "desc",
-        "lista": [
-            {
-                "codigo": "asc",
-                "descricao": "Crescente"
-            },
-            {
-                "codigo": "desc",
-                "descricao": "Decrescente"
-            }
-        ]
     }
 }

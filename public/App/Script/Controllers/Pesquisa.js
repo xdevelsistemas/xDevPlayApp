@@ -8,8 +8,9 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "tituloResultados": {
                 "nenhum": "Nenhum resultado encontrado",
                 "um": "Somente um resultados encontrado",
-                "varios": "%l Resultados encontrados"
+                "varios": "%t Resultados encontrados"
             },
+            "subtituloResultados": "Página %p de %t",
             "detalhes": "Mais Informações"
         };
         $scope.resultados = {
@@ -18,32 +19,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "paginas": {
                 "total": "1",
                 "selecionada": "1"
-            },
-            "ordenadores": {
-                "selecionado": "preco",
-                "lista": [
-                    {
-                        "codigo": "preco",
-                        "descricao": "Preço"
-                    },
-                    {
-                        "codigo": "administradora",
-                        "descricao": "Administradora"
-                    }
-                ]
-            },
-            "ordem": {
-                "selecionada": "asc",
-                "lista": [
-                    {
-                        "codigo": "asc",
-                        "descricao": "Crescente"
-                    },
-                    {
-                        "codigo": "desc",
-                        "descricao": "Decrescente"
-                    }
-                ]
             }
         };
         $scope.filtros = {
@@ -51,81 +26,79 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 "codigo": "administradora",
                 "descricao": "Administradora",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
             },
             "contemplacao": {
                 "codigo": "contemplacao",
                 "descricao": "Contemplação",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
             },
             "prazo_restante": {
                 "codigo": "prazo_restante",
                 "descricao": "Prazo restante",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
             },
             "tipo": {
                 "codigo": "tipo",
                 "descricao": "Quero consórcios de",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
             },
             "valor_credito": {
                 "codigo": "valor_credito",
                 "descricao": "Valor de Crédito",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
             },
             "valor_parcelas": {
                 "codigo": "valor_parcelas",
                 "descricao": "Valor das parcelas",
                 "selecionado": "-",
-                "lista": [
-                    {
-                        "codigo": "-1",
-                        "descricao": "-"
-                    }
-                ]
+                "lista": []
+            }
+        }
+        $scope.ordenadores = {
+            "ordenador": {
+                "codigo": "ordenador",
+                "selecionado": "preco",
+                "lista": []
+            },
+            "ordem": {
+                "codigo": "ordem",
+                "selecionado": "asc",
+                "lista": []
             }
         }
 
+        //função chamadao ao fim do controle
         $scope.aoAbrir = function () {
+            //requisita as strings da página
+            $http.get('/assets/App/Mockup/Pesquisa/strings.json').success(function (data) {
+                angular.extend($scope.strings, data);
+            });
+            //captura html query string da barra de endereço
             var QUERY_FILTROS = QueryString.removeMark(window.location.search);
             var FILTROS = QueryString.toObject(QUERY_FILTROS);
             console.log(FILTROS);
-
+            //procura pelos filtros
             $.each(['administradora', 'contemplacao', 'prazo_restante', 'tipo', 'valor_credito', 'valor_parcelas'], function (key, value) {
                 $scope.filtros[value].selecionado = FILTROS[value];
                 console.log(">>>", $scope.filtros[value]);
                 $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
                     angular.extend($scope.filtros[value], data);
                     console.log("<<<", $scope.filtros[value]);
+                });
+            });
+            //procura pelos ordenadores
+            $.each(['ordenador', 'ordem'], function (key, value) {
+                if (FILTROS[value] != undefined)
+                    $scope.ordenadores[value].selecionado = FILTROS[value] != undefined;
+                console.log(">>>", $scope.ordenadores[value]);
+                $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
+                    angular.extend($scope.ordenadores[value], data);
+                    console.log("<<<", $scope.ordenadores[value]);
                 });
             });
 
@@ -137,7 +110,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $.each($scope.filtros, function (key, value) {
                 value.selecionado = -1;
             });
-            $("#caixa-filtros select").val(-1).trigger("liszt:updated");
         };
 
         $scope.buscarResultados = function () {
@@ -145,23 +117,33 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $.each($scope.filtros, function (key, value) {
                 xFiltersQuery += value.codigo + '=' + value.selecionado + '&';
             });
-            xFiltersQuery += 'ordenador=' + $scope.resultados.ordenadores.selecionado + '&';
-            xFiltersQuery += 'ordem=' + $scope.resultados.ordem.selecionada;
+            xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
+            xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
             xFiltersQuery = encodeURI(xFiltersQuery);
-            $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery).success(function (data) {
-                angular.extend($scope.resultados, data);
-            });
+            $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery)
+                .success(function (data) {
+                    //angular.extend($scope.resultados, data);
+                    $.extend(true, $scope.resultados, data);
+                });
         };
 
         $scope.tituloResultados = function () {
             var l = $scope.resultados.lista.length;
-            if (l == 0)return $scope.strings.tituloResultados.nenhum;
-            else if (l == 1)return $scope.strings.tituloResultados.um;
-            else return $scope.strings.tituloResultados.varios.replace("%l", l);
+            var t = $scope.resultados.total;
+            if (t == 0)return $scope.strings.tituloResultados.nenhum;
+            else if (t == 1)return $scope.strings.tituloResultados.um;
+            else return $scope.strings.tituloResultados.varios
+                    .replace('%l', l).replace('%t', t);
+        };
+
+        $scope.subtituloResultados = function () {
+            var t = $scope.resultados.paginas.total;
+            var p = $scope.resultados.paginas.selecionada;
+            return $scope.strings.subtituloResultados
+                .replace('%t', t).replace('%p', p);
         };
 
         $scope.irParaPagina = function (codigo) {
-            if ($scope.resultados.paginas.selecionada == codigo) return;
             $scope.resultados.paginas.selecionada = codigo;
             $scope.buscarResultados();
         };

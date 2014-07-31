@@ -5,7 +5,8 @@
     "tituloResultados": {
         "nenhum": "Nenhum resultado encontrado",
         "um": "Somente um resultados encontrado",
-        "varios": "%l Resultados encontrados"
+        "varios": "%t Resultados encontrados"
     },
+    "subtituloResultados": "Página %p de %t",
     "detalhes": "Mais Informações"
 }

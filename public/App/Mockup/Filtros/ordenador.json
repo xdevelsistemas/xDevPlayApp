@@ -1,0 +1,13 @@
+{
+    "codigo":"ordenador",
+    "lista": [
+        {
+            "codigo": "preco",
+            "descricao": "Preço"
+        },
+        {
+            "codigo": "administradora",
+            "descricao": "Administradora"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "codigo":"ordem",
+    "lista": [
+        {
+            "codigo": "asc",
+            "descricao": "Crescente"
+        },
+        {
+            "codigo": "desc",
+            "descricao": "Decrescente"
+        }
+    ]
+}
