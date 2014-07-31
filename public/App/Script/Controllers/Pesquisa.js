@@ -11,7 +11,11 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 "varios": "%t Resultados encontrados"
             },
             "subtituloResultados": "Página %p de %t",
-            "detalhes": "Mais Informações"
+            "detalhes": "Mais Informações",
+            "proxima": "Próxima",
+            "anterior": "Anterior",
+            "ultima": "Última",
+            "primeira": "Primeira"
         };
         $scope.resultados = {
             "total": "0",

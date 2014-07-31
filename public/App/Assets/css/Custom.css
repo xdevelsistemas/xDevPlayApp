@@ -1,10 +1,19 @@
-html, body, #all-content {
-    height: 100%;
+/*angularjs ngCloak hack*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
 }
 
+/*end*/
+
+/*TODO  provavelmente isso não será mais necessário*/
 #all-content {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.2s ease;
+}
+
+/*it makes the footer stuck to the page bottom*/
+html, body, #all-content {
+    height: 100%;
 }
 
 #page-container {
@@ -21,6 +30,8 @@ html, body, #all-content {
 #footer-wrapper {
     height: 84px;
 }
+
+/*end*/
 
 dd.error {
     color: red;

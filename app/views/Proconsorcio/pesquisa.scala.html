@@ -12,7 +12,9 @@
         }
         @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
             <div class="alert alert-info " role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only"></span></button>
                 @{
                     user.get.firstName
                 }
@@ -22,12 +24,12 @@
         }
 
         <div class="sidebar span3" id="caixa-filtros">
-            <h2>{{strings.tituloCaixaFiltros}}</h2>
-            <div class="property-filter widget">
+            <h2 ng-bind="strings.tituloCaixaFiltros"></h2>
+            <div ng-cloak class="property-filter widget">
                 <div class="content">
-                    <form method="get" ng-submit="buscarResultados(true)">
+                    <form ng-submit="buscarResultados(true)">
                         <div ng-repeat="filtro in filtros" class="location control-group">
-                            <label class="control-label">{{filtro.descricao}}</label>
+                            <label ng-bind="filtro.descricao" class="control-label"></label>
                             <div class="controls">
                                 <select ng-model="filtro.selecionado" ui-select2="{width:'resolve'}"
                                 data-placeholder="Selecione uma opção">
@@ -40,11 +42,11 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button class="btn btn-primary btn-large" type="submit">
-                                {{strings.botaoFiltrar}}</button>
                             <button class="btn btn-primary btn-large"
-                            calss ="limpar-filtros" ng-click="limpar()">
-                                {{strings.botaoLimpar}}</button>
+                            ng-bind="strings.botaoFiltrar" type="submit"></button>
+                            <button class="btn btn-primary btn-large"
+                            calss ="limpar-filtros" ng-click="limpar()"
+                            ng-bind="strings.botaoLimpar"></button>
                         </div>
                     </form>
                 </div>
@@ -53,16 +55,15 @@
 
         <div id="main" class="span9 property-listing">
 
-            <h1 class="page-header">{{tituloResultados()}}</h1>
-            <h2 class="page-header pull-right">{{subtituloResultados()}}</h2>
+            <h1 ng-bind="tituloResultados()" class="page-header"></h1>
+            <h2 ng-bind="subtituloResultados()" class="page-header pull-right"></h2>
 
             <div class="clearfix"></div>
 
             <div class="properties-rows">
                 <div class="filter-wrapper">
                     <div class="filter pull-right">
-                        <form action="javascript:void(0)" method="get"
-                        class="form-sort form-horizontal pull-right">
+                        <form ng-cloak class="form-sort form-horizontal pull-right">
                             <div class="pager pull-right">
                                 <ul class="pager">
                                     <li><a href="#" ng-click="voltarPagina()">
@@ -104,27 +105,27 @@
 
             <div class="properties-rows" id="resultadosPesquisa">
                 <div class="row">
-                    <div ng-repeat="resultado in resultados.lista" class="property span9">
+                    <div ng-cloak ng-repeat="resultado in resultados.lista" class="property span9">
                         <div class="row">
                             <div class="body span9">
                                 <div class="title-price row">
                                     <div class="title span9">
-                                        <h2><a href="property-detail.html">
-                                            {{resultado.administradora.nome}}</a>
+                                        <h2><a ng-href="/detalhes/' + resultado.codigo"
+                                        ng-bind="resultado.administradora.nome"></a>
                                         </h2>
                                     </div>
                                 </div>
                                 <div class="clear">
                                 </div>
-                                <div class="price">{{'R$ '+resultado.valorDoBem}}</div>
-                                <div class="location">{{resultado.tipo.nome}}</div>
+                                <div ng-bind="'R$ '+resultado.valorDoBem" class="price"></div>
+                                <div ng-bind="resultado.tipo.nome" class="location"></div>
                                 <div class="body">
                                     <p></p>
                                 </div>
                                 <div class="property-info clearfix">
                                     <div class="more-info">
-                                        <a href="{{'/detalhes/' + resultado.codigo}}">
-                                            {{strings.detalhes}}
+                                        <a ng-href="'/detalhes/' + resultado.codigo"
+                                        ng-bind="strings.detalhes">
                                             <i class="icon icon-normal-right-arrow-circle"></i>
                                         </a>
                                     </div>
@@ -135,16 +136,20 @@
                 </div>
             </div>
 
-            <div class="pagination pagination-centered">
+            <div ng-cloak class="pagination pagination-centered">
                 <ul class="unstyled">
-                    <li><a href="#" ng-click="primeiraPagina()">Primeira</a></li>
-                    <li><a href="#" ng-click="voltarPagina()">Anterior</a></li>
+                    <li><a href="#" ng-click="primeiraPagina()"
+                    ng-bind="strings.primeira"></a></li>
+                    <li><a href="#" ng-click="voltarPagina()"
+                    ng-bind="strings.anterior"></a></li>
                     <li ng-repeat="n in [] | Range:paginasExibidas()"
                     ng-class="{active: paginaSelecionada($index+paginasPassadas())}">
-                        <a href="#" ng-click="irParaPagina($index+paginasPassadas())">
-                            {{$index+paginasPassadas()}}</a></li>
-                    <li><a href="#" ng-click="passarPagina()">Próxima</a></li>
-                    <li><a href="#" ng-click="ultimaPagina()">Última</a></li>
+                        <a href="#" ng-click="irParaPagina($index+paginasPassadas())"
+                        ng-bind="$index+paginasPassadas()"></a></li>
+                    <li><a href="#" ng-click="passarPagina()"
+                    ng-bind="strings.proxima"></a></li>
+                    <li><a href="#" ng-click="ultimaPagina()"
+                    ng-bind="strings.ultima"></a></li>
                 </ul>
             </div>
 
