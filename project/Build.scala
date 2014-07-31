@@ -108,14 +108,16 @@ object Build extends sbt.Build with Zap with Metamodel {
   val json4sVersion = "3.2.7"
   val securesocialVersion = "2.1.3"
 
-  val eclipselinkVersion = "2.5.1"
-  val hibernateVersion = "3.6.9.Final"
+  val eclipselinkVersion = "2.5.2"
+
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
 
   val MySQlVersion = "5.1.31"
 
   val xStreamVersion = "1.2.2"
+
+  val JPAVersion = "4.3.6.Final"
 
 
 
@@ -128,9 +130,10 @@ object Build extends sbt.Build with Zap with Metamodel {
   val modelsDeps = essentialDeps ++ Seq(
     javaCore,
     javaJdbc,
-    javaJpa,
+    javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
     "org.eclipse.persistence" % "eclipselink" % eclipselinkVersion,
     //"org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    "org.hibernate" % "hibernate-entitymanager" % JPAVersion,
     "xstream" % "xstream" % xStreamVersion,
     "mysql" % "mysql-connector-java" % MySQlVersion,
     "ws.securesocial" %% "securesocial" % securesocialVersion

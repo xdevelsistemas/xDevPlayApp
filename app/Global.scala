@@ -1,9 +1,8 @@
 
 import play.api._
-
 import com.google.inject.{Guice, AbstractModule}
-
-import dao.Bootstrap.{startUp,fakeStartUp}
+import dao.Bootstrap._
+import play.libs.Yaml
 
 
 object Global extends GlobalSettings {
@@ -25,6 +24,7 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     Logger.info("Application started")
+
     val records:Int = if (app.mode == Mode.Prod) startUp else fakeStartUp
     Logger.info(s"Database initialization succeeded : $records record(s) saved")
   }

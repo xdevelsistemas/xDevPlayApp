@@ -1,58 +1,58 @@
 # Users
 users:
   - &userAdmin !!models.User
-      email: "clayton@xdevel.com.br"      
-      realName: "Clayton Silva"      
-      codigoPlano: "teste"      
+      email: "clayton@xdevel.com.br"
+      realName: "Clayton Silva"
+      codigoPlano: "teste"
       providerId: "userpass"
 # Identities
 
 identities:
   - &identityAdmin !!models.Identity
       user:                 *userAdmin
-      username:             "clayton@xdevel.com.br"      
-      provider:             "userpass"      
-      firstName:            "Clayton"      
-      lastName:             "Silva"      
-      fullName:             "Clayton Santos da Silva"      
-      email:                "clayton@xdevel.com.br"      
-      authMethod:           "userPassword"      
+      username:             "clayton@xdevel.com.br"
+      provider:             "userpass"
+      firstName:            "Clayton"
+      lastName:             "Silva"
+      fullName:             "Clayton Santos da Silva"
+      email:                "clayton@xdevel.com.br"
+      authMethod:           "userPassword"
       hasPasswordInfo:      true
-      passwordInfoHasher:   "bcrypt"      
+      passwordInfoHasher:   "bcrypt"
       passwordInfoPassword: "$2a$10$igmSTb.c2uxs6SXDA0fShuzU4k9ioxYAPsUcvszCgSJvEBvqcPXva"
-      
+
 # Administradoras
 administradoras:
     - &adm1 !!models.Proconsorcio.Administradora
-        name: "ITAÚ ADMINISTRADORA DE CONSÓRCIOS LTDA."    
+        name: "ITAÚ ADMINISTRADORA DE CONSÓRCIOS LTDA."
     - &adm2 !!models.Proconsorcio.Administradora
-        name: "CICAL ADMINISTRADORA DE CONSÓRCIOS LTDA"    
+        name: "CICAL ADMINISTRADORA DE CONSÓRCIOS LTDA"
     - &adm3 !!models.Proconsorcio.Administradora
-        name: "BRASAL ADMINISTRADORA DE CONSÓRCIOS LTDA."    
+        name: "BRASAL ADMINISTRADORA DE CONSÓRCIOS LTDA."
     - &adm4 !!models.Proconsorcio.Administradora
-        name: "FERRAZ ADMINISTRACAO E CONSORCIOS LTDA"    
+        name: "FERRAZ ADMINISTRACAO E CONSORCIOS LTDA"
     - &adm5 !!models.Proconsorcio.Administradora
-        name: "FUNDACAO HABITACIONAL DO EXERCITO - FHE"    
+        name: "FUNDACAO HABITACIONAL DO EXERCITO - FHE"
     - &adm6 !!models.Proconsorcio.Administradora
-        name: "ADMINISTRADORA DE CONSÓRCIO SAGA LTDA"    
+        name: "ADMINISTRADORA DE CONSÓRCIO SAGA LTDA"
     - &adm7 !!models.Proconsorcio.Administradora
-        name: "DISBRAVE ADMINISTRADORA DE CONSORCIOS LTDA."    
+        name: "DISBRAVE ADMINISTRADORA DE CONSORCIOS LTDA."
     - &adm8 !!models.Proconsorcio.Administradora
-        name: "BANCORBRAS ADMINISTRADORA DE CONSORCIOS LTDA"    
+        name: "BANCORBRAS ADMINISTRADORA DE CONSORCIOS LTDA"
     - &adm9 !!models.Proconsorcio.Administradora
-        name: "GOVESA ADMINISTRADORA DE CONSORCIOS LTDA"    
+        name: "GOVESA ADMINISTRADORA DE CONSORCIOS LTDA"
     - &adm10 !!models.Proconsorcio.Administradora
-        name: "IRMÃOS DE MARCO ADMINISTRADORA DE CONSÓRCIOS LTDA."    
+        name: "IRMÃOS DE MARCO ADMINISTRADORA DE CONSÓRCIOS LTDA."
     - &adm11 !!models.Proconsorcio.Administradora
-        name: "H. ADMINISTRADORA DE CONSÓRCIOS LTDA"    
+        name: "H. ADMINISTRADORA DE CONSÓRCIOS LTDA"
     - &adm12 !!models.Proconsorcio.Administradora
-        name: "BRENNER ADMINISTRADORA DE CONSORCIO LTDA"    
+        name: "BRENNER ADMINISTRADORA DE CONSORCIO LTDA"
     - &adm13 !!models.Proconsorcio.Administradora
-        name: "ADMINISTRADORA DE CONSORCIOS MAIA LTDA."    
+        name: "ADMINISTRADORA DE CONSORCIOS MAIA LTDA."
     - &adm14 !!models.Proconsorcio.Administradora
-        name: "ADMINISTRADORA DE CONSÓRCIO REGIONAL WAY LTDA."    
+        name: "ADMINISTRADORA DE CONSÓRCIO REGIONAL WAY LTDA."
     - &adm15 !!models.Proconsorcio.Administradora
-        name: "ADMINISTRADORA DE CONSORCIOS SAPEMA LTDA."    
+        name: "ADMINISTRADORA DE CONSORCIOS SAPEMA LTDA."
     - &adm16 !!models.Proconsorcio.Administradora
         name: "ADMINISTRADORA DE CONSÓRCIOS BECKER LTDA."
     - &adm17 !!models.Proconsorcio.Administradora
@@ -125,7 +125,7 @@ administradoras:
         name: "LYSCAR ADMINISTRADORA DE CONSORCIOS LTDA."
     - &adm51 !!models.Proconsorcio.Administradora
         name: "ASSOCIACAO DOS FUNCIONARIOS DO BDMG"
-    - &adm52 !!models.Proconsorcio.Administradora    
+    - &adm52 !!models.Proconsorcio.Administradora
         name: "PONTA ADMINISTRADORA DE CONSORCIOS LTDA"
     - &adm53 !!models.Proconsorcio.Administradora
         name: "MAPFRE ADMINISTRADORA DE CONSÓRCIOS S.A."
@@ -406,16 +406,17 @@ administradoras:
     - &adm191 !!models.Proconsorcio.Administradora
         name: "DIMAS ADMINISTRADORA DE CONSORCIOS LTDA."
     - &adm192 !!models.Proconsorcio.Administradora
-        name: "SCANIA ADMINISTRADORA DE CONSÓRCIOS LTDA."    
+        name: "SCANIA ADMINISTRADORA DE CONSÓRCIOS LTDA."
 
 # Tipos de cartas
 tiposcartas:
   - &tpc1 !!models.Proconsorcio.TipoCarta
-      name:              "Carro"  
+      name:              "Carro"
   - &tpc2 !!models.Proconsorcio.TipoCarta
-      name:              "Caminhão"  
+      name:              "Caminhão"
   - &tpc3 !!models.Proconsorcio.TipoCarta
-      name:              "Imóvel"  
+      name:              "Imóvel"
   - &tpc4 !!models.Proconsorcio.TipoCarta
       name:              "Moto"
+
 

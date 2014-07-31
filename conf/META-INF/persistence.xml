@@ -3,7 +3,7 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="xDevModel" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="defaultPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <non-jta-data-source>DefaultDS</non-jta-data-source>
 
@@ -23,6 +23,10 @@
         <class>models.Cadastro.BaseEndereco.Bairro</class>
         <class>models.Cadastro.BaseEndereco.Cidade</class>
         <class>models.Cadastro.CodigoAcessoHistorico</class>
+        <class>models.Proconsorcio.Administradora</class>
+        <class>models.Proconsorcio.Carta</class>
+        <class>models.Proconsorcio.Sequenciador</class>
+        <class>models.Proconsorcio.TipoCarta</class>
 
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>

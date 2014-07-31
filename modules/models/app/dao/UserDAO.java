@@ -2,19 +2,12 @@ package dao;
 
 import models.Cadastro.AlterarDadosInfo;
 import models.Cadastro.RegistrationInfo;
-import models.Identity;
-import play.db.jpa.JPA;
-import play.db.jpa.Transactional;
+import models.User;
 import scala.Option;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 public class UserDAO extends AbstractDAO<models.User> {
 
@@ -35,12 +28,31 @@ public class UserDAO extends AbstractDAO<models.User> {
         }
 
 
+
+
         if (save) save(o);
 
         return o;
     }
 
+    public User findbyemailandprovider(String email, String provider)
+    {
 
+        for(User xuser : this.findMany("email",email))
+        {
+            if(xuser.equals(provider))
+            {
+                return xuser;
+            }else
+            {
+                return null;
+
+            }
+        }
+
+
+        return null;
+    }
 
 
     public  void  completarCadastro(Option<String> mail,Option<String> providerId ,Option <RegistrationInfo> form)
@@ -56,51 +68,46 @@ public class UserDAO extends AbstractDAO<models.User> {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
                 try {
-                    user.set_birthDate(formatter.parse(info.birthDate()));
+                    user.birthDate = formatter.parse(info.birthDate());
                 } catch (ParseException e) {
 
                     em.getTransaction().rollback();
 
                 }
 
-                user.set_numDocFederal(info.docFederal());
+                user.numDocFederal =info.docFederal();
 
                 if (!info.rg().isEmpty()) {
-                    user.set_numRg(info.rg().get());
+                    user.numRg = info.rg().get();
                 }
 
                 if (!info.numCep().isEmpty()) {
-                    user.set_numCep(info.numCep().get());
+                    user.numCep =  info.numCep().get();
                 }
 
 
                 if (!info.uf().isEmpty()) {
-                    user.set_siglaUf(info.uf());
+                    user.siglaUf = info.uf();
                 }
 
                 if (!info.cidade().isEmpty()) {
-                    user.set_nomeCidade(info.cidade());
+                    user.nomeCidade = info.cidade();
                 }
 
                 if (!info.bairro().isEmpty()) {
-                    user.set_nomeBairro(info.bairro());
+                    user.nomeBairro = info.bairro();
                 }
 
                 if (!info.logradouro().isEmpty()) {
-                    user.set_nomeLogradouro(info.logradouro());
+                    user.nomeLogradouro = info.bairro();
                 }
 
                 if (!info.numLogradouro().isEmpty()) {
-                    user.set_numLogradouro(info.numLogradouro());
+                    user.numLogradouro = info.numLogradouro();
                 }
 
 
-
-                user.set_codigoAcesso(info.numCodigo());
-
-
-                //em.persist(user);
-
+                user.codigoPlano = info.numCodigo();
 
 
                 save(user);
@@ -129,42 +136,42 @@ public class UserDAO extends AbstractDAO<models.User> {
                 user.realName = info.firstName();
 
                 try {
-                    user.set_birthDate(formatter.parse(info.birthDate()));
+                    user.birthDate = formatter.parse(info.birthDate());
                 } catch (ParseException e) {
 
                     em.getTransaction().rollback();
 
                 }
 
-                user.set_numDocFederal(info.docFederal());
+                user.numDocFederal = info.docFederal();
 
                 if (!info.rg().isEmpty()) {
-                    user.set_numRg(info.rg().get());
+                    user.numRg = info.rg().get();
                 }
 
                 if (!info.numCep().isEmpty()) {
-                    user.set_numCep(info.numCep().get());
+                    user.numCep = info.numCep().get();
                 }
 
 
                 if (!info.uf().isEmpty()) {
-                    user.set_siglaUf(info.uf());
+                    user.siglaUf = info.uf();
                 }
 
                 if (!info.cidade().isEmpty()) {
-                    user.set_nomeCidade(info.cidade());
+                    user.nomeCidade = info.cidade();
                 }
 
                 if (!info.bairro().isEmpty()) {
-                    user.set_nomeBairro(info.bairro());
+                    user.nomeBairro = info.bairro();
                 }
 
                 if (!info.logradouro().isEmpty()) {
-                    user.set_nomeLogradouro(info.logradouro());
+                    user.nomeLogradouro =info.logradouro();
                 }
 
                 if (!info.numLogradouro().isEmpty()) {
-                    user.set_numLogradouro(info.numLogradouro());
+                    user.numLogradouro = info.numLogradouro();
                 }
 
                 save(user);
@@ -191,15 +198,15 @@ public class UserDAO extends AbstractDAO<models.User> {
         if (xUser != null){
 
 
-            if (xUser.get_birthDate() == null
+            if (xUser.birthDate == null
                     || xUser.realName == null
-                    || xUser.get_birthDate() == null
-                    || xUser.get_numDocFederal() == null
-                    || xUser.get_siglaUf() == null
-                    || xUser.get_nomeCidade() == null
-                    || xUser.get_nomeBairro() == null
-                    || xUser.get_nomeLogradouro() == null
-                    || xUser.get_numLogradouro() == null
+                    || xUser.birthDate == null
+                    || xUser.numDocFederal == null
+                    || xUser.siglaUf == null
+                    || xUser.nomeCidade == null
+                    || xUser.nomeBairro == null
+                    || xUser.nomeLogradouro == null
+                    || xUser.numLogradouro == null
 
                     ){
                 return false;
@@ -219,7 +226,7 @@ public class UserDAO extends AbstractDAO<models.User> {
         if (xUser != null){
 
 
-            if (xUser.get_codigoAcesso() == null){
+            if (xUser.codigoAcesso.equals(null) ){
                 return false;
             }
 
@@ -235,12 +242,12 @@ public class UserDAO extends AbstractDAO<models.User> {
         boolean xreturn  = true;
         if (xUser != null){
 
-            if (xUser.get_codigoAcesso() == null){
+            if (xUser.codigoAcesso.equals(null)){
                 // primeira vez nao ira validar pq esta vazio
                 return true;
             }else{
                 try {
-                    return xUser.get_codigoAcesso().equals(util.MD5.hash(pass))?true:false;
+                    return xUser.codigoAcesso.equals(util.MD5.hash(pass))?true:false;
 
                 }catch (NoSuchAlgorithmException e)
                 {
@@ -261,7 +268,7 @@ public class UserDAO extends AbstractDAO<models.User> {
         models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
         if (xUser != null){
 
-          xUser.set_codigoAcesso(pass);
+          xUser.codigoPlano = pass;
           save(xUser);
           return true;
 

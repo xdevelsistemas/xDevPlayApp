@@ -78,7 +78,9 @@
                                     <li class="menu-item"><a href="/escritorio">Escritório Online</a></li>
                                     <li class="menu-item"><a href="/dadoscadastrais">Dados Cadastrais</a></li>
                                     <li class="menu-item"><a href="/alterarcodigo">Alterar Código</a></li>
-                                    <li class="menu-item"><a href="/password">Alterar Senha</a></li>
+                                    @if(user.get.identityId.providerId.equals(securesocial.core.providers.UsernamePasswordProvider.UsernamePassword)) {
+                                        <li class="menu-item"><a href="/password">Alterar Senha</a></li>
+                                    }
                                     <li class="menu-item"><a href="/faleconosco">Fale conosco</a></li>
                                     <li class="menu-item"><a href="#"></a></li>
                                 </ul>

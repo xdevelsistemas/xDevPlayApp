@@ -1,11 +1,12 @@
 package controllers
 
+
 import play.api.Logger
 import play.api.mvc._
 
 import securesocial.core.SecureSocial
 import common.WithProvider
-import play.db.jpa.Transactional
+
 
 
 object Application extends Controller with SecureSocial with Application
