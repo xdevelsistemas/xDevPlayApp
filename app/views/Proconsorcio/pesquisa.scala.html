@@ -107,30 +107,67 @@
                 <div class="row">
                     <div ng-cloak ng-repeat="resultado in resultados.lista" class="property span9">
                         <div class="row">
+
+
                             <div class="body span9">
-                                <div class="title-price row">
+                                <div class="title-price">
                                     <div class="title span9">
-                                        <h2><a ng-href="/detalhes/' + resultado.codigo"
-                                        ng-bind="resultado.administradora.nome"></a>
+                                        <h2><a ng-href="'/detalhes/' + resultado.codigo"
+                                        ng-bind="resultado.tipo.nome"></a>
                                         </h2>
                                     </div>
                                 </div>
-                                <div class="clear">
-                                </div>
-                                <div ng-bind="'R$ '+resultado.valorDoBem" class="price"></div>
-                                <div ng-bind="resultado.tipo.nome" class="location"></div>
-                                <div class="body">
-                                    <p></p>
-                                </div>
-                                <div class="property-info clearfix">
-                                    <div class="more-info">
-                                        <a ng-href="'/detalhes/' + resultado.codigo"
-                                        ng-bind="strings.detalhes">
-                                            <i class="icon icon-normal-right-arrow-circle"></i>
-                                        </a>
+                                <div class="span2">
+                                    <div class="price">
+                                        R$ <span ng-bind="resultado.valorDoBem" xd-mask-money-brl></span></div>
+                                    <div class="location">
+                                        Entrada: R$ <span ng-bind="resultado.valorDaEntrada" xd-mask-money-brl></span>
                                     </div>
                                 </div>
+                                <div class="span3">
+                                    <div ng-bind="resultado.administradora.nome" class="location">Rodobens</div>
+                                    <div ng-bind="'Prazo: '+resultado.prazoRestante+' meses'" class="location"></div>
+                                </div>
+                                <div class="more-info pull-right">
+                                    <button ng-href="'detalhes/' + resultado.codigo" ng-bind="strings.detalhes"
+                                    class="btn btn-large btn-primary"></button>
+                                </div>
+                                <div class="more-info pull-right">
+                                    <span class="label label-default"
+                                    ng-bind="resultado.status.nome"></span>
+                                </div>
                             </div>
+
+
+                            @*<div class="body span9">
+                            <div class="title-price row">
+                            <div class="title span9">
+                            <h2><a ng-href="/detalhes/' + resultado.codigo"
+                            ng-bind="resultado.administradora.nome"></a>
+                            </h2>
+                            </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                            <div class="span9">
+                            <div ng-bind="'R$ '+resultado.valorDoBem" class="price"></div>
+                            <div ng-bind="resultado.tipo.nome" class="location"></div>
+                            </div>
+                            <div class="span9">teste</div>
+                            <div class="body">
+                            <p></p>
+                            </div>
+                            <div class="property-info clearfix">
+                            <div class="more-info">
+                            <a ng-href="'/detalhes/' + resultado.codigo"
+                            ng-bind="strings.detalhes">
+                            <i class="icon icon-normal-right-arrow-circle"></i>
+                            </a>
+                            </div>
+                            </div>
+                            </div>*@
+
+
                         </div>
                     </div>
                 </div>

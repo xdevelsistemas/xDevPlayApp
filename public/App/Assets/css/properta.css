@@ -3063,11 +3063,13 @@ body .property-listing h1.page-header {
     color: #00915E;
     background-color: rgb(240, 240, 240);
     border-radius: 2px;
-    display: inline;
+    /* display: inline; */
     font-size: 12px;
     font-weight: bold;
     padding: 4px 8px 4px 8px;
     position: relative;
+    text-align: center;
+    padding: 0.7em 1em; */;
 }
 
 .properties-rows .property .body .property-info {
@@ -3252,12 +3254,14 @@ body .property-listing h1.page-header {
     }
 
     .properties-rows .property .body .location {
-        margin-bottom: 18px;
+        margin-bottom: 8px;
     }
 
     .properties-rows .property .body .price {
-        font-size: 18px;
+        font-size: 1.5em;
         padding: 6px 10px 6px 10px
+    ;
+        padding: 0.3em; */;
     }
 
     .properties-rows .property .body .property-info {

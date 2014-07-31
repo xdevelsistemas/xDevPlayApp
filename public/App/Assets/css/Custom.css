@@ -134,11 +134,14 @@ select {
 }
 
 #resultadosPesquisa .price, #resultadosPesquisa .location {
-    margin-top: 12px;
+    /* margin-top: 12px; */
+    /* padding: 0.7em 1em; */
+    /* top: 0; */
 }
 
 #resultadosPesquisa .title-price .title {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    margin-top: 18px;
 }
 
 .limpar-filtros {
@@ -188,4 +191,14 @@ label {
 button.btn.interesse {
     font-size: 1.3em;
     padding: 0.6em;
+}
+
+.busca-codigo {
+    text-align: right;
+
+}
+
+.more-info button.btn {
+    margin-left: 24px;
+    margin-top: 2px;
 }

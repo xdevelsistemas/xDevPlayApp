@@ -4,61 +4,91 @@
         {
             "codigo": "1",
             "valorDoBem": "80000",
-            "tipo": {
+            "administradora": {
                 "codigo": "1",
                 "nome": "Rodobens"
             },
-            "administradora": {
+            "tipo": {
                 "codigo": "1",
                 "nome": "Carro"
+            },
+            "valorDaEntrada": "17000",
+            "prazoRestante": "18",
+            "status": {
+                "codigo": "1",
+                "nome": "Reservada"
             }
         },
         {
             "codigo": "123",
             "valorDoBem": "90000",
-            "tipo": {
+            "administradora": {
                 "codigo": "1",
                 "nome": "Rodobens"
             },
-            "administradora": {
+            "tipo": {
                 "codigo": "1",
                 "nome": "Carro"
+            },
+            "valorDaEntrada": "17000",
+            "prazoRestante": "18",
+            "status": {
+                "codigo": "1",
+                "nome": "Reservada"
             }
         },
         {
             "codigo": "42",
             "valorDoBem": "60000",
-            "tipo": {
+            "administradora": {
                 "codigo": "1",
                 "nome": "Rodobens"
             },
-            "administradora": {
+            "tipo": {
                 "codigo": "1",
                 "nome": "Carro"
+            },
+            "valorDaEntrada": "17000",
+            "prazoRestante": "18",
+            "status": {
+                "codigo": "1",
+                "nome": "Reservada"
             }
         },
         {
             "codigo": "29",
             "valorDoBem": "60000",
-            "tipo": {
+            "administradora": {
                 "codigo": "1",
                 "nome": "Rodobens"
             },
-            "administradora": {
+            "tipo": {
                 "codigo": "1",
                 "nome": "Carro"
+            },
+            "valorDaEntrada": "17000",
+            "prazoRestante": "18",
+            "status": {
+                "codigo": "1",
+                "nome": "Reservada"
             }
         },
         {
             "codigo": "9",
             "valorDoBem": "60000",
-            "tipo": {
+            "administradora": {
                 "codigo": "1",
                 "nome": "Rodobens"
             },
-            "administradora": {
+            "tipo": {
                 "codigo": "1",
                 "nome": "Carro"
+            },
+            "valorDaEntrada": "17000",
+            "prazoRestante": "18",
+            "status": {
+                "codigo": "1",
+                "nome": "Reservada"
             }
         }
     ],
