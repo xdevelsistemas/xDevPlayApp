@@ -1,3 +1,10 @@
+/*angularjs ngCloak hack*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/*end*/
+
 div.comprar-vender-box {
     width: 44%;
     display: inline-block;
@@ -9,9 +16,10 @@ div.comprar-vender-box {
 #comprar-vender {
     text-align: center;
     background: rgba(0, 0, 0, 0.6) url(/assets/LandingPage/Content/img/menu_divider.png) no-repeat center;
-    margin-top: 38px;
     padding: 0 0 18px 0;
     border-radius: 5px;
+    height: 212px;
+    margin-top: 32px;
 }
 
 .form-group {
@@ -32,7 +40,7 @@ div.comprar-vender-box {
     /* padding-top: 5%; */
     height: 0;
     overflow: hidden;
-    margin-top: 42px;
+    margin-top: 24px;
     text-align: center;
 }
 
@@ -61,7 +69,28 @@ nav {
 }
 
 .row.countdown {
-    margin-top: 48px;
+    margin-top: 16px;
+    min-width: 100px;
+    max-width: 680px;
+    width: 100%;
+    left: 0%;
+    /* position: relative; */
+    /* margin-left: -400px; */;
+    display: inline-block;
+}
+
+@media (min-width: 1024px) {
+    .row.countdown {
+        max-width: 448px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1920px) {
+    .row.countdown {
+        max-width: 680px;
+        width: 100%;
+    }
 }
 
 select {
@@ -72,6 +101,6 @@ select {
     background: white url('/assets/LandingPage/Content/img/down.png') no-repeat right center;
 }
 
-.xd-align-certer {
+.xd-align-center {
     text-align: center;
 }

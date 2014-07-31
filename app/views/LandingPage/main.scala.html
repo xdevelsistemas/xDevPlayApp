@@ -29,86 +29,67 @@
     </head>
     <body ng-controller="Main">
 
-        <div id="wrapper">
-            <div id="main">
-                <div class="container">
-
-                    <nav>
-                        <ul id="contact_follow">
-                            <li><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li><a href="#"><span class=" icon-googleplus"></span></a></li>
-                        </ul>
-                        <ul class="menu">
-                            <li><a href="login" id="btn-souUsuario">Já sou usuário</a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div class="row">
-                        <div class="col-md-offset-2 col-md-8 xd-align-certer">
-                            <div class="img-container">
-                                <img src="/assets/LandingPage/Content/img/logo.png">
-                            </div>
-                        </div>
+        <div class="container">
+            <nav>
+                <ul id="contact_follow">
+                    <li><a href="#"><span class="icon-facebook"></span></a></li>
+                    <li><a href="#"><span class="icon-twitter"></span></a></li>
+                    <li><a href="#"><span class=" icon-googleplus"></span></a></li>
+                </ul>
+                <ul class="menu">
+                    <li><a href="login" id="btn-souUsuario">Já sou usuário</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 center">
+                    <div class="img-container">
+                        <img src="/assets/LandingPage/Content/img/logo.png">
                     </div>
-
-                    <div class="row countdown">
-                        <div class="col-md-6 xd-align-certer">
-                            <div class="video-container">
-                                <iframe src="//www.youtube.com/embed/C0DPdy98e4c" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-12" id="comprar-vender">
-                                <div id="book" class="comprar-vender-box">
-                                    <h4>Quero Comprar</h4>
-
-                                    <form role="form" method="get" action="/pesquisa" id="check_avail"
-                                    autocomplete="off">
-                                        <div class="form-group">
-                                            <select ng-model="tipos.selecionado" class="form-control select" name="tipo">
-                                                <option value="-1" selected disabled>Consórcios de...</option>
-                                                <option ng-repeat="tipo in tipos.lista" ng-value="tipo.codigo">
-                                                    {{tipo.descricao}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn-check">Pesquisar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="book2" class="comprar-vender-box">
-                                    <h4>Quero Vender</h4>
-
-                                    <form role="form" method="post" action="/signupmail" id="check_avail"
-                                    autocomplete="off">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" name="email"
-                                            placeholder="E-mail">
-                                            <span class="input-icon"><i class="icon-mail-3"></i></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn-check">Anunciar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div id="message-booking"></div>
-                    </div>
-
                 </div>
-                    <!-- End container -->
-
             </div>
-                <!-- End main -->
+            <div class="xd-align-center">
+                <div class="row countdown">
+                    <div class="video-container">
+                        <iframe src="//www.youtube.com/embed/C0DPdy98e4c" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" id="comprar-vender">
+                <div id="book" class="comprar-vender-box">
+                    <h4>Quero Comprar</h4>
 
-        </div> <!-- End wrapper -->
+                    <form role="form" method="get" action="/pesquisa" id="check_avail"
+                    autocomplete="off">
+                        <div class="form-group">
+                            <select ng-model="tipos.selecionado" class="form-control select" name="tipo">
+                                <option value="-1" selected disabled>Consórcios de...</option>
+                                <option ng-repeat="tipo in tipos.lista" ng-value="tipo.codigo">
+                                                    {{tipo.descricao}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-check">Pesquisar</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="book2" class="comprar-vender-box">
+                    <h4>Quero Vender</h4>
+
+                    <form role="form" method="post" action="/signupmail" id="check_avail"
+                    autocomplete="off">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email"
+                            placeholder="E-mail">
+                            <span class="input-icon"><i class="icon-mail-3"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-check">Anunciar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div id="slides">
             <ul class="slides-container">
