@@ -184,3 +184,8 @@ label {
 }
 
 /*end*/
+
+button.btn.interesse {
+    font-size: 1.3em;
+    padding: 0.6em;
+}
