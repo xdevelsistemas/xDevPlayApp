@@ -13,7 +13,7 @@ define(['./__module__', 'jquery', 'datatables'], function (directives, $) {
                             "sInfoFiltered": "(Filtrados de _MAX_ registros)",
                             "sInfoPostFix": "",
                             "sInfoThousands": ".",
-                            "sLengthMenu": "_MENU_ resultados por página",
+                            "sLengthMenu": "Mostrar _MENU_ resultados por página",
                             "sLoadingRecords": "Carregando...",
                             "sProcessing": "Processando...",
                             "sZeroRecords": "Nenhum registro encontrado",

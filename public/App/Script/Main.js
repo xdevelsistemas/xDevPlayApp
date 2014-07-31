@@ -15,6 +15,8 @@ require.config({
         "bootstrap": '../Libs/rs-plugin/bootstrap2/js/bootstrap.min',
         'jquery': '../Libs/jquery',
         'datatables': '../Libs/DataTables/js/jquery.dataTables',
+        'datatablesBootstrap': '../Libs/DataTables/js/datatables-bootstrap2',
+        'angularDatatables': '../Libs/angular-datatables/angular-datatables.min',
         'jqueryPlugins': '../Libs/jqueryPlugins',
         'select2': '../Libs/rs-plugin/select2/select2',
         'uiselect2': '../Libs/ui-select2/src/select2',
@@ -41,6 +43,9 @@ require.config({
         },
         'datatables': {
             deps: ['jquery', 'domReady!']
+        },
+        'datatablesBootstrap': {
+            deps: ['datatables']
         },
         'select2': {
             deps: ['jquery']

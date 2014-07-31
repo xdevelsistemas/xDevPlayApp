@@ -9,6 +9,7 @@ define([
     'bootstrap',
     'uiselect2',
     'datatables',
+    'datatablesBootstrap',
     'jqueryPlugins',
     'App',
     'Routes'

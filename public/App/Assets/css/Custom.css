@@ -157,3 +157,18 @@ select {
 label {
     cursor: default;
 }
+
+/*tabbabble hack*/
+.tabbable .nav {
+    margin-bottom: 0;
+}
+
+/*end*/
+
+/*datatables*/
+.dataTables_length select {
+    width: 5em;
+    margin-right: 1em;
+}
+
+/*end*/

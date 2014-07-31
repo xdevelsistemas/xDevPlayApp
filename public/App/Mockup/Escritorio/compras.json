@@ -1,0 +1,84 @@
+{
+    "lista": [
+        {
+            "codigo": "1",
+            "valorDoBem": "80000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "status": {
+                "codigo": "1",
+                "nome": "Aguardando Documentação"
+            }
+        },
+        {
+            "codigo": "123",
+            "valorDoBem": "90000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "status": {
+                "codigo": "1",
+                "nome": "Aguardando Documentação"
+            }
+        },
+        {
+            "codigo": "42",
+            "valorDoBem": "60000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "status": {
+                "codigo": "1",
+                "nome": "Aguardando Documentação"
+            }
+        },
+        {
+            "codigo": "29",
+            "valorDoBem": "60000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "status": {
+                "codigo": "1",
+                "nome": "Aguardando Documentação"
+            }
+        },
+        {
+            "codigo": "9",
+            "valorDoBem": "60000",
+            "tipo": {
+                "codigo": "1",
+                "nome": "Rodobens"
+            },
+            "administradora": {
+                "codigo": "1",
+                "nome": "Carro"
+            },
+            "status": {
+                "codigo": "1",
+                "nome": "Aguardando Documentação"
+            }
+        }
+    ]
+}
