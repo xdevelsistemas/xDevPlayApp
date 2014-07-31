@@ -10,8 +10,8 @@ define([
     '../Libs/js/jquery.bxslider',
     '../Libs/js/aviators-settings',
     '../Libs/rs-plugin/chosen/chosen.jquery.min',
-    '../Libs/rs-plugin/chosen/ajax.chosen',
-    '../Libs/rs-plugin/select2/select2',
+    //'../Libs/rs-plugin/chosen/ajax.chosen',
+    //'../Libs/rs-plugin/select2/select2',
     '../Libs/rs-plugin/js/jquery.themepunch.revolution.min',
     '../Libs/rs-plugin/js/jquery.themepunch.plugins.min',
     '../Libs/rs-plugin/datepicker/js/bootstrap-datepicker'

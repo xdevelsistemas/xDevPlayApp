@@ -16,6 +16,8 @@ require.config({
         'jquery': '../Libs/jquery',
         'datatables': '../Libs/DataTables/js/jquery.dataTables',
         'jqueryPlugins': '../Libs/jqueryPlugins',
+        'select2': '../Libs/rs-plugin/select2/select2',
+        'uiselect2': '../Libs/ui-select2/src/select2',
         'select2localePtBR': '../Libs/select2/select2_locale_pt-BR'
     },
 
@@ -37,8 +39,14 @@ require.config({
         'datatables': {
             deps: ['jquery', 'domReady!']
         },
+        'select2': {
+            deps: ['jquery']
+        },
+        'uiselect2': {
+            deps: ['select2', 'angular']
+        },
         'select2localePtBR': {
-            deps: ['jquery', 'domReady!']
+            deps: ['uiselect2']
         },
         'bootstrap': ["jquery", 'domReady!']
     },

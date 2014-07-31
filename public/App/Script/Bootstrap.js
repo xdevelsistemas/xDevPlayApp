@@ -7,6 +7,7 @@ define([
     'angular',
     'jquery',
     'bootstrap',
+    'uiselect2',
     'datatables',
     'jqueryPlugins',
     'App',

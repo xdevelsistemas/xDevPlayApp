@@ -13,6 +13,7 @@ define([
     'use strict';
 
     return angular.module('App', [
+        'ui.select2',
         'App.Controllers',
         'App.Directives',
         'App.Filters',

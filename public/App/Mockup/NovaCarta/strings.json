@@ -1,0 +1,13 @@
+{
+    "titulo": "Nova Carta",
+    "tipo": "Tipo",
+    "administradora": "Administradora",
+    "status": "Status",
+    "prazoRestante": "Prazo Restante",
+    "valorCredito": "Valor de Crédito",
+    "valorEntrada": "Valor de Entrada",
+    "valorPrestacao": "Valor de Prestação",
+    "cota": "Cota",
+    "botaoAnunciar": "Anunciar",
+    "textoConfirmar": "Você confirma que os dados conferem?"
+}
