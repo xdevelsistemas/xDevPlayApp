@@ -3,7 +3,7 @@
 
         <div id="main" class="span12">
 
-            <h1 class="page-header">Escritório Online</h1>
+            <h1 class="page-header">Escritório Online</h1> <br>
 
             <div ng-cloak class="tabbable">
                 <ul class="nav nav-tabs">
@@ -35,7 +35,7 @@
                                         <a ng-bind="carta.codigo"
                                         ng-href="detalhes/+carta.codigo"></a>
                                     </td>
-                                    <td class="compras-valor"
+                                    <td class="compras-valor" xd-mask-money-brl
                                     ng-bind="carta.valorDoBem"></td>
                                     <td class="compras-tipo"
                                     ng-bind="carta.tipo.nome"></td>
@@ -113,9 +113,9 @@
                             </tr>
                         </table>
                     </div>
-
                 </div>
             </div>
+            <br>
 
         </div> <!-- /#main -->
     </div> <!-- /.row -->

@@ -168,7 +168,19 @@ label {
 /*datatables*/
 .dataTables_length select {
     width: 5em;
-    margin-right: 1em;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+}
+
+/*end*/
+
+/*tabela reputação*/
+#tab-reputacao table {
+    background-color: white;
+}
+
+#tab-reputacao tr {
+    border: 1px solid lightgray;
 }
 
 /*end*/
