@@ -31,7 +31,7 @@
                         <div ng-repeat="filtro in filtros" class="location control-group">
                             <label ng-bind="filtro.descricao" class="control-label"></label>
                             <div class="controls">
-                                <select ng-model="filtro.selecionado" ui-select2="{width:'resolve'}"
+                                <select ng-model="filtro.selecionado" ui-select2="{width:'100%'}"
                                 data-placeholder="Selecione uma opção">
                                     <option value=""></option>
                                     <option value="-1">-</option>
@@ -74,10 +74,10 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="control-group pull-right">
+                            <div class="control-group pull-right ordenadores">
                                 <div class="controls">
                                     <select ng-model="ordenadores.ordenador.selecionado"
-                                    ui-select2="{width:'resolve', minimumResultsForSearch:-1}"
+                                    ui-select2="{width:'12em', minimumResultsForSearch:-1}"
                                     ng-change="ordenarResultado()">
                                         <option value=""></option>
                                         <option ng-repeat="ordenador in ordenadores.ordenador.lista"
@@ -85,10 +85,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="control-group pull-right">
+                            <div class="control-group pull-right ordenadores">
                                 <div class="controls">
                                     <select ng-model="ordenadores.ordem.selecionado"
-                                    ui-select2="{width:'resolve', minimumResultsForSearch:-1}"
+                                    ui-select2="{width:'12em', minimumResultsForSearch:-1}"
                                     ng-change="ordenarResultado()">
                                         <option value=""></option>
                                         <option ng-repeat="ordem in ordenadores.ordem.lista"
