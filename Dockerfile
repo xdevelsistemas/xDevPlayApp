@@ -1,6 +1,7 @@
 FROM claytonsilva/docker-centos-play:latest
 MAINTAINER Clayton Silva <clayton@xdevel.com.br>
 # COMMIT PROJECT FILES
+
 ADD         app /root/app
 ADD         test /root/test
 ADD         conf /root/conf
