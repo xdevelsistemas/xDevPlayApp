@@ -3,7 +3,7 @@
     "tipo": "Tipo",
     "administradora": "Administradora",
     "status": "Status",
-    "prazoRestante": "Prazo Restante",
+    "prazoRestante": "Prazo Restante (Meses)",
     "valorCredito": "Valor de Crédito",
     "valorEntrada": "Valor de Entrada",
     "valorPrestacao": "Valor de Prestação",

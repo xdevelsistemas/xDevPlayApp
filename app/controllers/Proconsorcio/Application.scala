@@ -1,24 +1,26 @@
 package controllers.Proconsorcio
 
 
+import javax.persistence.{EntityManager, EntityTransaction}
+
 import com.typesafe.plugin._
 import play.api.data.Forms._
 import play.api.i18n.Messages
 import play.api.libs.json._
 import java.text.{SimpleDateFormat}
-import br.com.republicavirtual.{CepServiceVO, CepService}
+import br.com.republicavirtual.CepService
 import controllers.xDevController
-import dao.{IdentityDAO, UserDAO}
+import dao.{IdentityDAO}
 import models.Cadastro.{ RegistrationObjects, AlterarDadosInfo}
 import models.User
 import play.api.data._
 import play.api.mvc.{Action}
-import play.db.jpa.JPA
+import play.db.jpa.Transactional
 import play.libs.F
 import securesocial.controllers.Registration
-import securesocial.core.Identity
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
+import play.db.jpa.JPA
 
 
 /**
@@ -75,15 +77,15 @@ object Application extends xDevController{
     val usuario: User = (new IdentityDAO).findOneByEmailAndProvider( _user.get.email.get,_user.get.identityId.providerId).user()
     val regdata: AlterarDadosInfo = new AlterarDadosInfo(
       usuario.realName,
-      if (usuario.birthDate.equals(null)) (new String("")) else (new SimpleDateFormat("dd/MM/yyyy")).format(usuario.birthDate),
-      (new Some[String](if (usuario.numCep.equals(null)) (new String("")) else usuario.numCep)),
-      if (usuario.siglaUf.equals(null)) (new String("")) else usuario.siglaUf,
-      if (usuario.nomeCidade.equals(null)) (new String("")) else usuario.nomeCidade,
-      if (usuario.nomeBairro.equals(null)) (new String("")) else usuario.nomeBairro,
-      if (usuario.nomeLogradouro.equals(null)) (new String("")) else usuario.nomeLogradouro,
-      if (usuario.numLogradouro.equals(null)) (new String("")) else usuario.numLogradouro,
-      (new Some[String](if (usuario.numRg.equals(null)) (new String("")) else usuario.numRg)),
-      if (usuario.numDocFederal.equals(null)) (new String("")) else usuario.numDocFederal)
+      if (usuario.birthDate == null) (new String("")) else (new SimpleDateFormat("dd/MM/yyyy")).format(usuario.birthDate),
+      (new Some[String](if (usuario.numCep == null || usuario.numCep.equals("") ) (new String("")) else usuario.numCep)),
+      if (usuario.siglaUf == null || usuario.siglaUf.equals("") )  (new String("")) else usuario.siglaUf,
+      if (usuario.nomeCidade == null || usuario.nomeCidade.equals("") )  (new String("")) else usuario.nomeCidade,
+      if (usuario.nomeBairro == null || usuario.nomeBairro.equals("") )  (new String("")) else usuario.nomeBairro,
+      if (usuario.nomeLogradouro == null || usuario.nomeLogradouro.equals("") )  (new String("")) else usuario.nomeLogradouro,
+      if (usuario.numLogradouro == null || usuario.numLogradouro.equals("") )  (new String("")) else usuario.numLogradouro,
+      (new Some[String](if (usuario.numRg == null || usuario.numRg.equals("") )  (new String("")) else usuario.numRg)),
+      if (usuario.numDocFederal == null || usuario.numDocFederal.equals("") )  (new String("")) else usuario.numDocFederal)
     val userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados.fill(regdata)
 
 
@@ -131,6 +133,7 @@ object Application extends xDevController{
     Redirect("/assets/App/Mockup/Bancos.json")
   }
 
+
   def handleDadosCadastrais = SecuredAction { implicit request =>
 
     RegistrationObjects.formAlterarDados.bindFromRequest.fold (
@@ -140,8 +143,6 @@ object Application extends xDevController{
       },
 
       success => {
-
-        //TODO encapsular persistencias
         JPA.withTransaction("default", false, new F.Function0[Void] {
           def apply: Void = {
             _userdao.alterarCadastro(((RegistrationObjects.formAlterarDados)bindFromRequest()).value,_user.get.email.get, _user.get.identityId.providerId)
@@ -150,6 +151,9 @@ object Application extends xDevController{
         })
 
         play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais((RegistrationObjects.formAlterarDados)bindFromRequest(),"Dados Alterados com Sucesso!"), "Dados Cadastrais",_user,request))
+
+
+
       }
 
     )

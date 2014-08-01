@@ -1,8 +1,10 @@
 package controllers
 
+import javax.persistence.EntityManager
+
 import play.api.mvc._
 import play.db.jpa.JPA
-import play.libs.F
+import play.db.jpa.{Transactional, JPA}
 import securesocial.core.{SecureSocial, Identity}
 
 /**
@@ -34,6 +36,10 @@ class xDevController extends Controller  with securesocial.core.SecureSocial {
 
 
   def _userdao : dao.UserDAO = new dao.UserDAO()
+
+  def em: EntityManager = {
+    JPA.em("default")
+  }
 
 
 

@@ -28,23 +28,17 @@ public class UserDAO extends AbstractDAO<models.User> {
         }
 
 
-
-
         if (save) save(o);
 
         return o;
     }
 
-    public User findbyemailandprovider(String email, String provider)
-    {
+    public User findbyemailandprovider(String email, String provider) {
 
-        for(User xuser : this.findMany("email",email))
-        {
-            if(xuser.equals(provider))
-            {
+        for (User xuser : this.findMany("email", email)) {
+            if (xuser.equals(provider)) {
                 return xuser;
-            }else
-            {
+            } else {
                 return null;
 
             }
@@ -55,12 +49,11 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public  void  completarCadastro(Option<String> mail,Option<String> providerId ,Option <RegistrationInfo> form)
-    {
-        if (!form.isEmpty() && !mail.isEmpty() && !providerId.isEmpty() ){
-            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(mail.get(),providerId.get()).user();
+    public void completarCadastro(Option<String> mail, Option<String> providerId, Option<RegistrationInfo> form) {
+        if (!form.isEmpty() && !mail.isEmpty() && !providerId.isEmpty()) {
+            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(mail.get(), providerId.get()).user();
 
-            if  (user!= null) {
+            if (user != null) {
 
                 //em.getTransaction().begin();
 
@@ -71,18 +64,25 @@ public class UserDAO extends AbstractDAO<models.User> {
                     user.birthDate = formatter.parse(info.birthDate());
                 } catch (ParseException e) {
 
-                    em.getTransaction().rollback();
+                    try {
+                        formatter = new SimpleDateFormat("ddMMyyyy");
+                        user.birthDate = formatter.parse(info.birthDate());
+
+                    }catch (ParseException e1 ){
+
+                        user.birthDate = null;
+                    }
 
                 }
 
-                user.numDocFederal =info.docFederal();
+                user.numDocFederal = info.docFederal();
 
                 if (!info.rg().isEmpty()) {
                     user.numRg = info.rg().get();
                 }
 
                 if (!info.numCep().isEmpty()) {
-                    user.numCep =  info.numCep().get();
+                    user.numCep = info.numCep().get();
                 }
 
 
@@ -116,18 +116,15 @@ public class UserDAO extends AbstractDAO<models.User> {
             }
 
 
-
         }
 
     }
 
 
-    public  void alterarCadastro(Option <AlterarDadosInfo> form, String email, String providerId)
-    {
-        if (!form.isEmpty() && !email.isEmpty() ){
-            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
-            if  (user!= null) {
-
+    public void alterarCadastro(Option<AlterarDadosInfo> form, String email, String providerId) {
+        if (!form.isEmpty() && !email.isEmpty()) {
+            models.User user = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
+            if (user != null) {
 
 
                 AlterarDadosInfo info = form.get();
@@ -139,7 +136,14 @@ public class UserDAO extends AbstractDAO<models.User> {
                     user.birthDate = formatter.parse(info.birthDate());
                 } catch (ParseException e) {
 
-                    em.getTransaction().rollback();
+                    try {
+                        formatter = new SimpleDateFormat("ddMMyyyy");
+                        user.birthDate = formatter.parse(info.birthDate());
+
+                    }catch (ParseException e1 ){
+
+                        user.birthDate = null;
+                    }
 
                 }
 
@@ -167,7 +171,7 @@ public class UserDAO extends AbstractDAO<models.User> {
                 }
 
                 if (!info.logradouro().isEmpty()) {
-                    user.nomeLogradouro =info.logradouro();
+                    user.nomeLogradouro = info.logradouro();
                 }
 
                 if (!info.numLogradouro().isEmpty()) {
@@ -180,22 +184,16 @@ public class UserDAO extends AbstractDAO<models.User> {
             }
 
 
-
-
-
-
-
         }
-
 
 
     }
 
 
-    public  boolean verificaCadastro(String  email, String providerId ){
-        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
-        boolean xreturn  = true;
-        if (xUser != null){
+    public boolean verificaCadastro(String email, String providerId) {
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
+        boolean xreturn = true;
+        if (xUser != null) {
 
 
             if (xUser.birthDate == null
@@ -208,7 +206,7 @@ public class UserDAO extends AbstractDAO<models.User> {
                     || xUser.nomeLogradouro == null
                     || xUser.numLogradouro == null
 
-                    ){
+                    ) {
                 return false;
             }
 
@@ -220,13 +218,13 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public  boolean verificanumCodigo(String  email, String providerId){
-        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
-        boolean xreturn  = true;
-        if (xUser != null){
+    public boolean verificanumCodigo(String email, String providerId) {
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
+        boolean xreturn = true;
+        if (xUser != null) {
 
 
-            if (xUser.codigoAcesso.equals(null) ){
+            if (xUser.codigoAcesso.equals(null)) {
                 return false;
             }
 
@@ -237,26 +235,24 @@ public class UserDAO extends AbstractDAO<models.User> {
         return xreturn;
     }
 
-    public  boolean verificanumCodigoDigitado(String email,String providerId , String pass){
-        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
-        boolean xreturn  = true;
-        if (xUser != null){
+    public boolean verificanumCodigoDigitado(String email, String providerId, String pass) {
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
+        boolean xreturn = true;
+        if (xUser != null) {
 
-            if (xUser.codigoAcesso.equals(null)){
+            if (xUser.codigoAcesso.equals(null)) {
                 // primeira vez nao ira validar pq esta vazio
                 return true;
-            }else{
+            } else {
                 try {
-                    return xUser.codigoAcesso.equals(util.MD5.hash(pass))?true:false;
+                    return xUser.codigoAcesso.equals(util.MD5.hash(pass)) ? true : false;
 
-                }catch (NoSuchAlgorithmException e)
-                {
+                } catch (NoSuchAlgorithmException e) {
                     return false;
                 }
             }
 
 
-
         }
 
 
@@ -264,15 +260,15 @@ public class UserDAO extends AbstractDAO<models.User> {
     }
 
 
-    public boolean AlteranumCodigo(String email, String providerId , String pass){
-        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email,providerId).user();
-        if (xUser != null){
+    public boolean AlteranumCodigo(String email, String providerId, String pass) {
+        models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
+        if (xUser != null) {
 
-          xUser.codigoPlano = pass;
-          save(xUser);
-          return true;
+            xUser.codigoPlano = pass;
+            save(xUser);
+            return true;
 
-        }else{
+        } else {
             return false;
         }
 
