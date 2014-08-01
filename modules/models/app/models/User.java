@@ -76,7 +76,7 @@ public class User extends AbstractModel {
 
     private void setNumCodigo(String plainpass)
     {
-        if(!plainpass.equals(null)) {
+        if(plainpass != null) {
             try {
                 this.codigoAcesso = util.MD5.hash(plainpass);
             } catch (NoSuchAlgorithmException ex) {

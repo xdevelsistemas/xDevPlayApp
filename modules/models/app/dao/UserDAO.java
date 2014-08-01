@@ -224,7 +224,7 @@ public class UserDAO extends AbstractDAO<models.User> {
         if (xUser != null) {
 
 
-            if (xUser.codigoAcesso.equals(null)) {
+            if (xUser.codigoAcesso == null) {
                 return false;
             }
 
@@ -240,7 +240,7 @@ public class UserDAO extends AbstractDAO<models.User> {
         boolean xreturn = true;
         if (xUser != null) {
 
-            if (xUser.codigoAcesso.equals(null)) {
+            if (xUser.codigoAcesso == null) {
                 // primeira vez nao ira validar pq esta vazio
                 return true;
             } else {
