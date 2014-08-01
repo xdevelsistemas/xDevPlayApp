@@ -24,10 +24,7 @@ POST        /signupmail                    plugin.CustomRegistration.handleStart
 #apis rest para comunicação com frontend via angularjs
 
 
-# Example of protected page
-GET         /only-userpass                 controllers.Application.onlyUserPass
 # Map static resources from the /public folder to the /assets URL path
-#GET         /teste                             controllers.Assets.at(path = "/public/", file = "Home.html")
 GET         /assets/*file                  controllers.Assets.at(path="/public", file)
 # Login page
 GET         /login                         securesocial.controllers.LoginPage.login
@@ -50,14 +47,6 @@ GET         /authenticate/:provider        securesocial.controllers.ProviderCont
 POST        /authenticate/:provider        securesocial.controllers.ProviderController.authenticateByPost(provider)
 GET         /not-authorized                securesocial.controllers.ProviderController.notAuthorized
 
-#master: # Providers entry points
-#master: GET     /authenticate/:provider     securesocial.controllers.ProviderController.authenticate(provider, redirectTo: Option[String])
-#master: POST    /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider, redirectTo: Option[String])
-#master: GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
-
-# Authentication information
-#GET         /credentials                   controllers.Authentication.credentials
-#GET         /identities                    controllers.Authentication.identities
 
 
 
