@@ -2,6 +2,7 @@ package dao;
 
 import models.Cadastro.AlterarDadosInfo;
 import models.Cadastro.RegistrationInfo;
+
 import models.Identity;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
