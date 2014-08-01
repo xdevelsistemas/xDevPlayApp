@@ -1,0 +1,38 @@
+<div ng-controller="Contas" class="container" id="pagina-escritorio">
+    <div class="row">
+
+        <div id="main" class="span12">
+
+            <h1 class="page-header">Contas Bancárias</h1> <br>
+
+            <div class="tab-content">
+                <table id="tabela-contas" class="table table-striped table-bordered dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Banco</th>
+                            <th>Agência</th>
+                            <th>Conta</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in contas.lista">
+                            <td class="contas-padrao">
+                                <a href ="#">Padrão </a>
+                            </td>
+                            <td class="contas-banco" ng-bind="item.banco.nome"></td>
+                            <td class="contas-agencia" ng-bind="item.agencia"></td>
+                            <td class="contas-conta" ng-bind="item.conta"></td>
+                            <td class="contas-remover">
+                                <a href="#">Remover</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+
+        </div> <!-- /#main -->
+    </div> <!-- /.row -->
+</div> <!-- /.container -->

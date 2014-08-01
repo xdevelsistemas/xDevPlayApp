@@ -7,6 +7,7 @@
 define([
     './Pesquisa',
     './Escritorio',
+    './Contas',
     './SignUp',
     './NovaCarta',
     './Simulador'

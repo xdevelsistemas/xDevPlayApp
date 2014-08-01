@@ -14,6 +14,7 @@ GET         /simulador                     controllers.Proconsorcio.Application.
 GET         /dadoscadastrais               controllers.Proconsorcio.Application.dadoscadastrais()
 POST        /dadoscadastrais               controllers.Proconsorcio.Application.handleDadosCadastrais()
 GET         /escritorio                    controllers.Proconsorcio.Application.escritorio()
+GET         /contas                        controllers.Proconsorcio.Application.contas()
 GET         /faleconosco                   controllers.Proconsorcio.Application.faleconosco()
 GET         /getendereco/:cep              controllers.Proconsorcio.Application.getEndereco(cep)
 GET         /getuf                         controllers.Proconsorcio.Application.getUF()

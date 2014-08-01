@@ -100,6 +100,10 @@ object Application extends xDevController{
     Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio.render, "Escritório Online", _user, request))
   }
 
+  def contas = SecuredAction { implicit request =>
+    Ok(views.html.App.main.render(views.html.Proconsorcio.contas.render, "Minhas Contas Bancárias", _user, request))
+  }
+
   def faleconosco = Action { implicit request =>
     Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render, "Fale Conosco", _user, request))
   }
