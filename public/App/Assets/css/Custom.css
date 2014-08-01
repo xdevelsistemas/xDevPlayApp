@@ -62,11 +62,12 @@ dd.error {
 }
 
 input, textarea, .uneditable-input {
-    width: 174px;
+    /*width: 174px;*/
 }
 
 select {
-    width: 190px;
+    /*width: 190px;*/
+    /*width: 100%;*/
 }
 
 .submissions-table tbody tr td.actions .download {
@@ -146,6 +147,10 @@ select {
 
 .limpar-filtros {
     background-color: #003f4f;
+}
+
+div.ordenadores {
+    margin-left: 0.3em;
 }
 
 #simulador input {
