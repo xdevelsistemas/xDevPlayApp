@@ -8,6 +8,7 @@
         "Name": "claytonsilva/xdevplayapp:proconsorcio",
         "Update": "true"
     },
+
     "Ports": [
         {
             "ContainerPort": "9000"
