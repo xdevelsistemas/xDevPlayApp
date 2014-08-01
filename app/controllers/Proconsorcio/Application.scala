@@ -146,7 +146,7 @@ object Application extends xDevController{
       },
 
       success => {
-        JPA.withTransaction(new F.Function0[Void] {
+        JPA.withTransaction(new F.Function0[Unit] {
           def apply: Unit = {
              _userdao.alterarCadastro(RegistrationObjects.formAlterarDados.bindFromRequest().value,_user.get.email.get, _user.get.identityId.providerId)
           }
@@ -200,7 +200,7 @@ object Application extends xDevController{
 
       success => {
 
-        JPA.withTransaction(new F.Function0[Void] {
+        JPA.withTransaction(new F.Function0[Unit] {
           def apply: Unit = {
             _userdao.AlteranumCodigo(_user.get.email.get,_user.get.identityId.providerId, formAlterarCodigo.bindFromRequest().value.get.numCodigo)
 
