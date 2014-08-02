@@ -1,0 +1,42 @@
+{
+    "padrao": "42",
+    "lista": [
+        {
+            "codigo": "42",
+            "banco": {
+                "codigo": "2",
+                "nome": "Banco do Brasil"
+            },
+            "agencia": "0000",
+            "conta": "123278954"
+        },
+        {
+            "codigo": "88",
+            "banco": {
+                "codigo": "5",
+                "nome": "Santander"
+            },
+            "agencia": "654",
+            "conta": "55668844"
+        },
+        {
+            "codigo": "11",
+            "banco": {
+                "codigo": "8",
+                "nome": "Itaú"
+            },
+            "agencia": "897",
+            "conta": "6654858458"
+        },
+        {
+            "codigo": "66",
+            "banco": {
+                "codigo": "87",
+                "nome": "Novo Banco"
+            },
+            "agencia": "357",
+            "conta": "3321587987"
+        }
+
+    ]
+}

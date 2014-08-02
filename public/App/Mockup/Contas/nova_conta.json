@@ -1,6 +1,6 @@
 {
-    "result": "0",
-    "message": "Sucesso!",
+    "result": "1",
+    "message": "",
     "fields": {
         "banco": {
             "value": "",
@@ -15,4 +15,4 @@
             "error": ""
         }
     }
-};
+}
