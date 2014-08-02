@@ -4,9 +4,11 @@ package br.com.republicavirtual;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import play.api.libs.json.*;
 import scala.Function1;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Map;
 
+@JsonSerialize
 @XStreamAlias("webservicecep")
 public class CepServiceVO  implements Writes<CepServiceVO>
 {

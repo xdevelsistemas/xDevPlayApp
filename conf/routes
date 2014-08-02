@@ -2,51 +2,54 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Aplicatico principal
-GET         /                              controllers.Proconsorcio.LandingPage.Home
-GET         /home                          controllers.Proconsorcio.Application.home
-GET         /pesquisa/:query               controllers.Proconsorcio.Application.pesquisa(query)
-GET         /pesquisa                      controllers.Proconsorcio.Application.pesquisa_clean
-GET         /alterarcodigo                 controllers.Proconsorcio.Application.alterarcodigo
-POST        /alterarcodigo                 controllers.Proconsorcio.Application.handleAlterarCodigo
-GET         /novacarta                     controllers.Proconsorcio.Application.novacarta
-GET         /detalhes/:id                  controllers.Proconsorcio.Application.detalhes(id)
-GET         /simulador                     controllers.Proconsorcio.Application.simulador
-GET         /dadoscadastrais               controllers.Proconsorcio.Application.dadoscadastrais()
-POST        /dadoscadastrais               controllers.Proconsorcio.Application.handleDadosCadastrais()
-GET         /escritorio                    controllers.Proconsorcio.Application.escritorio()
-GET         /contas                        controllers.Proconsorcio.Application.contas()
-GET         /faleconosco                   controllers.Proconsorcio.Application.faleconosco()
-GET         /getendereco/:cep              controllers.Proconsorcio.Application.getEndereco(cep)
-GET         /getuf                         controllers.Proconsorcio.Application.getUF()
-GET         /getbanco                      controllers.Proconsorcio.Application.getBanco()
-POST        /signupmail                    plugin.CustomRegistration.handleStartSignUpMail()
+GET         /                                 controllers.Proconsorcio.LandingPage.Home
+GET         /home                             controllers.Proconsorcio.Application.home
+GET         /pesquisa/:query                  controllers.Proconsorcio.Application.pesquisa(query)
+GET         /pesquisa                         controllers.Proconsorcio.Application.pesquisa_clean
+GET         /alterarcodigo                    controllers.Proconsorcio.Application.alterarcodigo
+POST        /alterarcodigo                    controllers.Proconsorcio.Application.handleAlterarCodigo
+GET         /novacarta                        controllers.Proconsorcio.Application.novacarta
+GET         /detalhes/:id                     controllers.Proconsorcio.Application.detalhes(id)
+GET         /simulador                        controllers.Proconsorcio.Application.simulador
+GET         /dadoscadastrais                  controllers.Proconsorcio.Application.dadoscadastrais()
+POST        /dadoscadastrais                  controllers.Proconsorcio.Application.handleDadosCadastrais()
+GET         /escritorio                       controllers.Proconsorcio.Application.escritorio()
+GET         /contas                           controllers.Proconsorcio.Application.contas()
+GET         /faleconosco                      controllers.Proconsorcio.Application.faleconosco()
+GET         /getendereco/:cep                 controllers.Proconsorcio.Application.getEndereco(cep)
+GET         /getuf                            controllers.Proconsorcio.Application.getUF()
+GET         /getbanco                         controllers.Proconsorcio.Application.getBanco()
+POST        /signupmail                       plugin.CustomRegistration.handleStartSignUpMail()
+
 
 
 #apis rest para comunicação com frontend via angularjs
-
+GET         /rest/cep/:cep                    controllers.Proconsorcio.RestController.endereco(cep)
+#listas
+GET         /rest/list/administradoras        controllers.Proconsorcio.RestController.administradoras
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                  controllers.Assets.at(path="/public", file)
+GET         /assets/*file                     controllers.Assets.at(path="/public", file)
 # Login page
-GET         /login                         securesocial.controllers.LoginPage.login
-GET         /logout                        securesocial.controllers.LoginPage.logout
+GET         /login                            securesocial.controllers.LoginPage.login
+GET         /logout                           securesocial.controllers.LoginPage.logout
 
 # User Registration and password handling (only needed if you are using UsernamePasswordProvider)
-GET         /signup                        plugin.CustomRegistration.startSignUp
-POST        /signup                        plugin.CustomRegistration.handleStartSignUp
-GET         /signup/:token                 plugin.CustomRegistration.signUp(token)
-POST        /signup/:token                 plugin.CustomRegistration.handleSignUp(token)
-GET         /reset                         securesocial.controllers.Registration.startResetPassword
-POST        /reset                         securesocial.controllers.Registration.handleStartResetPassword
-GET         /reset/:token                  securesocial.controllers.Registration.resetPassword(token)
-POST        /reset/:token                  plugin.CustomRegistration.handleResetPassword(token)
-GET         /password                      securesocial.controllers.PasswordChange.page
-POST        /password                      securesocial.controllers.PasswordChange.handlePasswordChange
+GET         /signup                           plugin.CustomRegistration.startSignUp
+POST        /signup                           plugin.CustomRegistration.handleStartSignUp
+GET         /signup/:token                    plugin.CustomRegistration.signUp(token)
+POST        /signup/:token                    plugin.CustomRegistration.handleSignUp(token)
+GET         /reset                            securesocial.controllers.Registration.startResetPassword
+POST        /reset                            securesocial.controllers.Registration.handleStartResetPassword
+GET         /reset/:token                     securesocial.controllers.Registration.resetPassword(token)
+POST        /reset/:token                     plugin.CustomRegistration.handleResetPassword(token)
+GET         /password                         securesocial.controllers.PasswordChange.page
+POST        /password                         securesocial.controllers.PasswordChange.handlePasswordChange
 
 # Providers entry points
-GET         /authenticate/:provider        securesocial.controllers.ProviderController.authenticate(provider)
-POST        /authenticate/:provider        securesocial.controllers.ProviderController.authenticateByPost(provider)
-GET         /not-authorized                securesocial.controllers.ProviderController.notAuthorized
+GET         /authenticate/:provider           securesocial.controllers.ProviderController.authenticate(provider)
+POST        /authenticate/:provider           securesocial.controllers.ProviderController.authenticateByPost(provider)
+GET         /not-authorized                   securesocial.controllers.ProviderController.notAuthorized
 
 
 

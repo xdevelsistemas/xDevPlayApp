@@ -2,6 +2,8 @@ package util;
 /**
  * Created by claytonsantosdasilva on 01/07/14.
  */
+import scala.collection.immutable.List;
+
 import java.security.*;
 import java.math.*;
 
@@ -13,4 +15,7 @@ public class MD5 {
 
          return (new BigInteger(1,m.digest()).toString(16));
   }
+
+
+
 }

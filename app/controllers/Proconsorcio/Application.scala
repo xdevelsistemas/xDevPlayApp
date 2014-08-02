@@ -89,7 +89,7 @@ object Application extends xDevController {
 
 
   def escritorio = SecuredAction { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio.render, "Escritório Online", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio(_userdao,_user), "Escritório Online", _user, request))
   }
 
   def contas = SecuredAction { implicit request =>

@@ -1,5 +1,27 @@
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity])
 <div ng-controller="Escritorio" class="container" id="pagina-escritorio">
     <div class="row">
+        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+            <div class="alert alert-warning" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                @{
+                    user.get.firstName
+                }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
+                Aqui </strong> </a>
+            </div>
+        }
+        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
+            <div class="alert alert-alert-warning" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only"></span></button>
+                @{
+                    user.get.firstName
+                }
+                , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
+                Aqui </strong> </a>
+            </div>
+        }
 
         <div id="main" class="span12">
 
@@ -68,7 +90,7 @@
                                     <th>Tipo</th>
                                     <th>Administradora</th>
                                     <th>Status</th>
-                                    <th></th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
