@@ -1,127 +1,132 @@
-[
-    {
-        "id": "AC",
-        "text": "Acre"
-    },
-    {
-        "id": "AL",
-        "text": "Alagoas"
-    },
-    {
-        "id": "AM",
-        "text": "Amazonas"
+{
+    "codigo": "uf",
+    "descricao": "Estado",
+    "Lista": [
+        {
+            "codigo": "AC",
+            "descricao": "Acre"
+        },
+        {
+            "codigo": "AL",
+            "descricao": "Alagoas"
+        },
+        {
+            "codigo": "AM",
+            "descricao": "Amazonas"
 
-    },
-    {
-        "id": "AP",
-        "text": "Amapá"
-    },
-    {
-        "id": "BA",
-        "text": "Bahia"
+        },
+        {
+            "codigo": "AP",
+            "descricao": "Amapá"
+        },
+        {
+            "codigo": "BA",
+            "descricao": "Bahia"
 
-    },
-    {
-        "id": "CE",
-        "text": "Ceará"
+        },
+        {
+            "codigo": "CE",
+            "descricao": "Ceará"
 
-    },
-    {
-        "id": "DF",
-        "text": "Distrito Federal"
+        },
+        {
+            "codigo": "DF",
+            "descricao": "Distrito Federal"
 
-    },
-    {
-        "id": "ES",
-        "text": "Espírito Santo"
+        },
+        {
+            "codigo": "ES",
+            "descricao": "Espírito Santo"
 
-    },
-    {
-        "id": "GO",
-        "text": "Goiás"
+        },
+        {
+            "codigo": "GO",
+            "descricao": "Goiás"
 
-    },
-    {
-        "id": "MA",
-        "text": "Maranhão"
+        },
+        {
+            "codigo": "MA",
+            "descricao": "Maranhão"
 
-    },
-    {
-        "id": "MG",
-        "text": "Minas Gerais"
-    },
-    {
-        "id": "MS",
-        "text": "Mato Grosso do Sul"
+        },
+        {
+            "codigo": "MG",
+            "descricao": "Minas Gerais"
+        },
+        {
+            "codigo": "MS",
+            "descricao": "Mato Grosso do Sul"
 
-    },
-    {
-        "id": "MT",
-        "text": "Mato Grosso"
+        },
+        {
+            "codigo": "MT",
+            "descricao": "Mato Grosso"
 
-    },
-    {
-        "id": "PA",
-        "text": "Pará"
+        },
+        {
+            "codigo": "PA",
+            "descricao": "Pará"
 
-    },
-    {
-        "id": "PB",
-        "text": "Paraíba"
+        },
+        {
+            "codigo": "PB",
+            "descricao": "Paraíba"
 
-    },
-    {
-        "id": "PE",
-        "text": "Pernambuco"
+        },
+        {
+            "codigo": "PE",
+            "descricao": "Pernambuco"
 
-    },
-    {
-        "id": "PI",
-        "text": "Piauí"
+        },
+        {
+            "codigo": "PI",
+            "descricao": "Piauí"
 
-    },
-    {
-        "id": "PR",
-        "text": "Paraná"
+        },
+        {
+            "codigo": "PR",
+            "descricao": "Paraná"
 
-    },
-    {
-        "id": "RJ",
-        "text": "Rio de Janeiro"
-    },
-    {
-        "id": "RN",
-        "text": "Rio Grande do Norte"
+        },
+        {
+            "codigo": "RJ",
+            "descricao": "Rio de Janeiro"
+        },
+        {
+            "codigo": "RN",
+            "descricao": "Rio Grande do Norte"
 
-    },
-    {
-        "id": "RO",
-        "text": "Rondônia"
+        },
+        {
+            "codigo": "RO",
+            "descricao": "Rondônia"
 
-    },
-    {
-        "id": "RS",
-        "text": "Rio Grande do Sul"
+        },
+        {
+            "codigo": "RS",
+            "descricao": "Rio Grande do Sul"
 
-    },
-    {
-        "id": "SC",
-        "text": "Santa Catarina"
+        },
+        {
+            "codigo": "SC",
+            "descricao": "Santa Catarina"
 
-    },
-    {
-        "id": "SE",
-        "text": "Sergipe"
+        },
+        {
+            "codigo": "SE",
+            "descricao": "Sergipe"
 
-    },
-    {
-        "id": "SP",
-        "text": "São Paulo"
+        },
+        {
+            "codigo": "SP",
+            "descricao": "São Paulo"
 
-    },
-    {
-        "id": "TO",
-        "text": "Tocantins"
+        },
+        {
+            "codigo": "TO",
+            "descricao": "Tocantins"
 
-    }
-]
+        }
+    ]
+
+}

@@ -1,10 +1,12 @@
 package controllers
 
 import javax.persistence.EntityManager
-
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.{ObjectMapper, ObjectWriter}
 import play.api.mvc._
-import play.db.jpa.JPA
-import play.db.jpa.{Transactional, JPA}
+import play.db.jpa.{JPA}
+import play.libs.Json
+import play.mvc.{Results, Result}
 import securesocial.core.{SecureSocial, Identity}
 
 /**
@@ -42,5 +44,24 @@ class xDevController extends Controller  with securesocial.core.SecureSocial {
   }
 
 
+
+}
+
+
+class xDevRestController extends  xDevController{
+
+  def JsonResult(yObject: Object): Result = {
+    val ow: ObjectWriter = new ObjectMapper().writer.withDefaultPrettyPrinter
+    try {
+      val json: String = ow.writeValueAsString(yObject)
+
+      return Results.ok(Json.toJson(yObject))
+    }
+    catch {
+      case e: JsonProcessingException => {
+        return Results.badRequest(e.getMessage)
+      }
+    }
+  }
 
 }
