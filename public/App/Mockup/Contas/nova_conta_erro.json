@@ -1,0 +1,18 @@
+{
+    "result": "0",
+    "message": "Por favor, preencha os campos corretamente.",
+    "fields": {
+        "banco": {
+            "value": "",
+            "error": "Este campo é requerido..."
+        },
+        "agencia": {
+            "value": "",
+            "error": "Este campo é requerido..."
+        },
+        "conta": {
+            "value": "",
+            "error": "Este campo é requerido..."
+        }
+    }
+}

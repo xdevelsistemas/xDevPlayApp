@@ -1,0 +1,18 @@
+{
+    "result": "0",
+    "message": "Sucesso!",
+    "fields": {
+        "banco": {
+            "value": "",
+            "error": ""
+        },
+        "agencia": {
+            "value": "",
+            "error": ""
+        },
+        "conta": {
+            "value": "",
+            "error": ""
+        }
+    }
+};

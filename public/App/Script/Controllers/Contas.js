@@ -8,6 +8,59 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "lista": []
         }
 
+        $scope.bancos = {
+            "codigo": "",
+            "descricao": "",
+            "lista": [
+                {
+                    "codigo": "2",
+                    "descricao": "banco 2"
+                },
+                {
+                    "codigo": "5",
+                    "descricao": "banco 5"
+                },
+                {
+                    "codigo": "3",
+                    "descricao": "banco 3"
+                }
+            ]
+        };
+
+        $scope.formData = {
+            "result": "",
+            "message": "",
+            "fields": {
+                "banco": {
+                    "value": "",
+                    "error": ""
+                },
+                "agencia": {
+                    "value": "",
+                    "error": ""
+                },
+                "conta": {
+                    "value": "",
+                    "error": ""
+                }
+            }
+        };
+
+        $scope.adicionarConta = function (form, isInvalid) {
+
+            $scope.formData.fields.banco.error = form.banco.$invalid ? "Este é um campo obrigatório." : null;
+            $scope.formData.fields.agencia.error = form.agencia.$invalid ? "Este é um campo obrigatório." : null;
+            $scope.formData.fields.conta.error = form.conta.$invalid ? "Este é um campo obrigatório." : null;
+
+            if (isInvalid) return;
+            $http.get('http://localhost:9000/assets/App/Mockup/Contas/nova_conta_erro.json')
+                .success(function (data) {
+                    $.extend(true, $scope.formData, data);
+                });
+
+        }
+
+
         function aplicarDatatables(elmId) {
             window.setTimeout(function () {
                 $(elmId).dataTable({
@@ -44,6 +97,14 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 angular.extend($scope.contas, data);
                 aplicarDatatables("#tabela-contas");
             });
+
+            //hack to prevent the ENTER key to close the modal
+            $('input').bind('keypress', function (e) {
+                if (e.keyCode == 13) { //Enter keycode
+                    e.preventDefault();
+                }
+            });
+
         })();
 
     }]);
