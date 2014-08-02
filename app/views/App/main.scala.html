@@ -57,11 +57,21 @@
             <div id="page-container">
                 <div class="top ">@views.html.Proconsorcio.Partials.Cabecalho(title)</div>
                 <div id="content" class="clearfix">
-                @content
+                    <div id="loading-splash" ng-cloak>
+                        <div id="loading-bar" class="progress progress-striped active">
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                    @content
                 </div>
-                <div id="push"></div>
+                <div class="push"></div>
             </div>
             <div id="footer-wrapper">@views.html.Proconsorcio.Partials.Rodape()</div>
         </div>
+        @*<div id="loading-splash" ng-cloak>*@
+        @*<div id="loading-bar" class="progress progress-striped active">*@
+        @*<div class="bar"></div>*@
+        @*</div>*@
+        @*</div>*@
     </body>
 </html>

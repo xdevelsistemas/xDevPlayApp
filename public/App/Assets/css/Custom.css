@@ -9,6 +9,7 @@
 #all-content {
     opacity: 1;
     transition: opacity 0.2s ease;
+    height: 100%;
 }
 
 /*it makes the footer stuck to the page bottom*/
@@ -20,15 +21,16 @@ html, body, #all-content {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -89px;
+    margin: 0 auto -96px;
 }
 
-#push {
-    height: 89px;
+.push {
+    height: 96px;
 }
 
 #footer-wrapper {
-    height: 84px;
+    height: 96px;
+    overflow: hidden;
 }
 
 /*end*/
@@ -51,6 +53,7 @@ dd.error {
 #content {
     min-height: 400px;
     padding-top: 1em;
+    position: relative;
 }
 
 #pagina-dadosCadastrais .tab-content {
@@ -217,3 +220,42 @@ button.btn.interesse {
 h1, h2, h3 {
     color: #00478C;
 }
+
+/*loading bar*/
+
+#loading-splash {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.50);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+#loading-splash[ng-cloak] {
+    display: block !important;
+}
+
+#loading-bar .bar {
+    width: 140%;
+    background-color: #317DC6;
+    margin-left: -20px;
+    position: relative;
+}
+
+#loading-bar {
+    border-radius: 0;
+    height: 1em;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/*end*/

@@ -7,5 +7,5 @@ define([
     './xdDataTable',
     './xdMaskPositiveNumber',
     './xdMaskMoneyBrl',
-    './xdPageFadeIn'
+    './xdLoadingBar'
 ]);
