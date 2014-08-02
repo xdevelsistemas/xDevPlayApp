@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import play.api.i18n.Messages
 import play.api.libs.json._
 import java.text.SimpleDateFormat
-import br.com.republicavirtual.CepService
+import br.com.republicavirtual.{CepService, CepServiceVO}
 import controllers.xDevController
 import dao.IdentityDAO
 import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
@@ -104,21 +104,7 @@ object Application extends xDevController {
   def getEndereco(cep: String) = Action { implicit request =>
 
     val result = CepService.buscaCEP(cep)
-    val json =
-
-      Json.obj(
-        "uf" -> result.getUf,
-        "cidade" -> result.getCidade,
-        "bairro" -> result.getBairro,
-        "tipo_logradouro" -> result.getTipo_logradouro,
-        "logradouro" -> result.getLogradouro,
-        "resultado" -> result.getResultado,
-        "resultado_txt" -> result.getResultado_txt
-      )
-
-
-
-    Ok(json)
+    Ok(result.serialize())
   }
 
   def getUF = Action {
