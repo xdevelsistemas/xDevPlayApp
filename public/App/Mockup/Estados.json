@@ -1,7 +1,7 @@
 {
     "codigo": "uf",
     "descricao": "Estado",
-    "Lista": [
+    "lista": [
         {
             "codigo": "AC",
             "descricao": "Acre"
