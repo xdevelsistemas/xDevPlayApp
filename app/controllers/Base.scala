@@ -40,7 +40,7 @@ class xDevRestController extends  xDevController{
     }
     catch {
       case e: JsonProcessingException => {
-        return BadRequest(((new TpResponse()).apply("0",e.getMessage)).asInstanceOf[TpResponse].serialize())
+        return BadRequest(new TpResponse("0",e.getMessage).serialize())
       }
     }
   }

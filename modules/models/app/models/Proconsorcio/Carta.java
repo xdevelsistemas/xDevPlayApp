@@ -118,6 +118,17 @@ public class Carta extends AbstractModel {
     public Date horaCompra;
 
 
+    @Column
+    public String bancoDeposito;
+
+    @Column
+    public String agenciaDeposito;
+
+    @Column
+    public String contaDeposito;
+
+
+
 
     @Column
     public String avaliacaoComprador;

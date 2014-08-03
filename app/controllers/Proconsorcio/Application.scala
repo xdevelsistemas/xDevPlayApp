@@ -101,19 +101,7 @@ object Application extends xDevController {
   }
 
 
-  def getEndereco(cep: String) = Action { implicit request =>
 
-    val result = CepService.buscaCEP(cep)
-    Ok(result.serialize())
-  }
-
-  def getUF = Action {
-    Redirect("/assets/App/Mockup/Estados.json")
-  }
-
-  def getBanco = Action {
-    Redirect("/assets/App/Mockup/Bancos.json")
-  }
 
   def handleDadosCadastrais = SecuredAction { implicit request =>
 
