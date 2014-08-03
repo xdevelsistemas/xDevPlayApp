@@ -549,7 +549,8 @@ textarea {
 
 .top .top-inner .navigation ul.nav {
     margin: 0px;
-    position: relative;}
+    position: relative;
+}
 
 .top .top-inner .navigation ul.nav li {
     display: block;
@@ -2531,7 +2532,8 @@ textarea {
     background-color: rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     padding-bottom: 20px;
-    padding-top: 20px}
+    padding-top: 20px
+}
 
 .footer-bottom .widget {
     border: 0px;
@@ -3921,7 +3923,8 @@ body .property-listing h1.page-header {
 }
 
 .radio, .checkbox {
-    padding-left: 0px
+    padding-left: 2em;
+    padding-bottom: 0.2em;
 }
 
 .carousel {

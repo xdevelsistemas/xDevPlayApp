@@ -75,26 +75,26 @@
 
 
                                     <div class="control-group">
-                                        <div class="radio-group-form">
-                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
-                                            <label for="cpf">CPF</label>
-                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
-                                            <label for="cnpj">CNPJ</label>
-                                        </div>
+                                        <label class="control-label"></label>
                                         <div class="controls">
-                                            <div class="controls">
-                                            </div>
-                                            <div class="controls">
-                                            @helper.inputText(
-                                                signUpForm("docFederal"),
-                                                'placeholder -> "CPF ou CNPJ",
-                                                '_label -> ""
-                                            )
-                                            </div>
+                                            <label class="radio control-label" for="cpf">CPF
+                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
+                                            </label>
+                                            <label class="radio control-label" for="cnpj">CNPJ
+                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
+                                            </label>
                                         </div>
-                                            <!-- /.controls -->
                                     </div>
-                                        <!-- /.control-group -->
+                                    <div class="control-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+                                        @helper.inputText(
+                                            signUpForm("docFederal"),
+                                            'placeholder -> "CPF ou CNPJ",
+                                            '_label -> ""
+                                        )
+                                        </div>
+                                    </div> <!-- /.control-group -->
 
                                     <div class="control-group">
                                         <label class="control-label">
