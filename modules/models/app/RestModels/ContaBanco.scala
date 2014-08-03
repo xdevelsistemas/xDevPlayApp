@@ -3,7 +3,7 @@ package RestModels
 import models.Proconsorcio.ContaBanco
 import play.api.libs.json.JsObject
 import play.api.libs.json.{JsObject, Writes, JsNull, Json}
-import util.xDevSerialize
+import util.{TpResponse, Tpval, xDevSerialize}
 
 /**
  * Created by claytonsantosdasilva on 02/08/14.
@@ -25,6 +25,28 @@ class Banco(ycodigo:String,ynome:String) extends xDevSerialize{
 
 }
 
+class ContaBancoForm extends xDevSerialize{
+  var status : TpResponse = new TpResponse("0","")
+  var codigo : Tpval = new Tpval("","")
+  var padrao : Tpval = new Tpval("","")
+  var numBanco: Tpval = new Tpval("","")
+  var nomeBanco: Tpval = new Tpval("","")
+  var agencia: Tpval = new Tpval("","")
+  var conta: Tpval = new Tpval("","")
+
+  def serialize(): JsObject = {
+
+          Json.obj(
+            "codigo"-> this.codigo.serialize(),
+            "padrao"-> this.padrao.serialize(),
+            "banco"-> Json.obj("codigo" -> this.numBanco,"nome" -> this.agencia),
+            "agencia"-> this.agencia.serialize(),
+            "conta"-> this.conta.serialize()
+          )
+  }
+
+
+}
 
 
 class ListaContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
@@ -34,9 +56,9 @@ class ListaContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
       "lista"->
         this.ylista.map { t=>
           Json.obj(
-            "codigo"-> t.uuid,
-            "padrao"-> t.padrao,
-            "banco"-> (new Banco(t.numBanco,t.nomeBanco)).serialize(),
+            "codigo"-> t.uuid.toString,
+            "padrao"-> t.padrao.toString,
+            "banco"-> new Banco(t.numBanco,t.nomeBanco).serialize(),
             "agencia"-> t.agencia,
             "conta"-> t.conta
           ) }
