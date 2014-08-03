@@ -24,11 +24,12 @@ object RestController extends xDevRestController {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
-      val resp = new TpDropDown("uuid","Administradora",
+      val resp = new TpDropDown("uuid", "Administradora",
 
-        (new util.ArrayList[TpElDropDown]() { t=>
+        (new util.ArrayList[TpElDropDown]() {
+          t =>
           (new AdministradoraDAO).findAllValid().asScala.sortBy(d => d.name).foreach(e => {
-            t.add(new TpElDropDown(e.uuid.toString,e.name))
+            t.add(new TpElDropDown(e.uuid.toString, e.name))
           })
         })
 
@@ -44,12 +45,13 @@ object RestController extends xDevRestController {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
-      val resp = new TpDropDown("uuid","Tipo de Carta",
+      val resp = new TpDropDown("uuid", "Tipo de Carta",
 
-        (new util.ArrayList[TpElDropDown]() { t=>
+        (new util.ArrayList[TpElDropDown]() {
+          t =>
           (new TipoCartaDAO).all().asScala.filter(d =>
             d.ativo.equals(true)).sortBy(d => d.name).foreach(e => {
-            t.add(new TpElDropDown(e.uuid.toString,e.name))
+            t.add(new TpElDropDown(e.uuid.toString, e.name))
           })
         })
 
@@ -59,13 +61,12 @@ object RestController extends xDevRestController {
     }
   }
 
-  def getConta = SecuredAction{implicit request =>
+  def getConta = SecuredAction { implicit request =>
     JsonResult(new ListaContaBanco(new ContaBancoDAO()
-      .findAllbyUser(_userdao.findbyemailandprovider(_user.get.email.get,_user.get.identityId.providerId))
-      .asScala.toList.sortBy(t=> t.created)
+      .findAllbyUser(_userdao.findbyemailandprovider(_user.get.email.get, _user.get.identityId.providerId))
+      .asScala.toList.sortBy(t => t.created)
     ))
   }
-
 
 
   def getUF = Action {
@@ -76,9 +77,12 @@ object RestController extends xDevRestController {
     Redirect("/assets/App/Mockup/Bancos.json")
   }
 
+  def getContemplacao = Action {
+    Redirect("/assets/App/Mockup/Filtros/contemplacao.json")
+  }
 
 
-  def getEndereco(cep: String) = Action  {
+  def getEndereco(cep: String) = Action {
     JsonResult(CepService.buscaCEP(cep))
   }
 
