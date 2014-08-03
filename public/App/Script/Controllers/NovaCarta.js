@@ -5,6 +5,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.tipo = {};
         $scope.administradora = {};
         $scope.contemplacao = {};
+        $scope.contas = {};
         function inicializarModeloForm() {
             $scope.formData = {
                 "resp": {
@@ -52,7 +53,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             console.log("s", s);
             return s === undefined || s === null || isNaN(parseFloat(s.split('.').join('').replace(',', '.')));
         };
-        $scope.enviarForm = function (form, isInvalid) {
+        $scope.enviarFormNovaCarta = function (form, isInvalid) {
             console.log($scope.formData);
             $scope.formData.fields.tipo.error = form.tipo.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.administradora.error = form.administradora.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -63,6 +64,11 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $scope.formData.fields.valorPrestacoes.error = form.valorPrestacoes.$invalid || naoEeNum($scope.formData.fields.valorPrestacoes.value) ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.cota.error = form.cota.$invalid || naoEeNum($scope.formData.fields.cota.value) ? $scope.strings.campoObrigatorio : null;
             if (isInvalid) return console.log("formulário inválido!");
+            $("#modal-selecionarConta").modal('show');
+        };
+        $scope.enviarFormConta = function (form, isInvalid) {
+            if (isInvalid) return console.log("formulário inválido!");
+            console.log("formulário válido!");
         };
         //Inicializador
         (function () {
@@ -77,6 +83,9 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             });
             $http.get("/rest/list/getcontemplacao").success(function (data) {
                 angular.extend($scope.contemplacao, data);
+            });
+            $http.get("/rest/grid/Contas/get").success(function (data) {
+                angular.extend($scope.contas, data);
             });
         })();
     }]);
