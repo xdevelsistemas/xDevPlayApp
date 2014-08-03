@@ -39,7 +39,7 @@ class ContaBancoForm extends xDevSerialize{
           Json.obj(
             "codigo"-> this.codigo.serialize(),
             "padrao"-> this.padrao.serialize(),
-            "banco"-> Json.obj("codigo" -> this.numBanco,"nome" -> this.agencia),
+            "banco"-> Json.obj("codigo" -> this.numBanco.value,"nome" -> this.agencia.value),
             "agencia"-> this.agencia.serialize(),
             "conta"-> this.conta.serialize()
           )
