@@ -16,10 +16,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         function inicializarModeloForm() {
             $scope.formData = {
-                "result": "",
-                "message": "",
+                "resp": {
+                    "result": "",
+                    "message": ""
+                },
                 "fields": {
-                    "banco": {
+                    "numBanco": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "nomeBanco": {
                         "value": "",
                         "error": ""
                     },
@@ -30,6 +36,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     "conta": {
                         "value": "",
                         "error": ""
+                    },
+                    "padrao": {
+                        "value": true,
+                        "error": ""
                     }
                 }
             };
@@ -37,22 +47,29 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         inicializarModeloForm();
 
         $scope.adicionarConta = function (form, isInvalid) {
-            $scope.formData.fields.banco.error = form.banco.$invalid ? "Este é um campo obrigatório." : null;
+            $scope.formData.fields.numBanco.error = form.numBanco.$invalid ? "Este é um campo obrigatório." : null;
             $scope.formData.fields.agencia.error = form.agencia.$invalid ? "Este é um campo obrigatório." : null;
             $scope.formData.fields.conta.error = form.conta.$invalid ? "Este é um campo obrigatório." : null;
             if (isInvalid) return;
-            $http.get('http://localhost:9000/assets/App/Mockup/Contas/nova_conta.json')
+            var param = $.extend(true, {}, $scope.formData);
+            param.fields.padrao.value = param.fields.padrao.value ? '1' : '0';
+            var nb = param.fields.numBanco.value.split(':');
+            param.fields.numBanco.value = nb[0];
+            param.fields.nomeBanco.value = nb[1];
+            console.log("formData ==> ", $scope.formData);
+            console.log(">>>", "param ==> ", param);
+            $http.post('/rest/grid/contas/add', param)
                 .success(function (data) {
+                    data.fields.padrao.value = data.fields.padrao.value == '1' ? true : false;
                     angular.extend($scope.formData, data);
                     //em caso da resposta ter sido positiva
-                    if (parseInt($scope.formData.result) === 1)
-                        $http.get("/assets/App/Mockup/Contas/contas2.json").success(function (data2) {
+                    if ($scope.formData.resp.result == '1')
+                        $http.get("/rest/grid/contas/list").success(function (data2) {
                             angular.extend($scope.contas, data2);
                             $('#modal-novaConta').modal("hide");
                             inicializarModeloForm();
                         });
                 });
-
         }
 
 
@@ -88,11 +105,11 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         //Inicializador
         (function () {
-            $http.get("/assets/App/Mockup/Contas/contas.json").success(function (data) {
+            $http.get("/rest/grid/contas/list").success(function (data) {
                 angular.extend($scope.contas, data);
                 aplicarDatatables("#tabela-contas");
             });
-            $http.get("/assets/App/Mockup/Bancos.json").success(function (data) {
+            $http.get("/rest/list/getbanco").success(function (data) {
                 $.extend(true, $scope.bancos, data);
             });
 

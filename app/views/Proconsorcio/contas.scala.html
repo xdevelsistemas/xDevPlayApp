@@ -61,11 +61,11 @@
                     <div class="tab-content">
                         <div class="form-group">
                             <label>Banco</label>
-                            <select name="banco" ng-model="formData.fields.banco.value"
+                            <select name="numBanco" ng-model="formData.fields.numBanco.value"
                             required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
                                 <option value=""></option>
                                 <option ng-repeat="banco in bancos.lista | orderBy: 'codigo'"
-                                ng-value="banco.codigo"
+                                ng-value="banco.codigo+':'+banco.descricao"
                                 ng-bind="banco.descricao"></option>
                             </select>
                             <span class="error-msg" ng-bind="formData.fields.banco.error"></span>
@@ -81,6 +81,13 @@
                             <label>Conta</label>
                             <input type="text" name="conta" ng-model="formData.fields.conta.value" required>
                             <span class="error-msg" ng-bind="formData.fields.conta.error"></span>
+                            <p>Requerido</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox">Definir como conta padrão.
+                                <input type="checkbox" name="padrao" ng-model="formData.fields.padrao.value" checked="true">
+                            </label>
+                            <span class="error-msg" ng-bind="formData.fields.padrao.error"></span>
                             <p>Requerido</p>
                         </div>
                     </div>
