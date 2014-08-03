@@ -7,6 +7,7 @@
         "valorPrestacoes": "Valor das Prestações",
         "prazoRestante": "Prazo Restante (em meses)",
         "resultado": "RESULTADO",
-        "botaoCalcular": "Calcular"
+        "botaoCalcular": "Calcular",
+        "campoObrigatorio": "Este é um campo obrigatório."
     }
 }

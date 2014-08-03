@@ -1,135 +1,143 @@
-<div ng-controller="NovaCarta" class="container" id="pagina-novaCarta">
-    <h1 class="page-header fl row">{{strings.titulo}}</h1>
-    @*FORMULARIO*@
-    <form method="post">
+<div ng-controller="NovaCarta" ng-cloak class="container" id="pagina-novaCarta">
+    <h1 class="page-header fl row" ng-bind="strings.titulo"></h1>
+        <!--FORMULARIO-->
+    <form name="formNovaCarta" ng-submit="enviarFormNovaCarta(formNovaCarta, formNovaCarta.$invalid)" novalidate>
         <div class="row-fluid">
             <div class="span6">
                 <div class="tab-content">
                     <div class="tab-pane active" id="novaCarta">
-                        @*TIPO*@
-                    <div class="control-group">
-                        <label class="control-label">{{strings.tipo}}
-                            <span class="form-required" title="Esse campo é requerido.">*</span>
-                        </label>
-                        <div class="controls">
-                            <select ng-cloak ng-model="select2" ui-select2="{width:'resolve'}">
+                            <!--TIPO-->
+                        <div class="form-group">
+                            <label ng-bind="strings.tipo"></label>
+                            <select name="tipo" ng-model="formData.fields.tipo.value"
+                            required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
                                 <option value=""></option>
-                                <option ng-repeat="item in tipo.lista"
-                                ng-value="item.codigo" ng-bind="item.descricao"></option>
+                                <option ng-repeat="item in tipo.lista | orderBy: 'descricao'"
+                                ng-value="item.codigo"
+                                ng-bind="item.descricao"></option>
                             </select>
-                            @*<input name="tipo" type="hidden" ng-value="tipos.selecionado">*@
+                            <span class="error-msg" ng-bind="formData.fields.tipo.error"></span>
+                            <p>Requerido</p>
                         </div>
-                    </div>
-                        @*ADMINISTRADORA*@
-                    <div class="control-group">
-                        <label class="control-label">{{strings.administradora}}
-                            <span class="form-required" title="Esse campo é requerido.">*</span>
-                        </label>
-                        <div class="controls">
-                            <select ng-cloak ng-model="select2" ui-select2="{width:'resolve'}">
-                                <option ng-repeat="item in administradora.lista"
-                                ng-value="item.codigo" ng-bind="item.descricao"></option>
+                            <!--ADMINISTRADORA-->
+                        <div class="form-group">
+                            <label ng-bind="strings.administradora"></label>
+                            <select name="administradora" ng-model="formData.fields.administradora.value"
+                            required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
+                                <option value=""></option>
+                                <option ng-repeat="item in administradora.lista | orderBy: 'descricao'"
+                                ng-value="item.codigo"
+                                ng-bind="item.descricao"></option>
                             </select>
-                            @*<input name="administradora" type="hidden" ng-value="administradora.selecionado">*@
+                            <span class="error-msg" ng-bind="formData.fields.administradora.error"></span>
+                            <p>Requerido</p>
                         </div>
-                    </div>
-                        @*CONTEMPLACAO*@
-                    <div class="control-group">
-                        <label class="control-label">{{strings.status}}
-                            <span class="form-required" title="Esse campo é requerido.">*</span>
-                        </label>
-                        <div class="controls">
-                            <select ng-cloak ng-model="select2" ui-select2="{width:'resolve'}">
-                                <option ng-repeat="item in contemplacao.lista"
-                                ng-value="item.codigo" ng-bind="item.descricao"></option>
+                            <!--CONTEMPLACAO-->
+                        <div class="form-group">
+                            <label ng-bind="strings.contemplacao"></label>
+                            <select name="contemplacao" ng-model="formData.fields.contemplacao.value"
+                            required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
+                                <option value=""></option>
+                                <option ng-repeat="item in contemplacao.lista | orderBy: 'descricao'"
+                                ng-value="item.codigo"
+                                ng-bind="item.descricao"></option>
                             </select>
-                            @*<input name="contemplacao" type="hidden" ng-value="contemplacao.selecionado">*@
+                            <span class="error-msg" ng-bind="formData.fields.contemplacao.error"></span>
+                            <p>Requerido</p>
+                        </div>
+                            <!--PRAZO RESTANTE-->
+                        <div class="form-group">
+                            <label ng-bind="strings.prazoRestante"></label>
+                            <input type="text" name="prazoRestante" ng-model="formData.fields.prazoRestante.value"
+                            required xd-mask-positive-number>
+                            <span class="error-msg" ng-bind="formData.fields.prazoRestante.error"></span>
+                            <p>Requerido</p>
                         </div>
                     </div>
-                        @*PRAZO RESTANTE*@
-                    <div class="control-group">
-                        <label class="control-label">{{strings.prazoRestante}}
-                            <span class="form-required" title="Esse campo é requerido.">*</span>
-                        </label>
-                        <div class="controls">
-                            <input type="text" required="required" name="prazo_restante">
-                        </div>
-                            <!-- /.controls -->
-                    </div>
-                        <!-- /.control-group -->
-
-                    </div>
-                        <!-- /.tab-pane -->
                 </div>
-                    <!-- /.tab-content -->
-
             </div>
-                <!-- /.span4-->
             <div class="span6">
                 <div class="tab-content">
                     <div class="tab-pane active" id="novaCarta2">
-
-                        <div class="control-group">
-                            <label class="control-label">{{strings.valorCredito}}
-                                <span class="form-required" title="Esse campo é requerido.">*</span>
-                            </label>
-                            <div class="controls">
-                                <input type="number" required="required" name="credito">
-                            </div>
-                                <!-- /.controls -->
+                            <!--VALOR DE CRÉDITO-->
+                        <div class="form-group">
+                            <label ng-bind="strings.valorCredito"></label>
+                            <input type="text" name="valorCredito" ng-model="formData.fields.valorCredito.value"
+                            required xd-mask-money-brl>
+                            <span class="error-msg" ng-bind="formData.fields.valorCredito.error"></span>
+                            <p>Requerido</p>
                         </div>
-                            <!-- /.control-group -->
-
-                        <div class="control-group">
-                            <label class="control-label">{{strings.valorEntrada}}
-                                <span class="form-required" title="Esse campo é requerido.">*</span>
-                            </label>
-                            <div class="controls">
-                                <input type="number" required="required" name="entrada">
-                            </div>
-                                <!-- /.controls -->
+                            <!--VALOR DE ENTRADA-->
+                        <div class="form-group">
+                            <label ng-bind="strings.valorEntrada"></label>
+                            <input type="text" name="valorEntrada" ng-model="formData.fields.valorEntrada.value"
+                            required xd-mask-money-brl>
+                            <span class="error-msg" ng-bind="formData.fields.valorEntrada.error"></span>
+                            <p>Requerido</p>
                         </div>
-                            <!-- /.control-group -->
-
-                        <div class="control-group">
-                            <label class="control-label">{{strings.valorPrestacao}}
-                                <span class="form-required" title="Esse campo é requerido.">*</span>
-                            </label>
-                            <div class="controls">
-                                <input type="number" required="required" name="prestacao">
-                            </div>
-                                <!-- /.controls -->
+                            <!--VALOR DAS PRESTAÇÕES-->
+                        <div class="form-group">
+                            <label ng-bind="strings.valorPrestacoes"></label>
+                            <input type="text" name="valorPrestacoes" ng-model="formData.fields.valorPrestacoes.value"
+                            required xd-mask-money-brl>
+                            <span class="error-msg" ng-bind="formData.fields.valorPrestacoes.error"></span>
+                            <p>Requerido</p>
                         </div>
-                            <!-- /.control-group -->
-
-                        <div class="control-group">
-                            <label class="control-label">{{strings.cota}}
-                                <span class="form-required" title="Esse campo é requerido.">*</span>
-                            </label>
-                            <div class="controls">
-                                <input type="text" required="required" name="cota">
-                            </div>
-                                <!-- /.controls -->
+                            <!--COTA-->
+                        <div class="form-group">
+                            <label ng-bind="strings.cota"></label>
+                            <input type="text" name="cota" ng-model="formData.fields.cota.value"
+                            required xd-mask-money-brl>
+                            <span class="error-msg" ng-bind="formData.fields.cota.error"></span>
+                            <p>Requerido</p>
                         </div>
-                            <!-- /.control-group -->
-
                     </div>
-                        <!-- /.tab-pane -->
                 </div>
-                    <!-- /.tab-content -->
             </div>
-                <!-- /.span4-->
-
         </div>
         <div class="row">
             <hr/>
             <div class="span12 submission-form">
                 <div class="form-actions">
-                    <input ng-click="confirmar()" ng-value="strings.botaoAnunciar" type="submit" class="btn btn-primary">
+                    <input ng-value="strings.botaoAnunciar" type="submit" class="btn btn-primary">
                 </div>
             </div>
         </div>
-            <!-- /.row -->
     </form>
+        <!-- Modal -->
+    <div id="modal-selecionarConta" data-keyboard="false" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="selecionarConta" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="selecionarConta">Adicionar nova conta</h3>
+        </div>
+        <form name="formSelecionarConta" novalidate ng-submit="enviarFormConta(formSelecionarConta, formSelecionarConta.$invalid)">
+            <div class="modal-body">
+                <div id="alert-selecionarConta" class="alert"
+                ng-class="{'alert-error': formData.result == 0, 'alert-info': formData.result == 1}"
+                ng-show="formData.message" ng-bind="formData.message">
+                </div>
+                <div class="tab-pane">
+                    <div class="tab-content">
+                        <div class="form-group">
+                            <label ng-bind="contas.descricao"></label>
+                            <select name="conta" ng-model="formData.fields.conta.value"
+                            required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
+                                <option value=""></option>
+                                <option ng-repeat="conta in contas.lista | orderBy: 'codigo'"
+                                ng-value="conta.codigo"
+                                ng-bind="conta.descricao"></option>
+                            </select>
+                            <span class="error-msg" ng-bind="formData.fields.banco.error"></span>
+                            <p>Requerido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button class="btn btn-primary" type="submit">Selecionar Conta</button>
+            </div>
+        </form>
+    </div>
 </div>
-<!-- /.container -->
+

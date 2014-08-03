@@ -1,9 +1,9 @@
 <div class="container" id="pagina-detalhes">
     <div class="row">
 
-        <div ng-controller="Simulador" id="simulador" class="col-lg-12 single-property">
+        <div ng-controller="Simulador" ng-cloak id="simulador" class="col-lg-12 single-property">
 
-            <h1 class="page-header fl">{{strings.titulo}}</h1>
+            <h1 class="page-header fl" ng-bind="strings.titulo"></h1>
 
             <div class="property-detail">
 
@@ -11,75 +11,49 @@
                     <div class="overview">
                         <div class="row-fluid">
                             <div class="span6">
-                                <h2>{{strings.subtitulo}}</h2>
-                                <p>{{strings.texto}}</p>
+                                <h2 ng-bind="strings.subtitulo"></h2>
+                                <p ng-bind="strings.texto"></p>
                             </div>
                             <div class="span6">
                                 <div class="tab-content">
-                                    <form name="simForm" novalidate ng-submit="calcular(simForm.$valid)">
+                                    <form name="simForm" novalidate ng-submit="calcular(simForm, simForm.$invalid)">
                                         <div class="form-group">
-                                            <label>{{strings.valorCredito}}*
-                                                <span class="form-required" ng-show="simForm.valorCredito.$invalid && simForm.valorCredito.$dirty">
-                                                    por favor, preencha este campo</span>
-                                            </label>
-                                            <input class="form-control" type="text" xd-mask-money-brl ng-minlength="3"
-                                            ng-required="true" ng-model="valorCredito" name="valorCredito">
-                                                <!-- /.controls -->
+                                            <label ng-bind="strings.valorCredito"></label>
+                                            <input type="text" name="valorCredito" ng-model="formData.fields.valorCredito.value"
+                                            required xd-mask-money-brl>
+                                            <span class="error-msg" ng-bind="formData.fields.valorCredito.error"></span>
+                                            <p>Requerido</p>
                                         </div>
-                                            <!-- /.control-group -->
-
                                         <div class="form-group">
-                                            <label>{{strings.valorPrestacoes}}*
-                                                <span class="form-required"
-                                                ng-show="simForm.valorPrestacao.$invalid && simForm.valorPrestacao.$dirty">
-                                                    por favor, preencha este campo</span>
-                                            </label>
-                                            <input class="form-control" type="text" xd-mask-money-brl ng-minlength="3"
-                                            ng-required="true" ng-model="valorPrestacao" name="valorPrestacao">
-                                                <!-- /.controls -->
+                                            <label ng-bind="strings.valorPrestacoes"></label>
+                                            <input type="text" name="valorPrestacoes" ng-model="formData.fields.valorPrestacoes.value"
+                                            required xd-mask-money-brl>
+                                            <span class="error-msg" ng-bind="formData.fields.valorPrestacoes.error"></span>
+                                            <p>Requerido</p>
                                         </div>
-                                            <!-- /.control-group -->
-
                                         <div class="form-group">
-                                            <label>{{strings.prazoRestante}}*
-                                                <span class="form-required"
-                                                ng-show="simForm.prazoRestante.$invalid && simForm.prazoRestante.$dirty">
-                                                    por favor, preencha este campo</span>
-                                            </label>
-                                            <input class="form-control" type="text" xd-mask-positive-number ng-minlength="1"
-                                            ng-required="true" ng-model="prazoRestante" name="prazoRestante">
-                                                <!-- /.controls -->
+                                            <label ng-bind="strings.prazoRestante"></label>
+                                            <input type="text" name="prazoRestante" ng-model="formData.fields.prazoRestante.value"
+                                            required xd-mask-positive-number>
+                                            <span class="error-msg" ng-bind="formData.fields.prazoRestante.error"></span>
+                                            <p>Requerido</p>
                                         </div>
-                                            <!-- /.control-group -->
-
                                         <div class="form-group">
-                                            <label>{{strings.resultado}} (R$)
-                                            </label>
-                                            <input class="form-control" type="text"
-                                            ng-model="resultado" name="resultado" disabled>
-                                                <!-- /.controls -->
+                                            <label ng-bind="strings.resultado">Agência</label>
+                                            <input type="text" name="resultado" ng-model="formData.fields.resultado.value"
+                                            disabled>
+                                            <span class="error-msg" ng-bind="formData.fields.resultado.error"></span>
+                                            <p>Requerido</p>
                                         </div>
-                                            <!-- /.control-group -->
-
-                                        <button type="submit" class="btn btn-primary btn-large"
-                                        ng-disabled="simForm.$invalid">
-                                            {{strings.botaoCalcular}}
-                                        </button>
+                                        <button ng-bind="strings.botaoCalcular" type="submit" class="btn btn-primary btn-large"></button>
                                     </form>
                                 </div>
                             </div>
-
-
-                                <!-- /.span2 -->
                         </div>
-                            <!-- /.row -->
                     </div>
-                        <!-- /.overview -->
                 </div>
-
             </div>
         </div>
-
     </div>
-</div> <!-- /.container -->
+</div>
 

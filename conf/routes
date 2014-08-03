@@ -26,6 +26,7 @@ GET         /rest/list/getadministradoras        controllers.Proconsorcio.RestCo
 GET         /rest/list/gettipocarta              controllers.Proconsorcio.RestController.getTipoCarta
 GET         /rest/list/getuf                     controllers.Proconsorcio.RestController.getUF
 GET         /rest/list/getbanco                  controllers.Proconsorcio.RestController.getBanco
+GET         /rest/list/getcontemplacao           controllers.Proconsorcio.RestController.getContemplacao
 #grids
 GET         /rest/grid/contas/list               controllers.Proconsorcio.RestController.getConta
 POST        /rest/grid/contas/add                controllers.Proconsorcio.RestController.HandleinsertConta

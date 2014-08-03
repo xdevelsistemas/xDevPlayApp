@@ -5,324 +5,311 @@
     @implicitFieldConstructor = @{
         FieldConstructor(securesocial.views.html.inputFieldConstructor.f)
     }
-
-
-@request.flash.get("error").map { msg =>
-    <div class="alert alert-error">
-        @msg
+<div ng-controller="SignUp" ng-cloak class="container" id="pagina-signUp">
+    <div class="row">
+        <div id="main" class="span12">
+            <div class="login-register">
+                <h2>Dados Cadastrais</h2>
+                @request.flash.get("error").map { msg =>
+                    <div class="alert alert-error">
+                        @msg
+                    </div>
+                }
+            </div><!-- /.row -->
+        </div>
     </div>
-}
+    <div class="row">
+        <form action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
+            <div class="span4">
+                <h1>Dados Pessoais</h1>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="dadosPessoais">
+                        @if(UsernamePasswordProvider.withUserNameSupport) {
 
-<form ng-controller="SignUp" action="@_root_.plugin.CustomRoutesHelper.handleSignUp(token).absoluteURL(IdentityProvider.sslEnabled)(request)" autocomplete= "off" method="POST">
-    <div class="container" id="pagina-signUp">
-        <div class="row">
-            <div id="main" class="span12">
-                <div class="login-register">
-                    <h2>Dados Cadastrais</h2>
-                    <div class="row">
-                        <div class="span4">
-                            <h1>Dados Pessoais</h1>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="dadosPessoais">
-                                    @if(UsernamePasswordProvider.withUserNameSupport) {
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Nome de Usuário
-                                            </label>
-                                            <div class="controls">
-                                            @helper.inputText(
-                                                signUpForm("userName"),
-                                                '_label -> "",
-                                                'placeholder -> "Usuário"
-                                            )
-                                            </div>
-                                                <!-- /.controls -->
-                                        </div>
-                                            <!-- /.control-group -->
-
-                                    }
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Nome Completo
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("firstName"),
-                                            '_label -> "",
-                                            'placeholder -> "Nome Completo"
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Data de Nascimento
-                                        </label>
-                                        <div class="controls date" data-date-format="dd/mm/yyyy">
-                                        @helper.inputText(
-                                            signUpForm("birthDate"),
-                                            '_label -> "",
-                                            'placeholder -> "Data de Nascimento",
-                                            'class -> "datepicker"
-                                        )
-                                        </div>
-                                    </div>
-                                        <!-- /.control-group -->
-
-
-
-                                    <div class="control-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                            <label class="radio control-label" for="cpf">CPF
-                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
-                                            </label>
-                                            <label class="radio control-label" for="cnpj">CNPJ
-                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("docFederal"),
-                                            'placeholder -> "CPF ou CNPJ",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                    </div> <!-- /.control-group -->
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            RG
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("rg"),
-                                            'placeholder -> "Identidade",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
+                            <div class="control-group">
+                                <label class="control-label">
+                                    Nome de Usuário
+                                </label>
+                                <div class="controls">
+                                @helper.inputText(
+                                    signUpForm("userName"),
+                                    '_label -> "",
+                                    'placeholder -> "Usuário"
+                                )
                                 </div>
-                                    <!-- /.tab-pane -->
+                                    <!-- /.controls -->
                             </div>
-                                <!-- /.tab-content -->
+                                <!-- /.control-group -->
 
-
-                        </div>
-                            <!-- /.span4-->
-
-                        <div class="span4">
-                            <h1>Endereço</h1>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="endereco">
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Cep
-                                        </label>
-                                        <div class="controls" >
-                                            @helper.inputText(
-                                                signUpForm("numCep"),
-                                                'placeholder -> "Cep do seu Endereço",
-                                                '_label -> ""
-                                            )
-                                            <button class="btn btn-primary" id="btnCep">
-                                                Completar Cadastro Pelo Cep
-                                            </button>
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Estado
-                                        </label>
-                                        @*<br>*@
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("uf"),
-                                            '_label -> ""
-                                            //'class -> "span3"
-
-                                        )
-                                        </div>
-                                    </div>
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Cidade
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("cidade"),
-                                            'placeholder -> "Cidade",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Bairro
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("bairro"),
-                                            'placeholder -> "Bairro",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Endereço
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("logradouro"),
-                                            'placeholder -> "Rua, Avenida, ..",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Número e Complemento
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputText(
-                                            signUpForm("numLogradouro"),
-                                            'placeholder -> "Número e Complemento",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-                                </div>
-                                    <!-- /.tab-pane -->
+                        }
+                        <div class="control-group">
+                            <label class="control-label">
+                                Nome Completo
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("firstName"),
+                                '_label -> "",
+                                'placeholder -> "Nome Completo"
+                            )
                             </div>
-                                <!-- /.tab-content -->
-
-
+                                <!-- /.controls -->
                         </div>
-                            <!-- /.span4-->
+                            <!-- /.control-group -->
 
-                        <div class="span4">
-                            <h1>Controle de Acesso</h1>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="conta">
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Senha de Acesso
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputPassword(
-                                            signUpForm("password.password1"),
-                                            'placeholder -> "Digite a Senha para Acesso",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Repita a Senha de Acesso
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputPassword(
-                                            signUpForm("password.password2"),
-                                            '_error -> signUpForm.error("password"),
-                                            'placeholder -> "Repita a Senha de Acesso",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Código de Compra/Venda
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputPassword(
-                                            signUpForm("numCodigo.numCodigo1"),
-                                            'placeholder -> "Código que vai ser sua segunda senha",
-                                            '_label -> ""
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            Repita o Código de Compra/Venda
-                                        </label>
-                                        <div class="controls">
-                                        @helper.inputPassword(
-                                            signUpForm("numCodigo.numCodigo2"),
-                                            'placeholder -> "Repita o código",
-                                            '_label -> "",
-                                            '_error -> signUpForm.error("password")
-                                        )
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
-
-                                </div>
-                                    <!-- /.tab-pane -->
-                            </div>
-                                <!-- /.tab-content -->
-                        </div>
-
-
-                        <div class="span12 submission-form">
-                            <hr>
-                            <div class="form-actions">
-                                <input type="submit" class="btn btn-primary" value="Salvar">
+                        <div class="control-group">
+                            <label class="control-label">
+                                Data de Nascimento
+                            </label>
+                            <div class="controls date" data-date-format="dd/mm/yyyy">
+                            @helper.inputText(
+                                signUpForm("birthDate"),
+                                '_label -> "",
+                                'placeholder -> "Data de Nascimento",
+                                'class -> "datepicker"
+                            )
                             </div>
                         </div>
+                            <!-- /.control-group -->
+
+
+
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                                <label class="radio control-label" for="cpf">CPF
+                                    <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
+                                </label>
+                                <label class="radio control-label" for="cnpj">CNPJ
+                                    <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("docFederal"),
+                                'placeholder -> "CPF ou CNPJ",
+                                '_label -> ""
+                            )
+                            </div>
+                        </div> <!-- /.control-group -->
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                RG
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("rg"),
+                                'placeholder -> "Identidade",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
 
                     </div>
-                        <!-- /.row -->
+                        <!-- /.tab-pane -->
                 </div>
-                    <!-- /.login-register -->
+                    <!-- /.tab-content -->
+
+            </div>
+                <!-- /.span4-->
+
+            <div class="span4">
+                <h1>Endereço</h1>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="endereco">
+
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Cep
+                            </label>
+                            <div class="controls" >
+                                @helper.inputText(
+                                    signUpForm("numCep"),
+                                    'placeholder -> "Cep do seu Endereço",
+                                    '_label -> ""
+                                )
+                                <button class="btn btn-primary" id="btnCep">
+                                    Completar Cadastro Pelo Cep
+                                </button>
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Estado
+                            </label>
+                            @*<br>*@
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("uf"),
+                                '_label -> ""
+                                //'class -> "span3"
+
+                            )
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Cidade
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("cidade"),
+                                'placeholder -> "Cidade",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Bairro
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("bairro"),
+                                'placeholder -> "Bairro",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Endereço
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("logradouro"),
+                                'placeholder -> "Rua, Avenida, ..",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Número e Complemento
+                            </label>
+                            <div class="controls">
+                            @helper.inputText(
+                                signUpForm("numLogradouro"),
+                                'placeholder -> "Número e Complemento",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+                    </div>
+                        <!-- /.tab-pane -->
+                </div>
+                    <!-- /.tab-content -->
 
 
             </div>
-                <!-- /#main -->
+                <!-- /.span4-->
 
-        </div>
-            <!-- /.row -->
-    </div>
-        <!-- /.container -->
+            <div class="span4">
+                <h1>Controle de Acesso</h1>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="conta">
+
+                        <div class="control-group">
+                            <label class="control-label">
+                                Senha de Acesso
+                            </label>
+                            <div class="controls">
+                            @helper.inputPassword(
+                                signUpForm("password.password1"),
+                                'placeholder -> "Digite a Senha para Acesso",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+                        <div class="control-group">
+                            <label class="control-label">
+                                Repita a Senha de Acesso
+                            </label>
+                            <div class="controls">
+                            @helper.inputPassword(
+                                signUpForm("password.password2"),
+                                '_error -> signUpForm.error("password"),
+                                'placeholder -> "Repita a Senha de Acesso",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
 
 
-</form>
+                        <div class="control-group">
+                            <label class="control-label">
+                                Código de Compra/Venda
+                            </label>
+                            <div class="controls">
+                            @helper.inputPassword(
+                                signUpForm("numCodigo.numCodigo1"),
+                                'placeholder -> "Código que vai ser sua segunda senha",
+                                '_label -> ""
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+                        <div class="control-group">
+                            <label class="control-label">
+                                Repita o Código de Compra/Venda
+                            </label>
+                            <div class="controls">
+                            @helper.inputPassword(
+                                signUpForm("numCodigo.numCodigo2"),
+                                'placeholder -> "Repita o código",
+                                '_label -> "",
+                                '_error -> signUpForm.error("password")
+                            )
+                            </div>
+                                <!-- /.controls -->
+                        </div>
+                            <!-- /.control-group -->
+
+                    </div>
+                        <!-- /.tab-pane -->
+                </div>
+                    <!-- /.tab-content -->
+            </div>
+
+            <div class="span12 submission-form">
+                <hr>
+                <div class="form-actions">
+                    <input type="submit" class="btn btn-primary" value="Salvar">
+                </div>
+            </div>
+        </form>
+
+    </div><!-- /.row -->
+</div>
+
+

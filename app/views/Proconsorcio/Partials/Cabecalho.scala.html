@@ -59,17 +59,12 @@
                     <ul id="menu-main" class="nav">
                             <!--<li class="menu-item active-menu-item">-->
                         <li class="menu-item col-xs-2 col-sm-2 col-lg-2">
-                            <a href="/pesquisa">Pesquisar</a>
-                        </li>
-
+                            <a href="/pesquisa">Pesquisar</a></li>
                         <li class="menu-item col-xs-2 col-sm-2 col-lg-2 col-md-2 ">
-                            <a href="/simulador">Quanto vale minha carta?</a>
-                        </li>
-
+                            <a href="/simulador">Quanto vale minha carta?</a></li>
                         <li class="menu-item col-xs-2 col-sm-2 col-lg-2 col-md-2 ">
-                            <a href="#">Conheça o ProConsórcio</a>
-                        </li>
-
+                            <a href="#">Conheça o ProConsórcio</a></li>
+                        <li class="menu-item"><a href="/faleconosco">Fale conosco</a></li>
                         @if(user != null && user.isDefined) {
 
                             <li class="menu-item menu-item-parent col-xs-2 col-sm-2 col-lg-2 col-md-2 ">
@@ -82,7 +77,6 @@
                                     @if(user.get.identityId.providerId.equals(securesocial.core.providers.UsernamePasswordProvider.UsernamePassword)) {
                                         <li class="menu-item"><a href="/password">Alterar Senha</a></li>
                                     }
-                                    <li class="menu-item"><a href="/faleconosco">Fale conosco</a></li>
                                     <li class="menu-item"><a href="#"></a></li>
                                 </ul>
                             </li>

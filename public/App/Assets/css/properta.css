@@ -610,7 +610,7 @@ textarea {
     .top .top-inner .navigation .nav-collapse {
         background-color: #002E5B !important;
         position: absolute;
-        top: 103px;
+        top: 97px;
         width: 100%;
         z-index: 999
     }
@@ -678,8 +678,7 @@ textarea {
     display: inline-block;
     top: 0px;
     float: right;
-    /* z-index: 999999
- */
+    z-index: 999999
 }
 
 .top .top-inner .navigation .list-property .ribbon .icon {
