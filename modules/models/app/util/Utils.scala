@@ -63,8 +63,8 @@ class Tpval(yvalue : String,yerror : String) extends xDevSerialize{
 
   def serialize() =
     Json.obj(
-      "result" -> this.value,
-      "message"-> this.error
+      "value" -> this.value,
+      "error"-> this.error
     )
 }
 

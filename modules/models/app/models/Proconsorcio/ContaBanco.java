@@ -26,7 +26,7 @@ public class ContaBanco extends AbstractModel{
 
 
     @Column
-    public String padrao;
+    public Boolean padrao;
 
 
 

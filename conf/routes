@@ -27,7 +27,10 @@ GET         /rest/list/gettipocarta              controllers.Proconsorcio.RestCo
 GET         /rest/list/getuf                     controllers.Proconsorcio.RestController.getUF
 GET         /rest/list/getbanco                  controllers.Proconsorcio.RestController.getBanco
 #grids
-GET         /rest/grid/Contas/get                controllers.Proconsorcio.RestController.getConta
+GET         /rest/grid/contas/list               controllers.Proconsorcio.RestController.getConta
+POST        /rest/grid/contas/add                controllers.Proconsorcio.RestController.HandleinsertConta
+POST        /rest/grid/contas/setpadrao/:id      controllers.Proconsorcio.RestController.setPadrao(id)
+POST        /rest/grid/contas/remove/:id         controllers.Proconsorcio.RestController.remove(id)
 
 
 

@@ -1,15 +1,22 @@
 package controllers.Proconsorcio
 
 import java.util
+import java.util.UUID
 
 import RestModels.ListaContaBanco
-import _root_.util.{TpDropDown, TpElDropDown}
+import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
+import controllers.Proconsorcio.Application._
+import models.Cadastro.RegistrationObjects
+import models.User
 import play.api.cache.Cached
+import play.api.libs.json.{Json, JsObject}
 import play.api.mvc.Action
+import play.db.jpa.JPA
+import play.libs.F
 import scala.collection.JavaConverters._
 import br.com.republicavirtual.CepService
 import controllers.xDevRestController
-import dao.{ContaBancoDAO, TipoCartaDAO, AdministradoraDAO}
+import dao.{IdentityDAO, ContaBancoDAO, TipoCartaDAO, AdministradoraDAO}
 import play.api.Play.current
 
 
@@ -59,11 +66,59 @@ object RestController extends xDevRestController {
     }
   }
 
+
+
+
   def getConta = SecuredAction{implicit request =>
     JsonResult(new ListaContaBanco(new ContaBancoDAO()
-      .findAllbyUser(_userdao.findbyemailandprovider(_user.get.email.get,_user.get.identityId.providerId))
+      .findAllbyUser((new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user())
       .asScala.toList.sortBy(t=> t.created)
     ))
+  }
+
+  def HandleinsertConta = SecuredAction(parse.json){implicit request =>
+    var cta = new RestModels.ContaBancoForm
+    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+    val dao = new ContaBancoDAO
+
+    JPA.withTransaction("default", false, new F.Function0[Unit] {
+      def apply: Unit = {
+        cta = dao.add(cta.read(request.body),user)
+      }
+    })
+
+    if (cta.status.result.equals("0")){
+      BadRequest(cta.serialize())
+    }else {
+      JsonResult(cta)
+    }
+  }
+
+  def setPadrao(id : String) = SecuredAction{implicit request =>
+    val dao = new ContaBancoDAO
+    val uuid = UUID.fromString(id)
+    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+    val result = dao.setPadrao(uuid,user)
+
+    if (result.result.equals("0")){
+      BadRequest(result.serialize())
+    }else {
+      JsonResult(result)
+    }
+
+  }
+
+  def remove(id : String) = SecuredAction{implicit request =>
+    val uuid = UUID.fromString(id)
+    val dao = new ContaBancoDAO
+    val result = dao.remove(uuid)
+
+    if (result.result.equals("0")){
+      BadRequest(result.serialize())
+    }else {
+      JsonResult(result)
+    }
+
   }
 
 

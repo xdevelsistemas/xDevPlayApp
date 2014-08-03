@@ -1,9 +1,9 @@
 package RestModels
 
 import models.Proconsorcio.ContaBanco
-import play.api.libs.json.JsObject
-import play.api.libs.json.{JsObject, Writes, JsNull, Json}
-import util.{TpResponse, Tpval, xDevSerialize}
+import play.api.libs.json
+import play.api.libs.json._
+import _root_.util.{TpResponse, Tpval, xDevSerialize}
 
 /**
  * Created by claytonsantosdasilva on 02/08/14.
@@ -26,7 +26,7 @@ class Banco(ycodigo:String,ynome:String) extends xDevSerialize{
 }
 
 class ContaBancoForm extends xDevSerialize{
-  var status : TpResponse = new TpResponse("0","")
+  var status : TpResponse = new TpResponse("1","")
   var codigo : Tpval = new Tpval("","")
   var padrao : Tpval = new Tpval("","")
   var numBanco: Tpval = new Tpval("","")
@@ -36,13 +36,49 @@ class ContaBancoForm extends xDevSerialize{
 
   def serialize(): JsObject = {
 
-          Json.obj(
-            "codigo"-> this.codigo.serialize(),
-            "padrao"-> this.padrao.serialize(),
-            "banco"-> Json.obj("codigo" -> this.numBanco.value,"nome" -> this.agencia.value),
-            "agencia"-> this.agencia.serialize(),
-            "conta"-> this.conta.serialize()
-          )
+    Json.obj(
+      "resp"->status.serialize(),
+      "fields"->Json.obj("codigo"-> this.codigo.serialize(),
+                        "padrao"-> this.padrao.serialize(),
+                        "numBanco"-> this.numBanco.serialize(),
+                        "nomeBanco"-> this.nomeBanco.serialize(),
+                        "agencia"-> this.agencia.serialize(),
+                        "conta"-> this.conta.serialize())
+    )
+  }
+
+  def read(yobj : JsValue) : ContaBanco = {
+    val ContaBanco = new ContaBanco()
+
+    this.padrao.value = (yobj \ "fields" \ "padrao" \ "value").as[String]
+    this.numBanco.value = (yobj \ "fields" \ "numBanco" \ "value").as[String]
+    this.nomeBanco.value = (yobj \ "fields" \ "nomeBanco" \ "value").as[String]
+    this.agencia.value = (yobj \ "fields" \ "agencia" \ "value").as[String]
+    this.conta.value = (yobj \ "fields" \ "conta" \ "value").as[String]
+
+    ContaBanco.nomeBanco =this.nomeBanco.value;
+    ContaBanco.numBanco = this.numBanco.value;
+    ContaBanco.agencia = this.agencia.value;
+    ContaBanco.conta = this.conta.value;
+    ContaBanco.padrao = if(this.conta.value.equals("1")){true}else{false}
+
+
+
+
+    return ContaBanco
+  }
+
+
+  def read(cta : ContaBanco, resp : TpResponse) : ContaBancoForm = {
+    this.status = resp
+    this.padrao.value = if(cta.padrao){"1"}else{"0"}
+    this.numBanco.value = cta.numBanco
+    this.nomeBanco.value = cta.nomeBanco
+    this.agencia.value = cta.agencia
+    this.conta.value = cta.conta
+    this.codigo.value = cta.uuid
+
+    return this
   }
 
 
@@ -57,7 +93,7 @@ class ListaContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
         this.ylista.map { t=>
           Json.obj(
             "codigo"-> t.uuid.toString,
-            "padrao"-> t.padrao.toString,
+            "padrao"-> {if(t.padrao){"1"}else{"0"}},
             "banco"-> new Banco(t.numBanco,t.nomeBanco).serialize(),
             "agencia"-> t.agencia,
             "conta"-> t.conta
