@@ -54,14 +54,7 @@ object RestController extends xDevRestController {
         })
 
       )
-
-
-
       JsonResult(resp)
-
-
-
-
 
     }
   }
