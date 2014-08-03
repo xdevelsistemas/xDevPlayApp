@@ -225,7 +225,7 @@ h1, h2, h3 {
 /*loading bar*/
 
 #loading-splash {
-    /* display: none; */
+    display: none;
     background-color: transparent;
     position: absolute;
     top: 0;
