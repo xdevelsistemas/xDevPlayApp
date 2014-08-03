@@ -1,28 +1,27 @@
 @(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
 <div ng-controller="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+    @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
+    @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }
+            , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
     <div class="row">
-        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
-            <div class="alert alert-warning" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                @{
-                    user.get.firstName
-                }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
-                Aqui </strong> </a>
-            </div>
-        }
-        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
-            <div class="alert alert-alert-warning" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only"></span></button>
-                @{
-                    user.get.firstName
-                }
-                , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
-                Aqui </strong> </a>
-            </div>
-        }
-
         <div class="sidebar span3" id="caixa-filtros">
             <h2 ng-bind="strings.tituloCaixaFiltros"></h2>
             <div ng-cloak class="property-filter widget">
