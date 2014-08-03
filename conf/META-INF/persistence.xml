@@ -27,6 +27,7 @@
         <class>models.Proconsorcio.Carta</class>
         <class>models.Proconsorcio.Sequenciador</class>
         <class>models.Proconsorcio.TipoCarta</class>
+        <class>models.Proconsorcio.ContaBanco</class>
 
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>

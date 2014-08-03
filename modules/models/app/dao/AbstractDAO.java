@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,6 +74,17 @@ public class AbstractDAO<T extends AbstractModel> {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
         cq.where(cb.equal(root.get(field), value));
+        List<T> results = em.createQuery(cq).getResultList();
+        return results;
+    }
+
+
+    public <A> List<T> findMany(ArrayList<PairQuery> yfilters) {
+        CriteriaQuery<T> cq = cb.createQuery(classType);
+        Root<T> root = cq.from(classType);
+        for (PairQuery<A> el : yfilters){
+            cq = cq.where(cb.equal(root.get(el.field),el.value));
+        }
         List<T> results = em.createQuery(cq).getResultList();
         return results;
     }
