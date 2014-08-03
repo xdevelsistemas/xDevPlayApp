@@ -261,3 +261,8 @@ h1, h2, h3 {
 }
 
 /*end*/
+
+textarea {
+    min-height: 240px;
+    width: 100%;
+}
