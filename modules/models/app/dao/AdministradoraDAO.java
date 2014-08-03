@@ -21,10 +21,10 @@ public class AdministradoraDAO extends AbstractDAO<Administradora> {
 
     public List<Administradora> findAllValid()
     {
-        ArrayList<PairQuery> filter = new ArrayList<PairQuery>();
-        filter.add(new PairQuery<Boolean>("ativo",true));
+//        ArrayList<PairQuery> filter = new ArrayList<PairQuery>();
+//        filter.add(new PairQuery<Boolean>("ativo",true));
 
-        return findMany(filter);
+        return findMany("ativo",true);
 
 
     }

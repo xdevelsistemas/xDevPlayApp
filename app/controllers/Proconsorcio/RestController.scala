@@ -111,7 +111,13 @@ object RestController extends xDevRestController {
   def remove(id : String) = SecuredAction{implicit request =>
     val uuid = UUID.fromString(id)
     val dao = new ContaBancoDAO
-    val result = dao.remove(uuid)
+    var result = new  TpResponse("1","")
+
+    JPA.withTransaction("default", false, new F.Function0[Unit] {
+      def apply: Unit = {
+        dao.delete(uuid)
+      }
+    })
 
     if (result.result.equals("0")){
       BadRequest(result.serialize())

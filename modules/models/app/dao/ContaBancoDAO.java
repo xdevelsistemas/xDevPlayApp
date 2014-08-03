@@ -34,12 +34,34 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
     }
 
     public List<ContaBanco> findAllbyUser(User user) {
-        ArrayList<PairQuery> filter = new ArrayList<>();
-        filter.add(new PairQuery<User>("usuario", user));
-        filter.add(new PairQuery<Boolean>("ativo", true));
+//        ArrayList<PairQuery> filter = new ArrayList<>();
+//        filter.add(new PairQuery<String>("usuario", user.uuid));
+//        filter.add(new PairQuery<Boolean>("ativo", true));
+        List<ContaBanco> lista_usuario = findMany("usuario",user);
 
-        return findMany(filter);
+        for(ContaBanco item: lista_usuario)
+        {
+            if(!item.ativo){
+                lista_usuario.remove(item);
+            }
+        }
 
+        return lista_usuario;
+
+    }
+
+    private List<ContaBanco> findAllDefaultbyUser(User user) {
+        List<ContaBanco> lista_usuario = findAllbyUser(user);
+
+        for(ContaBanco item: lista_usuario)
+        {
+            if(!item.ativo || !item.padrao){
+                lista_usuario.remove(item);
+            }
+
+        }
+
+        return lista_usuario;
 
     }
 
@@ -49,25 +71,27 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
         ContaBancoForm frm = new ContaBancoForm();
         cta.usuario = user;
 
-        if (cta.padrao) {
-            if (findAllbyUser(user).isEmpty()) {
-                cta.padrao = true;
-            } else {
-                if (cta.padrao) {
-                    ArrayList<PairQuery> filters = new ArrayList<PairQuery>();
-                    filters.add(new PairQuery<Boolean>("ativo", true));
-                    filters.add(new PairQuery<Boolean>("padrao", true));
 
-                    for (final ContaBanco outrasctas : findMany(filters)) {
+        if (findAllbyUser(user).isEmpty()) {
+            cta.padrao = true;
+        } else {
+            if (cta.padrao) {
+                for (final ContaBanco outrasctas : findAllDefaultbyUser(user)) {
+                    if (outrasctas.padrao) {
+
                         try {
-                             dao.save(outrasctas);
-                        }catch (Exception e){
-                            return frm.read(cta,new TpResponse("0",e.getMessage()));
+                            outrasctas.padrao = false;
+                            dao.save(outrasctas);
+                        } catch (Exception e) {
+                            return frm.read(cta, new TpResponse("0", e.getMessage()));
                         }
                     }
                 }
             }
         }
+
+
+
 
         try {
             return frm.read(dao.save(cta),new TpResponse("1",""));
@@ -89,52 +113,23 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
             cta.padrao = true;
         } else {
             if (cta.padrao) {
-                ArrayList<PairQuery> filters = new ArrayList<PairQuery>();
-                filters.add(new PairQuery<Boolean>("ativo", true));
-                filters.add(new PairQuery<Boolean>("padrao", true));
+//                ArrayList<PairQuery> filters = new ArrayList<PairQuery>();
+//                filters.add(new PairQuery<Boolean>("ativo", true));
+//                filters.add(new PairQuery<Boolean>("padrao", true));
 
-                for (final ContaBanco outrasctas : findMany(filters)) {
+                for (final ContaBanco outrasctas : findAllDefaultbyUser(user)) {
+                    outrasctas.padrao =  false;
                     dao.save(outrasctas);
-//                    try {
-//                        JPA.withTransaction("default", false, new F.Function0<Boolean>() {
-//                            public Boolean apply() throws Throwable {
-//                                dao.save(outrasctas);
-//                                return true;
-//                            }
-//
-//                        });
-//                    } catch (Throwable throwable) {
-//                        return new TpResponse("0", throwable.getMessage());
-//                    }
                 }
             }
         }
 
 
         dao.save(cta);
-//        try {
-//            JPA.withTransaction("default", false, new F.Function0<Boolean>() {
-//                public Boolean apply() throws Throwable {
-//                    dao.save(cta);
-//                    return true;
-//                }
-//
-//            });
-//        } catch (Throwable throwable) {
-//            return new TpResponse("0", throwable.getMessage());
-//        }
-
-
         return new TpResponse("1", "");
 
     }
 
 
-    public TpResponse remove (UUID reg)
-    {
-        delete(reg);
 
-        return new TpResponse("1", "");
-
-    }
 }

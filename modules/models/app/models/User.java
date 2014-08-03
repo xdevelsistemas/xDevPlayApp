@@ -60,18 +60,18 @@ public class User extends AbstractModel {
     public String codigoAcesso;
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_UF")
-    public Uf uf;
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_UF")
+//    public Uf uf;
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_CIDADE")
-    public Cidade cidade;
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_CIDADE")
+//    public Cidade cidade;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_LOGRADOURO")
-    public Logradouro logradouro;
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_LOGRADOURO")
+//    public Logradouro logradouro;
 
 
     private void setNumCodigo(String plainpass)

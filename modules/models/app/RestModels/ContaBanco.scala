@@ -60,7 +60,7 @@ class ContaBancoForm extends xDevSerialize{
     ContaBanco.numBanco = this.numBanco.value;
     ContaBanco.agencia = this.agencia.value;
     ContaBanco.conta = this.conta.value;
-    ContaBanco.padrao = if(this.conta.value.equals("1")){true}else{false}
+    ContaBanco.padrao = if(this.padrao.value.equals("1")){true}else{false}
 
 
 

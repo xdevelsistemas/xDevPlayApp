@@ -50,7 +50,7 @@ public class AbstractDAO<T extends AbstractModel> {
     public T findOne(UUID uuid) {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
-        cq.where(cb.equal(root.get(metaclass.uuid), uuid));
+        cq.where(cb.equal(root.get("uuid"),uuid.toString().toUpperCase()));
         try {
             T result = em.createQuery(cq).getSingleResult();
             return result;
@@ -80,14 +80,14 @@ public class AbstractDAO<T extends AbstractModel> {
     }
 
 
-    public  List<T> findMany(ArrayList<PairQuery> yfilters) {
-        CriteriaQuery<T> cq = cb.createQuery(classType);
-        Root<T> root = cq.from(classType);
-        for (PairQuery el : yfilters){
-            cq = cq.where(cb.equal(root.get(el.field),el.value));
-        }
-        return em.createQuery(cq).getResultList();
-    }
+//    public  List<T> findMany(ArrayList<PairQuery> yfilters) {
+//        CriteriaQuery<T> cq = cb.createQuery(classType);
+//        Root<T> root = cq.from(classType);
+//        for (PairQuery el : yfilters){
+//            cq = cq.where(cb.equal(root.get(el.field),el.value));
+//        }
+//        return em.createQuery(cq).getResultList();
+//    }
 
     public  List<T> all() {
         CriteriaQuery<T> cq = cb.createQuery(classType);
