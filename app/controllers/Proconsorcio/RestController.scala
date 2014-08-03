@@ -127,6 +127,21 @@ object RestController extends xDevRestController {
 
   }
 
+  def getContemplacao = Action {
+    Redirect("/assets/App/Mockup/contemplacao.json")
+  }
+
+  def getOrdem = Action {
+    Redirect("/assets/App/Mockup/ordem.json")
+  }
+
+  def getOrdenador = Action {
+    Redirect("/assets/App/Mockup/ordenador.json")
+  }
+
+  def getPrazoRestante = Action {
+    Redirect("/assets/App/Mockup/prazo_restante.json")
+  }
 
 
   def getUF = Action {

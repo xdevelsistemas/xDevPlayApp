@@ -1,5 +1,6 @@
 {
     "codigo":"ordem",
+    "descricao": "Ordem da pesquisa",
     "lista": [
         {
             "codigo": "asc",
