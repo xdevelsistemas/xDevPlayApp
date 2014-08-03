@@ -16,10 +16,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         function inicializarModeloForm() {
             $scope.formData = {
-                "resp": {
-                    "result": "",
-                    "message": ""
-                },
+                "result": "",
+                "message": "",
                 "fields": {
                     "numBanco": {
                         "value": "",
@@ -66,6 +64,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     if ($scope.formData.resp.result == '1')
                         $http.get("/rest/grid/contas/list").success(function (data2) {
                             angular.extend($scope.contas, data2);
+                            $("#tabela-contas").dataTable().fnDestroy();
+                            aplicarDatatables("#tabela-contas");
                             $('#modal-novaConta').modal("hide");
                             inicializarModeloForm();
                         });
