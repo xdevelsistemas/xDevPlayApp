@@ -84,7 +84,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $http.get("/rest/list/getcontemplacao").success(function (data) {
                 angular.extend($scope.contemplacao, data);
             });
-            $http.get("/rest/grid/Contas/get").success(function (data) {
+            $http.get("/rest/grid/contas/list").success(function (data) {
                 angular.extend($scope.contas, data);
             });
         })();
