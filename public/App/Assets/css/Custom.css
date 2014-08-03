@@ -51,7 +51,8 @@ dd.error {
 }
 
 #content {
-    min-height: 400px;
+    min-height: 100% !important;
+    height: 100% !important;
     padding-top: 1em;
     position: relative;
 }
@@ -225,7 +226,7 @@ h1, h2, h3 {
 
 #loading-splash {
     display: none;
-    background-color: rgba(0, 0, 0, 0.50);
+    background-color: transparent;
     position: absolute;
     top: 0;
     left: 0;
@@ -235,6 +236,7 @@ h1, h2, h3 {
     margin-left: -20px;
     padding-right: 20px;
     padding-left: 20px;
+    z-index: 1000;
 }
 
 #loading-splash[ng-cloak] {
