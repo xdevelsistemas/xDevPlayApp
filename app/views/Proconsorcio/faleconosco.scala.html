@@ -1,3 +1,5 @@
+@(implicit user: Option[securesocial.core.Identity])
+@import securesocial.core.java.SecureSocial
 <div class="container" id="pagina-loginCadastro">
     <div class="row">
 
@@ -13,29 +15,49 @@
                             <div class="tab-pane active" id="login">
                                 <form method="post" action="javascript:void(0)">
 
+                                    @if(user == null || !user.isDefined) {
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Nome
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" name="nome" required="required">
+                                                <p>Requerido</p>
+                                            </div><!-- /.controls -->
+                                        </div> <!-- /.control-group -->
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                E-mail
+                                            </label>
+                                            <div class="controls">
+                                                <input type="email" name="email" required="required">
+                                                <p>Requerido</p>
+                                            </div><!-- /.controls -->
+                                        </div> <!-- /.control-group -->
+                                    }
+
                                     <div class="control-group">
                                         <label class="control-label">
                                             Assunto
-                                            <span class="form-required">*</span>
                                         </label>
-
                                         <div class="controls">
                                             <input type="text" name="assunto" required="required">
-                                        </div>
-                                            <!-- /.controls -->
-                                    </div>
-                                        <!-- /.control-group -->
+                                            <p>Requerido</p>
+                                        </div><!-- /.controls -->
+                                    </div> <!-- /.control-group -->
 
                                     <div class="control-group">
                                         <label class="control-label">
                                             Mensagem
-                                            <span class="form-required">*</span>
                                         </label>
 
                                         <div class="controls">
                                             <textarea name="mensagem" required="required"
-                                            style="min-height: 240px;
-                                            width: 100%"></textarea>
+                                            style="min-height : 240px ;
+                                            width : 100%
+                                            "></textarea>
+                                            <p>Requerido</p>
                                         </div>
                                             <!-- /.controls -->
                                     </div>
@@ -66,4 +88,4 @@
     </div>
         <!-- /.row -->
 </div>
-<!-- /.container -->
+    <!-- /.container -->
