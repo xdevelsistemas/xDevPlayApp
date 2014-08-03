@@ -53,6 +53,8 @@ class TpResponse(yresult: String, ymessage: String) extends xDevSerialize{
 }
 
 
+
+
 class Tpval(yvalue : String,yerror : String) extends xDevSerialize{
 
   var value : String = yvalue

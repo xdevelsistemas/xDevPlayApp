@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import models.AbstractModel;
+import org.hibernate.criterion.Restrictions;
 import play.db.jpa.JPA;
 
 
@@ -79,17 +80,16 @@ public class AbstractDAO<T extends AbstractModel> {
     }
 
 
-    public <A> List<T> findMany(ArrayList<PairQuery> yfilters) {
+    public  List<T> findMany(ArrayList<PairQuery> yfilters) {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
-        for (PairQuery<A> el : yfilters){
+        for (PairQuery el : yfilters){
             cq = cq.where(cb.equal(root.get(el.field),el.value));
         }
-        List<T> results = em.createQuery(cq).getResultList();
-        return results;
+        return em.createQuery(cq).getResultList();
     }
 
-    public <A> List<T> all() {
+    public  List<T> all() {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
         List<T> results = em.createQuery(cq).getResultList();

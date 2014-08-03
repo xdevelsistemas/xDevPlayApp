@@ -1,132 +1,127 @@
-{
-    "codigo": "uf",
-    "descricao": "Estado",
-    "lista": [
-        {
-            "codigo": "AC",
-            "descricao": "Acre"
-        },
-        {
-            "codigo": "AL",
-            "descricao": "Alagoas"
-        },
-        {
-            "codigo": "AM",
-            "descricao": "Amazonas"
+[
+    {
+        "id": "AC",
+        "text": "Acre"
+    },
+    {
+        "id": "AL",
+        "text": "Alagoas"
+    },
+    {
+        "id": "AM",
+        "text": "Amazonas"
 
-        },
-        {
-            "codigo": "AP",
-            "descricao": "Amapá"
-        },
-        {
-            "codigo": "BA",
-            "descricao": "Bahia"
+    },
+    {
+        "id": "AP",
+        "text": "Amapá"
+    },
+    {
+        "id": "BA",
+        "text": "Bahia"
 
-        },
-        {
-            "codigo": "CE",
-            "descricao": "Ceará"
+    },
+    {
+        "id": "CE",
+        "text": "Ceará"
 
-        },
-        {
-            "codigo": "DF",
-            "descricao": "Distrito Federal"
+    },
+    {
+        "id": "DF",
+        "text": "Distrito Federal"
 
-        },
-        {
-            "codigo": "ES",
-            "descricao": "Espírito Santo"
+    },
+    {
+        "id": "ES",
+        "text": "Espírito Santo"
 
-        },
-        {
-            "codigo": "GO",
-            "descricao": "Goiás"
+    },
+    {
+        "id": "GO",
+        "text": "Goiás"
 
-        },
-        {
-            "codigo": "MA",
-            "descricao": "Maranhão"
+    },
+    {
+        "id": "MA",
+        "text": "Maranhão"
 
-        },
-        {
-            "codigo": "MG",
-            "descricao": "Minas Gerais"
-        },
-        {
-            "codigo": "MS",
-            "descricao": "Mato Grosso do Sul"
+    },
+    {
+        "id": "MG",
+        "text": "Minas Gerais"
+    },
+    {
+        "id": "MS",
+        "text": "Mato Grosso do Sul"
 
-        },
-        {
-            "codigo": "MT",
-            "descricao": "Mato Grosso"
+    },
+    {
+        "id": "MT",
+        "text": "Mato Grosso"
 
-        },
-        {
-            "codigo": "PA",
-            "descricao": "Pará"
+    },
+    {
+        "id": "PA",
+        "text": "Pará"
 
-        },
-        {
-            "codigo": "PB",
-            "descricao": "Paraíba"
+    },
+    {
+        "id": "PB",
+        "text": "Paraíba"
 
-        },
-        {
-            "codigo": "PE",
-            "descricao": "Pernambuco"
+    },
+    {
+        "id": "PE",
+        "text": "Pernambuco"
 
-        },
-        {
-            "codigo": "PI",
-            "descricao": "Piauí"
+    },
+    {
+        "id": "PI",
+        "text": "Piauí"
 
-        },
-        {
-            "codigo": "PR",
-            "descricao": "Paraná"
+    },
+    {
+        "id": "PR",
+        "text": "Paraná"
 
-        },
-        {
-            "codigo": "RJ",
-            "descricao": "Rio de Janeiro"
-        },
-        {
-            "codigo": "RN",
-            "descricao": "Rio Grande do Norte"
+    },
+    {
+        "id": "RJ",
+        "text": "Rio de Janeiro"
+    },
+    {
+        "id": "RN",
+        "text": "Rio Grande do Norte"
 
-        },
-        {
-            "codigo": "RO",
-            "descricao": "Rondônia"
+    },
+    {
+        "id": "RO",
+        "text": "Rondônia"
 
-        },
-        {
-            "codigo": "RS",
-            "descricao": "Rio Grande do Sul"
+    },
+    {
+        "id": "RS",
+        "text": "Rio Grande do Sul"
 
-        },
-        {
-            "codigo": "SC",
-            "descricao": "Santa Catarina"
+    },
+    {
+        "id": "SC",
+        "text": "Santa Catarina"
 
-        },
-        {
-            "codigo": "SE",
-            "descricao": "Sergipe"
+    },
+    {
+        "id": "SE",
+        "text": "Sergipe"
 
-        },
-        {
-            "codigo": "SP",
-            "descricao": "São Paulo"
+    },
+    {
+        "id": "SP",
+        "text": "São Paulo"
 
-        },
-        {
-            "codigo": "TO",
-            "descricao": "Tocantins"
+    },
+    {
+        "id": "TO",
+        "text": "Tocantins"
 
-        }
-    ]
-
-}
+    }
+]
