@@ -13,10 +13,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             valorPrestacao: "",
             cota: ""
         };
-        $scope.tipo = {
-            "selecionado": "-1",
-            "lista": []
-        };
         $scope.administradora = {
             "selecionado": "-1",
             "lista": []
@@ -25,6 +21,51 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "selecionado": "-1",
             "lista": []
         };
+
+        function inicializarModeloForm() {
+            $scope.formData = {
+                "resp": {
+                    "result": "",
+                    "message": ""
+                },
+                "fields": {
+                    "tipo": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "administradora": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "contemplacao": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "prazoRestante": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "valorCredito": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "valorEntrada": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "valorPrestacoes": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "cota": {
+                        "value": "",
+                        "error": ""
+                    }
+                }
+            };
+        };
+        inicializarModeloForm();
+
 
         function aoAbrir() {
             $http.get("/assets/App/Mockup/NovaCarta/strings.json").success(function (data) {
@@ -48,7 +89,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             });
         }
 
-        $scope.confirmar = function () {
+        $scope.enviarForm = function () {
             var query = $.param($scope.selecao);
             if (confirm($scope.strings.textoConfirmar))
                 console.log(query);
