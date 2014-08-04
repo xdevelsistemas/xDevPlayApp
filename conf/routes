@@ -32,9 +32,9 @@ GET         /rest/list/getordem                    controllers.Proconsorcio.Rest
 GET         /rest/list/getordenador                    controllers.Proconsorcio.RestController.getOrdenador
 #grids
 GET         /rest/grid/contas/list                 controllers.Proconsorcio.RestController.getConta
-POST        /rest/grid/contas/add                  controllers.Proconsorcio.RestController.HandleinsertConta
-POST        /rest/grid/contas/setpadrao/:id        controllers.Proconsorcio.RestController.setPadrao(id)
-POST        /rest/grid/contas/remove/:id           controllers.Proconsorcio.RestController.remove(id)
+POST        /rest/grid/contas/add                  controllers.Proconsorcio.RestController.handleInsertConta
+POST        /rest/grid/contas/setpadrao/:id        controllers.Proconsorcio.RestController.handleSetPadrao(id)
+POST        /rest/grid/contas/remove/:id           controllers.Proconsorcio.RestController.handleRemove(id)
 
 
 # Map static resources from the /public folder to the /assets URL path

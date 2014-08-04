@@ -2,15 +2,17 @@ package controllers.Proconsorcio
 
 import java.util
 import java.util.UUID
+import javax.persistence.EntityTransaction
 
-import RestModels.ListaContaBanco
+import RestModels.{ContaBancoForm, ListaContaBanco}
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
+import models.Proconsorcio.ContaBanco
 import models.User
 import play.api.cache.Cached
 import play.api.libs.json.{Json, JsObject}
-import play.api.mvc.Action
+import play.api.mvc.{SimpleResult, Action}
 import play.db.jpa.JPA
 import play.libs.F
 import scala.collection.JavaConverters._
@@ -31,11 +33,12 @@ object RestController extends xDevRestController {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
-      val resp = new TpDropDown("uuid","Administradora",
+      val resp = new TpDropDown("uuid", "Administradora",
 
-        (new util.ArrayList[TpElDropDown]() { t=>
+        (new util.ArrayList[TpElDropDown]() {
+          t =>
           (new AdministradoraDAO).findAllValid().asScala.sortBy(d => d.name).foreach(e => {
-            t.add(new TpElDropDown(e.uuid.toString,e.name))
+            t.add(new TpElDropDown(e.uuid.toString, e.name))
           })
         })
 
@@ -51,12 +54,13 @@ object RestController extends xDevRestController {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
-      val resp = new TpDropDown("uuid","Tipo de Carta",
+      val resp = new TpDropDown("uuid", "Tipo de Carta",
 
-        (new util.ArrayList[TpElDropDown]() { t=>
+        (new util.ArrayList[TpElDropDown]() {
+          t =>
           (new TipoCartaDAO).all().asScala.filter(d =>
             d.ativo.equals(true)).sortBy(d => d.name).foreach(e => {
-            t.add(new TpElDropDown(e.uuid.toString,e.name))
+            t.add(new TpElDropDown(e.uuid.toString, e.name))
           })
         })
 
@@ -67,63 +71,93 @@ object RestController extends xDevRestController {
   }
 
 
-
-
-  def getConta = SecuredAction{implicit request =>
+  def getConta = SecuredAction { implicit request =>
     JsonResult(new ListaContaBanco(new ContaBancoDAO()
       .findAllbyUser((new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user())
-      .asScala.toList.sortBy(t=> t.created)
+      .asScala.toList.sortBy(t => t.created)
     ))
   }
 
-  def HandleinsertConta = SecuredAction(parse.json){implicit request =>
-    var cta = new RestModels.ContaBancoForm
-    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
-    val dao = new ContaBancoDAO
+  def handleInsertConta = SecuredAction(parse.json) { implicit request =>
 
-    JPA.withTransaction("default", false, new F.Function0[Unit] {
-      def apply: Unit = {
-        cta = dao.add(cta.read(request.body),user)
+    try {
+
+      val ctaBanco = (new ContaBancoForm).read(request.body)
+      val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+      val dao = new ContaBancoDAO
+
+
+      JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
+        def apply: SimpleResult = {
+          val cta = dao.add(ctaBanco, user)
+
+          if (cta.status.result.equals("0")) {
+            BadRequest(cta.serialize())
+          } else {
+            JsonResult(cta)
+          }
+        }
+      })
+
+    } catch {
+      case e: Exception => {
+        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
       }
-    })
-
-    if (cta.status.result.equals("0")){
-      BadRequest(cta.serialize())
-    }else {
-      JsonResult(cta)
-    }
-  }
-
-  def setPadrao(id : String) = SecuredAction{implicit request =>
-    val dao = new ContaBancoDAO
-    val uuid = UUID.fromString(id)
-    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
-    val result = dao.setPadrao(uuid,user)
-
-    if (result.result.equals("0")){
-      BadRequest(result.serialize())
-    }else {
-      JsonResult(result)
     }
 
   }
 
-  def remove(id : String) = SecuredAction{implicit request =>
-    val uuid = UUID.fromString(id)
-    val dao = new ContaBancoDAO
-    var result = new  TpResponse("1","")
+  def handleSetPadrao(id: String) = SecuredAction { implicit request =>
 
-    JPA.withTransaction("default", false, new F.Function0[Unit] {
-      def apply: Unit = {
-        dao.delete(uuid)
+    JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
+      def apply: SimpleResult = {
+        try {
+
+          val dao = new ContaBancoDAO
+          val uuid = UUID.fromString(id)
+          val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+
+          val result = dao.setPadrao(uuid, user)
+
+          if (result.result.equals("0")) {
+            BadRequest(result.serialize())
+          } else {
+            JsonResult(result)
+          }
+
+        } catch {
+          case e: Exception => {
+            BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+          }
+        }
+
+
       }
     })
 
-    if (result.result.equals("0")){
-      BadRequest(result.serialize())
-    }else {
-      JsonResult(result)
+
+  }
+
+  def handleRemove(id: String) = SecuredAction { implicit request =>
+
+    try {
+      val uuid = UUID.fromString(id)
+      val dao = new ContaBancoDAO
+      val result = new TpResponse("1", "")
+      dao.delete(uuid)
+
+      if (result.result.equals("0")) {
+        BadRequest(result.serialize())
+      } else {
+        JsonResult(result)
+      }
+
+    } catch {
+      case e: Exception => {
+        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+      }
     }
+
 
   }
 
@@ -153,8 +187,7 @@ object RestController extends xDevRestController {
   }
 
 
-
-  def getEndereco(cep: String) = Action  {
+  def getEndereco(cep: String) = Action {
     JsonResult(CepService.buscaCEP(cep))
   }
 
