@@ -1,19 +1,15 @@
 package dao;
 
-import models.Proconsorcio.*;
+import models.Proconsorcio.Carta;
 
 /**
- * Created by claytonsantosdasilva on 28/07/14.
+ * Created by claytonsantosdasilva on 04/08/14.
+ *
+ * criado somente para fazer ponte para a classe CartaDAOextend
  */
-public class CartaDAO extends  AbstractDAO<Carta> {
-
+public class CartaDAO extends AbstractDAO<Carta> {
     public CartaDAO() {
         super(Carta.class);
     }
 
-    public Carta findbyFriendlyId(int id)
-    {
-        return super.findOne("friendlyID",id);
-
-    }
 }

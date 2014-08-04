@@ -3,14 +3,53 @@ package models.Proconsorcio.RestModels
 import models.Proconsorcio.ContaBanco
 import play.api.libs.json
 import play.api.libs.json._
-import _root_.util.{TpResponse, Tpval, xDevSerialize}
+import _root_.util.{xDevForm, TpResponse, Tpval, xDevSerialize}
 
 /**
  * Created by claytonsantosdasilva on 02/08/14.
  *
- * Todos os modelos de
+ * Todos os modelos de tratamento de conta bancária
  *
  */
+
+
+/*
+    {"lista": [
+        {
+
+            "padrao": "1",
+            "codigo": "42",
+            "banco": {
+                "codigo": "2",
+                "nome": "Banco do Brasil"
+            },
+            "agencia": "0000",
+            "conta": "123278954"
+        },
+        {
+            "padrao": "0",
+            "codigo": "88",
+            "banco": {
+                "codigo": "5",
+                "nome": "Santander"
+            },
+            "agencia": "654",
+            "conta": "55668844"
+        },
+        {
+            "padrao": "0",
+            "codigo": "11",
+            "banco": {
+                "codigo": "8",
+                "nome": "Itaú"
+            },
+            "agencia": "897",
+            "conta": "6654858458"
+        }
+    ]}
+*/
+
+
 
 class Banco(ycodigo:String,ynome:String) extends xDevSerialize{
   var codigo : String = this.ycodigo
@@ -25,7 +64,10 @@ class Banco(ycodigo:String,ynome:String) extends xDevSerialize{
 
 }
 
-class ContaBancoForm extends xDevSerialize{
+
+
+
+class ContaBancoForm extends xDevSerialize with xDevForm[ContaBanco,ContaBancoForm] {
   var status : TpResponse = new TpResponse("1","")
   var codigo : Tpval = new Tpval("","")
   var padrao : Tpval = new Tpval("","")
@@ -82,10 +124,11 @@ class ContaBancoForm extends xDevSerialize{
   }
 
 
+
+
 }
 
-
-class ListaContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
+class LstContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
 
   def serialize(): JsObject = {
     Json.obj(
@@ -101,40 +144,8 @@ class ListaContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
     )
   }
 }
-/*
-    {"lista": [
-        {
 
-            "padrao": "1",
-            "codigo": "42",
-            "banco": {
-                "codigo": "2",
-                "nome": "Banco do Brasil"
-            },
-            "agencia": "0000",
-            "conta": "123278954"
-        },
-        {
-            "padrao": "0",
-            "codigo": "88",
-            "banco": {
-                "codigo": "5",
-                "nome": "Santander"
-            },
-            "agencia": "654",
-            "conta": "55668844"
-        },
-        {
-            "padrao": "0",
-            "codigo": "11",
-            "banco": {
-                "codigo": "8",
-                "nome": "Itaú"
-            },
-            "agencia": "897",
-            "conta": "6654858458"
-        }
-    ]}
-*/
+
+
 
 

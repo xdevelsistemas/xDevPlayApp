@@ -135,7 +135,7 @@ public class Carta extends AbstractModel {
 
 
 
-    @Column
+    @Column(name = "AVALIACAO_COMPRADOR")
     public String avaliacaoComprador;
 
 

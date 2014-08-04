@@ -22,18 +22,12 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
 
     public List<ContaBanco> findAllbyUser(UUID user_uuid) {
 
-        ArrayList<PairQuery> filter = new ArrayList<PairQuery>();
-        filter.add(new PairQuery<UUID>("usuario", user_uuid));
-        filter.add(new PairQuery<Boolean>("ativo", true));
 
         return findMany("usuario", new UserDAO().findOne(user_uuid));
 
     }
 
     public List<ContaBanco> findAllbyUser(User user) {
-//        ArrayList<PairQuery> filter = new ArrayList<>();
-//        filter.add(new PairQuery<String>("usuario", user.uuid));
-//        filter.add(new PairQuery<Boolean>("ativo", true));
         List<ContaBanco> lista_usuario = findMany("usuario", user);
 
         for (ContaBanco item : lista_usuario) {

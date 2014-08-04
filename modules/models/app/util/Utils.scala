@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.node.ObjectNode
 import dao.AdministradoraDAO
-import play.api.libs.json.{JsObject, Writes, JsNull, Json}
+import play.api.libs.json._
 
 import scala.util.parsing.json.JSONArray
 
@@ -32,7 +32,11 @@ class TpElDropDown(ycodigo: String, ydescricao :String) extends xDevSerialize {
   )
 }
 
+trait  xDevForm[T,U] {
+  def read(yobj: JsValue) : T
+  def read(cta : T, resp : TpResponse) : U
 
+}
 
 trait xDevSerialize{
   def serialize() : JsObject

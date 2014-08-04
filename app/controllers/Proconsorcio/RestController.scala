@@ -4,7 +4,7 @@ import java.util
 import java.util.UUID
 import javax.persistence.EntityTransaction
 
-import models.Proconsorcio.RestModels.{ContaBancoForm, ListaContaBanco}
+import models.Proconsorcio.RestModels.{CartaForm, ContaBancoForm, LstContaBanco}
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
@@ -18,7 +18,7 @@ import play.libs.F
 import scala.collection.JavaConverters._
 import br.com.republicavirtual.CepService
 import controllers.xDevRestController
-import dao.{IdentityDAO, ContaBancoDAO, TipoCartaDAO, AdministradoraDAO}
+import dao._
 import play.api.Play.current
 
 
@@ -72,7 +72,7 @@ object RestController extends xDevRestController {
 
 
   def getConta = SecuredAction { implicit request =>
-    JsonResult(new ListaContaBanco(new ContaBancoDAO()
+    JsonResult(new LstContaBanco(new ContaBancoDAO()
       .findAllbyUser((new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user())
       .asScala.toList.sortBy(t => t.created)
     ))
@@ -85,6 +85,8 @@ object RestController extends xDevRestController {
       val ctaBanco = (new ContaBancoForm).read(request.body)
       val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
       val dao = new ContaBancoDAO
+
+
 
 
       JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
@@ -191,5 +193,43 @@ object RestController extends xDevRestController {
     JsonResult(CepService.buscaCEP(cep))
   }
 
+
+  def handleInsertCarta = SecuredAction(parse.json) { implicit request =>
+
+    try {
+
+      val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+      val frm = (new CartaForm)
+      val carta = frm.readAndValidate(request.body,user)
+      val dao = new CartaDAOextend
+
+
+      if (frm.status.result.equals("0"))
+      {
+        BadRequest(frm.serialize())
+      }else{
+
+        JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
+          def apply: SimpleResult = {
+            carta.usuario = user
+            val frm_novacarta = dao.add(carta, user)
+
+            if (frm_novacarta.status.result.equals("0")) {
+              BadRequest(frm_novacarta.serialize())
+            } else {
+              JsonResult(frm_novacarta)
+            }
+          }
+        })
+
+      }
+
+    } catch {
+      case e: Exception => {
+        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+      }
+    }
+
+  }
 
 }
