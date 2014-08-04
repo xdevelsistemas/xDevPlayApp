@@ -1,11 +1,8 @@
 package dao;
 
-import RestModels.ContaBancoForm;
-import models.Proconsorcio.Carta;
+import models.Proconsorcio.RestModels.ContaBancoForm;
 import models.Proconsorcio.ContaBanco;
 import models.User;
-import play.db.jpa.JPA;
-import play.libs.F;
 import util.TpResponse;
 
 import java.util.ArrayList;
@@ -25,18 +22,12 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
 
     public List<ContaBanco> findAllbyUser(UUID user_uuid) {
 
-        ArrayList<PairQuery> filter = new ArrayList<PairQuery>();
-        filter.add(new PairQuery<UUID>("usuario", user_uuid));
-        filter.add(new PairQuery<Boolean>("ativo", true));
 
         return findMany("usuario", new UserDAO().findOne(user_uuid));
 
     }
 
     public List<ContaBanco> findAllbyUser(User user) {
-//        ArrayList<PairQuery> filter = new ArrayList<>();
-//        filter.add(new PairQuery<String>("usuario", user.uuid));
-//        filter.add(new PairQuery<Boolean>("ativo", true));
         List<ContaBanco> lista_usuario = findMany("usuario", user);
 
         for (ContaBanco item : lista_usuario) {
