@@ -60,8 +60,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         inicializarModeloForm();
 
         function naoEeNum(s) {
-            console.log("s", s);
-            return s === undefined || s === null || isNaN(parseFloat(s.split('.').join('').replace(',', '.')));
+            return s === undefined || s === null || isNaN(parseFloat(s.replace('R$ ', '').split('.').join('').replace(',', '.')));
         };
 
         $scope.formatConta = function (conta) {
@@ -93,7 +92,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
 
         $scope.enviarFormNovaCarta = function (form, isInvalid) {
-            console.log($scope.formData);
+            console.log('>>>', $scope.formData);
             $scope.formData.fields.tipo.error = form.tipo.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.administradora.error = form.administradora.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.contemplacao.error = form.contemplacao.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -103,19 +102,19 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $scope.formData.fields.valorPrestacoes.error = form.valorPrestacoes.$invalid || naoEeNum($scope.formData.fields.valorPrestacoes.value) ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.cota.error = form.cota.$invalid || naoEeNum($scope.formData.fields.cota.value) ? $scope.strings.campoObrigatorio : null;
             if (isInvalid) return console.log("formulário inválido!");
+            console.log("formulário válido!");
             $("#modal-selecionarConta").modal('show');
         };
 
         $scope.enviarFormConta = function (form, isInvalid) {
             $scope.formData.fields.conta.error = form.conta.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.numCodigo.error = form.numCodigo.$invalid ? $scope.strings.campoObrigatorio : null;
+            console.log('>>>', $scope.formData);
             if (isInvalid) {
                 console.log("formulário inválido!");
-                console.log($scope.formData);
                 return;
             }
             console.log("formulário válido!");
-            console.log($scope.formData);
             inicializarModeloForm();
             $("#modal-selecionarConta").modal('hide');
             //TODO  retirar este mockup
