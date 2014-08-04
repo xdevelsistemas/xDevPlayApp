@@ -4,7 +4,7 @@ import java.util
 import java.util.UUID
 import javax.persistence.EntityTransaction
 
-import RestModels.{ContaBancoForm, ListaContaBanco}
+import models.Proconsorcio.RestModels.{ContaBancoForm, ListaContaBanco}
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects

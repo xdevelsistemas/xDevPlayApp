@@ -1,4 +1,4 @@
-package RestModels
+package models.Proconsorcio.RestModels
 
 import models.Proconsorcio.ContaBanco
 import play.api.libs.json

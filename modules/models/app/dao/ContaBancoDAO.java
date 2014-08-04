@@ -1,11 +1,8 @@
 package dao;
 
-import RestModels.ContaBancoForm;
-import models.Proconsorcio.Carta;
+import models.Proconsorcio.RestModels.ContaBancoForm;
 import models.Proconsorcio.ContaBanco;
 import models.User;
-import play.db.jpa.JPA;
-import play.libs.F;
 import util.TpResponse;
 
 import java.util.ArrayList;
