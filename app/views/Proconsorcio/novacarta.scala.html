@@ -108,7 +108,7 @@
     <div id="modal-selecionarConta" data-keyboard="false" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="selecionarConta" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="selecionarConta">Adicionar nova conta</h3>
+            <h3 id="selecionarConta">Nova Carta</h3>
         </div>
         <form name="formSelecionarConta" novalidate ng-submit="enviarFormConta(formSelecionarConta, formSelecionarConta.$invalid)">
             <div class="modal-body">
@@ -119,15 +119,19 @@
                 <div class="tab-pane">
                     <div class="tab-content">
                         <div class="form-group">
-                            <label ng-bind="contas.descricao"></label>
-                            <select name="conta" ng-model="formData.fields.conta.value"
-                            required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
-                                <option value=""></option>
-                                <option ng-repeat="conta in contas.lista | orderBy: 'codigo'"
-                                ng-value="conta.codigo"
-                                ng-bind="conta.descricao"></option>
+                            <label>Selecione sua conta</label>
+                            <select class="xd-select" name="conta" ng-model="formData.fields.conta.value" required
+                            ng-options="conta.codigo as formatConta(conta) group by conta.banco.nome for conta in contas.lista">
+                                <option value="" selected disabled>Selecione uma opção</option>
                             </select>
-                            <span class="error-msg" ng-bind="formData.fields.banco.error"></span>
+                            @*<select name="conta" ng-model="formData.fields.conta.value"*@
+                            @*required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">*@
+                            @*<option value=""></option>*@
+                            @*<option ng-repeat="conta in contas.lista | orderBy: 'padrao' : 'reverse'"*@
+                            @*ng-value="conta.codigo" ng-class="{'conta-padrao':conta.padrao == 1}"*@
+                            @*ng-bind="formatConta(conta)"></option>*@
+                            @*</select>*@
+                            <span class="error-msg" ng-bind="formData.fields.conta.error"></span>
                             <p>Requerido</p>
                         </div>
                     </div>

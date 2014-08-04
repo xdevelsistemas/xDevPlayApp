@@ -6,6 +6,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.administradora = {};
         $scope.contemplacao = {};
         $scope.contas = {};
+
         function inicializarModeloForm() {
             $scope.formData = {
                 "resp": {
@@ -49,10 +50,22 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             };
         };
         inicializarModeloForm();
+
         function naoEeNum(s) {
             console.log("s", s);
             return s === undefined || s === null || isNaN(parseFloat(s.split('.').join('').replace(',', '.')));
         };
+
+        function aplicarSelect2(elm_name, again) {
+            if (again) $(elm_name).select2("destroy")
+            $(elm_name).select2({'width': '100%'});
+        };
+
+        $scope.formatConta = function (conta) {
+            return 'AG: ' + conta.agencia + ' / ' + 'CC: ' + conta.conta;
+        };
+
+
         $scope.enviarFormNovaCarta = function (form, isInvalid) {
             console.log($scope.formData);
             $scope.formData.fields.tipo.error = form.tipo.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -66,27 +79,34 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             if (isInvalid) return console.log("formulário inválido!");
             $("#modal-selecionarConta").modal('show');
         };
+        
         $scope.enviarFormConta = function (form, isInvalid) {
-            if (isInvalid) return console.log("formulário inválido!");
+            if (isInvalid) {
+                console.log("formulário inválido!");
+                console.log($scope.formData);
+                return;
+            }
             console.log("formulário válido!");
+            console.log($scope.formData);
         };
+
         //Inicializador
-        (function () {
-            $http.get("/assets/App/Mockup/NovaCarta/strings.json").success(function (data) {
-                angular.extend($scope.strings, data);
-            });
-            $http.get("/rest/list/gettipocarta").success(function (data) {
-                angular.extend($scope.tipo, data);
-            });
-            $http.get("/rest/list/getadministradoras").success(function (data) {
-                angular.extend($scope.administradora, data);
-            });
-            $http.get("/rest/list/getcontemplacao").success(function (data) {
-                angular.extend($scope.contemplacao, data);
-            });
-            $http.get("/rest/grid/contas/list").success(function (data) {
-                angular.extend($scope.contas, data);
-            });
-        })();
+        $http.get("/assets/App/Mockup/NovaCarta/strings.json").success(function (data) {
+            angular.extend($scope.strings, data);
+        });
+        $http.get("/rest/list/gettipocarta").success(function (data) {
+            angular.extend($scope.tipo, data);
+        });
+        $http.get("/rest/list/getadministradoras").success(function (data) {
+            angular.extend($scope.administradora, data);
+        });
+        $http.get("/rest/list/getcontemplacao").success(function (data) {
+            angular.extend($scope.contemplacao, data);
+        });
+        $http.get("/rest/grid/contas/list").success(function (data) {
+            angular.extend($scope.contas, data);
+            aplicarSelect2("select[name='conta']");
+        });
+
     }]);
 });
