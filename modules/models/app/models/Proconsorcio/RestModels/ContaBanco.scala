@@ -128,7 +128,7 @@ class ContaBancoForm extends xDevSerialize with xDevForm[ContaBanco,ContaBancoFo
 
 }
 
-class LstContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
+class  LstContaBanco(ylista :List[ContaBanco]) extends xDevSerialize {
 
   def serialize(): JsObject = {
     Json.obj(

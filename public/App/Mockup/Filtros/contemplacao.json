@@ -3,11 +3,11 @@
     "descricao": "Contemplação",
     "lista": [
         {
-            "codigo": "0",
+            "codigo": "naocontemplada",
             "descricao": "Não contemplada"
         },
         {
-            "codigo": "1",
+            "codigo": "contemplada",
             "descricao": "Contemplada"
         }
     ]

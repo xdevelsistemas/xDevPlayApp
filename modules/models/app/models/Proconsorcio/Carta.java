@@ -49,19 +49,19 @@ public class Carta extends AbstractModel {
 
     @Column(name="VALOR_CREDITO",nullable = false, precision = 2)
     @NotNull(message="Campo 'valor Crédito' não pode ser nulo")
-    public float valorCredito;
+    public Number valorCredito;
 
     @Column(name="VALOR_ENTRADA",nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Entrada' não pode ser nulo")
-    public float valorEntrada;
+    public Number valorEntrada;
 
     @Column(name="VALOR_PRESTACAO",nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Prestação' não pode ser nulo")
-    public float valorPrestacao;
+    public Number valorPrestacao;
 
     @Column(name="VALOR_COTA", nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Cota' não pode ser nulo")
-    public float valorCota;
+    public Number valorCota;
 
 
     @ManyToOne(fetch=FetchType.LAZY)

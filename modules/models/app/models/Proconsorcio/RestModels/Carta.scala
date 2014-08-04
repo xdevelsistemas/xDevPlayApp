@@ -1,17 +1,25 @@
 package models.Proconsorcio.RestModels
 
-import java.util.UUID
+import java.text.NumberFormat
+import java.util
+import java.util.{Locale, UUID}
 
+import _root_.util.{Tpval, TpResponse, xDevForm, xDevSerialize}
 import dao.{UserDAO, AdministradoraDAO, TipoCartaDAO}
-import models.Proconsorcio.{EstatusCarta, Carta, ContaBanco}
+import models.Proconsorcio._
 import models.User
 import play.api.libs.json.{JsValue, Json, JsObject}
-import util.{xDevForm, xDevSerialize, Tpval, TpResponse}
+
 
 /**
  * Created by claytonsantosdasilva on 04/08/14.
+ *
+ * Criado para gerenciar cartas de consorcio ( parte de comunicação via rest API)
  */
 class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
+
+  val ptBr = new Locale("pt", "BR")
+  val numberFormat = NumberFormat.getInstance(ptBr)
 
 
   var status : TpResponse = new TpResponse("1","")
@@ -43,7 +51,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
         yobj.numCodigo.error = yobj.status.message
       }
 
-      return yobj
+       yobj
   }
 
 
@@ -92,11 +100,11 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.agenciaDeposito.value = (yobj \ "fields" \ "agenciaDeposito" \ "value").as[String]
     this.contaDeposito.value = (yobj \ "fields" \ "contaDeposito" \ "value").as[String]
 
-    return this
+     this
   }
 
   def read(yobj : JsValue) : Carta = {
-    return  _instantiate(_read(yobj))
+      _instantiate(_read(yobj))
   }
 
   private def _instantiate(yobj : CartaForm) : Carta = {
@@ -105,20 +113,20 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     xCarta.tipoCarta = (new TipoCartaDAO).findOne(UUID.fromString(yobj.codigo_tipocarta.value))
     xCarta.administradora = (new AdministradoraDAO).findOne(UUID.fromString(yobj.codigo_administradora.value))
     xCarta.prazoRestante = Integer.parseInt(yobj.prazoRestante.value)
-    xCarta.valorCredito = java.lang.Float.parseFloat(yobj.valorCredito.value)
-    xCarta.valorEntrada = java.lang.Float.parseFloat(yobj.valorEntrada.value)
-    xCarta.valorPrestacao = java.lang.Float.parseFloat(yobj.valorPrestacao.value)
-    xCarta.valorCota = java.lang.Float.parseFloat(yobj.valorCota.value)
+    xCarta.valorCredito = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCredito.value)
+    xCarta.valorEntrada = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorEntrada.value)
+    xCarta.valorPrestacao = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorPrestacao.value)
+    xCarta.valorCota = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCota.value)
     xCarta.numBancoDeposito = yobj.numBancoDeposito.value
     xCarta.nomeBancoDeposito = yobj.nomeBancoDeposito.value
     xCarta.agenciaDeposito = yobj.agenciaDeposito.value
     xCarta.contaDeposito = yobj.contaDeposito.value
 
-    return xCarta
+     xCarta
   }
 
   def readAndValidate (yobj : JsValue, user: User) : Carta = {
-    return _instantiate(validate(_read(yobj),user))
+     _instantiate(validate(_read(yobj),user))
   }
 
 
@@ -127,22 +135,240 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.status = resp
     this.id.value = cta.friendlyID.id.toString
     this.codigo.value = cta.uuid
-    this.codigo_statuscarta.value  = cta.statusCarta.ordinal().toString
+    this.codigo_statuscarta.value  = cta.statusCarta.toString
     this.codigo_administradora.value = cta.administradora.uuid
     this.codigo_tipocarta.value = cta.tipoCarta.uuid
     this.prazoRestante.value = cta.prazoRestante.toString
-    this.valorCredito.value = cta.valorCredito.toString
-    this.valorEntrada.value = cta.valorEntrada.toString
-    this.valorPrestacao.value = cta.valorPrestacao.toString
-    this.valorCota.value = cta.valorCota.toString
+    this.valorCredito.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCredito)
+    this.valorEntrada.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorEntrada)
+    this.valorPrestacao.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorPrestacao)
+    this.valorCota.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCota)
     this.numBancoDeposito.value = cta.numBancoDeposito
     this.nomeBancoDeposito.value = cta.nomeBancoDeposito
     this.agenciaDeposito.value = cta.agenciaDeposito
     this.contaDeposito.value = cta.contaDeposito
 
 
-    return this
+     this
   }
 
+
+}
+
+
+
+
+
+class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) extends xDevSerialize{
+
+  val status = yval
+  val tipotransacao = ytp
+
+
+
+  def getDesc : String  = {
+
+
+    if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
+
+       this.status match {
+        case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
+        case EstatusAdministrativo.Aprovado => "Disponível"
+        case EstatusAdministrativo.EmProcessodeCompra => "Em processo de compra"
+        case EstatusAdministrativo.VendaAutorizada => "Autorizado para pagamento"
+        case EstatusAdministrativo.Estornado => "Estornada"
+        case EstatusAdministrativo.Reprovado => "Reprovada"
+        case EstatusAdministrativo.Cancelado => "Cancelada"
+        case EstatusAdministrativo.Bloqueio => "Bloqueada"
+        case EstatusAdministrativo.Concluida => "Comprado"
+        case EstatusAdministrativo.AguardandoAvaliacao => "Aguardando Avaliação do moderador"
+        case EstatusAdministrativo.Excluida => "Excluída"
+
+      }
+    } else {
+      if (this.tipotransacao.equals(ETipoTransacao.Venda)) {
+
+         this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
+          case EstatusAdministrativo.Aprovado => "Anunciado"
+          case EstatusAdministrativo.EmProcessodeCompra => "Aguardando autorização de venda"
+          case EstatusAdministrativo.VendaAutorizada => "Aguardando Pagamento da contraparte"
+          case EstatusAdministrativo.Estornado => "Estornada"
+          case EstatusAdministrativo.Reprovado => "Reprovada"
+          case EstatusAdministrativo.Cancelado => "Cancelada"
+          case EstatusAdministrativo.Bloqueio => "Bloqueada"
+          case EstatusAdministrativo.Concluida => "Vendido"
+          case EstatusAdministrativo.AguardandoAvaliacao => "Aguardando Avaliação do moderador"
+          case EstatusAdministrativo.Excluida => "Excluída"
+        }
+
+      } else {
+
+         this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
+          case EstatusAdministrativo.Aprovado => "Anunciado"
+          case EstatusAdministrativo.EmProcessodeCompra => "Aguardando autorização de venda"
+          case EstatusAdministrativo.VendaAutorizada => "Aguardando Pagamento da contraparte"
+          case EstatusAdministrativo.Estornado => "Estornada"
+          case EstatusAdministrativo.Reprovado => "Reprovada"
+          case EstatusAdministrativo.Cancelado => "Cancelada"
+          case EstatusAdministrativo.Bloqueio => "Bloqueada"
+          case EstatusAdministrativo.Concluida => "Concluido"
+          case EstatusAdministrativo.AguardandoAvaliacao => "Aguardando Avaliação do moderador"
+          case EstatusAdministrativo.Excluida => "Excluída"
+
+        }
+
+      }
+    }
+  }
+
+
+  def getAcao : List[ETpAcoes] = {
+
+    if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
+
+       this.status match {
+        case EstatusAdministrativo.AguardandoAprovacao => List()
+        case EstatusAdministrativo.Aprovado => List()
+        case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.Cancelar)
+        case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Pagar,ETpAcoes.Cancelar)
+        case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Cancelar,ETpAcoes.Estornar)
+        case EstatusAdministrativo.Estornado => List()
+        case EstatusAdministrativo.Reprovado => List()
+        case EstatusAdministrativo.Cancelado => List()
+        case EstatusAdministrativo.Bloqueio => List(ETpAcoes.Estornar)
+        case EstatusAdministrativo.Concluida => List()
+        case EstatusAdministrativo.Excluida => List()
+
+      }
+    } else {
+      if (this.tipotransacao.equals(ETipoTransacao.Venda)) {
+
+         this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => List(ETpAcoes.Excluir)
+          case EstatusAdministrativo.Aprovado => List(ETpAcoes.Excluir)
+          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.AutorizarVenda,ETpAcoes.Cancelar,ETpAcoes.Reprovar)
+          case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Cancelar)
+          case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Estornar)
+          case EstatusAdministrativo.Estornado => List()
+          case EstatusAdministrativo.Reprovado => List()
+          case EstatusAdministrativo.Cancelado => List()
+          case EstatusAdministrativo.Bloqueio => List(ETpAcoes.Estornar)
+          case EstatusAdministrativo.Concluida => List()
+          case EstatusAdministrativo.Excluida => List()
+        }
+
+      } else {
+
+         this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => List(ETpAcoes.Aprovar,ETpAcoes.Reprovar,ETpAcoes.Excluir)
+          case EstatusAdministrativo.Aprovado => List(ETpAcoes.Excluir,ETpAcoes.Bloqueiar)
+          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.Bloqueiar,ETpAcoes.Cancelar)
+          case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Bloqueiar,ETpAcoes.Cancelar)
+          case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Aprovar,ETpAcoes.Reprovar,ETpAcoes.Estornar)
+          case EstatusAdministrativo.Estornado => List()
+          case EstatusAdministrativo.Reprovado => List(ETpAcoes.Estornar)
+          case EstatusAdministrativo.Cancelado => List()
+          case EstatusAdministrativo.Bloqueio => List()
+          case EstatusAdministrativo.Concluida => List()
+          case EstatusAdministrativo.Excluida => List()
+
+        }
+
+      }
+    }
+
+  }
+
+  def getDescAcao(yacao : ETpAcoes) : String  = {
+
+
+     yacao match {
+      case ETpAcoes.Aprovar => "Aprovar"
+      case ETpAcoes.AutorizarVenda => "Autorizar Venda"
+      case ETpAcoes.Bloqueiar => "Bloquear Transação"
+      case ETpAcoes.Cancelar => "Cancelar"
+      case ETpAcoes.Concluir => "Concluir Transação"
+      case ETpAcoes.Estornar => "Extornar"
+      case ETpAcoes.Excluir => "Excluir"
+      case ETpAcoes.Pagar => "Cancelada"
+      case ETpAcoes.Reprovar => "Reprovar Comprador"
+
+    }
+
+
+
+
+  }
+
+  //def getAcoes: List
+
+
+
+
+  def serialize(): JsObject = {
+    Json.obj(
+      "codigo"-> this.status.toString,
+      "nome"-> this.getDesc
+    )
+
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+class  LstCartasEscritorio(ylista :List[Carta], ytp : ETipoTransacao) extends xDevSerialize {
+  val ptBr = new Locale("pt", "BR")
+  val numberFormat = NumberFormat.getInstance(ptBr)
+
+
+  def serialize(): JsObject = {
+    Json.obj(
+      "lista"->
+        this.ylista.map { t=>
+          Json.obj(
+            "codigo"-> t.friendlyID.toString,
+            "valordoBem"-> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
+            "tipo"-> Json.obj("codigo"-> t.tipoCarta.uuid, "nome"->t.tipoCarta.name),
+            "administradora"-> Json.obj("codigo"-> t.administradora.uuid, "nome"->t.administradora.name),
+            "status"-> new TStatusCartaAdm(t.statusCartaAdm,ytp).serialize(),
+            "acoes"-> new TStatusCartaAdm(t.statusCartaAdm,ytp).getAcao.map(u=>
+              Json.obj(
+              "codigo"-> u.toString,
+              "nome"->  new TStatusCartaAdm(t.statusCartaAdm,ytp).getDescAcao(u)
+              )
+            )
+
+          ) }
+    )
+  }
+
+//  {
+//    "codigo": "1",
+//    "valorDoBem": "80000",
+//    "tipo": {
+//      "codigo": "1",
+//      "nome": "Rodobens"
+//    },
+//    "administradora": {
+//      "codigo": "1",
+//      "nome": "Carro"
+//    },
+//    "status": {
+//      "codigo": "1",
+//      "nome": "Aguardando Documentação"
+//    }
+//  },
 
 }
