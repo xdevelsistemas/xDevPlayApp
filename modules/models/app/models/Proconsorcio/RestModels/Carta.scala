@@ -5,7 +5,7 @@ import java.util
 import java.util.{Locale, UUID}
 
 import _root_.util.{Tpval, TpResponse, xDevForm, xDevSerialize}
-import dao.{UserDAO, AdministradoraDAO, TipoCartaDAO}
+import dao.{ContaBancoDAO, UserDAO, AdministradoraDAO, TipoCartaDAO}
 import models.Proconsorcio._
 import models.User
 import play.api.libs.json.{JsValue, Json, JsObject}
@@ -34,6 +34,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   var valorPrestacao  : Tpval = new Tpval("","")
   var valorCota  : Tpval = new Tpval("","")
   var numCodigo  : Tpval = new Tpval("","")
+  var codigoConta : Tpval = new Tpval("","")
   var numBancoDeposito  : Tpval = new Tpval("","")
   var nomeBancoDeposito  : Tpval = new Tpval("","")
   var agenciaDeposito  : Tpval = new Tpval("","")
@@ -76,10 +77,8 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
         "valorPrestacao"-> this.valorPrestacao.serialize(),
         "valorCota"-> this.valorCota.serialize(),
         "numCodigo"-> this.numCodigo.serialize(),
-        "numBancoDeposito"-> this.numBancoDeposito.serialize(),
-        "nomeBancoDeposito"-> this.nomeBancoDeposito.serialize(),
-        "agenciaDeposito"-> this.agenciaDeposito.serialize(),
-        "contaDeposito"-> this.contaDeposito.serialize()
+        "codigo_conta"-> this.codigoConta.serialize()
+
       )
     )
   }
@@ -95,10 +94,12 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.valorPrestacao.value = (yobj \ "fields" \ "valorPrestacao" \ "value").as[String]
     this.valorCota.value = (yobj \ "fields" \ "valorCota" \ "value").as[String]
     this.numCodigo.value = (yobj \ "fields" \ "numCodigo" \ "value").as[String]
-    this.numBancoDeposito.value = (yobj \ "fields" \ "numBancoDeposito" \ "value").as[String]
-    this.nomeBancoDeposito.value = (yobj \ "fields" \ "nomeBancoDeposito" \ "value").as[String]
-    this.agenciaDeposito.value = (yobj \ "fields" \ "agenciaDeposito" \ "value").as[String]
-    this.contaDeposito.value = (yobj \ "fields" \ "contaDeposito" \ "value").as[String]
+    this.codigoConta.value = (yobj \ "fields" \ "codigo_conta" \ "value").as[String]
+
+//    this.numBancoDeposito.value = (yobj \ "fields" \ "numBancoDeposito" \ "value").as[String]
+//    this.nomeBancoDeposito.value = (yobj \ "fields" \ "nomeBancoDeposito" \ "value").as[String]
+//    this.agenciaDeposito.value = (yobj \ "fields" \ "agenciaDeposito" \ "value").as[String]
+//    this.contaDeposito.value = (yobj \ "fields" \ "contaDeposito" \ "value").as[String]
 
      this
   }
@@ -117,10 +118,13 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     xCarta.valorEntrada = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorEntrada.value)
     xCarta.valorPrestacao = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorPrestacao.value)
     xCarta.valorCota = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCota.value)
-    xCarta.numBancoDeposito = yobj.numBancoDeposito.value
-    xCarta.nomeBancoDeposito = yobj.nomeBancoDeposito.value
-    xCarta.agenciaDeposito = yobj.agenciaDeposito.value
-    xCarta.contaDeposito = yobj.contaDeposito.value
+
+    val codigo_conta =  (new ContaBancoDAO).findOne(UUID.fromString(yobj.codigoConta.value))
+
+    xCarta.numBancoDeposito = codigo_conta.numBanco
+    xCarta.nomeBancoDeposito = codigo_conta.nomeBanco
+    xCarta.agenciaDeposito = codigo_conta.agencia
+    xCarta.contaDeposito = codigo_conta.conta
 
      xCarta
   }

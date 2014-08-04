@@ -25,6 +25,7 @@
         <class>models.Cadastro.CodigoAcessoHistorico</class>
         <class>models.Proconsorcio.Administradora</class>
         <class>models.Proconsorcio.Carta</class>
+        <class>models.Proconsorcio.CartaHistorico</class>
         <class>models.Proconsorcio.Sequenciador</class>
         <class>models.Proconsorcio.TipoCarta</class>
         <class>models.Proconsorcio.ContaBanco</class>
