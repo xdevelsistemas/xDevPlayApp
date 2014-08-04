@@ -15,40 +15,40 @@
                             <!--TIPO-->
                         <div class="form-group">
                             <label ng-bind="strings.tipo"></label>
-                            <select name="tipo" ng-model="formData.fields.tipo.value"
+                            <select name="codigo_tipocarta" ng-model="formData.fields.codigo_tipocarta.value"
                             required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
                                 <option value=""></option>
                                 <option ng-repeat="item in tipo.lista | orderBy: 'descricao'"
                                 ng-value="item.codigo"
                                 ng-bind="item.descricao"></option>
                             </select>
-                            <span class="error-msg" ng-bind="formData.fields.tipo.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.codigo_tipocarta.error"></span>
                             <p>Requerido</p>
                         </div>
                             <!--ADMINISTRADORA-->
                         <div class="form-group">
                             <label ng-bind="strings.administradora"></label>
-                            <select name="administradora" ng-model="formData.fields.administradora.value"
+                            <select name="codigo_administradora" ng-model="formData.fields.codigo_administradora.value"
                             required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
                                 <option value=""></option>
                                 <option ng-repeat="item in administradora.lista | orderBy: 'descricao'"
                                 ng-value="item.codigo"
                                 ng-bind="item.descricao"></option>
                             </select>
-                            <span class="error-msg" ng-bind="formData.fields.administradora.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.codigo_administradora.error"></span>
                             <p>Requerido</p>
                         </div>
                             <!--CONTEMPLACAO-->
                         <div class="form-group">
                             <label ng-bind="strings.contemplacao"></label>
-                            <select name="contemplacao" ng-model="formData.fields.contemplacao.value"
+                            <select name="codigo_statuscarta" ng-model="formData.fields.codigo_statuscarta.value"
                             required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">
                                 <option value=""></option>
                                 <option ng-repeat="item in contemplacao.lista | orderBy: 'descricao'"
                                 ng-value="item.codigo"
                                 ng-bind="item.descricao"></option>
                             </select>
-                            <span class="error-msg" ng-bind="formData.fields.contemplacao.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.codigo_statuscarta.error"></span>
                             <p>Requerido</p>
                         </div>
                             <!--PRAZO RESTANTE-->
@@ -84,17 +84,17 @@
                             <!--VALOR DAS PRESTAÇÕES-->
                         <div class="form-group">
                             <label ng-bind="strings.valorPrestacoes"></label>
-                            <input type="text" name="valorPrestacoes" ng-model="formData.fields.valorPrestacoes.value"
+                            <input type="text" name="valorPrestacao" ng-model="formData.fields.valorPrestacao.value"
                             required xd-mask-money-brl>
-                            <span class="error-msg" ng-bind="formData.fields.valorPrestacoes.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.valorPrestacao.error"></span>
                             <p>Requerido</p>
                         </div>
                             <!--COTA-->
                         <div class="form-group">
                             <label ng-bind="strings.cota"></label>
-                            <input type="text" name="cota" ng-model="formData.fields.cota.value"
+                            <input type="text" name="valorCota" ng-model="formData.fields.valorCota.value"
                             required xd-mask-money-brl>
-                            <span class="error-msg" ng-bind="formData.fields.cota.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.valorCota.error"></span>
                             <p>Requerido</p>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                             <!--CONTA-->
                         <div class="form-group">
                             <label>Selecione sua conta para depósito</label>
-                            <select name="conta" ng-model="formData.fields.conta.value" required data-placeholder="Selecione uma opção"
+                            <select name="codigo_conta" ng-model="formData.fields.codigo_conta.value" required data-placeholder="Selecione uma opção"
                             ng-options="conta.codigo as formatConta(conta) group by conta.banco.nome for conta in contas.lista | orderBy : 'padrao': 'reverse'">
                                 <option value=""></option>
                             </select>
@@ -138,7 +138,7 @@
                             @*ng-value="conta.codigo" ng-class="{'conta-padrao':conta.padrao == 1}"*@
                             @*ng-bind="formatConta(conta)"></option>*@
                             @*</select>*@
-                            <span class="error-msg" ng-bind="formData.fields.conta.error"></span>
+                            <span class="error-msg" ng-bind="formData.fields.codigo_conta.error"></span>
                             <p>Requerido</p>
                         </div>
                             <!--CÓDIGO-->

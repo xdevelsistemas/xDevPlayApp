@@ -12,9 +12,71 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 "message": ""
             }
         };
+        $scope.conta = "";
         //Funções
         function inicializarModeloForm() {
             $scope.formData.fields = {
+                "codigo": {
+                    "value": "",
+                    "error": ""
+                },
+                "id": {
+                    "value": "",
+                    "error": ""
+                },
+                "codigo_statuscarta": {
+                    "value": "",
+                    "error": ""
+                },
+                "codigo_tipocarta": {
+                    "value": "",
+                    "error": ""
+                },
+                "codigo_administradora": {
+                    "value": "",
+                    "error": ""
+                },
+                "prazoRestante": {
+                    "value": "",
+                    "error": ""
+                },
+                "valorCredito": {
+                    "value": "",
+                    "error": ""
+                },
+                "valorEntrada": {
+                    "value": "",
+                    "error": ""
+                },
+                "valorPrestacao": {
+                    "value": "",
+                    "error": ""
+                },
+                "valorCota": {
+                    "value": "",
+                    "error": ""
+                },
+                "numCodigo": {
+                    "value": "",
+                    "error": ""
+                },
+                "codigo_conta": {
+                    "value": "",
+                    "error": ""
+                }
+            };
+        };
+        //TODO  remover método duplicado
+        function inicializarModeloForm2() {
+            $scope.formData.fields = {
+                "codigo": {
+                    "value": "",
+                    "error": ""
+                },
+                "id": {
+                    "value": "",
+                    "error": ""
+                },
                 "tipo": {
                     "value": "",
                     "error": ""
@@ -84,6 +146,21 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
         $scope.enviarFormNovaCarta = function (form, isInvalid) {
             console.log('>>>', $scope.formData);
+            $scope.formData.fields.valorCredito.error = naoEeNum($scope.formData.fields.valorCredito.value) ? $scope.strings.campoObrigatorio : null;
+            $scope.formData.fields.valorEntrada.error = naoEeNum($scope.formData.fields.valorEntrada.value) ? $scope.strings.campoObrigatorio : null;
+            $scope.formData.fields.valorPrestacao.error = naoEeNum($scope.formData.fields.valorPrestacao.value) ? $scope.strings.campoObrigatorio : null;
+            $scope.formData.fields.valorCota.error = naoEeNum($scope.formData.fields.valorCota.value) ? $scope.strings.campoObrigatorio : null;
+            $.each($scope.formData.fields, function (k, v) {
+                if (k == 'codigo' || k == 'id' || k == 'codigo_conta' || k == 'numCodigo') return;
+                v.error = form[k].$invalid ? $scope.strings.campoObrigatorio : null;
+            });
+            if (isInvalid) return console.log("formulário inválido!");
+            console.log("formulário válido!");
+            $("#modal-selecionarConta").modal('show');
+        };
+        //TODO  remover método duplicado
+        $scope.enviarFormNovaCarta2 = function (form, isInvalid) {
+            console.log('>>>', $scope.formData);
             $scope.formData.fields.tipo.error = form.tipo.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.administradora.error = form.administradora.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.contemplacao.error = form.contemplacao.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -97,7 +174,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $("#modal-selecionarConta").modal('show');
         };
         $scope.enviarFormConta = function (form, isInvalid) {
-            $scope.formData.fields.conta.error = form.conta.$invalid ? $scope.strings.campoObrigatorio : null;
+            $scope.formData.fields.codigo_conta.error = form.codigo_conta.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.numCodigo.error = form.numCodigo.$invalid ? $scope.strings.campoObrigatorio : null;
             console.log('>>>', $scope.formData);
             if (isInvalid) {
@@ -105,7 +182,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 return;
             }
             console.log("formulário válido!");
-            $http.post("url").success(function (data) {
+            return;
+            $http.post("/rest/grid/cartas/add", $scope.formData).success(function (data) {
                 angular.extend($scope.contemplacao, data);
                 if ($scope.resp.result == '1') {
                     inicializarModeloForm();
@@ -130,7 +208,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         });
         $http.get("/rest/grid/contas/list").success(function (data) {
             angular.extend($scope.contas, data);
-            aplicarSelect2Contas("select[name='conta']");
+            aplicarSelect2Contas("select[name='codigo_conta']");
         });
     }]);
 });
