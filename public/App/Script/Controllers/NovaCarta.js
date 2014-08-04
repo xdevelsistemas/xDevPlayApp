@@ -45,6 +45,14 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     "cota": {
                         "value": "",
                         "error": ""
+                    },
+                    "conta": {
+                        "value": "",
+                        "error": ""
+                    },
+                    "numCodigo": {
+                        "value": "",
+                        "error": ""
                     }
                 }
             };
@@ -56,13 +64,31 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             return s === undefined || s === null || isNaN(parseFloat(s.split('.').join('').replace(',', '.')));
         };
 
-        function aplicarSelect2(elm_name, again) {
-            if (again) $(elm_name).select2("destroy")
-            $(elm_name).select2({'width': '100%'});
+        $scope.formatConta = function (conta) {
+            var abre = '';
+            var fecha = '';
+            if (conta.padrao == '1') {
+                abre = '__ABRE__'
+                fecha = '__FECHA__'
+            }
+            return abre + 'AG: ' + conta.agencia + ' / ' + 'CC: ' + conta.conta + fecha;
         };
 
-        $scope.formatConta = function (conta) {
-            return 'AG: ' + conta.agencia + ' / ' + 'CC: ' + conta.conta;
+        function formatResult(item) {
+            return item.text.replace('__ABRE__', '<span class="select-conta-padrao"><i class="icon-white icon-star"></i> (Padrão) ')
+                .replace('__FECHA__', '</span>');
+
+        }
+
+        function formatSelection(item) {
+            return item.text.replace('__ABRE__', '<span class="select-conta-padrao"><i class="icon icon-star"></i> (Padrão) ')
+                .replace('__FECHA__', '</span>');
+
+        }
+
+        function aplicarSelect2Contas(elm_name, again) {
+            if (again) $(elm_name).select2("destroy")
+            $(elm_name).select2({'width': '100%', formatResult: formatResult, formatSelection: formatSelection});
         };
 
 
@@ -79,8 +105,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             if (isInvalid) return console.log("formulário inválido!");
             $("#modal-selecionarConta").modal('show');
         };
-        
+
         $scope.enviarFormConta = function (form, isInvalid) {
+            $scope.formData.fields.conta.error = form.conta.$invalid ? $scope.strings.campoObrigatorio : null;
+            $scope.formData.fields.numCodigo.error = form.numCodigo.$invalid ? $scope.strings.campoObrigatorio : null;
             if (isInvalid) {
                 console.log("formulário inválido!");
                 console.log($scope.formData);
@@ -88,6 +116,15 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
             console.log("formulário válido!");
             console.log($scope.formData);
+            inicializarModeloForm();
+            $("#modal-selecionarConta").modal('hide');
+            //TODO  retirar este mockup
+            $scope.formData = {
+                "resp": {
+                    "result": "1",
+                    "message": "Carta adicionada com sucesso! Acesse o Escritório Online para maiores detalhes."
+                }
+            };
         };
 
         //Inicializador
@@ -105,8 +142,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         });
         $http.get("/rest/grid/contas/list").success(function (data) {
             angular.extend($scope.contas, data);
-            aplicarSelect2("select[name='conta']");
+            aplicarSelect2Contas("select[name='conta']");
         });
 
-    }]);
+    }
+    ])
+    ;
 });

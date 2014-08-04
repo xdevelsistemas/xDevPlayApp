@@ -1,5 +1,10 @@
 <div ng-controller="NovaCarta" ng-cloak class="container" id="pagina-novaCarta">
     <h1 class="page-header fl row" ng-bind="strings.titulo"></h1>
+    <div id="alert-novaConta" class="alert"
+    ng-class="{'alert-error': formData.resp.result == 0, 'alert-info': formData.resp.result == 1}"
+    ng-show="formData.resp.message">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span ng-bind="formData.resp.message"></span></div>
         <!--FORMULARIO-->
     <form name="formNovaCarta" ng-submit="enviarFormNovaCarta(formNovaCarta, formNovaCarta.$invalid)" novalidate>
         <div class="row-fluid">
@@ -118,11 +123,12 @@
                 </div>
                 <div class="tab-pane">
                     <div class="tab-content">
+                            <!--CONTA-->
                         <div class="form-group">
-                            <label>Selecione sua conta</label>
-                            <select class="xd-select" name="conta" ng-model="formData.fields.conta.value" required
-                            ng-options="conta.codigo as formatConta(conta) group by conta.banco.nome for conta in contas.lista">
-                                <option value="" selected disabled>Selecione uma opção</option>
+                            <label>Selecione sua conta para depósito</label>
+                            <select name="conta" ng-model="formData.fields.conta.value" required data-placeholder="Selecione uma opção"
+                            ng-options="conta.codigo as formatConta(conta) group by conta.banco.nome for conta in contas.lista | orderBy : 'padrao': 'reverse'">
+                                <option value=""></option>
                             </select>
                             @*<select name="conta" ng-model="formData.fields.conta.value"*@
                             @*required ui-select2="{width:'100%'}" data-placeholder="Selecione uma opção">*@
@@ -134,12 +140,19 @@
                             <span class="error-msg" ng-bind="formData.fields.conta.error"></span>
                             <p>Requerido</p>
                         </div>
+                            <!--CÓDIGO-->
+                        <div class="form-group">
+                            <label>Digite seu código de acesso</label>
+                            <input type="password" name="numCodigo" ng-model="formData.fields.numCodigo.value" required>
+                            <span class="error-msg" ng-bind="formData.fields.numCodigo.error"></span>
+                            <p>Requerido</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-                <button class="btn btn-primary" type="submit">Selecionar Conta</button>
+                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Voltar</button>
+                <button class="btn btn-primary" type="submit">Concluir</button>
             </div>
         </form>
     </div>

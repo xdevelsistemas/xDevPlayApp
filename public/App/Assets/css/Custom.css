@@ -270,3 +270,29 @@ textarea {
 .modal form {
     margin: 0;
 }
+
+.select-conta-padrao {
+    background-color: #00915E;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 3px 7px 4px;
+    font-size: 100%;
+    line-height: 20px;
+    min-height: 1em;
+    margin-left: -20px;
+    padding-right: 20px;
+}
+
+.select-conta-padrao:hover {
+    background-color: #428bca;
+    color: white;
+}
+
+.select2-chosen .select-conta-padrao {
+    background-color: white;
+    color: #000000;
+    margin-left: 0px;
+    padding: 0;
+}
