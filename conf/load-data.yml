@@ -1,10 +1,11 @@
 # Users
 users:
   - &userAdmin !!models.User
-      email: "clayton@xdevel.com.br"
-      realName: "Clayton Silva"
-      codigoPlano: "teste"
-      providerId: "userpass"
+      email:                 "clayton@xdevel.com.br"
+      realName:              "Clayton Silva"
+      codigoPlano:           "teste"
+      providerId:            "userpass"
+      isAdmin:               true
 # Identities
 
 identities:
@@ -20,7 +21,6 @@ identities:
       hasPasswordInfo:      true
       passwordInfoHasher:   "bcrypt"
       passwordInfoPassword: "$2a$10$igmSTb.c2uxs6SXDA0fShuzU4k9ioxYAPsUcvszCgSJvEBvqcPXva"
-      isAdmin:               true
 
 # Administradoras
 administradoras:
