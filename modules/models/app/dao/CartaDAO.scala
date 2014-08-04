@@ -30,8 +30,9 @@ class CartaDAOextend extends CartaDAO {
   def add(yobj : Carta, user : User) : CartaForm = {
     try {
 
+      val xseq = (new SequenciadorDAO()).save(new Sequenciador)
 
-      yobj.friendlyID = new Sequenciador
+      yobj.friendlyID = xseq
       yobj.usuario = user
       save(yobj)
 
@@ -48,5 +49,9 @@ class CartaDAOextend extends CartaDAO {
 
 
   }
+
+
+
+
 
 }
