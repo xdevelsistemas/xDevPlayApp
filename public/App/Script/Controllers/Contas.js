@@ -74,17 +74,32 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         $scope.removerConta = function (conta) {
             if (window.confirm("Tem certeza de que quer remover esta conta?" +
-                "\n\n" + conta.banco.nome + "\nAG:" + conta.agencia + "\nCC:" + conta.conta)) {
-                console.log('Conta removida!');
+                "\n\n" + conta.banco.nome + "\nAG: " + conta.agencia + "\nCC: " + conta.conta + "\n\n")) {
+                $http.post("/rest/grid/contas/remove/" + conta.codigo).success(function (data) {
+                    console.log(data);
+                    console.log('Conta removida!');
+                    $http.get("/rest/grid/contas/list").success(function (data2) {
+                        angular.extend($scope.contas, data2);
+                        aplicarDatatables("#tabela-contas", true);
+                    });
+                });
             }
         };
 
         $scope.tornarPadrao = function (conta) {
-            console.log('Conta marcada como padrão!');
+            $http.post("/rest/grid/contas/setpadrao/" + conta.codigo).success(function (data) {
+                console.log(data);
+                console.log('Conta marcada como padrão!');
+                $http.get("/rest/grid/contas/list").success(function (data2) {
+                    angular.extend($scope.contas, data2);
+                    aplicarDatatables("#tabela-contas", true);
+                });
+            });
         };
 
 
-        function aplicarDatatables(elmId) {
+        function aplicarDatatables(elmId, again) {
+            if (again)$(elmId).dataTable().fnDestroy();
             window.setTimeout(function () {
                 $(elmId).dataTable({
                     language: {
@@ -110,8 +125,12 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                             "sSortDescending": ": Ordenar colunas de forma descendente"
                         }
                     },
-                    "aoColumnDefs": [{ "bSortable": false, "aTargets": [ 0, 4 ] }],
-                    "aaSorting": [[1,'asc']]
+                    "aoColumnDefs": [
+                        { "bSortable": false, "aTargets": [ 0, 4 ] }
+                    ],
+                    "aaSorting": [
+                        [1, 'asc']
+                    ]
                 });
             }, 100);
         }
