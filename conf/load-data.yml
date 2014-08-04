@@ -20,7 +20,7 @@ identities:
       hasPasswordInfo:      true
       passwordInfoHasher:   "bcrypt"
       passwordInfoPassword: "$2a$10$igmSTb.c2uxs6SXDA0fShuzU4k9ioxYAPsUcvszCgSJvEBvqcPXva"
-      isAdmin               true
+      isAdmin:               true
 
 # Administradoras
 administradoras:
