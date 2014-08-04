@@ -1,6 +1,7 @@
 define([
     '../Libs/jquery.mask.min',
     '../Libs/jquery.inputmask/jquery.inputmask.bundle.min',
+    '../Libs/jquery-maskmoney/jquery.maskMoney.min',
     '../Libs/js/aviators-map',
     '../Libs/js/gmap3.infobox.min',
     '../Libs/js/retina',

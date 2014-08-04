@@ -4,7 +4,8 @@
     ng-class="{'alert-error': formData.resp.result == 0, 'alert-info': formData.resp.result == 1}"
     ng-show="formData.resp.message">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <span ng-bind="formData.resp.message"></span></div>
+        <span ng-bind-html="formData.resp.message"></span>
+    </div>
         <!--FORMULARIO-->
     <form name="formNovaCarta" ng-submit="enviarFormNovaCarta(formNovaCarta, formNovaCarta.$invalid)" novalidate>
         <div class="row-fluid">
