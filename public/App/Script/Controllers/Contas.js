@@ -70,7 +70,18 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                             inicializarModeloForm();
                         });
                 });
-        }
+        };
+
+        $scope.removerConta = function (conta) {
+            if (window.confirm("Tem certeza de que quer remover esta conta?" +
+                "\n\n" + conta.banco.nome + "\nAG:" + conta.agencia + "\nCC:" + conta.conta)) {
+                console.log('Conta removida!');
+            }
+        };
+
+        $scope.tornarPadrao = function (conta) {
+            console.log('Conta marcada como padrão!');
+        };
 
 
         function aplicarDatatables(elmId) {
@@ -98,29 +109,28 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                             "sSortAscending": ": Ordenar colunas de forma ascendente",
                             "sSortDescending": ": Ordenar colunas de forma descendente"
                         }
-                    }
+                    },
+                    "aoColumnDefs": [{ "bSortable": false, "aTargets": [ 0, 4 ] }],
+                    "aaSorting": [[1,'asc']]
                 });
             }, 100);
         }
 
         //Inicializador
-        (function () {
-            $http.get("/rest/grid/contas/list").success(function (data) {
-                angular.extend($scope.contas, data);
-                aplicarDatatables("#tabela-contas");
-            });
-            $http.get("/rest/list/getbanco").success(function (data) {
-                $.extend(true, $scope.bancos, data);
-            });
+        $http.get("/rest/grid/contas/list").success(function (data) {
+            angular.extend($scope.contas, data);
+            aplicarDatatables("#tabela-contas");
+        });
+        $http.get("/rest/list/getbanco").success(function (data) {
+            $.extend(true, $scope.bancos, data);
+        });
 
-            //hack to prevent the ENTER key to close the modal
-            $('input').bind('keypress', function (e) {
-                if (e.keyCode == 13) { //Enter keycode
-                    e.preventDefault();
-                }
-            });
-
-        })();
+        //hack to prevent the ENTER key to close the modal
+        $('input').bind('keypress', function (e) {
+            if (e.keyCode == 13) { //Enter keycode
+                e.preventDefault();
+            }
+        });
 
     }]);
 });

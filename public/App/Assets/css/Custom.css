@@ -296,3 +296,12 @@ textarea {
     margin-left: 0px;
     padding: 0;
 }
+
+td.contas-padrao i, td.contas-remover i {
+    margin-right: 8px;
+}
+
+td.contas-padrao, td.contas-remover {
+    text-align: center;
+    vertical-align: middle;
+}

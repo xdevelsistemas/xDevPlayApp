@@ -14,7 +14,7 @@
 
         <div class="span12">
             <div class="tab-content">
-                <table id="tabela-contas" class="table table-striped table-bordered dataTable no-footer">
+                <table id="tabela-contas" class="table display table-striped table-bordered dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>
@@ -27,13 +27,17 @@
                     <tbody>
                         <tr ng-repeat="item in contas.lista">
                             <td class="contas-padrao">
-                                <a href ="#">Padrão </a>
+                                <span ng-show="item.padrao=='1'"><i class="icon icon-ok"></i>
+                                    <strong><i>Padrão</i></strong></span>
+                                <a ng-show="item.padrao=='0'" class="btn" ng-click="tornarPadrao(item)">
+                                    <i class="icon icon-edit"></i> <i>Tornar Padrão</a>
                             </td>
                             <td class="contas-banco" ng-bind="item.banco.nome"></td>
                             <td class="contas-agencia" ng-bind="item.agencia"></td>
                             <td class="contas-conta" ng-bind="item.conta"></td>
                             <td class="contas-remover">
-                                <a href="#">Remover</a>
+                                <a ng-click="removerConta(item)" class="btn">
+                                    <i class="icon icon-trash"></i>Remover</a>
                             </td>
                         </tr>
                     </tbody>
