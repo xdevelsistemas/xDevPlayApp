@@ -109,7 +109,13 @@ public class AbstractDAO<T extends AbstractModel> {
 
     public void delete(UUID uuid) {
         T o = findOne(uuid);
-        if (o != null) em.remove(o);
+        if (o != null) {
+            em.getTransaction().begin();
+            em.remove(o);
+            em.flush();
+            em.getTransaction().commit();
+        }
+
     }
 
 }
