@@ -1,6 +1,6 @@
 define(['./__module__', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('NovaCarta', ['$scope', '$http', function ($scope, $http) {
+    controllers.controller('NovaCarta', ['$scope', '$http', '$sce', function ($scope, $http, $sce) {
         $scope.strings = {};
         $scope.tipo = {};
         $scope.administradora = {};
@@ -121,7 +121,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $scope.formData = {
                 "resp": {
                     "result": "1",
-                    "message": "Carta adicionada com sucesso! Acesse o Escritório Online para maiores detalhes."
+                    "message": $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio"><strong>Escritório Online</strong></a> para maiores detalhes.')
                 }
             };
         };
