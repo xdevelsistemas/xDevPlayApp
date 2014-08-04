@@ -73,17 +73,18 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
 
         $scope.removerConta = function (conta) {
-            if (window.confirm("Tem certeza de que quer remover esta conta?" +
-                "\n\n" + conta.banco.nome + "\nAG: " + conta.agencia + "\nCC: " + conta.conta + "\n\n")) {
-                $http.post("/rest/grid/contas/remove/" + conta.codigo).success(function (data) {
-                    console.log(data);
-                    console.log('Conta removida!');
-                    $http.get("/rest/grid/contas/list").success(function (data2) {
-                        angular.extend($scope.contas, data2);
-                        aplicarDatatables("#tabela-contas", true);
-                    });
+            $http.post("/rest/grid/contas/remove/" + conta.codigo).success(function (data) {
+                console.log(data);
+                console.log('Conta removida!');
+                $http.get("/rest/grid/contas/list").success(function (data2) {
+                    angular.extend($scope.contas, data2);
+                    aplicarDatatables("#tabela-contas", true);
                 });
-            }
+            });
+            //TODO modal confirm
+            /*if (window.confirm("Tem certeza de que quer remover esta conta?" +
+             "\n\n" + conta.banco.nome + "\nAG: " + conta.agencia + "\nCC: " + conta.conta + "\n\n")) {
+             }*/
         };
 
         $scope.tornarPadrao = function (conta) {
