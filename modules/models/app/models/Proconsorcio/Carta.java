@@ -81,6 +81,26 @@ public class Carta extends AbstractModel {
 
 
     @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO_APROVACAO_AVALIACAO")
+    public User usuarioAprovacaoAvaliacao;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "HORA_APROVACAO_AVALIACAO")
+    public Date horaAprovacaoAvaliacao;
+
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO_APROVACAO_VENDA")
+    public User usuarioAprovacaoVenda;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "HORA_APROVACAO_VENDA")
+    public Date horaAprovacaoVenda;
+
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "ID_USUARIO_CANCELAMENTO")
     public User usuarioCancelamento;
 
@@ -133,10 +153,18 @@ public class Carta extends AbstractModel {
     public String contaDeposito;
 
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_ULTIMO_EVENTO")
+    public CartaHistorico ultimoEvento;
+
+
 
 
     @Column(name = "AVALIACAO_COMPRADOR")
     public String avaliacaoComprador;
+
+
+
 
 
 

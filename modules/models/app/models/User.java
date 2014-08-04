@@ -59,6 +59,9 @@ public class User extends AbstractModel {
     @Column(name="CODIGO_ACESSO")
     public String codigoAcesso;
 
+    @Column(name="ADMIN")
+    public Boolean isadmin;
+
 
 //    @ManyToOne(fetch=FetchType.LAZY)
 //    @JoinColumn(name = "ID_UF")
@@ -93,6 +96,7 @@ public class User extends AbstractModel {
         super.prePersist();
 
         setNumCodigo(this.codigoPlano);
+
 
 
     }
