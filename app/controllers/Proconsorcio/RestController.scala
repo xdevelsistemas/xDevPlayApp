@@ -29,6 +29,20 @@ import play.api.Play.current
  */
 object RestController extends xDevRestController {
 
+  def getResultPesquisa(query: String) = Action { implicit request =>
+
+
+    query.split('&').map(_.split('='))
+
+
+    for (i <- request.queryString.toList) {
+
+    }
+
+    Ok(Json.toJson(Json.arr(request.queryString)))
+  }
+
+
   def getAdministradoras = Cached("list.administradoras") {
     Action {
 
@@ -103,7 +117,11 @@ object RestController extends xDevRestController {
 
     } catch {
       case e: Exception => {
-        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+        BadRequest(new TpResponse("0", if (e.getMessage == null) {
+          "erro de execução"
+        } else {
+          e.getMessage
+        }).serialize())
       }
     }
 
@@ -129,7 +147,11 @@ object RestController extends xDevRestController {
 
         } catch {
           case e: Exception => {
-            BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+            BadRequest(new TpResponse("0", if (e.getMessage == null) {
+              "erro de execução"
+            } else {
+              e.getMessage
+            }).serialize())
           }
         }
 
@@ -156,7 +178,11 @@ object RestController extends xDevRestController {
 
     } catch {
       case e: Exception => {
-        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+        BadRequest(new TpResponse("0", if (e.getMessage == null) {
+          "erro de execução"
+        } else {
+          e.getMessage
+        }).serialize())
       }
     }
 
@@ -194,20 +220,46 @@ object RestController extends xDevRestController {
   }
 
 
+  def getListaContasLookup = SecuredAction { implicit request =>
+    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+    val dao = new ContaBancoDAO
+
+    val ctas = (dao.findAllbyUser(user)).asScala
+
+
+    Ok(
+
+      Json.toJson(
+
+        Json.obj("data" ->
+          Json.obj("results" -> Json.arr(
+
+            ctas.groupBy(t => t.nomeBanco).map(
+              u => Json.obj("title" -> u._1,
+                "children" -> u._2.map(w => Json.obj("id" -> w.uuid, "title" -> w.conta)
+                )
+              )
+            )
+
+          ))))
+    )
+
+  }
+
+
   def handleInsertCarta = SecuredAction(parse.json) { implicit request =>
 
     try {
 
       val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
       val frm = (new CartaForm)
-      val carta = frm.readAndValidate(request.body,user)
+      val carta = frm.readAndValidate(request.body, user)
       val dao = new CartaDAOextend
 
 
-      if (frm.status.result.equals("0"))
-      {
+      if (frm.status.result.equals("0")) {
         BadRequest(frm.serialize())
-      }else{
+      } else {
 
         JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
           def apply: SimpleResult = {
@@ -226,7 +278,11 @@ object RestController extends xDevRestController {
 
     } catch {
       case e: Exception => {
-        BadRequest(new TpResponse("0", if(e.getMessage == null){"erro de execução"}else{e.getMessage}).serialize())
+        BadRequest(new TpResponse("0", if (e.getMessage == null) {
+          "erro de execução"
+        } else {
+          e.getMessage
+        }).serialize())
       }
     }
 
