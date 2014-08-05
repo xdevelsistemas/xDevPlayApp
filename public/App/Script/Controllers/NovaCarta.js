@@ -66,59 +66,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 }
             };
         };
-        //TODO  remover método duplicado
-        function inicializarModeloForm2() {
-            $scope.formData.fields = {
-                "codigo": {
-                    "value": "",
-                    "error": ""
-                },
-                "id": {
-                    "value": "",
-                    "error": ""
-                },
-                "tipo": {
-                    "value": "",
-                    "error": ""
-                },
-                "administradora": {
-                    "value": "",
-                    "error": ""
-                },
-                "contemplacao": {
-                    "value": "",
-                    "error": ""
-                },
-                "prazoRestante": {
-                    "value": "",
-                    "error": ""
-                },
-                "valorCredito": {
-                    "value": "",
-                    "error": ""
-                },
-                "valorEntrada": {
-                    "value": "",
-                    "error": ""
-                },
-                "valorPrestacoes": {
-                    "value": "",
-                    "error": ""
-                },
-                "cota": {
-                    "value": "",
-                    "error": ""
-                },
-                "conta": {
-                    "value": "",
-                    "error": ""
-                },
-                "numCodigo": {
-                    "value": "",
-                    "error": ""
-                }
-            };
-        };
         function naoEeNum(s) {
             return s === undefined || s === null || isNaN(parseFloat(s.replace('R$ ', '').split('.').join('').replace(',', '.')));
         };
@@ -162,21 +109,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             console.log("formulário válido!");
             $("#modal-selecionarConta").modal('show');
         };
-        //TODO  remover método duplicado
-        $scope.enviarFormNovaCarta2 = function (form, isInvalid) {
-            console.log('>>>', $scope.formData);
-            $scope.formData.fields.tipo.error = form.tipo.$invalid ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.administradora.error = form.administradora.$invalid ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.contemplacao.error = form.contemplacao.$invalid ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.prazoRestante.error = form.prazoRestante.$invalid ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.valorCredito.error = form.valorCredito.$invalid || naoEeNum($scope.formData.fields.valorCredito.value) ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.valorEntrada.error = form.valorEntrada.$invalid || naoEeNum($scope.formData.fields.valorEntrada.value) ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.valorPrestacoes.error = form.valorPrestacoes.$invalid || naoEeNum($scope.formData.fields.valorPrestacoes.value) ? $scope.strings.campoObrigatorio : null;
-            $scope.formData.fields.cota.error = form.cota.$invalid || naoEeNum($scope.formData.fields.cota.value) ? $scope.strings.campoObrigatorio : null;
-            if (isInvalid) return console.log("formulário inválido!");
-            console.log("formulário válido!");
-            $("#modal-selecionarConta").modal('show');
-        };
         $scope.enviarFormConta = function (form, isInvalid) {
             $scope.formData.fields.codigo_conta.error = form.codigo_conta.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.numCodigo.error = form.numCodigo.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -187,8 +119,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
             console.log("formulário válido!");
             $http.post("/rest/grid/cartas/add", $scope.formData).success(function (data) {
-                angular.extend($scope.contemplacao, data);
-                if ($scope.resp.result == '1') {
+                angular.extend($scope.formData, data);
+                if ($scope.formData.resp.result == '1') {
                     inicializarModeloForm();
                     $("#modal-selecionarConta").modal('hide');
                     $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio"><strong>Escritório Online</strong></a> para maiores detalhes.');
