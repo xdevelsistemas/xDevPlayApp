@@ -182,7 +182,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 return;
             }
             console.log("formulário válido!");
-            return;
             $http.post("/rest/grid/cartas/add", $scope.formData).success(function (data) {
                 angular.extend($scope.contemplacao, data);
                 if ($scope.resp.result == '1') {
