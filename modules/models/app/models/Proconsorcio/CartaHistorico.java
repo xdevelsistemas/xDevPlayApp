@@ -20,14 +20,14 @@ public class CartaHistorico  extends AbstractModel {
 
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name="STATUS_CARTA_ADM",nullable = false)
+    @Column(name="STATUS_CARTA_ADM_ANTES",nullable = false)
     @NotNull(message="Campo 'Status Carta' não pode ser nulo")
     public EstatusAdministrativo statusCartaAdmAntes;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name="STATUS_CARTA_ADM",nullable = false)
     @NotNull(message="Campo 'Status Carta' não pode ser nulo")
-    public EstatusAdministrativo statusCartaAdmAtual;
+    public EstatusAdministrativo statusCartaAdm;
 
 
     @Column(name = "JUSTIFICATIVA")
@@ -39,7 +39,7 @@ public class CartaHistorico  extends AbstractModel {
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO_COMPRA")
+    @JoinColumn(name = "ID_USUARIO_EVENTO")
     public User usuarioEvento;
 
 

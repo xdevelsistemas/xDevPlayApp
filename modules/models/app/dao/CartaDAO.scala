@@ -37,7 +37,7 @@ class CartaDAOextend extends CartaDAO {
       if (yCarta.usuario == yUser){
         tpOper = ETipoTransacao.Venda
       }else{
-        if(yUser.isadmin){
+        if(yUser.isAdmin){
           tpOper = ETipoTransacao.Gerenciar
         }else{
           tpOper = ETipoTransacao.Compra
@@ -77,7 +77,7 @@ class CartaDAOextend extends CartaDAO {
          hist.horaevento = new Date()
          hist.justificativa = yJustificativa
          hist.statusCartaAdmAntes = carta.statusCartaAdm
-         hist.statusCartaAdmAtual = statusNovo
+         hist.statusCartaAdm = statusNovo
          hist.usuarioComprador = carta.usuarioCompra
          carta.ultimoEvento =  daohist.save(hist)
          dao.save(carta)

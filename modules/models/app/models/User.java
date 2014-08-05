@@ -60,7 +60,7 @@ public class User extends AbstractModel {
     public String codigoAcesso;
 
     @Column(name="ADMIN")
-    public Boolean isadmin;
+    public Boolean isAdmin;
 
 
 //    @ManyToOne(fetch=FetchType.LAZY)

@@ -5,6 +5,7 @@ users:
       realName:              "Clayton Silva"
       codigoPlano:           "teste"
       providerId:            "userpass"
+      isAdmin:               true
 # Identities
 
 identities:
