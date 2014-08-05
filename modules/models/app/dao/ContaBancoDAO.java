@@ -42,7 +42,7 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
 
     private ArrayList<ContaBanco> findAllDefaultbyUser(User user) {
         List<ContaBanco> lista_usuario = findAllbyUser(user);
-        ArrayList<ContaBanco> xresult = new ArrayList<>();
+        ArrayList<ContaBanco> xresult = new ArrayList<ContaBanco>();
         for (ContaBanco item : lista_usuario) {
             if (item.ativo && item.padrao) {
                 xresult.add(item);
