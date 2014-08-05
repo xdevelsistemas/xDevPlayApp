@@ -32,7 +32,7 @@ GET         /rest/list/getordem                      controllers.Proconsorcio.Re
 GET         /rest/list/getordenador                  controllers.Proconsorcio.RestController.getOrdenador
 
 #contas bancárias
-GET         /rest/list/contas/listlook               controllers.Proconsorcio.RestController.getListaContasLookup
+GET         /rest/list/contas/listlookup             controllers.Proconsorcio.RestController.getListaContasLookup
 GET         /rest/grid/contas/list                   controllers.Proconsorcio.RestController.getConta
 POST        /rest/grid/contas/add                    controllers.Proconsorcio.RestController.handleInsertConta
 POST        /rest/grid/contas/setpadrao/:id          controllers.Proconsorcio.RestController.handleSetPadrao(id)

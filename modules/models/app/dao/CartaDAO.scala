@@ -59,9 +59,9 @@ class CartaDAOextend extends CartaDAO {
 
 
 
-       val dao = new CartaDAOextend
+
        val daohist = new CartaHistoricoDAO
-       val carta = dao.findbyFriendlyId(id)
+       val carta = findbyFriendlyId(id)
 
        if (carta == null){
          new TpResponse("0","Carta não encontrada")
@@ -80,7 +80,7 @@ class CartaDAOextend extends CartaDAO {
          hist.statusCartaAdm = statusNovo
          hist.usuarioComprador = carta.usuarioCompra
          carta.ultimoEvento =  daohist.save(hist)
-         dao.save(carta)
+         save(carta)
 
 
        }

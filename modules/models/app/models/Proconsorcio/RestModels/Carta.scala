@@ -18,8 +18,8 @@ import play.api.libs.json.{JsValue, Json, JsObject}
  */
 class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
 
-  val ptBr = new Locale("pt", "BR")
-  val numberFormat = NumberFormat.getInstance(ptBr)
+  private val ptBr = new Locale("pt", "BR")
+  private val numberFormat = NumberFormat.getInstance(ptBr)
 
 
   var status : TpResponse = new TpResponse("1","")
@@ -34,7 +34,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   var valorPrestacao  : Tpval = new Tpval("","")
   var valorCota  : Tpval = new Tpval("","")
   var numCodigo  : Tpval = new Tpval("","")
-  var codigoConta : Tpval = new Tpval("","")
+  private var codigoConta : Tpval = new Tpval("","")
   var numBancoDeposito  : Tpval = new Tpval("","")
   var nomeBancoDeposito  : Tpval = new Tpval("","")
   var agenciaDeposito  : Tpval = new Tpval("","")
@@ -77,8 +77,10 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
         "valorPrestacao"-> this.valorPrestacao.serialize(),
         "valorCota"-> this.valorCota.serialize(),
         "numCodigo"-> this.numCodigo.serialize(),
-        "codigo_conta"-> this.codigoConta.serialize()
-
+        "numBancoDeposito"-> this.numBancoDeposito.serialize(),
+        "nomeBancoDeposito"-> this.nomeBancoDeposito.serialize(),
+        "agenciaDeposito"-> this.agenciaDeposito.serialize(),
+        "contaDeposito"-> this.contaDeposito.serialize()
       )
     )
   }
@@ -322,11 +324,6 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 
 
 }
-
-
-
-
-
 
 
 

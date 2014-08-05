@@ -31,19 +31,13 @@ object RestController extends xDevRestController {
 
   def getResultPesquisa(query: String) = Action { implicit request =>
 
-
-    query.split('&').map(_.split('='))
-
-
-    for (i <- request.queryString.toList) {
-
-    }
-
     Ok(Json.toJson(Json.arr(request.queryString)))
   }
 
 
-  def getAdministradoras = Cached("list.administradoras") {
+  def getAdministradoras =
+    //Cached("list.administradoras")
+   // {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
@@ -62,9 +56,11 @@ object RestController extends xDevRestController {
 
 
     }
-  }
+  //}
 
-  def getTipoCarta = Cached("list.tipocartas") {
+  def getTipoCarta =
+    //Cached("list.tipocartas")
+    //{
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
@@ -82,7 +78,7 @@ object RestController extends xDevRestController {
       JsonResult(resp)
 
     }
-  }
+  //}
 
 
   def getConta = SecuredAction { implicit request =>
@@ -98,15 +94,10 @@ object RestController extends xDevRestController {
 
       val ctaBanco = (new ContaBancoForm).read(request.body)
       val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
-      val dao = new ContaBancoDAO
-
-
-
 
       JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
         def apply: SimpleResult = {
-          val cta = dao.add(ctaBanco, user)
-
+          val cta = (new ContaBancoDAO).add(ctaBanco, user)
           if (cta.status.result.equals("0")) {
             BadRequest(cta.serialize())
           } else {
@@ -254,7 +245,6 @@ object RestController extends xDevRestController {
       val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
       val frm = (new CartaForm)
       val carta = frm.readAndValidate(request.body, user)
-      val dao = new CartaDAOextend
 
 
       if (frm.status.result.equals("0")) {
@@ -262,6 +252,7 @@ object RestController extends xDevRestController {
       } else {
 
         JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
+          val dao = new CartaDAOextend
           def apply: SimpleResult = {
             carta.usuario = user
             val frm_novacarta = dao.add(carta, user)
