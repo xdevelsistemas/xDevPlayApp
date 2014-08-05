@@ -1,6 +1,6 @@
 define(['./__module__', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('NovaCarta', ['$scope', '$http', '$sce', function ($scope, $http, $sce) {
+    controllers.controller('NovaCarta', ['$scope', '$http', '$sce', '$rootScope', function ($scope, $http, $sce, $rootScope) {
         $scope.strings = {};
         $scope.tipo = {};
         $scope.administradora = {};
@@ -217,7 +217,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 aplicarSelect2Contas("select[name='codigo_conta']");
             });
         });
-        $scope.$emit('contaAdicionada');
+        $rootScope.$broadcast('contaAdicionada');
 
 
 //        $http.get("/rest/grid/contas/list").success(function (data) {

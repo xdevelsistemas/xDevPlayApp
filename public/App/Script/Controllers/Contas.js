@@ -1,6 +1,6 @@
 define(['./__module__', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('Contas', ['$scope', '$http', function ($scope, $http) {
+    controllers.controller('Contas', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope) {
 
         $scope.strings = {};
         $scope.contas = {
@@ -43,7 +43,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             };
         };
         function abrirModalSelecionarConta() {
-            $scope.$emit('contaAdicionada');
+            $rootScope.$broadcast('contaAdicionada');
             $("#modal-novaConta").modal('hide');
             $("#modal-selecionarConta").modal('show');
         };
