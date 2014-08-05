@@ -43,6 +43,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             };
         };
         function abrirModalSelecionarConta() {
+            $scope.$emit('contaAdicionada');
             $("#modal-novaConta").modal('hide');
             $("#modal-selecionarConta").modal('show');
         };

@@ -195,6 +195,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 }
             });
         };
+
         //Inicializador
         inicializarModeloForm();
         $http.get("/assets/App/Mockup/NovaCarta/strings.json").success(function (data) {
@@ -209,9 +210,21 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $http.get("/rest/list/getcontemplacao").success(function (data) {
             angular.extend($scope.contemplacao, data);
         });
-        $http.get("/rest/grid/contas/list").success(function (data) {
-            angular.extend($scope.contas, data);
-            aplicarSelect2Contas("select[name='codigo_conta']");
+
+        $scope.$on('contaAdicionada', function (event, ergs) {
+            $http.get("/rest/grid/contas/list").success(function (data) {
+                angular.extend($scope.contas, data);
+                aplicarSelect2Contas("select[name='codigo_conta']");
+            });
         });
+        $scope.$emit('contaAdicionada');
+
+
+//        $http.get("/rest/grid/contas/list").success(function (data) {
+//            angular.extend($scope.contas, data);
+//            aplicarSelect2Contas("select[name='codigo_conta']");
+//        });
+
+
     }]);
 });
