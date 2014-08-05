@@ -135,6 +135,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             if (again) $(elm_name).select2("destroy")
             $(elm_name).select2({'width': '100%', formatResult: formatResult, formatSelection: formatSelection});
         };
+        $scope.abrirModalNovaConta = function () {
+            $("#modal-selecionarConta").modal('hide');
+            $("#modal-novaConta").modal('show');
+        };
         $scope.formatConta = function (conta) {
             var abre = '';
             var fecha = '';

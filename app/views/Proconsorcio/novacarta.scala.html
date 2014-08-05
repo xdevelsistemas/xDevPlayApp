@@ -127,7 +127,7 @@
                             <!--CONTA-->
                         <div class="form-group">
                             <label>Selecione sua conta para depósito</label>
-                            <a class="btn btn-primary btn-nova-conta pull-right">Nova Conta</a>
+                            <a ng-click="abrirModalNovaConta()" class="btn btn-primary btn-nova-conta pull-right">Nova Conta</a>
                             <select name="codigo_conta" ng-model="formData.fields.codigo_conta.value" required data-placeholder="Selecione uma opção"
                             ng-options="conta.codigo as formatConta(conta) group by conta.banco.nome for conta in contas.lista | orderBy : 'padrao': 'reverse'">
                                 <option value=""></option>
@@ -166,7 +166,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="novaConta">Adicionar nova conta</h3>
     </div>
-    <form name="formNovaConta" novalidate ng-submit="adicionarConta(formNovaConta, formNovaConta.$invalid)">
+    <form name="formNovaConta" novalidate ng-submit="adicionarConta(formNovaConta, formNovaConta.$invalid, true)">
         <div class="modal-body">
             <div id="alert-novaConta" class="alert"
             ng-class="{'alert-error': formData.result == 0, 'alert-info': formData.result == 1}"

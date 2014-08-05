@@ -42,9 +42,13 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 }
             };
         };
+        function abrirModalSelecionarConta() {
+            $("#modal-novaConta").modal('hide');
+            $("#modal-selecionarConta").modal('show');
+        };
         inicializarModeloForm();
 
-        $scope.adicionarConta = function (form, isInvalid) {
+        $scope.adicionarConta = function (form, isInvalid, estaEmNovaCarta) {
             $scope.formData.fields.numBanco.error = form.numBanco.$invalid ? "Este é um campo obrigatório." : null;
             $scope.formData.fields.agencia.error = form.agencia.$invalid ? "Este é um campo obrigatório." : null;
             $scope.formData.fields.conta.error = form.conta.$invalid ? "Este é um campo obrigatório." : null;
@@ -62,13 +66,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     angular.extend($scope.formData, data);
                     //em caso da resposta ter sido positiva
                     if ($scope.formData.resp.result == '1')
-                        $http.get("/rest/grid/contas/list").success(function (data2) {
-                            angular.extend($scope.contas, data2);
-                            $("#tabela-contas").dataTable().fnDestroy();
-                            aplicarDatatables("#tabela-contas");
-                            $('#modal-novaConta').modal("hide");
-                            inicializarModeloForm();
-                        });
+                        if (estaEmNovaCarta)
+                            abrirModalSelecionarConta();
+                        else
+                            $http.get("/rest/grid/contas/list").success(function (data2) {
+                                angular.extend($scope.contas, data2);
+                                $("#tabela-contas").dataTable().fnDestroy();
+                                aplicarDatatables("#tabela-contas");
+                                $('#modal-novaConta').modal("hide");
+                                inicializarModeloForm();
+                            });
                 });
         };
 
