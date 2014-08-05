@@ -300,3 +300,7 @@ td.contas-padrao, td.contas-remover {
     text-align: center;
     vertical-align: middle;
 }
+
+.btn-nova-conta {
+    margin-bottom: 12px;
+}
