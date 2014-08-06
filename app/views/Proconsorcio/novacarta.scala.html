@@ -6,6 +6,10 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <span ng-bind-html="formData.resp.message"></span>
     </div>
+    <div id="alert-selecionarConta" class="alert"
+    ng-class="{'alert-error': formData.result == 0, 'alert-info': formData.result == 1}"
+    ng-show="formData.message" ng-bind="formData.message">
+    </div>
         <!--FORMULARIO-->
     <form name="formNovaCarta" ng-submit="enviarFormNovaCarta(formNovaCarta, formNovaCarta.$invalid)" novalidate>
         <div class="row-fluid">
@@ -118,10 +122,6 @@
         </div>
         <form name="formSelecionarConta" novalidate ng-submit="enviarFormConta(formSelecionarConta, formSelecionarConta.$invalid)">
             <div class="modal-body">
-                <div id="alert-selecionarConta" class="alert"
-                ng-class="{'alert-error': formData.result == 0, 'alert-info': formData.result == 1}"
-                ng-show="formData.message" ng-bind="formData.message">
-                </div>
                 <div class="tab-pane">
                     <div class="tab-content">
                             <!--CONTA-->
@@ -168,10 +168,6 @@
     </div>
     <form name="formNovaConta" novalidate ng-submit="adicionarConta(formNovaConta, formNovaConta.$invalid, true)">
         <div class="modal-body">
-            <div id="alert-novaConta" class="alert"
-            ng-class="{'alert-error': formData.result == 0, 'alert-info': formData.result == 1}"
-            ng-show="formData.message" ng-bind="formData.message">
-                </div>
             <div class="tab-pane">
                 <div class="tab-content">
                     <div class="form-group">
