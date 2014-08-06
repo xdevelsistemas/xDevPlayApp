@@ -1,10 +1,18 @@
-@(userForms: play.api.data.Form[models.Cadastro.AlterarDadosInfo], msg: String)(implicit request: play.api.mvc.RequestHeader)
+@(userForms: play.api.data.Form[models.Cadastro.AlterarDadosInfo], msg: String, user: Option[securesocial.core.Identity], userdao: dao.UserDAO )(implicit request: play.api.mvc.RequestHeader)
 @import helper._
     @implicitFieldConstructor = @{
         FieldConstructor(defaultFieldConstructor.f)
     }
 
 <div ng-controller="SignUp" ng-cloak class="container" id="pagina-signUp">
+    @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }, É muito importante completar o cadastro, sem isso você não poderá negociar Cartas
+        </div>
+    }
     <div class="row">
         <div id="main" class="span12">
             <div class="login-register">

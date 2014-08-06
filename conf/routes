@@ -16,6 +16,7 @@ POST        /dadoscadastrais                         controllers.Proconsorcio.Ap
 GET         /escritorio                              controllers.Proconsorcio.Application.escritorio()
 GET         /contas                                  controllers.Proconsorcio.Application.contas()
 GET         /faleconosco                             controllers.Proconsorcio.Application.faleconosco()
+POST         /faleconosco                             controllers.Proconsorcio.Application.handlefaleConosco()
 POST        /signupmail                              plugin.CustomRegistration.handleStartSignUpMail()
 
 
