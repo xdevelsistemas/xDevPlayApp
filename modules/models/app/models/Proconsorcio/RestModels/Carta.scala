@@ -2,6 +2,7 @@ package models.Proconsorcio.RestModels
 
 import java.text.NumberFormat
 import java.util
+import java.lang.Long
 import java.util.{Locale, UUID}
 
 import _root_.util.{Tpval, TpResponse, xDevForm, xDevSerialize}
@@ -34,7 +35,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   var valorPrestacao  : Tpval = new Tpval("","")
   var valorCota  : Tpval = new Tpval("","")
   var numCodigo  : Tpval = new Tpval("","")
-  private var codigoConta : Tpval = new Tpval("","")
+  val codigoConta : Tpval = new Tpval("","")
   var numBancoDeposito  : Tpval = new Tpval("","")
   var nomeBancoDeposito  : Tpval = new Tpval("","")
   var agenciaDeposito  : Tpval = new Tpval("","")
@@ -115,11 +116,31 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     xCarta.statusCarta = EstatusCarta.valueOf(yobj.codigo_statuscarta.value)
     xCarta.tipoCarta = (new TipoCartaDAO).findOne(UUID.fromString(yobj.codigo_tipocarta.value))
     xCarta.administradora = (new AdministradoraDAO).findOne(UUID.fromString(yobj.codigo_administradora.value))
-    xCarta.prazoRestante = Integer.parseInt(yobj.prazoRestante.value)
     xCarta.valorCredito = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCredito.value)
     xCarta.valorEntrada = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorEntrada.value)
     xCarta.valorPrestacao = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorPrestacao.value)
-    xCarta.valorCota = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCota.value)
+
+    try {
+      xCarta.prazoRestante = Long.parseLong(yobj.prazoRestante.value)
+
+      if (xCarta.prazoRestante > 9999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 9999")
+
+
+    }catch {
+      case  e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 9999")
+    }
+
+    try {
+      xCarta.valorCota = Long.parseLong(yobj.valorCota.value)
+
+      if (xCarta.valorCota > 999999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999999")
+
+
+    }catch {
+      case  e: Exception => throw new Exception("Cota deve ser entre 0 e 999999")
+    }
+
+
 
     val codigo_conta =  (new ContaBancoDAO).findOne(UUID.fromString(yobj.codigoConta.value))
 
@@ -148,7 +169,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.valorCredito.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCredito)
     this.valorEntrada.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorEntrada)
     this.valorPrestacao.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorPrestacao)
-    this.valorCota.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCota)
+    this.valorCota.value = cta.valorCota.toString
     this.numBancoDeposito.value = cta.numBancoDeposito
     this.nomeBancoDeposito.value = cta.nomeBancoDeposito
     this.agenciaDeposito.value = cta.agenciaDeposito

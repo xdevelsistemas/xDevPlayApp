@@ -44,7 +44,7 @@ public class Carta extends AbstractModel {
 
     @Column(name="PRAZO_RESTANTE",nullable = false)
     @NotNull(message="Campo 'prazo Restante' não pode ser nulo")
-    public Integer prazoRestante;
+    public Long prazoRestante;
 
 
     @Column(name="VALOR_CREDITO",nullable = false, precision = 2)
@@ -61,7 +61,7 @@ public class Carta extends AbstractModel {
 
     @Column(name="VALOR_COTA", nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Cota' não pode ser nulo")
-    public Number valorCota;
+    public Long valorCota;
 
 
     @ManyToOne(fetch=FetchType.LAZY)
