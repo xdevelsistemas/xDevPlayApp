@@ -1,11 +1,14 @@
 define(['angular', 'jquery', 'domReady!', 'retina', 'superslides', 'placeholder'], function (angular, $) {
     angular.module('App', [])
         .controller('Main', ['$scope', '$http', function ($scope, $http) {
+            $scope.tipos = {
+                "lista": []
+            };
             $scope.formPesquisa = {
                 tipo: ""
             };
-            $http.get('/assets/LandingPage/Mockup/Tipos.json').success(function (data) {
-                angular.extend($scope, data);
+            $http.get('/rest/list/gettipocarta').success(function (data) {
+                angular.extend($scope.tipos, data);
             });
         }]);
     angular.bootstrap(document, ['App']);
