@@ -9,52 +9,28 @@
                         <img src="/assets/App/Assets/img/logo.png" alt="ProConsórcio - Home">
                     </a>
                 </div>
-                    <!-- /.logo -->
-
                 <div class="site-name">
                     <a href="/home" title="Home" class="brand"></a>
                 </div>
-                    <!-- /.site-name -->
             </div>
             <div class="contact-top">
                 <ul class="menu nav">
-                    <li class="first leaf facebook">
-                        <a href="http://www.facebook.com" class="facebook"><i>F</i></a>
-                    </li>
-
+                    <li class="first leaf facebook"><a href="http://www.facebook.com" class="facebook"><i>F</i></a></li>
                     <li class="leaf flickr"><a href="http://www.flickr.com" class="flickr"><i>n</i></a></li>
-
                     <li class="leaf google-plus"><a href="http://plus.google.com" class="google"><i>g</i></a></li>
-
                     <li class="leaf linkedin"><a href="http://linkedin.com" class="linkedin"><i>l</i></a></li>
-
                     <li class="leaf twitter"><a href="http://www.twitter.com" class="twitter"><i>T</i></a></li>
-
                     <li class="last leaf vimeo"><a href="http://vimeo.com" class="vimeo"><i>v</i></a></li>
-
-
-                    @if(user == null || !user.isDefined) {
-                        <li class="menu-item"><a href="/signup">Cadastrar</a></li>
-                        <li class="menu-item"><a href="/login">Entrar</a></li>
-                    } else {
-
-                        <li class="menu-item"><a href="/logout">Sair</a></li>
-
-                    }
-
-
                 </ul>
             </div>
         </div>
-            <!-- /.header -->
         <div class="navigation navbar clearfix row">
             <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <a type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-
+                </a>
                 <div class="nav-collapse collapse col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <ul id="menu-main" class="nav">
                             <!--<li class="menu-item active-menu-item">-->
@@ -66,7 +42,6 @@
                             <a href="#">Conheça o ProConsórcio</a></li>
                         <li class="menu-item"><a href="/faleconosco">Fale conosco</a></li>
                         @if(user != null && user.isDefined) {
-
                             <li class="menu-item menu-item-parent col-xs-2 col-sm-2 col-lg-2 col-md-2 ">
                                 <a href="">Minha conta</a>
                                 <ul class="sub-menu">
@@ -77,18 +52,14 @@
                                     @if(user.get.identityId.providerId.equals(securesocial.core.providers.UsernamePasswordProvider.UsernamePassword)) {
                                         <li class="menu-item"><a href="/password">Alterar Senha</a></li>
                                     }
-                                    <li class="menu-item"><a href="#"></a></li>
+                                    <li class="menu-item"><a href="/logout">Sair</a></li>
                                 </ul>
                             </li>
                         }
-
-                        <li class="menu-item col-xs-2 col-sm-2 col-lg-2 col-md-2 hidden-desktop">
-                            <a href="/novacarta">Quero Anunciar</a>
-                        </li>
-
+                        @if(user == null || !user.isDefined) {
+                            <li class="menu-item"><a href="/login">Entrar</a></li>
+                        }
                     </ul>
-
-
                     <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2 list-property hidden-tablet hidden-phone" style="display : inline">
                         <li class="" style="list-style : none">
                             <a href="/novacarta">
@@ -96,20 +67,12 @@
                             </a>
                         </li>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
         <div class="breadcrumb pull-left">
-                <!-- Breadcrumb NavXT 4.4.0 -->
             <a title="ProConsórcio" href="/home" class="home">ProConsórcio</a> &gt; <span>@title</span>
         </div>
-
-            <!-- /.breadcrumb -->
     </div>
-
 </div>
 

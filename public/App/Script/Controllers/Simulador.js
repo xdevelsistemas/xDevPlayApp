@@ -41,19 +41,25 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             var T = 0.0075;
             var c = parseFloat($scope.formData.fields.valorCredito.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
             var p = parseFloat($scope.formData.fields.valorPrestacoes.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
-            var t = parseFloat($scope.formData.fields.prazoRestante.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
+            var t = parseInt($scope.formData.fields.prazoRestante.value);
 //            console.log("depois do parse");
 //            console.log(c);
 //            console.log(p);
 //            console.log(t);
+            console.log("t: ", t);
             var X = Math.pow((1 + T), t);
+            console.log("X: ", X);
             var r = c - ( p * ( (X - 1) / (X * T) ) );
+            console.log("teste r antes de isNaN: ", r);
             if (isNaN(r)) r = '';
+            console.log("teste r depois de isNaN: ", r);
             r = r.toString().split('.');
-            r[1] = r[1].slice(0, 2);
-            r = r.join('');
+            if (r.length > 1) {
+                r[1] = r[1].slice(0, 2);
+                r = r.join('');
+            }
             $scope.formData.fields.resultado.value = r;
-//            console.log("resultado: ", r);
+            console.log("resultado: ", r);
             window.setTimeout(function () {
                 $("input[name='resultado']").mask("#.##0,00", {
                     reverse: true,
@@ -64,5 +70,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $http.get('/assets/App/Mockup/Simulador/strings.json').success(function (data) {
             angular.extend($scope, data);
         });
-    }]);
-});
+    }
+    ])
+    ;
+})
+;
