@@ -59,7 +59,7 @@
                         <div class="form-group">
                             <label ng-bind="strings.prazoRestante"></label>
                             <input type="text" name="prazoRestante" ng-model="formData.fields.prazoRestante.value"
-                            required xd-mask-positive-number>
+                            required xd-mask-positive-number maxlength="3">
                             <span class="error-msg" ng-bind="formData.fields.prazoRestante.error"></span>
                             <p>Requerido</p>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="form-group">
                             <label ng-bind="strings.cota"></label>
                             <input type="text" name="valorCota" ng-model="formData.fields.valorCota.value"
-                            required xd-mask-positive-number>
+                            required xd-mask-positive-number maxlength="3">
                             <span class="error-msg" ng-bind="formData.fields.valorCota.error"></span>
                             <p>Requerido</p>
                         </div>
