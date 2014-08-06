@@ -39,9 +39,9 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 //            console.log($scope.formData.fields.valorPrestacoes.value);
 //            console.log($scope.formData.fields.prazoRestante.value);
             var T = 0.0075;
-            var c = parseFloat($scope.formData.fields.valorCredito.value.split('.').join('').replace(',', '.'));
-            var p = parseFloat($scope.formData.fields.valorPrestacoes.value.split('.').join('').replace(',', '.'));
-            var t = parseFloat($scope.formData.fields.prazoRestante.value.split('.').join('').replace(',', '.'));
+            var c = parseFloat($scope.formData.fields.valorCredito.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
+            var p = parseFloat($scope.formData.fields.valorPrestacoes.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
+            var t = parseFloat($scope.formData.fields.prazoRestante.value.replace('R$ ', '').split('.').join('').replace(',', '.'));
 //            console.log("depois do parse");
 //            console.log(c);
 //            console.log(p);
