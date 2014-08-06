@@ -19,6 +19,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
         $scope.resultados = {
             "total": "0",
+            "itens_pagina": "12",
             "lista": [],
             "paginas": {
                 "total": "1",
@@ -121,7 +122,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     "valor_credito_min": $scope.filtros.valor_credito_min.selecionado,
                     "valor_credito_max": $scope.filtros.valor_credito_max.selecionado,
                     "valor_parcelas_min": $scope.filtros.valor_parcelas_min.selecionado,
-                    "valor_parcelas_max": $scope.filtros.valor_parcelas_max.selecionado
+                    "valor_parcelas_max": $scope.filtros.valor_parcelas_max.selecionado,
+                    "itens_pagina": $scope.resultados.itens_pagina
                 }
                 console.log(">>>", "data: ", data);
                 console.log(">>>", "param: ", $.param(data));
