@@ -123,21 +123,21 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     try {
       xCarta.prazoRestante = Long.parseLong(yobj.prazoRestante.value)
 
-      if (xCarta.prazoRestante > 9999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 9999")
+      if (xCarta.prazoRestante > 999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 999")
 
 
     }catch {
-      case  e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 9999")
+      case  e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 999")
     }
 
     try {
       xCarta.valorCota = Long.parseLong(yobj.valorCota.value)
 
-      if (xCarta.valorCota > 999999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999999")
+      if (xCarta.valorCota > 999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999")
 
 
     }catch {
-      case  e: Exception => throw new Exception("Cota deve ser entre 0 e 999999")
+      case  e: Exception => throw new Exception("Cota deve ser entre 0 e 999")
     }
 
 
