@@ -53,6 +53,35 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
         yobj.numCodigo.error = yobj.status.message
       }
 
+
+
+
+    if (Long.parseLong(yobj.prazoRestante.value) > 999 || Long.parseLong(yobj.prazoRestante.value) < 0 ){
+
+      val msg = "Prazo restante deve ser entre 0 e 999"
+      if (yobj.status.message.isEmpty ) {
+        yobj.status.message  = msg
+      }
+
+      yobj.status.result = "0"
+      yobj.prazoRestante.value = ""
+      yobj.prazoRestante.error = msg
+
+    }
+
+    if (Long.parseLong(yobj.valorCota.value) > 999 || Long.parseLong(yobj.valorCota.value) < 0 ){
+
+      val msg = "Valor cota deve ser entre 0 e 999"
+      if (yobj.status.message.isEmpty ) {
+        yobj.status.message  = msg
+      }
+
+      yobj.status.result = "0"
+      yobj.valorCota.value = ""
+      yobj.valorCota.error = msg
+
+    }
+
        yobj
   }
 
@@ -123,7 +152,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     try {
       xCarta.prazoRestante = Long.parseLong(yobj.prazoRestante.value)
 
-      if (xCarta.prazoRestante > 999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 999")
+      //if (xCarta.prazoRestante > 999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 999")
 
 
     }catch {
@@ -133,7 +162,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     try {
       xCarta.valorCota = Long.parseLong(yobj.valorCota.value)
 
-      if (xCarta.valorCota > 999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999")
+      //if (xCarta.valorCota > 999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999")
 
 
     }catch {

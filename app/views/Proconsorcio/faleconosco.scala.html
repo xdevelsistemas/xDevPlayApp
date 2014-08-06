@@ -1,4 +1,4 @@
-@(userForms: play.api.data.Form[models.Contato.Contatoinfo], user: Option[securesocial.core.Identity],msg: String )(implicit request: play.api.mvc.RequestHeader)
+@(userForms: play.api.data.Form[models.Contato.Contatoinfo], user: Option[securesocial.core.Identity],msg: String , msgerror: String )(implicit request: play.api.mvc.RequestHeader)
     @import helper._
     @implicitFieldConstructor = @{
         FieldConstructor(defaultFieldConstructor.f)
@@ -21,6 +21,12 @@
                     <div class="alert alert-success" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
                         @msg
+                    </div>
+                }
+                @if(!msgerror.isEmpty) {
+                    <div class="alert alert-error" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                        @msgerror
                     </div>
                 }
 
