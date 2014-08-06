@@ -76,46 +76,12 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
         }
 
-        //função chamadao ao fim do controle
-        $scope.aoAbrir = function () {
-            //requisita as strings da página
-            $http.get('/assets/App/Mockup/Pesquisa/strings.json').success(function (data) {
-                angular.extend($scope.strings, data);
-            });
-            //captura html query string da barra de endereço
-            var QUERY_FILTROS = QueryString.removeMark(window.location.search);
-            var FILTROS = QueryString.toObject(QUERY_FILTROS);
-            console.log(FILTROS);
-            //procura pelos filtros
-            $.each(['administradora', 'contemplacao', 'prazo_restante', 'tipo', 'valor_credito', 'valor_parcelas'], function (key, value) {
-                $scope.filtros[value].selecionado = FILTROS[value];
-                //console.log(">>>", $scope.filtros[value]);
-                $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
-                    angular.extend($scope.filtros[value], data);
-                    //console.log("<<<", $scope.filtros[value]);
-                });
-            });
-            //procura pelos ordenadores
-            $.each(['ordenador', 'ordem'], function (key, value) {
-                if (FILTROS[value] != undefined)
-                    $scope.ordenadores[value].selecionado = FILTROS[value];
-                //console.log(">>>", $scope.ordenadores[value]);
-                $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
-                    angular.extend($scope.ordenadores[value], data);
-                    //console.log("<<<", $scope.ordenadores[value]);
-                });
-            });
-            //chama a função sem passar true para requisitar em ajax
-            $scope.buscarResultados();
-        };
-
         $scope.limpar = function () {
             event.preventDefault();
             $.each($scope.filtros, function (key, value) {
                 value.selecionado = -1;
             });
         };
-
         $scope.buscarResultados = function (notAjax) {
             var xFiltersQuery = '?';
             $.each($scope.filtros, function (key, value) {
@@ -137,7 +103,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     });
             }
         };
-
         $scope.tituloResultados = function () {
             var l = $scope.resultados.lista.length;
             var t = $scope.resultados.total;
@@ -146,7 +111,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             else return $scope.strings.tituloResultados.varios
                     .replace('%l', l).replace('%t', t);
         };
-
         $scope.subtituloResultados = function () {
             var t = $scope.resultados.paginas.total;
             var p = $scope.resultados.paginas.selecionada;
@@ -154,15 +118,14 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 .replace('%t', t).replace('%p', p);
         };
 
+        //Paginação
         $scope.irParaPagina = function (codigo) {
             $scope.resultados.paginas.selecionada = codigo;
             $scope.buscarResultados();
         };
-
         $scope.ordenarResultado = function () {
             $scope.irParaPagina(1);
         };
-
         $scope.passarPagina = function () {
             var p = parseInt($scope.resultados.paginas.selecionada);
             var t = parseInt($scope.resultados.paginas.total);
@@ -197,9 +160,38 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.paginasExibidas = function () {
             var t = parseInt($scope.resultados.paginas.total);
             return t < 5 ? t : 5;
-        }
+        };
+        //fim paginação
 
 
-        $scope.aoAbrir();
+        //Ao iniciar a view
+        (function () {
+            //requisita as strings da página
+            $http.get('/assets/App/Mockup/Pesquisa/strings.json').success(function (data) {
+                angular.extend($scope.strings, data);
+            });
+            //captura html query string da barra de endereço
+            var QUERY_FILTROS = QueryString.removeMark(window.location.search);
+            var FILTROS = QueryString.toObject(QUERY_FILTROS);
+            //TODO está pegando do mocku ainda
+            //procura pelos filtros
+            $.each(['administradora', 'contemplacao', 'prazo_restante', 'tipo', 'valor_credito', 'valor_parcelas'], function (key, value) {
+                $scope.filtros[value].selecionado = FILTROS[value];
+                $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
+                    angular.extend($scope.filtros[value], data);
+                });
+            });
+            //procura pelos ordenadores
+            $.each(['ordenador', 'ordem'], function (key, value) {
+                if (FILTROS[value] != undefined)
+                    $scope.ordenadores[value].selecionado = FILTROS[value];
+                $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
+                    angular.extend($scope.ordenadores[value], data);
+                });
+            });
+            //chama a função sem passar true para requisitar em ajax
+            $scope.buscarResultados();
+        })();
+
     }]);
 });
