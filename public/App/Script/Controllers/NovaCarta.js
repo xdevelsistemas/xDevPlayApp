@@ -109,6 +109,12 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             console.log("formulário válido!");
             $("#modal-selecionarConta").modal('show');
         };
+
+        function recebeuResp(data) {
+            angular.extend($scope.formData, data);
+            $scope.formData.resp.message = $sce.trustAsHtml($scope.formData.resp.message);
+            $("#modal-selecionarConta").modal('hide');
+        };
         $scope.enviarFormConta = function (form, isInvalid) {
             $scope.formData.fields.codigo_conta.error = form.codigo_conta.$invalid ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.numCodigo.error = form.numCodigo.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -119,12 +125,13 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
             console.log("formulário válido!");
             $http.post("/rest/grid/cartas/add", $scope.formData).success(function (data) {
-                angular.extend($scope.formData, data);
+                recebeuResp(data)
                 if ($scope.formData.resp.result == '1') {
                     inicializarModeloForm();
-                    $("#modal-selecionarConta").modal('hide');
                     $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio"><strong>Escritório Online</strong></a> para maiores detalhes.');
                 }
+            }).error(function (data) {
+                recebeuResp(data);
             });
         };
 
