@@ -3,6 +3,7 @@ package models.Proconsorcio;
 import models.AbstractModel;
 import models.User;
 
+import javax.lang.model.element.Name;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -17,110 +18,153 @@ import java.util.Date;
 public class Carta extends AbstractModel {
 
     @OneToOne()
-    @JoinColumn(nullable = false)
+    @JoinColumn(name="FRIENDLY_ID",nullable = false)
     @NotNull(message="Campo 'id Amigável' não pode ser nulo")
     public Sequenciador friendlyID;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(nullable = false)
+    @Column(name="STATUS_CARTA_ADM",nullable = false)
     @NotNull(message="Campo 'Status Carta' não pode ser nulo")
     public EstatusAdministrativo statusCartaAdm;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(nullable = false)
+    @Column(name="STATUS_CARTA",nullable = false)
     @NotNull(message="Campo 'Status Carta' não pode ser nulo")
     public EstatusCarta statusCarta;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_tipocarta", nullable = false)
+    @JoinColumn(name = "ID_TIPO_CARTA", nullable = false)
     @NotNull(message="Campo 'Tipo de Carta' não pode ser nulo")
     public TipoCarta tipoCarta;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn( nullable = false)
+    @JoinColumn(name="ID_ADMINISTRADORA", nullable = false)
     @NotNull(message="Campo 'Administradora' não pode ser nulo")
     public Administradora administradora;
 
-    @Column(nullable = false)
+    @Column(name="PRAZO_RESTANTE",nullable = false)
     @NotNull(message="Campo 'prazo Restante' não pode ser nulo")
     public Integer prazoRestante;
 
 
-    @Column(nullable = false, precision = 2)
+    @Column(name="VALOR_CREDITO",nullable = false, precision = 2)
     @NotNull(message="Campo 'valor Crédito' não pode ser nulo")
-    public float valorCredito;
+    public Number valorCredito;
 
-    @Column(nullable = false, precision = 2)
+    @Column(name="VALOR_ENTRADA",nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Entrada' não pode ser nulo")
-    public float valorEntrada;
+    public Number valorEntrada;
 
-    @Column(nullable = false, precision = 2)
+    @Column(name="VALOR_PRESTACAO",nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Prestação' não pode ser nulo")
-    public float valorPrestacao;
+    public Number valorPrestacao;
 
-    @Column(nullable = false, precision = 2)
+    @Column(name="VALOR_COTA", nullable = false, precision = 2)
     @NotNull(message="Campo 'Valor Cota' não pode ser nulo")
-    public float valorCota;
+    public Number valorCota;
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    @NotNull(message="Campo 'Usuário' não pode ser nulo")
     public User usuario;
 
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_aprovacao")
+    @JoinColumn(name = "ID_USUARIO_APROVACAO")
     public User usuarioAprovacao;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "HORA_APROVACAO")
     public Date horaAprovacao;
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_cancelamento")
+    @JoinColumn(name = "ID_USUARIO_APROVACAO_AVALIACAO")
+    public User usuarioAprovacaoAvaliacao;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "HORA_APROVACAO_AVALIACAO")
+    public Date horaAprovacaoAvaliacao;
+
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO_APROVACAO_VENDA")
+    public User usuarioAprovacaoVenda;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "HORA_APROVACAO_VENDA")
+    public Date horaAprovacaoVenda;
+
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO_CANCELAMENTO")
     public User usuarioCancelamento;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column()
+    @Column(name = "HORA_CANCELAMENTO")
     public Date horaCancelamento;
 
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_exlclusao")
+    @JoinColumn(name = "ID_USUARIO_EXCLUSAO")
     public User usuarioExclusao;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name="HORA_EXCLUSAO")
     public Date horaExclusao;
 
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_bloqueio")
+    @JoinColumn(name = "ID_USUARIO_BLOQUEIO")
     public User usuarioBloqueio;
 
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "HORA_BLOQUEIO")
     public Date horaBloqueio;
 
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_compra")
+    @JoinColumn(name = "ID_USUARIO_COMPRA")
     public User usuarioCompra;
 
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "HORA_COMPRA")
     public Date horaCompra;
 
 
+    @Column(name = "NUM_BANCO_DEPOSITO")
+    public String numBancoDeposito;
 
-    @Column
+    @Column(name = "NOME_BANCO_DEPOSITO")
+    public String nomeBancoDeposito;
+
+    @Column(name = "AGENCIA_DEPOSITO")
+    public String agenciaDeposito;
+
+    @Column(name = "CONTA_DEPOSITO")
+    public String contaDeposito;
+
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ID_ULTIMO_EVENTO")
+    public CartaHistorico ultimoEvento;
+
+
+
+
+    @Column(name = "AVALIACAO_COMPRADOR")
     public String avaliacaoComprador;
+
+
+
 
 
 

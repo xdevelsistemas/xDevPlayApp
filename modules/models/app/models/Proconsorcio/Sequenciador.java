@@ -1,5 +1,6 @@
 package models.Proconsorcio;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,5 +12,6 @@ import javax.persistence.Id;
 public class Sequenciador {
     @Id
     @GeneratedValue
-    private Long number;
+    @Column(name = "ID")
+    public Long id;
 }

@@ -14,10 +14,10 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames={"name"})
 })
 public class Administradora extends AbstractModel {
-    @Column(nullable = false)
+    @Column(name="NAME", nullable = false )
     public String name;
 
-    @Column( nullable = false )
+    @Column(name="ATIVO", nullable = false )
     public boolean ativo;
 
 

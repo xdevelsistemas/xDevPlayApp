@@ -59,19 +59,22 @@ public class User extends AbstractModel {
     @Column(name="CODIGO_ACESSO")
     public String codigoAcesso;
 
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_UF")
-    public Uf uf;
+    @Column(name="ADMIN")
+    public Boolean isAdmin;
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_CIDADE")
-    public Cidade cidade;
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_UF")
+//    public Uf uf;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "ID_LOGRADOURO")
-    public Logradouro logradouro;
+
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_CIDADE")
+//    public Cidade cidade;
+
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "ID_LOGRADOURO")
+//    public Logradouro logradouro;
 
 
     private void setNumCodigo(String plainpass)
@@ -93,6 +96,7 @@ public class User extends AbstractModel {
         super.prePersist();
 
         setNumCodigo(this.codigoPlano);
+
 
 
     }

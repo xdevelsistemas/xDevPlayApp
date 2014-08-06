@@ -1,29 +1,35 @@
-@(userForms: play.api.data.Form[models.Cadastro.AlterarDadosInfo], msg: String)(implicit request: play.api.mvc.RequestHeader)
+@(userForms: play.api.data.Form[models.Cadastro.AlterarDadosInfo], msg: String, user: Option[securesocial.core.Identity], userdao: dao.UserDAO )(implicit request: play.api.mvc.RequestHeader)
 @import helper._
     @implicitFieldConstructor = @{
         FieldConstructor(defaultFieldConstructor.f)
     }
 
-
-@request.flash.get("error").map { msg =>
-    <div class="alert alert-error">
-        @msg
-    </div>
-}
-
-<form ng-controller="SignUp" action="/dadoscadastrais" autocomplete= "off" method="POST">
-    <div class="container" id="pagina-signUp">
-        <div class="row">
-            <div id="main" class="span12">
-                <div class="login-register">
-                    <h2>Dados Cadastrais</h2>
-                    @if(!msg.isEmpty) {
-                        <div class="alert alert-success" role="alert">
-                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                            @msg
-                        </div>
-                    }
-                    <div class="row">
+<div ng-controller="SignUp" ng-cloak class="container" id="pagina-signUp">
+    @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }, É muito importante completar o cadastro, sem isso você não poderá negociar Cartas
+        </div>
+    }
+    <div class="row">
+        <div id="main" class="span12">
+            <div class="login-register">
+                <h2>Dados Cadastrais</h2>
+                @request.flash.get("error").map { msg =>
+                    <div class="alert alert-error">
+                        @msg
+                    </div>
+                }
+                @if(!msg.isEmpty) {
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                        @msg
+                    </div>
+                }
+                <div class="row">
+                    <form action="/dadoscadastrais" autocomplete= "off" method="POST">
                         <div class="span6">
                             <h1>Dados Pessoais</h1>
                             <div class="tab-content">
@@ -47,7 +53,7 @@
                                         <label class="control-label">
                                             Data de Nascimento
                                         </label>
-                                        <div class="controls date" data-date-format="dd/mm/yyyy">
+                                        <div class="controls date">
                                         @helper.inputText(
                                             userForms("birthDate"),
                                             '_label -> "",
@@ -60,26 +66,26 @@
 
 
                                     <div class="control-group">
-                                        <div class="radio-group-form">
-                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
-                                            <label for="cpf">CPF</label>
-                                            <input type="radio" class="radio tpDoc" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
-                                            <label for="cnpj">CNPJ</label>
-                                        </div>
+                                        <label class="control-label"></label>
                                         <div class="controls">
-                                            <div class="controls">
-                                            </div>
-                                            <div class="controls">
-                                            @helper.inputText(
-                                                userForms("docFederal"),
-                                                'placeholder -> "CPF ou CNPJ",
-                                                '_label -> ""
-                                            )
-                                            </div>
+                                            <label class="radio control-label" for="cpf">CPF
+                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cpf" id="RadioGroup_cpf" checked="checked" />
+                                            </label>
+                                            <label class="radio control-label" for="cnpj">CNPJ
+                                                <input type="radio" class="radio tpDoc controls" name="tpDoc" value="cnpj" id="RadioGroup_cnpj" />
+                                            </label>
                                         </div>
-                                            <!-- /.controls -->
                                     </div>
-                                        <!-- /.control-group -->
+                                    <div class="control-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+                                        @helper.inputText(
+                                            userForms("docFederal"),
+                                            'placeholder -> "CPF ou CNPJ",
+                                            '_label -> ""
+                                        )
+                                        </div>
+                                    </div><!-- /.control-group -->
 
                                     <div class="control-group">
                                         <label class="control-label">
@@ -104,7 +110,6 @@
 
                         </div>
                             <!-- /.span4-->
-
 
                         <div class="span6">
                             <h1>Endereço</h1>
@@ -216,7 +221,6 @@
                         </div>
                             <!-- /.span4-->
 
-
                         <div class="span12 submission-form">
                             <hr>
                             <div class="form-actions">
@@ -224,19 +228,15 @@
                             </div>
                         </div>
 
-                    </div>
-                        <!-- /.row -->
+                    </form>
                 </div>
-                    <!-- /.login-register -->
-
-
+                    <!-- /.row -->
             </div>
-                <!-- /#main -->
+                <!-- /.login-register -->
 
         </div>
-            <!-- /.row -->
-    </div>
-        <!-- /.container -->
+            <!-- /#main -->
+    </div> <!-- /.row -->
+</div><!-- /.container -->
 
 
-</form>

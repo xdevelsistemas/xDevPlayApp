@@ -6,10 +6,13 @@ package models.Proconsorcio;
 public enum  EstatusAdministrativo {
     AguardandoAprovacao,
     Aprovado,
+    EmProcessodeCompra,
+    VendaAutorizada,
+    AguardandoAvaliacao,
+    Estornado,
     Reprovado,
     Cancelado,
     Excluida,
     Bloqueio,
-    Comprada
-
+    Concluida
 }

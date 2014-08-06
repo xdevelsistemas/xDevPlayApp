@@ -18,15 +18,17 @@
         <class>models.AbstractModel</class>
         <class>models.Identity</class>
         <class>models.User</class>
-        <class>models.Cadastro.BaseEndereco.Uf</class>
-        <class>models.Cadastro.BaseEndereco.Logradouro</class>
-        <class>models.Cadastro.BaseEndereco.Bairro</class>
-        <class>models.Cadastro.BaseEndereco.Cidade</class>
+        <!--<class>models.Cadastro.BaseEndereco.Uf</class>-->
+        <!--<class>models.Cadastro.BaseEndereco.Logradouro</class>-->
+        <!--<class>models.Cadastro.BaseEndereco.Bairro</class>-->
+        <!--<class>models.Cadastro.BaseEndereco.Cidade</class>-->
         <class>models.Cadastro.CodigoAcessoHistorico</class>
         <class>models.Proconsorcio.Administradora</class>
         <class>models.Proconsorcio.Carta</class>
+        <class>models.Proconsorcio.CartaHistorico</class>
         <class>models.Proconsorcio.Sequenciador</class>
         <class>models.Proconsorcio.TipoCarta</class>
+        <class>models.Proconsorcio.ContaBanco</class>
 
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>

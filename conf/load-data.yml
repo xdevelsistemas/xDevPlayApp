@@ -1,10 +1,11 @@
 # Users
 users:
   - &userAdmin !!models.User
-      email: "clayton@xdevel.com.br"
-      realName: "Clayton Silva"
-      codigoPlano: "teste"
-      providerId: "userpass"
+      email:                 "clayton@xdevel.com.br"
+      realName:              "Clayton Silva"
+      codigoPlano:           "teste"
+      providerId:            "userpass"
+      isAdmin:               true
 # Identities
 
 identities:

@@ -40,6 +40,9 @@ public class AbstractModel implements Serializable {
         this.updated = new Date();
     }
 
+
+
+
 }
 
 

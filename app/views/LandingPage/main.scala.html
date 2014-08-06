@@ -14,12 +14,12 @@
         <link href="@routes.Assets.at("LandingPage/Content/css/style.css")" rel="stylesheet">
         <link href="@routes.Assets.at("LandingPage/Content/fontello/css/fontello.css")" rel="stylesheet" >
         <link href="@routes.Assets.at("LandingPage/Content/fontello/css/animation.css")" rel="stylesheet" >
-        <link href="@routes.Assets.at("LandingPage/Lib/select2-3.5.1/select2.css")" rel="stylesheet" >
+        <link href="@routes.Assets.at("LandingPage/Lib/select2/select2.css")" rel="stylesheet" >
 
         <link href="@routes.Assets.at("LandingPage/Content/css/Custom.css")" rel="stylesheet" />
 
-        <script src="@routes.Assets.at("/LandingPage/Lib/require.js")"
-        data-main="@routes.Assets.at("/LandingPage/Script/main")"></script>
+        <script src="@routes.Assets.at("LandingPage/Lib/require.js")"
+        data-main="@routes.Assets.at("LandingPage/Script/main")"></script>
 
             <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -59,13 +59,12 @@
                 <div id="book" class="comprar-vender-box">
                     <h4>Quero Comprar</h4>
 
-                    <form role="form" method="get" action="/pesquisa" id="check_avail"
-                    autocomplete="off">
+                    <form role="form" method="get" action="/pesquisa">
                         <div class="form-group">
-                            <select ng-model="tipos.selecionado" class="form-control select" name="tipo">
+                            <select class="form-control select" name="tipo">
                                 <option value="-1" selected disabled>Consórcios de...</option>
-                                <option ng-repeat="tipo in tipos.lista" ng-value="tipo.codigo">
-                                                    {{tipo.descricao}}</option>
+                                <option ng-repeat="tipo in tipos.lista"
+                                ng-value="tipo.descricao" ng-bind="tipo.descricao"></option>
                             </select>
                         </div>
                         <div class="form-group">

@@ -1,0 +1,10 @@
+@(name: String, about: String, email: String, message : String)(implicit request: play.api.mvc.RequestHeader)
+@import securesocial.core.IdentityProvider
+<html>
+    <body>
+        <p>Temos uma nova mensagem de  @name  [<a href="mailto@email">@email</a>]</p>
+        <p>Assunto: @about</p>
+        <p>Mensagem:</p>
+        <p>@message</p>
+    </body>
+</html>

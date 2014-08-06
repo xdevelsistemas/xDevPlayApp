@@ -2,11 +2,12 @@ package controllers.Proconsorcio
 
 
 import com.typesafe.plugin._
+import models.Contato.Contatoinfo
 import play.api.data.Forms._
 import play.api.i18n.Messages
 import play.api.libs.json._
 import java.text.SimpleDateFormat
-import br.com.republicavirtual.CepService
+import br.com.republicavirtual.{CepService, CepServiceVO}
 import controllers.xDevController
 import dao.IdentityDAO
 import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
@@ -18,6 +19,8 @@ import play.libs.F
 import securesocial.controllers.Registration
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
+import com.typesafe.plugin._
+import scala.collection.JavaConverters._
 
 
 /**
@@ -46,7 +49,13 @@ object Application extends xDevController {
 
 
   def novacarta = SecuredAction { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.novacarta.render, "Nova Carta", _user, request))
+
+    if(_user.nonEmpty && (!_userdao.verificaCadastro(_user.get.email.get, _user.get.identityId.providerId))){
+      Redirect(routes.Application.dadoscadastrais())
+    }else{
+      Ok(views.html.App.main.render(views.html.Proconsorcio.novacarta.render, "Nova Carta", _user, request))
+    }
+
   }
 
 
@@ -84,12 +93,12 @@ object Application extends xDevController {
     val userForm: Form[AlterarDadosInfo] = models.Cadastro.RegistrationObjects.formAlterarDados.fill(regdata)
 
 
-    Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm, "", request), "Dados Cadastrais", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais.render(userForm, "", _user, _userdao, request), "Dados Cadastrais", _user, request))
   }
 
 
   def escritorio = SecuredAction { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio.render, "Escritório Online", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio(_userdao, _user), "Escritório Online", _user, request))
   }
 
   def contas = SecuredAction { implicit request =>
@@ -97,43 +106,76 @@ object Application extends xDevController {
   }
 
   def faleconosco = Action { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render, "Fale Conosco", _user, request))
+
+    if ( _user != null && _user.isDefined) {
+      val usuario: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+      val regdata: Contatoinfo = new Contatoinfo(
+        usuario.email,
+        usuario.realName,
+        "",
+        "")
+      val userForm: Form[Contatoinfo] = models.Contato.ContatoinfoObject.formContatoinfo.fill(regdata)
+      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render(userForm,_user ,"" , request), "Fale Conosco", _user, request))
+    }else{
+      val regdata: Contatoinfo = new Contatoinfo(
+        "",
+        "",
+        "",
+        "")
+      val userForm: Form[Contatoinfo] = models.Contato.ContatoinfoObject.formContatoinfo.fill(regdata)
+      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render(userForm,_user , "",request), "Fale Conosco", _user, request))
+    }
+
+
   }
 
+  def handlefaleConosco = Action { implicit request =>
 
-  def getEndereco(cep: String) = Action { implicit request =>
-
-    val result = CepService.buscaCEP(cep)
-    val json =
-
-      Json.obj(
-        "uf" -> result.getUf,
-        "cidade" -> result.getCidade,
-        "bairro" -> result.getBairro,
-        "tipo_logradouro" -> result.getTipo_logradouro,
-        "logradouro" -> result.getLogradouro,
-        "resultado" -> result.getResultado,
-        "resultado_txt" -> result.getResultado_txt
-      )
+    models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest.fold(
+      errors => {
 
 
+        BadRequest(views.html.App.main.render(views.html.Proconsorcio.faleconosco(errors, _user ,""), "Fale Conosco", _user, request))
 
-    Ok(json)
+      },
+
+      success => {
+
+
+        val mail: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
+        mail.setSubject(success.about)
+        mail.setRecipient(success.email)
+        mail.setFrom("proconsorcio@proconsorcio.com.br")
+        val body = views.html.Proconsorcio.mails.faleconoscoCliente.render(success.name,success.about,request).body
+        mail.sendHtml(body)
+
+        val mailadmin: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
+        mailadmin.setSubject("nova mensagem do fale conosco, assunto:" + success.about)
+        // enviando a mensagem a todos os administradores
+        (_userdao).findMany("isAdmin", true).asScala.map( t => mailadmin.setRecipient(t.email))
+        val bodyadm = views.html.Proconsorcio.mails.faleconoscoGestor.render(success.name,success.about,success.email,success.message,request).body
+        mailadmin.setFrom("proconsorcio@proconsorcio.com.br")
+        mailadmin.sendHtml(bodyadm)
+
+
+
+
+
+
+        Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest(),_user ,"Obrigado! Em breve iremos retorná-lo"), "Fale Conosco", _user, request))
+      }
+
+    )
+
+
   }
 
-  def getUF = Action {
-    Redirect("/assets/App/Mockup/Estados.json")
-  }
-
-  def getBanco = Action {
-    Redirect("/assets/App/Mockup/Bancos.json")
-  }
 
   def handleDadosCadastrais = SecuredAction { implicit request =>
 
     RegistrationObjects.formAlterarDados.bindFromRequest.fold(
       errors => {
-        play.api.mvc.Results.BadRequest(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(errors, ""), "Dados Cadastrais", _user, request))
+        play.api.mvc.Results.BadRequest(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(errors, "" ,_user,  _userdao), "Dados Cadastrais", _user, request))
 
       },
 
@@ -145,7 +187,7 @@ object Application extends xDevController {
           }
         })
 
-        play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(RegistrationObjects.formAlterarDados.bindFromRequest(), "Dados Alterados com Sucesso!"), "Dados Cadastrais", _user, request))
+        play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(RegistrationObjects.formAlterarDados.bindFromRequest(), "Dados Alterados com Sucesso!",_user,  _userdao), "Dados Cadastrais", _user, request))
       }
 
     )

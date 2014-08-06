@@ -1,10 +1,14 @@
 package controllers
 
 import javax.persistence.EntityManager
-
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.{ObjectMapper, ObjectWriter}
+import play.api.libs.json.JsValue
 import play.api.mvc._
-import play.db.jpa.JPA
-import play.db.jpa.{Transactional, JPA}
+import play.db.jpa.{JPA}
+import util._
+import play.libs.Json
+import play.mvc.{Results, Result}
 import securesocial.core.{SecureSocial, Identity}
 
 /**
@@ -17,24 +21,6 @@ class xDevController extends Controller  with securesocial.core.SecureSocial {
     return SecureSocial.currentUser
   }
 
-
-
-//  def persist (block: Unit ) = {
-//    def exec = block
-//    JPA.withTransaction("default", false, new F.Function0[Void]  {
-//      def apply: Void = {
-//
-//        exec
-//
-//        return null
-//      }
-//
-//    })
-//
-//  }
-
-
-
   def _userdao : dao.UserDAO = new dao.UserDAO()
 
   def em: EntityManager = {
@@ -42,5 +28,21 @@ class xDevController extends Controller  with securesocial.core.SecureSocial {
   }
 
 
+
+}
+
+
+class xDevRestController extends  xDevController{
+
+  def JsonResult(yObject: xDevSerialize): SimpleResult = {
+    try {
+      Ok(yObject.serialize())
+    }
+    catch {
+      case e: JsonProcessingException => {
+        return BadRequest(new TpResponse("0",e.getMessage).serialize())
+      }
+    }
+  }
 
 }

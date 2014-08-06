@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import models.AbstractModel;
+import org.hibernate.criterion.Restrictions;
 import play.db.jpa.JPA;
 
 
@@ -48,7 +50,7 @@ public class AbstractDAO<T extends AbstractModel> {
     public T findOne(UUID uuid) {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
-        cq.where(cb.equal(root.get(metaclass.uuid), uuid));
+        cq.where(cb.equal(root.get("uuid"),uuid.toString().toUpperCase()));
         try {
             T result = em.createQuery(cq).getSingleResult();
             return result;
@@ -77,7 +79,17 @@ public class AbstractDAO<T extends AbstractModel> {
         return results;
     }
 
-    public <A> List<T> all() {
+
+//    public  List<T> findMany(ArrayList<PairQuery> yfilters) {
+//        CriteriaQuery<T> cq = cb.createQuery(classType);
+//        Root<T> root = cq.from(classType);
+//        for (PairQuery el : yfilters){
+//            cq = cq.where(cb.equal(root.get(el.field),el.value));
+//        }
+//        return em.createQuery(cq).getResultList();
+//    }
+
+    public  List<T> all() {
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> root = cq.from(classType);
         List<T> results = em.createQuery(cq).getResultList();
@@ -97,7 +109,13 @@ public class AbstractDAO<T extends AbstractModel> {
 
     public void delete(UUID uuid) {
         T o = findOne(uuid);
-        if (o != null) em.remove(o);
+        if (o != null) {
+            em.getTransaction().begin();
+            em.remove(o);
+            em.flush();
+            em.getTransaction().commit();
+        }
+
     }
 
 }
