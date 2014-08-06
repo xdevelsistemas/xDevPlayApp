@@ -37,7 +37,7 @@ object Application extends xDevController {
 
 
   private def checkCurrentPassword(email: String, providerId: String, pass: String) = {
-    _userdao.verificanumCodigoDigitado(email, providerId, pass)
+    _userdao.verificanumCodigoDigitado(email, providerId, pass,false)
   }
 
 

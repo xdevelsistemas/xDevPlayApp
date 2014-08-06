@@ -235,12 +235,17 @@ public class UserDAO extends AbstractDAO<models.User> {
         return xreturn;
     }
 
-    public boolean verificanumCodigoDigitado(String email, String providerId, String pass) {
+    /*
+    *
+    * rotina responsável pelo controle no cadastro
+    * */
+
+    public boolean verificanumCodigoDigitado(String email, String providerId, String pass, boolean isCarta) {
         models.User xUser = (new IdentityDAO()).findOneByEmailAndProvider(email, providerId).user();
         boolean xreturn = true;
         if (xUser != null) {
 
-            if (xUser.codigoAcesso == null) {
+            if (xUser.codigoAcesso == null && !isCarta) {
                 // primeira vez nao ira validar pq esta vazio
                 return true;
             } else {
@@ -258,6 +263,8 @@ public class UserDAO extends AbstractDAO<models.User> {
 
         return xreturn;
     }
+
+
 
 
     public boolean AlteranumCodigo(String email, String providerId, String pass) {

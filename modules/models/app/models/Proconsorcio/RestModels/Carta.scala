@@ -45,7 +45,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   def validate (yobj : CartaForm, user: User) : CartaForm = {
       val dao = new UserDAO
 
-      if(!dao.verificanumCodigoDigitado(user.email,user.providerId,yobj.numCodigo.value))
+      if(!dao.verificanumCodigoDigitado(user.email,user.providerId,yobj.numCodigo.value,true))
       {
         yobj.status.result = "0"
         yobj.status.message = "Código de Acesso inválido"
