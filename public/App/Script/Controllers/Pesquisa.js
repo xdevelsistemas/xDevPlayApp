@@ -127,14 +127,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 }
                 console.log(">>>", "data: ", data);
                 console.log(">>>", "param: ", $.param(data));
-
                 xFiltersQuery += $.param(data);
-
-//                if (true)return;
-
-                xFiltersQuery += 'pagina=' + $scope.resultados.paginas.selecionada + '&'
-                xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
-                xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
                 xFiltersQuery = encodeURI(xFiltersQuery);
                 $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery)
                     .success(function (data) {
