@@ -50,16 +50,28 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 "selecionado": "-",
                 "lista": []
             },
-            "valor_credito": {
-                "codigo": "valor_credito",
-                "descricao": "Valor de Crédito",
-                "selecionado": "-",
+            "valor_credito_min": {
+                "codigo": "valor_credito_min",
+                "descricao": "Valor de Crédito Mínimo",
+                "selecionado": "",
                 "lista": []
             },
-            "valor_parcelas": {
-                "codigo": "valor_parcelas",
-                "descricao": "Valor das parcelas",
-                "selecionado": "-",
+            "valor_credito_max": {
+                "codigo": "valor_credito_min",
+                "descricao": "Valor de Crédito Máximo",
+                "selecionado": "",
+                "lista": []
+            },
+            "valor_parcelas_min": {
+                "codigo": "valor_parcelas_min",
+                "descricao": "Valor das Parcelas Mínimo",
+                "selecionado": "",
+                "lista": []
+            },
+            "valor_parcelas_max": {
+                "codigo": "valor_parcelas_max",
+                "descricao": "Valor das Parcelas Máximo",
+                "selecionado": "",
                 "lista": []
             }
         }
@@ -84,15 +96,40 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
         $scope.buscarResultados = function (notAjax) {
             var xFiltersQuery = '?';
-            $.each($scope.filtros, function (key, value) {
-                xFiltersQuery += value.codigo + '=' + value.selecionado + '&';
-            });
 
             if (notAjax) {
+                console.log("======== not AJAX ========");
+                $.each([
+                    'tipo', 'contemplacao', 'prazo_restante', 'administradora',
+                    'valor_credito_min', 'valor_credito_max', 'valor_parcelas_min', 'valor_parcelas_max'
+                ], function (key, value) {
+                    xFiltersQuery += value + '=' + $scope.filtros[value].selecionado + '&';
+                });
                 xFiltersQuery = xFiltersQuery.slice(0, xFiltersQuery.length - 1);
                 xFiltersQuery = encodeURI(xFiltersQuery);
                 window.location = '/pesquisa' + xFiltersQuery;
             } else {
+                console.log("========== AJAX ==========");
+                var data = {
+                    "administradora": $scope.filtros.administradora.selecionado,
+                    "contemplacao": $scope.filtros.contemplacao.selecionado,
+                    "prazo_restante": $scope.filtros.prazo_restante.selecionado,
+                    "tipo": $scope.filtros.tipo.selecionado,
+                    "pagina": $scope.resultados.paginas.selecionada,
+                    "ordenador": $scope.ordenadores.ordenador.selecionado,
+                    "ordem": $scope.ordenadores.ordem.selecionado,
+                    "valor_credito_min": $scope.filtros.valor_credito_min.selecionado,
+                    "valor_credito_max": $scope.filtros.valor_credito_max.selecionado,
+                    "valor_parcelas_min": $scope.filtros.valor_parcelas_min.selecionado,
+                    "valor_parcelas_max": $scope.filtros.valor_parcelas_max.selecionado
+                }
+                console.log(">>>", "data: ", data);
+                console.log(">>>", "param: ", $.param(data));
+
+                xFiltersQuery += $.param(data);
+
+                if (true)return;
+
                 xFiltersQuery += 'pagina=' + $scope.resultados.paginas.selecionada + '&'
                 xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
                 xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
@@ -173,12 +210,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             //captura html query string da barra de endereço
             var QUERY_FILTROS = QueryString.removeMark(window.location.search);
             var FILTROS = QueryString.toObject(QUERY_FILTROS);
-            //TODO está pegando do mocku ainda
             //procura pelos filtros
-            $.each(['administradora', 'contemplacao', 'prazo_restante', 'tipo', 'valor_credito', 'valor_parcelas'], function (key, value) {
-                $scope.filtros[value].selecionado = FILTROS[value];
-                $http.get('/assets/App/Mockup/Filtros/' + $scope.filtros[value].codigo + '.json').success(function (data) {
-                    angular.extend($scope.filtros[value], data);
+            $.each([
+                ['administradora', '/rest/list/getadministradoras'],
+                ['contemplacao', '/rest/list/getcontemplacao'],
+                ['prazo_restante', '/rest/list/getprazorestante'],
+                ['tipo', '/rest/list/gettipocarta']
+            ], function (key, value) {
+                $http.get(value[1]).success(function (data) {
+                    angular.extend($scope.filtros[value[0]], data);
+                    $scope.filtros[value[0]].selecionado = FILTROS[value[0]];
                 });
             });
             //procura pelos ordenadores
