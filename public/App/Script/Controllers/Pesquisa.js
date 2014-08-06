@@ -29,25 +29,25 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "administradora": {
                 "codigo": "administradora",
                 "descricao": "Administradora",
-                "selecionado": "-",
+                "selecionado": "",
                 "lista": []
             },
             "contemplacao": {
                 "codigo": "contemplacao",
                 "descricao": "Contemplação",
-                "selecionado": "-",
+                "selecionado": "",
                 "lista": []
             },
             "prazo_restante": {
                 "codigo": "prazo_restante",
                 "descricao": "Prazo restante",
-                "selecionado": "-",
+                "selecionado": "",
                 "lista": []
             },
             "tipo": {
                 "codigo": "tipo",
                 "descricao": "Quero consórcios de",
-                "selecionado": "-",
+                "selecionado": "",
                 "lista": []
             },
             "valor_credito_min": {
@@ -128,7 +128,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
                 xFiltersQuery += $.param(data);
 
-                if (true)return;
+//                if (true)return;
 
                 xFiltersQuery += 'pagina=' + $scope.resultados.paginas.selecionada + '&'
                 xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
@@ -209,8 +209,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             });
             //captura html query string da barra de endereço
             var QUERY_FILTROS = QueryString.removeMark(window.location.search);
-            var FILTROS = QueryString.toObject(QUERY_FILTROS);
-            //procura pelos filtros
+            var OBJ_FILTROS = QueryString.toObject(QUERY_FILTROS);
+            //procura pelas listas de filtros e seleciona os campos select
             $.each([
                 ['administradora', '/rest/list/getadministradoras'],
                 ['contemplacao', '/rest/list/getcontemplacao'],
@@ -219,13 +219,21 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             ], function (key, value) {
                 $http.get(value[1]).success(function (data) {
                     angular.extend($scope.filtros[value[0]], data);
-                    $scope.filtros[value[0]].selecionado = FILTROS[value[0]];
+                    $scope.filtros[value[0]].selecionado = OBJ_FILTROS[value[0]];
                 });
+            });
+            //atribui os valores aos campos input
+            function naoEeNum(s) {
+                return !s || isNaN(parseFloat(s.replace('R$ ', '').split('.').join('').replace(',', '.')));
+            };
+            $.each(['valor_credito_min', 'valor_credito_max', 'valor_parcelas_min', 'valor_parcelas_max'
+            ], function (k, value) {
+                $scope.filtros[value].selecionado = naoEeNum(OBJ_FILTROS[value]) ? '' : OBJ_FILTROS[value];
             });
             //procura pelos ordenadores
             $.each(['ordenador', 'ordem'], function (key, value) {
-                if (FILTROS[value] != undefined)
-                    $scope.ordenadores[value].selecionado = FILTROS[value];
+                if (OBJ_FILTROS[value] != undefined)
+                    $scope.ordenadores[value].selecionado = OBJ_FILTROS[value];
                 $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
                     angular.extend($scope.ordenadores[value], data);
                 });
