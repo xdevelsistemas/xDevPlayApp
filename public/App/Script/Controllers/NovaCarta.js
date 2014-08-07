@@ -140,7 +140,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 if ($scope.formData.resp.result == '1') {
                     $("form[name='formSelecionarConta'] select[name='codigo_conta']").select2('val', '');
                     inicializarModeloForm();
-                    $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio"><strong>Escritório Online</strong></a> para maiores detalhes.');
+                    $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio#vendas"><strong>Escritório Online</strong></a> para maiores detalhes.');
                 }
             }).error(function (data) {
                 recebeuResp(data);

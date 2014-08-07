@@ -1,11 +1,23 @@
 package dao
 
-import java.util
+import java.{util, lang}
 import java.util.{Date, UUID}
+import javax.persistence.criteria
+import javax.persistence.criteria.Predicate.BooleanOperator
+import javax.persistence.criteria._
 import _root_.util.{TpResponse, xDevForm}
 import models.User
 import models.Proconsorcio._
-import models.Proconsorcio.RestModels.CartaForm
+import models.Proconsorcio.RestModels.{ResultadoPesquisa, Pesquisa, CartaForm}
+import org.eclipse.persistence.sessions.Session
+import org.hibernate.criterion.{Criterion, Restrictions}
+import org.hibernate.jpa.criteria.CriteriaBuilderImpl
+import play.api.mvc.SimpleResult
+import play.libs.F
+
+//import org.hibernate.jpa.
+import play.db.jpa.JPA
+import scala.collection.JavaConverters._
 
 /**
  * Created by claytonsantosdasilva on 04/08/14.
@@ -26,6 +38,9 @@ class CartaDAOextend extends CartaDAO {
 
     return false
   }
+
+
+
 
 
   private def nextStatus(yCarta : Carta, yUser : User , yAcao : ETpAcoes)  : EstatusAdministrativo = {
@@ -53,6 +68,8 @@ class CartaDAOextend extends CartaDAO {
       }
 
   }
+
+
 
   def setStatus(id : Long, yUser: User, yAcao : ETpAcoes, yJustificativa : String) : TpResponse = {
      try{
@@ -99,14 +116,32 @@ class CartaDAOextend extends CartaDAO {
 
   }
 
-  def add(yobj : Carta, user : User) : CartaForm = {
+  def add(yobj : Carta) : CartaForm = {
     try {
 
-      val xseq = (new SequenciadorDAO()).save(new Sequenciador)
+      /*
+      *  como se trata de duas tabelas foi criado duas persistencias distintas
+      *
+      * */
 
-      yobj.friendlyID = xseq
-      yobj.usuario = user
-      save(yobj)
+      JPA.withTransaction("default", false, new F.Function0[Unit] {
+
+        def apply: Unit = {
+          val xseq = (new SequenciadorDAO()).save(new Sequenciador)
+          yobj.friendlyID = xseq
+
+        }
+      })
+
+      JPA.withTransaction("default", false, new F.Function0[Unit] {
+
+        def apply: Unit = {
+          (new CartaDAO).save(yobj)
+
+        }
+      })
+
+
 
       val carta =  (new CartaForm)
         .read(yobj,(new TpResponse("1",

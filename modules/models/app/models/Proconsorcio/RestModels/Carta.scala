@@ -1,7 +1,7 @@
 package models.Proconsorcio.RestModels
 
-import java.text.NumberFormat
-import java.util
+import java.text.{DecimalFormat, NumberFormat}
+import java.{math, util}
 import java.lang.Long
 import java.util.{Locale, UUID}
 
@@ -10,6 +10,7 @@ import dao.{ContaBancoDAO, UserDAO, AdministradoraDAO, TipoCartaDAO}
 import models.Proconsorcio._
 import models.User
 import play.api.libs.json.{JsValue, Json, JsObject}
+
 
 
 /**
@@ -141,13 +142,24 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   }
 
   private def _instantiate(yobj : CartaForm) : Carta = {
+
+    val ptbrFormat = NumberFormat.getCurrencyInstance(ptBr)
+    ptbrFormat.setMaximumFractionDigits(2)
+    ptbrFormat.setMaximumFractionDigits(2)
+
+    def _fmt (value :String) : java.math.BigDecimal = {
+      val _number = ptbrFormat.parse(value)
+       new java.math.BigDecimal(_number.doubleValue()).setScale(2,java.math.BigDecimal.ROUND_HALF_EVEN)
+
+    }
+
     val xCarta = new Carta()
     xCarta.statusCarta = EstatusCarta.valueOf(yobj.codigo_statuscarta.value)
     xCarta.tipoCarta = (new TipoCartaDAO).findOne(UUID.fromString(yobj.codigo_tipocarta.value))
     xCarta.administradora = (new AdministradoraDAO).findOne(UUID.fromString(yobj.codigo_administradora.value))
-    xCarta.valorCredito = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCredito.value)
-    xCarta.valorEntrada = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorEntrada.value)
-    xCarta.valorPrestacao = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorPrestacao.value)
+    xCarta.valorCredito =  _fmt(yobj.valorCredito.value)
+    xCarta.valorEntrada = _fmt(yobj.valorEntrada.value)
+    xCarta.valorPrestacao = _fmt(yobj.valorPrestacao.value)
 
     try {
       xCarta.prazoRestante = Long.parseLong(yobj.prazoRestante.value)

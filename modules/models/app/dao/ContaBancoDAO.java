@@ -3,8 +3,12 @@ package dao;
 import models.Proconsorcio.RestModels.ContaBancoForm;
 import models.Proconsorcio.ContaBanco;
 import models.User;
+import net.sf.ehcache.search.expression.Criteria;
+import org.hibernate.Session;
 import util.TpResponse;
 
+import javax.jws.soap.SOAPBinding;
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -59,6 +63,7 @@ public class ContaBancoDAO extends AbstractDAO<ContaBanco> {
         ContaBancoForm frm = new ContaBancoForm();
         cta.usuario = user;
         try {
+
 
             if (findAllbyUser(user).isEmpty()) {
                 cta.padrao = true;
