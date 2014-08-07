@@ -21,11 +21,11 @@ html, body, #all-content {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -96px;
+    margin: 0 auto -101px;
 }
 
 .push {
-    height: 96px;
+    height: 128px;
 }
 
 #footer-wrapper {
