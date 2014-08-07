@@ -1,58 +1,76 @@
 package models.Proconsorcio.RestModels
 
 import java.text.NumberFormat
-import java.util.Locale
-
+import java.util.{UUID, Locale}
+import java.lang.Integer
+import dao.{CartaDAO, CartaDAOextend}
 import models.Proconsorcio.{Carta, EstatusCarta}
 import play.api.libs.json.{JsValue, Json, JsObject}
 import util.xDevSerialize
-
+import scala.collection.JavaConverters._
 /**
  * Created by claytonsantosdasilva on 06/08/14.
  *
- *  Classes ref a manipulação de pesquisa de cartas de consórcio
+ * Classes ref a manipulação de pesquisa de cartas de consórcio
  *
  *
  */
-class Pesquisa(yobj : JsValue) {
+class Pesquisa(yobj: JsValue) {
+  val ptBr = new Locale("pt", "BR")
+  val numberFormat = NumberFormat.getInstance(ptBr)
 
-  var administradora : String = new String
-  var contemplacao : Option[EstatusCarta] = None
-  var prazo_restante : String = new String
-  var tipo : String = new String
-  var valor_credito_max : Option[Number] = None
-  var valor_credito_min : Option[Number] = None
-  var valor_parcelas_max : Option[Number] = None
-  var valor_parcelas_min : Option[Number] = None
-  var itens_pagina : Int  = 5
-  var pagina : Int  = 1
-  var ordem : String = "asc"
-  var ordenador : String = "preco"
+  var administradora: Option[UUID] = None
+  var contemplacao: Option[EstatusCarta] = None
+  var prazo_restante: String = new String
+  var tipo: Option[UUID] = None
+  var valor_credito_max: Option[Number] = None
+  var valor_credito_min: Option[Number] = None
+  var valor_parcelas_max: Option[Number] = None
+  var valor_parcelas_min: Option[Number] = None
+  var itens_pagina: Int = 5
+  var pagina: Int = 1
+  var ordem: String = "asc"
+  var ordenador: String = "valor_credito"
 
-  def Pesquisa(yobj : JsValue){
+  try {
+
     val _administradora = (yobj \ "administradora").as[String]
-    val _contemplacao = (yobj \"codigo_tipocarta").as[String]
-//    this.codigo_administradora.value = (yobj \"codigo_tipocarta").as[String]
-//    this.prazoRestante.value = (yobj \"codigo_tipocarta").as[String]
-//    this.valorCredito.value = (yobj \"codigo_tipocarta").as[String]
-//    this.valorEntrada.value = (yobj \"codigo_tipocarta").as[String]
-//    this.valorPrestacao.value = (yobj \"codigo_tipocarta").as[String]
-//    this.valorCota.value = (yobj \"codigo_tipocarta").as[String]
-//    this.numCodigo.value = (yobj \"codigo_tipocarta").as[String]
-//    this.codigoConta.value = (yobj \"codigo_tipocarta").as[String]
+    val _contemplacao = (yobj \ "contemplacao").as[String]
+    val _prazo_restante = (yobj \ "prazo_restante").as[String]
+    val _tipo = (yobj \ "tipo").as[String]
+    val _valor_credito_min = (yobj \ "valor_credito_min").as[String]
+    val _valor_credito_max = (yobj \ "valor_credito_max").as[String]
+    val _valor_parcelas_min = (yobj \ "valor_parcelas_min").as[String]
+    val _valor_parcelas_max = (yobj \ "valor_parcelas_max").as[String]
+    val _itens_pagina = (yobj \ "itens_pagina").as[String]
+    val _pagina = (yobj \ "pagina").as[String]
+    val _ordem = (yobj \ "ordem").as[String]
+    val _ordenador = (yobj \ "ordenador").as[String]
+
+    this.administradora = if(!_administradora.isEmpty) Some(UUID.fromString(_administradora)) else None
+    this.contemplacao = if(!_contemplacao.isEmpty) Some(EstatusCarta.valueOf(_contemplacao)) else None
+    this.prazo_restante  = _prazo_restante
+    this.tipo = if(!_tipo.isEmpty) Some(UUID.fromString(_tipo)) else None
+    this.valor_credito_max = if (_valor_credito_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_max))}
+    this.valor_credito_min = if (_valor_credito_min.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_min))}
+    this.valor_parcelas_max = if (_valor_parcelas_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_parcelas_max))}
+    this.valor_parcelas_min = if (_valor_parcelas_min.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_parcelas_min))}
+    if (!_itens_pagina.isEmpty) this.itens_pagina  = Integer.parseInt(_itens_pagina)
+    if (!_pagina.isEmpty) this.pagina  = Integer.parseInt(_pagina)
+    if (!_ordem.isEmpty) this.ordem = _ordem
+    if (!_ordenador.isEmpty) this.ordenador = _ordenador
+
+  } catch {
+    case e: Exception =>
+  }
+
+
+  def listar : ResultadoPesquisa = {
+    (new CartaDAO).PesquisaCarta(this)
   }
 
 
 
-
-  def query = processa
-
-
-
-
-  def processa  : JsObject = {
-      Json.obj()
-  }
 
 
 }
@@ -61,7 +79,7 @@ class Pesquisa(yobj : JsValue) {
 /** *
   *
   * xdevel sistemas - json de requisição de pesquisa
-  *       {
+  * {
                "administradora": "",
                "contemplacao": "",
                "prazo_restante": "",
@@ -83,28 +101,30 @@ class Pesquisa(yobj : JsValue) {
   */
 
 
-
-
-
-class ResultadoPesquisa (ytotal : Int, ylista : List[Carta], ypaginas : Int) extends xDevSerialize{
+class ResultadoPesquisa(ytotal: Long, ylista: java.util.List[Carta]) extends xDevSerialize {
   val ptBr = new Locale("pt", "BR")
   val numberFormat = NumberFormat.getInstance(ptBr)
 
-  val total : Int  = ytotal
-  val lista : List[Carta]   = ylista
-  val paginas : Int = ypaginas
+  val total: Long = ytotal
+  val lista: List[Carta] = ylista.asScala.toList
 
   override def serialize(): JsObject = {
     Json.obj(
       "total" -> this.total,
-      "lista" -> this.lista.map( t =>
+      "lista" -> this.lista.map(t =>
         Json.obj(
           "codigo" -> t.friendlyID.toString,
           "valorDoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
           "administradora" -> Json.obj(
             "codigo" -> t.administradora.uuid,
             "nome" -> t.administradora.name
-          )
+          ),
+          "tipo" -> Json.obj(
+            "codigo" -> t.tipoCarta.uuid,
+            "nome" -> t.tipoCarta.name
+          ),
+          "valorDaEntrada" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
+          "prazoRestante" -> NumberFormat.getCurrencyInstance(ptBr).format(t.prazoRestante)
         )
       )
     )
@@ -120,6 +140,12 @@ class ResultadoPesquisa (ytotal : Int, ylista : List[Carta], ypaginas : Int) ext
 //                                  "codigo": "1",
 //                                  "nome": "Rodobens"
 //                                }
+//            "tipo": {
+//                      "codigo": "1",
+//                      "nome": "Carro"
+//                    },
+//            "valorDaEntrada": "17000",
+//            "prazoRestante": "18",
 //
 //             }],
 //  "paginas": {

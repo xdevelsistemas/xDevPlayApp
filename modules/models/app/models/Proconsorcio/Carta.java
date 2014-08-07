@@ -6,6 +6,7 @@ import models.User;
 import javax.lang.model.element.Name;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -47,19 +48,19 @@ public class Carta extends AbstractModel {
     public Long prazoRestante;
 
 
-    @Column(name="VALOR_CREDITO",nullable = false, precision = 2)
+    @Column(name="VALOR_CREDITO",nullable = false,precision=20, scale=2)
     @NotNull(message="Campo 'valor Crédito' não pode ser nulo")
-    public Number valorCredito;
+    public BigDecimal valorCredito;
 
-    @Column(name="VALOR_ENTRADA",nullable = false, precision = 2)
+    @Column(name="VALOR_ENTRADA",nullable = false,precision=20, scale=2)
     @NotNull(message="Campo 'Valor Entrada' não pode ser nulo")
-    public Number valorEntrada;
+    public BigDecimal valorEntrada;
 
-    @Column(name="VALOR_PRESTACAO",nullable = false, precision = 2)
+    @Column(name="VALOR_PRESTACAO",nullable = false,precision=20, scale=2)
     @NotNull(message="Campo 'Valor Prestação' não pode ser nulo")
-    public Number valorPrestacao;
+    public BigDecimal valorPrestacao;
 
-    @Column(name="VALOR_COTA", nullable = false, precision = 2)
+    @Column(name="VALOR_COTA", nullable = false)
     @NotNull(message="Campo 'Valor Cota' não pode ser nulo")
     public Long valorCota;
 
