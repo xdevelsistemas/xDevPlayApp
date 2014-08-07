@@ -243,10 +243,11 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 var ordenadores = $scope.ordenadores[key];
                 $http.get(value).success(function (data) {
                     angular.extend(ordenadores, data);
+                    if (!OBJ_FILTROS[key])
+                        ordenadores.selecionado = ordenadores.lista[0].codigo;
                 });
                 if (!!OBJ_FILTROS[key])
                     ordenadores.selecionado = OBJ_FILTROS[key];
-                else ordenadores.selecionado = ordenadores.lista[0].codigo;
             });
             //chama a função sem passar true para requisitar em ajax
             $scope.buscarResultados();
