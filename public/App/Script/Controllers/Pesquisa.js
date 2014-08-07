@@ -224,8 +224,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }, function (key, value) {
                 $http.get(value).success(function (data) {
                     angular.extend($scope.filtros[key], data);
-                    $scope.filtros[key].selecionado = OBJ_FILTROS[key];
                 });
+                $scope.filtros[key].selecionado = OBJ_FILTROS[key];
             });
             //atribui os valores aos campos input
             function naoEeNum(s) {
@@ -240,13 +240,13 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 'ordenador': '/rest/list/getordenador',
                 'ordem': '/rest/list/getordem'
             }, function (key, value) {
+                var ordenadores = $scope.ordenadores[key];
                 $http.get(value).success(function (data) {
-                    var ordenadores = $scope.ordenadores[key];
                     angular.extend(ordenadores, data);
-                    if (!!OBJ_FILTROS[key])
-                        ordenadores.selecionado = OBJ_FILTROS[key];
-                    else ordenadores.selecionado = ordenadores.lista[0].codigo;
                 });
+                if (!!OBJ_FILTROS[key])
+                    ordenadores.selecionado = OBJ_FILTROS[key];
+                else ordenadores.selecionado = ordenadores.lista[0].codigo;
             });
             //chama a função sem passar true para requisitar em ajax
             $scope.buscarResultados();
