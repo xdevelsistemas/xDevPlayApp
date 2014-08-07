@@ -3,8 +3,9 @@ package models.Proconsorcio.RestModels
 import java.text.NumberFormat
 import java.util.{UUID, Locale}
 import java.lang.Integer
-import dao.{CartaDAO, CartaDAOextend}
-import models.Proconsorcio.{Carta, EstatusCarta}
+import dao.{TipoCartaDAO, AdministradoraDAO, CartaDAO, CartaDAOextend}
+import models.Proconsorcio
+import models.Proconsorcio.{TipoCarta, Administradora, Carta, EstatusCarta}
 import play.api.libs.json.{JsValue, Json, JsObject}
 import util.xDevSerialize
 import scala.collection.JavaConverters._
@@ -19,10 +20,10 @@ class Pesquisa(yobj: JsValue) {
   val ptBr = new Locale("pt", "BR")
   val numberFormat = NumberFormat.getInstance(ptBr)
 
-  var administradora: Option[UUID] = None
-  var contemplacao: Option[EstatusCarta] = None
+  var administradora: Option[Administradora] = None
+  var contemplacao: String = new String
   var prazo_restante: String = new String
-  var tipo: Option[UUID] = None
+  var tipo: Option[TipoCarta] = None
   var valor_credito_max: Option[Number] = None
   var valor_credito_min: Option[Number] = None
   var valor_parcelas_max: Option[Number] = None
@@ -47,10 +48,10 @@ class Pesquisa(yobj: JsValue) {
     val _ordem = (yobj \ "ordem").as[String]
     val _ordenador = (yobj \ "ordenador").as[String]
 
-    this.administradora = if(!_administradora.isEmpty) Some(UUID.fromString(_administradora)) else None
-    this.contemplacao = if(!_contemplacao.isEmpty) Some(EstatusCarta.valueOf(_contemplacao)) else None
+    this.administradora = if(!_administradora.isEmpty || _contemplacao == "-1" ) Some((new AdministradoraDAO).findByName(_administradora)) else None
+    this.contemplacao = if(!_contemplacao.isEmpty || _contemplacao == "-1") { if (_contemplacao.equals("Contemplada")) {EstatusCarta.contemplada.toString}else{EstatusCarta.naocontemplada.toString}} else ""
     this.prazo_restante  = _prazo_restante
-    this.tipo = if(!_tipo.isEmpty) Some(UUID.fromString(_tipo)) else None
+    this.tipo = if(!_tipo.isEmpty) Some((new TipoCartaDAO).findByName(_tipo)) else None
     this.valor_credito_max = if (_valor_credito_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_max))}
     this.valor_credito_min = if (_valor_credito_min.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_min))}
     this.valor_parcelas_max = if (_valor_parcelas_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_parcelas_max))}

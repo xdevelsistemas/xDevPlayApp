@@ -1,6 +1,7 @@
 package dao;
 
 import models.Proconsorcio.Carta;
+import models.Proconsorcio.EstatusCarta;
 import models.Proconsorcio.RestModels.Pesquisa;
 import models.Proconsorcio.RestModels.ResultadoPesquisa;
 
@@ -40,11 +41,16 @@ public class CartaDAO extends AbstractDAO<Carta> {
 
 
         if (yobj.administradora().isDefined()){
-            predicates.add(cb.equal(root.get("administradora"), (new AdministradoraDAO()).findOne(yobj.administradora().get())));
+            predicates.add(cb.equal(root.get("administradora"), (yobj.administradora().get())));
         }
 
-        if (yobj.contemplacao().isDefined()){
-            predicates.add(cb.equal(root.get("contemplacao"), yobj.contemplacao() ));
+        if (yobj.tipo().isDefined()){
+            predicates.add(cb.equal(root.get("tipoCarta"), (yobj.tipo().get())));
+        }
+
+        if (!yobj.contemplacao().isEmpty()){
+           predicates.add(cb.equal(root.get("statusCarta"), EstatusCarta.valueOf(yobj.contemplacao()) ));
+
         }
 
         if (!yobj.prazo_restante().isEmpty()){

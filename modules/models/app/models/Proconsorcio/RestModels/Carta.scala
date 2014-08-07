@@ -398,37 +398,44 @@ class CartaDetalhe(id : Long, user : User) extends xDevSerialize {
     val numberFormat = NumberFormat.getInstance(ptBr)
     val carta = (new CartaDAOextend).findbyFriendlyId(id)
 
-    val _tp : ETipoTransacao = if (carta.usuario.equals(user)){ETipoTransacao.Venda}
-                               else { if(user.isAdmin){ETipoTransacao.Gerenciar}
-                                      else{ETipoTransacao.Compra}
-                                    }
+    val _tp: ETipoTransacao = if (carta.usuario.equals(user)) {
+      ETipoTransacao.Venda
+    }
+    else {
+      if (user.isAdmin) {
+        ETipoTransacao.Gerenciar
+      }
+      else {
+        ETipoTransacao.Compra
+      }
+    }
 
 
 
 
     Json.obj(
-            "codigo"-> carta.friendlyID.toString,
-            "valordoBem"-> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
-            "tipo"-> Json.obj("codigo"-> carta.tipoCarta.uuid, "nome"->carta.tipoCarta.name),
-            "administradora"-> Json.obj("codigo"-> carta.administradora.uuid, "nome"->carta.administradora.name),
-            "status"-> new TStatusCartaAdm(carta.statusCartaAdm,_tp).serialize(),
-            "acoes"-> new TStatusCartaAdm(carta.statusCartaAdm,_tp).getAcao.map(u=>
-              Json.obj(
-                "codigo"-> u.toString,
-                "nome"->  new TStatusCartaAdm(carta.statusCartaAdm,_tp).getDescAcao(u)
-              )
-            )
-//            ,
-//            "historico"-> { if (ETipoTransacao.Venda || ETipoTransacao.Gerenciar){
-//                            val lista_historico = (new CartaHistoricoDAO).findMany("carta",carta).sorting.QuickSort.
-//
-//                            }
-//            }
-//  }
+      "codigo" -> carta.friendlyID.toString,
+      "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+      "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+      "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+      "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+      "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+        Json.obj(
+          "codigo" -> u.toString,
+          "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+        )
+      )
+      //            ,
+      //            "historico"-> { if (ETipoTransacao.Venda || ETipoTransacao.Gerenciar){
+      //                            val lista_historico = (new CartaHistoricoDAO).findMany("carta",carta).sorting.QuickSort.
+      //
+      //                            }
+      //            }
+      //  }
 
 
     )
-
+  }
 }
 
 
