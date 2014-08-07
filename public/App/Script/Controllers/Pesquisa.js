@@ -11,7 +11,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 "um": "Somente um resultados encontrado",
                 "varios": "%t Resultados encontrados"
             },
-            "subtituloResultados": "Página %p de %t",
+            "subtituloResultados": {
+                "exibido": "",
+                "template": "Página %p de %t"
+            },
             "detalhes": "Mais Informações",
             "proxima": "Próxima",
             "anterior": "Anterior",
@@ -138,7 +141,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         };
         $scope.$on('novosResultados', function (event) {
             var resultados = $scope.resultados,
-                titulo = $scope.strings.tituloResultados;
+                titulo = $scope.strings.tituloResultados,
+                subtitulo = $scope.strings.subtituloResultados;
             titulo.selecionado = (function () {
                 var l = resultados.lista.length,
                     t = resultados.total;
@@ -147,10 +151,10 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 else return titulo.varios
                         .replace('%l', l).replace('%t', t);
             })();
-            $scope.strings.subtituloResultados = (function () {
+            subtitulo.exibido = (function () {
                 var t = resultados.paginas.total,
                     p = resultados.paginas.selecionada;
-                return $scope.strings.subtituloResultados
+                return subtitulo.template
                     .replace('%t', t).replace('%p', p);
             })();
         });
