@@ -4,7 +4,7 @@ import java.util
 import java.util.UUID
 import javax.persistence.EntityTransaction
 
-import models.Proconsorcio.RestModels.{CartaForm, ContaBancoForm, LstContaBanco}
+import models.Proconsorcio.RestModels.{Pesquisa, CartaForm, ContaBancoForm, LstContaBanco}
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
@@ -31,7 +31,8 @@ object RestController extends xDevRestController {
 
   def getResultPesquisa = Action(parse.json) { implicit request =>
 
-    Redirect("/assets/App/Mockup/Pesquisa/resultados.json")
+    //Redirect("/assets/App/Mockup/Pesquisa/resultados.json")
+    JsonResult(new Pesquisa(request.body).listar)
   }
 
 
@@ -253,20 +254,19 @@ object RestController extends xDevRestController {
         BadRequest(frm.serialize())
       } else {
 
-        JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
-          val dao = new CartaDAOextend
 
-          def apply: SimpleResult = {
-            carta.usuario = user
-            val frm_novacarta = dao.add(carta, user)
+        val dao = new CartaDAOextend
 
-            if (frm_novacarta.status.result.equals("0")) {
-              BadRequest(frm_novacarta.serialize())
-            } else {
-              JsonResult(frm_novacarta)
-            }
-          }
-        })
+
+        carta.usuario = user
+        val frm_novacarta = dao.add(carta)
+
+        if (frm_novacarta.status.result.equals("0")) {
+          BadRequest(frm_novacarta.serialize())
+        } else {
+          JsonResult(frm_novacarta)
+        }
+
 
       }
 

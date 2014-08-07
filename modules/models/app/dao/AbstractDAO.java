@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,8 +8,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+
 import models.AbstractModel;
-import org.hibernate.criterion.Restrictions;
 import play.db.jpa.JPA;
 
 
@@ -20,6 +19,7 @@ public class AbstractDAO<T extends AbstractModel> {
     protected final T metaclass;
     protected final EntityManager em;
     protected final CriteriaBuilder cb;
+
 
 
 
@@ -45,6 +45,8 @@ public class AbstractDAO<T extends AbstractModel> {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     public T findOne(UUID uuid) {
