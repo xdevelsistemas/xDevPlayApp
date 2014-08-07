@@ -126,17 +126,11 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     "itens_pagina": $scope.resultados.itens_pagina
                 }
                 console.log(">>>", "data: ", data);
-                console.log(">>>", "param: ", $.param(data));
-
-                xFiltersQuery += $.param(data);
-
-//                if (true)return;
-
-                xFiltersQuery += 'pagina=' + $scope.resultados.paginas.selecionada + '&'
-                xFiltersQuery += 'ordenador=' + $scope.ordenadores.ordenador.selecionado + '&';
-                xFiltersQuery += 'ordem=' + $scope.ordenadores.ordem.selecionado;
-                xFiltersQuery = encodeURI(xFiltersQuery);
-                $http.get('/assets/App/Mockup/Pesquisa/resultados.json' + xFiltersQuery)
+//                console.log(">>>", "param: ", $.param(data));
+//                xFiltersQuery += $.param(data);
+//                xFiltersQuery = encodeURI(xFiltersQuery);
+//                $http.post('/rest/grid/cartas/pesquisa/' + xFiltersQuery)
+                $http.post('/rest/grid/cartas/pesquisa/', data)
                     .success(function (data) {
                         $.extend(true, $scope.resultados, data);
                     });
