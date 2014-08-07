@@ -29,9 +29,9 @@ import play.api.Play.current
  */
 object RestController extends xDevRestController {
 
-  def getResultPesquisa(query: String) = Action { implicit request =>
+  def getResultPesquisa = Action(parse.json) { implicit request =>
 
-    Ok(Json.toJson(Json.arr(request.queryString)))
+    Redirect("/assets/App/Mockup/Pesquisa/resultados")
   }
 
 
@@ -53,6 +53,7 @@ object RestController extends xDevRestController {
       )
 
       JsonResult(resp)
+
 
 
     }
