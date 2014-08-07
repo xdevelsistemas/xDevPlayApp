@@ -610,9 +610,8 @@ textarea {
         background-color: #002E5B !important;
         position: absolute;
         top: 97px;
-        width: 100%;
-        z-index: 999
-    }
+        /* width: 100%; */
+        z-index: 999}
 
     .top .top-inner .navigation .nav-collapse li {
         backgorund-color: #003f4f !important;
