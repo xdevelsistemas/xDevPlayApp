@@ -56,8 +56,11 @@
                                 </ul>
                             </li>
                         }
+                        <li class="menu-item col-xs-2 col-sm-2 col-lg-2 col-md-2 hidden-desktop">
+                            <a href="/novacarta">Quero Anunciar</a>
+                        </li>
                         @if(user == null || !user.isDefined) {
-                            <li class="menu-item"><a href="/login">Entrar ou Cadastrar</a></li>
+                            <li class="menu-item"><a href="/login">Entrar/Cadastrar</a></li>
                         }
                     </ul>
                     <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2 list-property hidden-tablet hidden-phone" style="display : inline">
