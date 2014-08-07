@@ -1,5 +1,5 @@
 @(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
-<div ng-controller="Pesquisa" class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+<div ng-controller="Pesquisa" ng-cloak class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
         <div class="alert alert-warning" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="sidebar span3" id="caixa-filtros">
             <h2 ng-bind="strings.tituloCaixaFiltros"></h2>
-            <div ng-cloak class="property-filter widget">
+            <div class="property-filter widget">
                 <div class="content">
                     <form ng-submit="buscarResultados(true)">
                         <div ng-repeat="f in ['tipo', 'contemplacao', 'prazo_restante', 'administradora']" class="location control-group">
@@ -60,15 +60,15 @@
 
         <div id="main" class="span9 property-listing">
 
-            <h1 ng-bind="tituloResultados()" class="page-header"></h1>
-            <h2 ng-bind="subtituloResultados()" class="page-header pull-right"></h2>
+            <h1 ng-bind="strings.tituloResultados.selecionado" class="page-header"></h1>
+            <h2 ng-bind="strings.subtituloResultados" class="page-header pull-right"></h2>
 
             <div class="clearfix"></div>
 
             <div class="properties-rows">
                 <div class="filter-wrapper">
                     <div class="filter pull-right">
-                        <form ng-cloak class="form-sort form-horizontal pull-right">
+                        <form class="form-sort form-horizontal pull-right">
                             <div class="pager pull-right">
                                 <ul class="pager">
                                     <li><a href="#" ng-click="voltarPagina()">
@@ -110,7 +110,7 @@
 
             <div class="properties-rows" id="resultadosPesquisa">
                 <div class="row">
-                    <div ng-cloak ng-repeat="resultado in resultados.lista" class="property span9">
+                    <div ng-repeat="resultado in resultados.lista" class="property span9">
                         <div class="row">
 
                             <div class="body span9">
@@ -174,7 +174,7 @@
                 </div>
             </div>
 
-            <div ng-cloak class="pagination pagination-centered">
+            <div class="pagination pagination-centered">
                 <ul class="unstyled">
                     <li><a href="#" ng-click="primeiraPagina()"
                     ng-bind="strings.primeira"></a>

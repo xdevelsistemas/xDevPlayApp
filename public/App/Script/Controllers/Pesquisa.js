@@ -6,6 +6,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "botaoFiltrar": "Filtrar!",
             "botaoLimpar": "Limpar Filtros",
             "tituloResultados": {
+                "selecionado": "",
                 "nenhum": "Nenhum resultado encontrado",
                 "um": "Somente um resultados encontrado",
                 "varios": "%t Resultados encontrados"
@@ -126,30 +127,31 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     "itens_pagina": $scope.resultados.itens_pagina
                 }
                 console.log(">>>", "data: ", data);
-//                console.log(">>>", "param: ", $.param(data));
-//                xFiltersQuery += $.param(data);
-//                xFiltersQuery = encodeURI(xFiltersQuery);
-//                $http.post('/rest/grid/cartas/pesquisa/' + xFiltersQuery)
                 $http.post('/rest/grid/cartas/pesquisa', data)
                     .success(function (data) {
                         $.extend(true, $scope.resultados, data);
+                        $scope.$emit('novosResultados');
                     });
             }
         };
-        $scope.tituloResultados = function () {
-            var l = $scope.resultados.lista.length;
-            var t = $scope.resultados.total;
-            if (t == 0)return $scope.strings.tituloResultados.nenhum;
-            else if (t == 1)return $scope.strings.tituloResultados.um;
-            else return $scope.strings.tituloResultados.varios
-                    .replace('%l', l).replace('%t', t);
-        };
-        $scope.subtituloResultados = function () {
-            var t = $scope.resultados.paginas.total;
-            var p = $scope.resultados.paginas.selecionada;
-            return $scope.strings.subtituloResultados
-                .replace('%t', t).replace('%p', p);
-        };
+        $scope.$on('novosResultados', function (event) {
+            var resultados = $scope.resultados,
+                titulo = $scope.strings.tituloResultados;
+            titulo.selecionado = (function () {
+                var l = resultados.lista.length,
+                    t = resultados.total;
+                if (t == 0) return titulo.nenhum;
+                else if (t == 1) return titulo.um;
+                else return titulo.varios
+                        .replace('%l', l).replace('%t', t);
+            })();
+            $scope.strings.subtituloResultados = (function () {
+                var t = resultados.paginas.total,
+                    p = resultados.paginas.selecionada;
+                return $scope.strings.subtituloResultados
+                    .replace('%t', t).replace('%p', p);
+            })();
+        });
 
         //Paginação
         $scope.irParaPagina = function (codigo) {
