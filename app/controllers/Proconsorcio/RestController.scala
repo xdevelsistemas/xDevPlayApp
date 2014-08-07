@@ -31,13 +31,13 @@ object RestController extends xDevRestController {
 
   def getResultPesquisa = Action(parse.json) { implicit request =>
 
-    Redirect("/assets/App/Mockup/Pesquisa/resultados")
+    Redirect("/assets/App/Mockup/Pesquisa/resultados.json")
   }
 
 
   def getAdministradoras =
-    //Cached("list.administradoras")
-   // {
+  //Cached("list.administradoras")
+  // {
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
@@ -55,13 +55,13 @@ object RestController extends xDevRestController {
       JsonResult(resp)
 
 
-
     }
+
   //}
 
   def getTipoCarta =
-    //Cached("list.tipocartas")
-    //{
+  //Cached("list.tipocartas")
+  //{
     Action {
 
       val lista = new util.ArrayList[TpElDropDown]()
@@ -79,6 +79,7 @@ object RestController extends xDevRestController {
       JsonResult(resp)
 
     }
+
   //}
 
 
@@ -254,6 +255,7 @@ object RestController extends xDevRestController {
 
         JPA.withTransaction("default", false, new F.Function0[SimpleResult] {
           val dao = new CartaDAOextend
+
           def apply: SimpleResult = {
             carta.usuario = user
             val frm_novacarta = dao.add(carta, user)

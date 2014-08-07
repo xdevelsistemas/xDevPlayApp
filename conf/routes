@@ -41,7 +41,7 @@ POST        /rest/grid/contas/remove/:id             controllers.Proconsorcio.Re
 
 #carta
 POST        /rest/grid/cartas/add                    controllers.Proconsorcio.RestController.handleInsertCarta
-POST        /rest/grid/cartas/pesquisa              controllers.Proconsorcio.RestController.getResultPesquisa
+POST        /rest/grid/cartas/pesquisa               controllers.Proconsorcio.RestController.getResultPesquisa
 
 
 # Map static resources from the /public folder to the /assets URL path

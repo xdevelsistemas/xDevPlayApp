@@ -130,7 +130,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 //                xFiltersQuery += $.param(data);
 //                xFiltersQuery = encodeURI(xFiltersQuery);
 //                $http.post('/rest/grid/cartas/pesquisa/' + xFiltersQuery)
-                $http.post('/rest/grid/cartas/pesquisa/', data)
+                $http.post('/rest/grid/cartas/pesquisa', data)
                     .success(function (data) {
                         $.extend(true, $scope.resultados, data);
                     });
