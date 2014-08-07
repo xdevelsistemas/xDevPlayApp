@@ -6,10 +6,11 @@ import java.lang.Long
 import java.util.{Locale, UUID}
 
 import _root_.util.{Tpval, TpResponse, xDevForm, xDevSerialize}
-import dao.{ContaBancoDAO, UserDAO, AdministradoraDAO, TipoCartaDAO}
+import dao._
 import models.Proconsorcio._
 import models.User
 import play.api.libs.json.{JsValue, Json, JsObject}
+import scala.collection.JavaConverters._
 
 
 
@@ -388,7 +389,47 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 }
 
 
+class CartaDetalhe(id : Long, user : User) extends xDevSerialize {
 
+
+
+  def serialize(): JsObject = {
+    val ptBr = new Locale("pt", "BR")
+    val numberFormat = NumberFormat.getInstance(ptBr)
+    val carta = (new CartaDAOextend).findbyFriendlyId(id)
+
+    val _tp : ETipoTransacao = if (carta.usuario.equals(user)){ETipoTransacao.Venda}
+                               else { if(user.isAdmin){ETipoTransacao.Gerenciar}
+                                      else{ETipoTransacao.Compra}
+                                    }
+
+
+
+
+    Json.obj(
+            "codigo"-> carta.friendlyID.toString,
+            "valordoBem"-> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+            "tipo"-> Json.obj("codigo"-> carta.tipoCarta.uuid, "nome"->carta.tipoCarta.name),
+            "administradora"-> Json.obj("codigo"-> carta.administradora.uuid, "nome"->carta.administradora.name),
+            "status"-> new TStatusCartaAdm(carta.statusCartaAdm,_tp).serialize(),
+            "acoes"-> new TStatusCartaAdm(carta.statusCartaAdm,_tp).getAcao.map(u=>
+              Json.obj(
+                "codigo"-> u.toString,
+                "nome"->  new TStatusCartaAdm(carta.statusCartaAdm,_tp).getDescAcao(u)
+              )
+            )
+//            ,
+//            "historico"-> { if (ETipoTransacao.Venda || ETipoTransacao.Gerenciar){
+//                            val lista_historico = (new CartaHistoricoDAO).findMany("carta",carta).sorting.QuickSort.
+//
+//                            }
+//            }
+//  }
+
+
+    )
+
+}
 
 
 class  LstCartasEscritorio(ylista :List[Carta], ytp : ETipoTransacao) extends xDevSerialize {

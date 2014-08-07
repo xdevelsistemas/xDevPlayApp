@@ -113,7 +113,7 @@ class ResultadoPesquisa(ytotal: Long, ylista: java.util.List[Carta]) extends xDe
       "total" -> this.total,
       "lista" -> this.lista.map(t =>
         Json.obj(
-          "codigo" -> t.friendlyID.toString,
+          "codigo" -> t.friendlyID.id.toString,
           "valorDoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
           "administradora" -> Json.obj(
             "codigo" -> t.administradora.uuid,
