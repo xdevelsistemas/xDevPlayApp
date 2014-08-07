@@ -95,8 +95,15 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         $scope.limpar = function () {
             event.preventDefault();
-            $.each($scope.filtros, function (key, value) {
-                value.selecionado = -1;
+            $.each([
+                'tipo', 'contemplacao', 'prazo_restante', 'administradora',
+            ], function (key, value) {
+                $scope.filtros[value].selecionado = -1;
+            });
+            $.each([
+                'valor_credito_min', 'valor_credito_max', 'valor_parcelas_min', 'valor_parcelas_max'
+            ], function (key, value) {
+                $scope.filtros[value].selecionado = '';
             });
         };
         $scope.buscarResultados = function (notAjax) {
