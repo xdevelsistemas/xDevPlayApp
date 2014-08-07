@@ -10,17 +10,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "lista": []
         }
 
-        function aoAbrir() {
-            $http.get("/assets/App/Mockup/Escritorio/compras.json").success(function (data) {
-                angular.extend($scope.compras, data);
-                aplicarDatatables("#tab-compras table");
-            });
-            $http.get("/assets/App/Mockup/Escritorio/vendas.json").success(function (data) {
-                angular.extend($scope.vendas, data);
-                aplicarDatatables("#tab-vendas table");
-            });
-        }
-
         function aplicarDatatables(elmId) {
             window.setTimeout(function () {
                 $(elmId).dataTable({
@@ -51,6 +40,19 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }, 100);
         }
 
-        aoAbrir();
+        //Ao inicializar
+        (function () {
+            var hash = window.location.hash;
+            $("#painel a[href='" + hash + "']").trigger('click');
+            $http.get("/assets/App/Mockup/Escritorio/compras.json").success(function (data) {
+                angular.extend($scope.compras, data);
+                aplicarDatatables("#tab-compras table");
+            });
+            $http.get("/assets/App/Mockup/Escritorio/vendas.json").success(function (data) {
+                angular.extend($scope.vendas, data);
+                aplicarDatatables("#tab-vendas table");
+            });
+        })();
+
     }]);
 });

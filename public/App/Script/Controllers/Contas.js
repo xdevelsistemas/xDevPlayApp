@@ -89,10 +89,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                     aplicarDatatables("#tabela-contas", true);
                 });
             });
-            //TODO modal confirm
-            /*if (window.confirm("Tem certeza de que quer remover esta conta?" +
-             "\n\n" + conta.banco.nome + "\nAG: " + conta.agencia + "\nCC: " + conta.conta + "\n\n")) {
-             }*/
         };
 
         $scope.tornarPadrao = function (conta) {

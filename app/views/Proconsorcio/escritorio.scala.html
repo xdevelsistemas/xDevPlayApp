@@ -26,14 +26,14 @@
 
             <h1 class="page-header">Escritório Online</h1> <br>
 
-            <div ng-cloak class="tabbable">
+            <div ng-cloak class="tabbable" id="painel">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab-compras" data-toggle="tab">Compras</a></li>
-                    <li><a href="#tab-vendas" data-toggle="tab">Vendas</a></li>
-                    <li><a href="#tab-reputacao" data-toggle="tab">Reputação</a></li>
+                    <li class="active"><a href="#compras" data-toggle="tab">Compras</a></li>
+                    <li><a href="#vendas" data-toggle="tab">Vendas</a></li>
+                    @*<li><a href="#tab-reputacao" data-toggle="tab">Reputação</a></li>*@
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-compras">
+                    <div class="tab-pane active" id="compras">
                         <div class="clearfix">
                             <div class="pull-left">
                                 <h1 class="page-header">Compras</h1>
@@ -47,7 +47,7 @@
                                     <th>Tipo</th>
                                     <th>Administradora</th>
                                     <th>Status</th>
-                                    <th></th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,7 +75,7 @@
                         </table>
                     </div>
 
-                    <div class="tab-pane" id="tab-vendas">
+                    <div class="tab-pane" id="vendas">
                         <div class="clearfix">
                             <div class="pull-left">
                                 <h1 class="page-header">Vendas</h1>

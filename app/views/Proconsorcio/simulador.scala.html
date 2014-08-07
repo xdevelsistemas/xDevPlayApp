@@ -17,6 +17,7 @@
                             <div class="span6">
                                 <div class="tab-content">
                                     <form name="simForm" novalidate ng-submit="calcular(simForm, simForm.$invalid)">
+                                            <!--Valor de Crédito-->
                                         <div class="form-group">
                                             <label ng-bind="strings.valorCredito"></label>
                                             <input type="text" name="valorCredito" ng-model="formData.fields.valorCredito.value"
@@ -24,6 +25,7 @@
                                             <span class="error-msg" ng-bind="formData.fields.valorCredito.error"></span>
                                             <p>Requerido</p>
                                         </div>
+                                            <!--Valor das Prestações-->
                                         <div class="form-group">
                                             <label ng-bind="strings.valorPrestacoes"></label>
                                             <input type="text" name="valorPrestacoes" ng-model="formData.fields.valorPrestacoes.value"
@@ -31,19 +33,20 @@
                                             <span class="error-msg" ng-bind="formData.fields.valorPrestacoes.error"></span>
                                             <p>Requerido</p>
                                         </div>
+                                            <!--Prazo Restante-->
                                         <div class="form-group">
                                             <label ng-bind="strings.prazoRestante"></label>
                                             <input type="text" name="prazoRestante" ng-model="formData.fields.prazoRestante.value"
-                                            required xd-mask-positive-number>
+                                            required xd-mask-positive-number maxlength="4">
                                             <span class="error-msg" ng-bind="formData.fields.prazoRestante.error"></span>
                                             <p>Requerido</p>
                                         </div>
+                                            <!--Resultado-->
                                         <div class="form-group">
-                                            <label ng-bind="strings.resultado">Agência</label>
+                                            <label ng-bind="strings.resultado"></label>
                                             <input type="text" name="resultado" ng-model="formData.fields.resultado.value"
                                             disabled>
                                             <span class="error-msg" ng-bind="formData.fields.resultado.error"></span>
-                                            <p>Requerido</p>
                                         </div>
                                         <button ng-bind="strings.botaoCalcular" type="submit" class="btn btn-primary btn-large"></button>
                                     </form>

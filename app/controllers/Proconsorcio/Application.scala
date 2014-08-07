@@ -37,7 +37,7 @@ object Application extends xDevController {
 
 
   private def checkCurrentPassword(email: String, providerId: String, pass: String) = {
-    _userdao.verificanumCodigoDigitado(email, providerId, pass)
+    _userdao.verificanumCodigoDigitado(email, providerId, pass,false)
   }
 
 
@@ -115,7 +115,7 @@ object Application extends xDevController {
         "",
         "")
       val userForm: Form[Contatoinfo] = models.Contato.ContatoinfoObject.formContatoinfo.fill(regdata)
-      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render(userForm,_user ,"" , request), "Fale Conosco", _user, request))
+      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(userForm,_user ,"" , ""), "Fale Conosco", _user, request))
     }else{
       val regdata: Contatoinfo = new Contatoinfo(
         "",
@@ -123,7 +123,7 @@ object Application extends xDevController {
         "",
         "")
       val userForm: Form[Contatoinfo] = models.Contato.ContatoinfoObject.formContatoinfo.fill(regdata)
-      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco.render(userForm,_user , "",request), "Fale Conosco", _user, request))
+      Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(userForm,_user , "",""), "Fale Conosco", _user, request))
     }
 
 
@@ -135,34 +135,38 @@ object Application extends xDevController {
       errors => {
 
 
-        BadRequest(views.html.App.main.render(views.html.Proconsorcio.faleconosco(errors, _user ,""), "Fale Conosco", _user, request))
+        BadRequest(views.html.App.main.render(views.html.Proconsorcio.faleconosco(errors, _user ,"",""), "Fale Conosco", _user, request))
 
       },
 
       success => {
 
+        try {
 
-        val mail: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
-        mail.setSubject(success.about)
-        mail.setRecipient(success.email)
-        mail.setFrom("proconsorcio@proconsorcio.com.br")
-        val body = views.html.Proconsorcio.mails.faleconoscoCliente.render(success.name,success.about,request).body
-        mail.sendHtml(body)
+          val mail: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
+          mail.setSubject(success.about)
+          mail.setRecipient(success.email)
+          mail.setFrom("proconsorcio@proconsorcio.com.br")
+          val body = views.html.Proconsorcio.mails.faleconoscoCliente.render(success.name,success.about,request).body
+          mail.sendHtml(body)
 
-        val mailadmin: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
-        mailadmin.setSubject("nova mensagem do fale conosco, assunto:" + success.about)
-        // enviando a mensagem a todos os administradores
-        (_userdao).findMany("isAdmin", true).asScala.map( t => mailadmin.setRecipient(t.email))
-        val bodyadm = views.html.Proconsorcio.mails.faleconoscoGestor.render(success.name,success.about,success.email,success.message,request).body
-        mailadmin.setFrom("proconsorcio@proconsorcio.com.br")
-        mailadmin.sendHtml(bodyadm)
+          val mailadmin: MailerAPI = play.Play.application().plugin(classOf[MailerPlugin]).email
+          mailadmin.setSubject("nova mensagem do fale conosco, assunto:" + success.about)
+          // enviando a mensagem a todos os administradores
+          (_userdao).findMany("isAdmin", true).asScala.map( t => mailadmin.setRecipient(t.email))
+          val bodyadm = views.html.Proconsorcio.mails.faleconoscoGestor.render(success.name,success.about,success.email,success.message,request).body
+          mailadmin.setFrom("proconsorcio@proconsorcio.com.br")
+          mailadmin.sendHtml(bodyadm)
+
+          Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest(),_user ,"Obrigado! Em breve iremos retorná-lo",""), "Fale Conosco", _user, request))
+
+        }catch {
+          case e: Exception => {
+            Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest(),_user ,"","Tivemos problemas ao enviar sua mensagem, por favor tente mais tarde ou mande email para proconsorcio@proconsorcio.com.br"), "Fale Conosco", _user, request))
+          }
+        }
 
 
-
-
-
-
-        Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest(),_user ,"Obrigado! Em breve iremos retorná-lo"), "Fale Conosco", _user, request))
       }
 
     )

@@ -1,14 +1,17 @@
 package models.Proconsorcio.RestModels
 
-import java.text.NumberFormat
-import java.util
+import java.text.{DecimalFormat, NumberFormat}
+import java.{math, util}
+import java.lang.Long
 import java.util.{Locale, UUID}
 
 import _root_.util.{Tpval, TpResponse, xDevForm, xDevSerialize}
-import dao.{ContaBancoDAO, UserDAO, AdministradoraDAO, TipoCartaDAO}
+import dao._
 import models.Proconsorcio._
 import models.User
 import play.api.libs.json.{JsValue, Json, JsObject}
+import scala.collection.JavaConverters._
+
 
 
 /**
@@ -34,7 +37,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   var valorPrestacao  : Tpval = new Tpval("","")
   var valorCota  : Tpval = new Tpval("","")
   var numCodigo  : Tpval = new Tpval("","")
-  private var codigoConta : Tpval = new Tpval("","")
+  val codigoConta : Tpval = new Tpval("","")
   var numBancoDeposito  : Tpval = new Tpval("","")
   var nomeBancoDeposito  : Tpval = new Tpval("","")
   var agenciaDeposito  : Tpval = new Tpval("","")
@@ -44,13 +47,42 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   def validate (yobj : CartaForm, user: User) : CartaForm = {
       val dao = new UserDAO
 
-      if(!dao.verificanumCodigoDigitado(user.email,user.providerId,yobj.numCodigo.value))
+      if(!dao.verificanumCodigoDigitado(user.email,user.providerId,yobj.numCodigo.value,true))
       {
         yobj.status.result = "0"
         yobj.status.message = "Código de Acesso inválido"
         yobj.numCodigo.value = ""
         yobj.numCodigo.error = yobj.status.message
       }
+
+
+
+
+    if (Long.parseLong(yobj.prazoRestante.value) > 999 || Long.parseLong(yobj.prazoRestante.value) < 0 ){
+
+      val msg = "Prazo restante deve ser entre 0 e 999"
+      if (yobj.status.message.isEmpty ) {
+        yobj.status.message  = msg
+      }
+
+      yobj.status.result = "0"
+      yobj.prazoRestante.value = ""
+      yobj.prazoRestante.error = msg
+
+    }
+
+    if (Long.parseLong(yobj.valorCota.value) > 999 || Long.parseLong(yobj.valorCota.value) < 0 ){
+
+      val msg = "Valor cota deve ser entre 0 e 999"
+      if (yobj.status.message.isEmpty ) {
+        yobj.status.message  = msg
+      }
+
+      yobj.status.result = "0"
+      yobj.valorCota.value = ""
+      yobj.valorCota.error = msg
+
+    }
 
        yobj
   }
@@ -111,15 +143,46 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
   }
 
   private def _instantiate(yobj : CartaForm) : Carta = {
+
+    val ptbrFormat = NumberFormat.getCurrencyInstance(ptBr)
+    ptbrFormat.setMaximumFractionDigits(2)
+    ptbrFormat.setMaximumFractionDigits(2)
+
+    def _fmt (value :String) : java.math.BigDecimal = {
+      val _number = ptbrFormat.parse(value)
+       new java.math.BigDecimal(_number.doubleValue()).setScale(2,java.math.BigDecimal.ROUND_HALF_EVEN)
+
+    }
+
     val xCarta = new Carta()
     xCarta.statusCarta = EstatusCarta.valueOf(yobj.codigo_statuscarta.value)
     xCarta.tipoCarta = (new TipoCartaDAO).findOne(UUID.fromString(yobj.codigo_tipocarta.value))
     xCarta.administradora = (new AdministradoraDAO).findOne(UUID.fromString(yobj.codigo_administradora.value))
-    xCarta.prazoRestante = Integer.parseInt(yobj.prazoRestante.value)
-    xCarta.valorCredito = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCredito.value)
-    xCarta.valorEntrada = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorEntrada.value)
-    xCarta.valorPrestacao = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorPrestacao.value)
-    xCarta.valorCota = NumberFormat.getCurrencyInstance(ptBr).parse(yobj.valorCota.value)
+    xCarta.valorCredito =  _fmt(yobj.valorCredito.value)
+    xCarta.valorEntrada = _fmt(yobj.valorEntrada.value)
+    xCarta.valorPrestacao = _fmt(yobj.valorPrestacao.value)
+
+    try {
+      xCarta.prazoRestante = Long.parseLong(yobj.prazoRestante.value)
+
+      //if (xCarta.prazoRestante > 999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 999")
+
+
+    }catch {
+      case  e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 999")
+    }
+
+    try {
+      xCarta.valorCota = Long.parseLong(yobj.valorCota.value)
+
+      //if (xCarta.valorCota > 999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999")
+
+
+    }catch {
+      case  e: Exception => throw new Exception("Cota deve ser entre 0 e 999")
+    }
+
+
 
     val codigo_conta =  (new ContaBancoDAO).findOne(UUID.fromString(yobj.codigoConta.value))
 
@@ -148,7 +211,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.valorCredito.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCredito)
     this.valorEntrada.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorEntrada)
     this.valorPrestacao.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorPrestacao)
-    this.valorCota.value = NumberFormat.getCurrencyInstance(ptBr).format(cta.valorCota)
+    this.valorCota.value = cta.valorCota.toString
     this.numBancoDeposito.value = cta.numBancoDeposito
     this.nomeBancoDeposito.value = cta.nomeBancoDeposito
     this.agenciaDeposito.value = cta.agenciaDeposito
@@ -326,7 +389,54 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 }
 
 
+class CartaDetalhe(id : Long, user : User) extends xDevSerialize {
 
+
+
+  def serialize(): JsObject = {
+    val ptBr = new Locale("pt", "BR")
+    val numberFormat = NumberFormat.getInstance(ptBr)
+    val carta = (new CartaDAOextend).findbyFriendlyId(id)
+
+    val _tp: ETipoTransacao = if (carta.usuario.equals(user)) {
+      ETipoTransacao.Venda
+    }
+    else {
+      if (user.isAdmin) {
+        ETipoTransacao.Gerenciar
+      }
+      else {
+        ETipoTransacao.Compra
+      }
+    }
+
+
+
+
+    Json.obj(
+      "codigo" -> carta.friendlyID.toString,
+      "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+      "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+      "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+      "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+      "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+        Json.obj(
+          "codigo" -> u.toString,
+          "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+        )
+      )
+      //            ,
+      //            "historico"-> { if (ETipoTransacao.Venda || ETipoTransacao.Gerenciar){
+      //                            val lista_historico = (new CartaHistoricoDAO).findMany("carta",carta).sorting.QuickSort.
+      //
+      //                            }
+      //            }
+      //  }
+
+
+    )
+  }
+}
 
 
 class  LstCartasEscritorio(ylista :List[Carta], ytp : ETipoTransacao) extends xDevSerialize {

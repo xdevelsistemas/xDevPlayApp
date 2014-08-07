@@ -96,18 +96,35 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             return abre + 'AG: ' + conta.agencia + ' / ' + 'CC: ' + conta.conta + fecha;
         };
         $scope.enviarFormNovaCarta = function (form, isInvalid) {
+            console.log(form);
             console.log('>>>', $scope.formData);
             $scope.formData.fields.valorCredito.error = naoEeNum($scope.formData.fields.valorCredito.value) ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.valorEntrada.error = naoEeNum($scope.formData.fields.valorEntrada.value) ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.valorPrestacao.error = naoEeNum($scope.formData.fields.valorPrestacao.value) ? $scope.strings.campoObrigatorio : null;
             $scope.formData.fields.valorCota.error = naoEeNum($scope.formData.fields.valorCota.value) ? $scope.strings.campoObrigatorio : null;
-            $.each($scope.formData.fields, function (k, v) {
-                if (k == 'codigo' || k == 'id' || k == 'codigo_conta' || k == 'numCodigo') return;
-                v.error = form[k].$invalid ? $scope.strings.campoObrigatorio : null;
+            $.each([
+                'codigo_tipocarta',
+                'codigo_administradora',
+                'codigo_statuscarta',
+                'prazoRestante',
+                'valorCredito',
+                'valorEntrada',
+                'valorPrestacao',
+                'valorCota'
+            ], function (k, v) {
+                $scope.formData.fields[v].error = form[v].$invalid ? $scope.strings.campoObrigatorio : null;
             });
             if (isInvalid) return console.log("formulário inválido!");
             console.log("formulário válido!");
             $("#modal-selecionarConta").modal('show');
+        };
+
+        function recebeuResp(data) {
+            console.log('<<<', data);
+            if (data.resp != undefined) $.extend(true, $scope.formData, data);
+            else $.extend(true, $scope.formData.resp, data);
+            $scope.formData.resp.message = $sce.trustAsHtml($scope.formData.resp.message);
+            $("#modal-selecionarConta").modal('hide');
         };
         $scope.enviarFormConta = function (form, isInvalid) {
             $scope.formData.fields.codigo_conta.error = form.codigo_conta.$invalid ? $scope.strings.campoObrigatorio : null;
@@ -119,12 +136,14 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             }
             console.log("formulário válido!");
             $http.post("/rest/grid/cartas/add", $scope.formData).success(function (data) {
-                angular.extend($scope.formData, data);
+                recebeuResp(data)
                 if ($scope.formData.resp.result == '1') {
+                    $("form[name='formSelecionarConta'] select[name='codigo_conta']").select2('val', '');
                     inicializarModeloForm();
-                    $("#modal-selecionarConta").modal('hide');
-                    $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio"><strong>Escritório Online</strong></a> para maiores detalhes.');
+                    $scope.formData.resp.message = $sce.trustAsHtml('Carta adicionada com sucesso! Acesse o <a href="/escritorio#vendas"><strong>Escritório Online</strong></a> para maiores detalhes.');
                 }
+            }).error(function (data) {
+                recebeuResp(data);
             });
         };
 
