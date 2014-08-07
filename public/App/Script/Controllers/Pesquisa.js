@@ -80,12 +80,12 @@ define(['./__module__', 'jquery'], function (controllers, $) {
         $scope.ordenadores = {
             "ordenador": {
                 "codigo": "ordenador",
-                "selecionado": "preco",
+                "selecionado": "",
                 "lista": []
             },
             "ordem": {
                 "codigo": "ordem",
-                "selecionado": "asc",
+                "selecionado": "",
                 "lista": []
             }
         }
@@ -107,7 +107,9 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 ], function (key, value) {
                     xFiltersQuery += value + '=' + $scope.filtros[value].selecionado + '&';
                 });
-                xFiltersQuery = xFiltersQuery.slice(0, xFiltersQuery.length - 1);
+                xFiltersQuery += $scope.ordenadores.ordenador.codigo + '=' + $scope.ordenadores.ordenador.selecionado + '&';
+                xFiltersQuery += $scope.ordenadores.ordem.codigo + '=' + $scope.ordenadores.ordem.selecionado;
+//                xFiltersQuery = xFiltersQuery.slice(0, xFiltersQuery.length - 1);
                 xFiltersQuery = encodeURI(xFiltersQuery);
                 window.location = '/pesquisa' + xFiltersQuery;
             } else {
@@ -162,8 +164,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             $scope.irParaPagina(1);
         };
         $scope.passarPagina = function () {
-            var p = parseInt($scope.resultados.paginas.selecionada);
-            var t = parseInt($scope.resultados.paginas.total);
+            var p = parseInt($scope.resultados.paginas.selecionada),
+                t = parseInt($scope.resultados.paginas.total);
             if (p < t) {
                 $scope.irParaPagina(p + 1);
             }
@@ -185,8 +187,8 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             return (parseInt(codigo) == $scope.resultados.paginas.selecionada);
         };
         $scope.paginasPassadas = function () {
-            var p = parseInt($scope.resultados.paginas.selecionada);
-            var t = parseInt($scope.resultados.paginas.total);
+            var p = parseInt($scope.resultados.paginas.selecionada),
+                t = parseInt($scope.resultados.paginas.total);
             if (t < 5) return 1;
             else if (p > t - 2) return p - (4 - (t - p));
             else if (p > 2) return p - 2;
@@ -201,23 +203,24 @@ define(['./__module__', 'jquery'], function (controllers, $) {
 
         //Ao iniciar a view
         (function () {
+            //TODO conferir se é necessário por as strings em um arquivo separado
             //requisita as strings da página
-            $http.get('/assets/App/Mockup/Pesquisa/strings.json').success(function (data) {
-                angular.extend($scope.strings, data);
-            });
+//            $http.get('/assets/App/Mockup/Pesquisa/strings.json').success(function (data) {
+//                angular.extend($scope.strings, data);
+//            });
             //captura html query string da barra de endereço
-            var QUERY_FILTROS = QueryString.removeMark(window.location.search);
-            var OBJ_FILTROS = QueryString.toObject(QUERY_FILTROS);
+            var QUERY_FILTROS = QueryString.removeMark(window.location.search),
+                OBJ_FILTROS = QueryString.toObject(QUERY_FILTROS);
             //procura pelas listas de filtros e seleciona os campos select
-            $.each([
-                ['administradora', '/rest/list/getadministradoras'],
-                ['contemplacao', '/rest/list/getcontemplacao'],
-                ['prazo_restante', '/rest/list/getprazorestante'],
-                ['tipo', '/rest/list/gettipocarta']
-            ], function (key, value) {
-                $http.get(value[1]).success(function (data) {
-                    angular.extend($scope.filtros[value[0]], data);
-                    $scope.filtros[value[0]].selecionado = OBJ_FILTROS[value[0]];
+            $.each({
+                'administradora': '/rest/list/getadministradoras',
+                'contemplacao': '/rest/list/getcontemplacao',
+                'prazo_restante': '/rest/list/getprazorestante',
+                'tipo': '/rest/list/gettipocarta'
+            }, function (key, value) {
+                $http.get(value).success(function (data) {
+                    angular.extend($scope.filtros[key], data);
+                    $scope.filtros[key].selecionado = OBJ_FILTROS[key];
                 });
             });
             //atribui os valores aos campos input
@@ -229,11 +232,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 $scope.filtros[value].selecionado = naoEeNum(OBJ_FILTROS[value]) ? '' : OBJ_FILTROS[value];
             });
             //procura pelos ordenadores
-            $.each(['ordenador', 'ordem'], function (key, value) {
-                if (OBJ_FILTROS[value] != undefined)
-                    $scope.ordenadores[value].selecionado = OBJ_FILTROS[value];
-                $http.get('/assets/App/Mockup/Filtros/' + $scope.ordenadores[value].codigo + '.json').success(function (data) {
-                    angular.extend($scope.ordenadores[value], data);
+            $.each({
+                'ordenador': '/rest/list/getordenador',
+                'ordem': '/rest/list/getordem'
+            }, function (key, value) {
+                $http.get(value).success(function (data) {
+                    var ordenadores = $scope.ordenadores[key];
+                    angular.extend(ordenadores, data);
+                    if (!!OBJ_FILTROS[key])
+                        ordenadores.selecionado = OBJ_FILTROS[key];
+                    else ordenadores.selecionado = ordenadores.lista[0].codigo;
                 });
             });
             //chama a função sem passar true para requisitar em ajax

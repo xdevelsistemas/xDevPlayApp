@@ -1,13 +1,17 @@
 {
-    "codigo":"ordenador",
+    "codigo": "ordenador",
     "lista": [
         {
-            "codigo": "preco",
-            "descricao": "Preço"
+            "codigo": "valor_credito",
+            "descricao": "Valor de Crédito"
         },
         {
-            "codigo": "administradora",
-            "descricao": "Administradora"
+            "codigo": "valor_entrada",
+            "descricao": "Valor de Entrada"
+        },
+        {
+            "codigo": "valor_prestacao",
+            "descricao": "Valor da Prestação"
         }
     ]
 }
