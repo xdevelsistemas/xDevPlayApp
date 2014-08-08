@@ -1,172 +1,163 @@
-@(implicit userdao : dao.UserDAO,  user : Option[securesocial.core.Identity],query: String)
-<div class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String,request: play.api.mvc.RequestHeader, msg : String)
+<div ng-controller="Pesquisa" ng-cloak class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+    @if(!msg.isEmpty) {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @msg
+        </div>
+    }
+    @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
+    @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }
+            , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
     <div class="row">
-        @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get,user.get.identityId.providerId)) ){
-            <div class="alert alert-info"  role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                @{user.get.firstName}, Finalize seus dados Cadastrais clicando  <a  href="/dadoscadastrais"><strong style="color: darkblue"> Aqui </strong> </a>
-            </div>
-        }
-
-        @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get,user.get.identityId.providerId)) ){
-            <div class="alert alert-info "  role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                @{user.get.firstName}, Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color: darkblue"> Aqui </strong> </a>
-            </div>
-        }
-
         <div class="sidebar span3" id="caixa-filtros">
-            <h2 data-bind="text: tituloCaixaFiltros()"></h2>
-
+            <h2 ng-bind="strings.tituloCaixaFiltros"></h2>
             <div class="property-filter widget">
                 <div class="content">
-                    <form method="get" action="javascript:void(0);">
-                        <div data-bind="foreach: filtros()">
-                            <div class="location control-group">
-                                <label class="control-label"
-                                data-bind="text: descricao()">
-                                </label>
-                                <div class="controls">
-                                    <select name="filter_location">
-                                        <option>-</option>
-                                            <!--ko foreach: lista()-->
-                                        <option data-bind="value: codigo(), text: descricao()"></option>
-                                            <!--/ko-->
-                                    </select>
-                                </div>
+                    <form ng-submit="buscarResultados(true)">
+                        <div ng-repeat="f in ['tipo', 'contemplacao', 'prazo_restante', 'administradora']" class="location control-group">
+                            <label ng-bind="filtros[f].descricao" class="control-label"></label>
+                            <div class="controls">
+                                <select ng-model="filtros[f].selecionado" ui-select2="{width:'100%'}"
+                                data-placeholder="Selecione uma opção">
+                                    <option value=""></option>
+                                    <option value="-1">-</option>
+                                    <option ng-repeat="item in filtros[f].lista"
+                                    ng-value="item.descricao"
+                                    ng-bind="item.descricao"></option>
+                                </select>
                             </div>
                         </div>
-
+                        <div ng-repeat="f in ['valor_credito_min', 'valor_credito_max', 'valor_parcelas_min', 'valor_parcelas_max']" class="location control-group">
+                            <label ng-bind="filtros[f].descricao" class="control-label"></label>
+                            <div class="controls">
+                                <input type="text" xd-mask-money-brl ng-model="filtros[f].selecionado">
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button class="btn btn-primary btn-large"
-                            data-bind="text: textoBotaoFiltrar()"></button>
+                            ng-bind="strings.botaoFiltrar" type="submit"></button>
+                            <button class="btn btn-primary btn-large"
+                            calss ="limpar-filtros" ng-click="limpar()"
+                            ng-bind="strings.botaoLimpar"></button>
                         </div>
-                            <!-- /.form-actions -->
                     </form>
                 </div>
-                    <!-- /.content -->
-            </div> <!-- /.property-filter -->
-
+            </div>
         </div>
-            <!-- /#sidebar -->
 
         <div id="main" class="span9 property-listing">
 
-            <h1 class="page-header">Resultados</h1>
+            <h1 ng-bind="strings.tituloResultados.selecionado" class="page-header"></h1>
+            <h2 ng-bind="strings.subtituloResultados.exibido" class="page-header pull-right"></h2>
 
-            <div class="clearfix">
+            <div class="clearfix"></div>
 
-                <div class="properties-rows">
-                    <div class="filter-wrapper">
-                        <div class="filter pull-right">
-                            <form action="javascript:void(0)" method="get" class="form-sort form-horizontal pull-right">
-
-                                <div class="pager pull-right">
-                                    <ul class="pager">
-                                        <li><a href="#" ><i class="icon icon-normal-left-arrow-small"></i></a></li>
-                                        <li><a href="#" ><i class="icon icon-normal-right-arrow-small"></i></a></li>
-                                    </ul>
-                                </div> <!-- /.pager -->
-
-                                <div class="control-group pull-right">
-                                    <div class="controls">
-                                        <select name="filter_sort_by" id="inputSortBy">
-                                            <option value="price" >Preço</option>
-                                            <option value="published" >Administradora</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="control-group pull-right">
-                                    <div class="controls">
-                                        <select id="inputOrder" name="filter_order" class="chosen">
-                                            <option value="ASC" >Crescente</option>
-                                            <option value="DESC" >Decrescente</option>
-                                        </select>
-                                    </div> <!-- /.controls -->
-                                </div> <!-- /.control-group -->
-                            </form>
-                                <!-- /.filter -->
-                        </div>
-                    </div>
-                        <!-- /.properties-rows --> </div>
-
-                <div class="clearfix"></div>
-
-
-                <div class="properties-rows" id="resultadosPesquisa">
-                    <div class="row" data-bind="foreach: resultados()">
-
-                        <div class="property span9">
-                            <div class="row">
-                                <div class="body span9">
-                                    <div class="title-price row">
-                                        <div class="title span9" style="margin-bottom : 12px ;">
-                                            <h2><a href="property-detail.html"
-                                            data-bind="text:administradora.nome()">
-                                                </a>
-                                            </h2>
-                                        </div>
-                                            <!-- /.title -->
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                    <div class="price" data-bind="text: 'R$ '+valorDoBem()" style="margin-top : 12px ;"></div>
-                                    <!-- /.price -->
-                                    <!-- /.title -->
-                                    <div class="location" data-bind="text: tipo.nome()" style="margin-top : 12px ;"></div>
-                                    <!-- /.location -->
-                                    <div class="body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et risus vitae lectus dapibus
-                                            sagittis sit amet eu eros. Pellentesque accumsan mi nec tristique vehicula. Suspendisse potenti.
-                                            Cras f ...
-                                        </p>
-                                    </div>
-                                        <!-- /.body -->
-
-                                    <div class="property-info clearfix">
-                                        <div class="more-info">
-                                            <a data-bind="attr{ href: /detalhes/ +codigo() }">
-                                                Mais Informações
-                                                <i class="icon icon-normal-right-arrow-circle"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                        <!-- /.info -->
-                                </div>
-                                    <!-- /.body -->
+            <div class="properties-rows">
+                <div class="filter-wrapper">
+                    <div class="filter pull-right">
+                        <form class="form-sort form-horizontal pull-right">
+                            <div class="pager pull-right">
+                                <ul class="pager">
+                                    <li><a href="#" ng-click="voltarPagina()">
+                                        <i class="icon icon-normal-left-arrow-small"></i></a>
+                                    </li>
+                                    <li><a href="#" ng-click="passarPagina()">
+                                        <i class="icon icon-normal-right-arrow-small"></i></a>
+                                    </li>
+                                </ul>
                             </div>
-                                <!-- /.row -->
-                        </div>
-                            <!-- /.property -->
-
+                            <div class="control-group pull-right ordenadores">
+                                <div class="controls">
+                                    <select ng-model="ordenadores.ordenador.selecionado"
+                                    ui-select2="{width:'12em', minimumResultsForSearch:-1}"
+                                    ng-change="ordenarResultado()">
+                                        <option value=""></option>
+                                        <option ng-repeat="ordenador in ordenadores.ordenador.lista"
+                                        ng-value="ordenador.codigo" ng-bind="ordenador.descricao"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group pull-right ordenadores">
+                                <div class="controls">
+                                    <select ng-model="ordenadores.ordem.selecionado"
+                                    ui-select2="{width:'12em', minimumResultsForSearch:-1}"
+                                    ng-change="ordenarResultado()">
+                                        <option value=""></option>
+                                        <option ng-repeat="ordem in ordenadores.ordem.lista"
+                                        ng-value="ordem.codigo" ng-bind="ordem.descricao"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                        <!-- /.row -->
                 </div>
-                    <!-- /.properties-grid -->
-
-                <div class="pagination pagination-centered">
-                    <ul class="unstyled">
-                        <li><a href="#">Primeira</a></li>
-                        <li><a href="#">Anterior</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li class="active"><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">Próxima</a></li>
-                        <li><a href="#">Última</a></li>
-                    </ul>
-                </div>
-
             </div>
 
-                <!-- /#main -->
+            <div class="clearfix"></div>
+
+            <div class="properties-rows" id="resultadosPesquisa">
+                <div class="row">
+                    <div ng-repeat="resultado in resultados.lista" class="property span9">
+                        <div class="row">
+                            <div class="body">
+                                <div class="location">Tipo de Carta: <span ng-bind="resultado.tipo.nome"></span></div>
+                                <div class="price"><span ng-bind="resultado.valorDoBem" xd-mask-money-brl></span></div>
+                                <div class="location">Entrada: <span ng-bind="resultado.valorDaEntrada"></span></div>
+                                <div ng-bind="'Prazo: '+resultado.prazoRestante+' meses'" class="location"></div>
+                                <div class="location">Administradora: <span ng-bind="resultado.administradora.nome"></span></div>
+                                <div class="more-info pull-right">
+                                    <button ng-href="/detalhes/{{resultado.codigo}}"  ng-bind="strings.detalhes"
+                                    class="btn btn-large btn-primary"></button>
+                                </div>
+                                @*<div class="more-info pull-right">*@
+                                @*<span class="label label-default" ng-bind="resultado.status.nome"></span>*@
+                                @*</div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination pagination-centered">
+                <ul class="unstyled">
+                    <li><a href="#" ng-click="primeiraPagina()"
+                    ng-bind="strings.primeira"></a>
+                    </li>
+                    <li><a href="#" ng-click="voltarPagina()"
+                    ng-bind="strings.anterior"></a>
+                    </li>
+                    <li ng-repeat="n in [] | Range:paginasExibidas()"
+                    ng-class="{active: paginaSelecionada($index+paginasPassadas())}">
+                        <a href="#" ng-click="irParaPagina($index+paginasPassadas())"
+                        ng-bind="$index+paginasPassadas()"></a></li>
+                    <li><a href="#" ng-click="passarPagina()"
+                    ng-bind="strings.proxima"></a>
+                    </li>
+                    <li><a href="#" ng-click="ultimaPagina()"
+                    ng-bind="strings.ultima"></a>
+                    </li>
+                </ul>
+            </div>
 
         </div>
-            <!-- /.list -->
     </div>
-        <!-- /.row -->
 </div>
-<!--/.container -->
-<script src="@routes.Assets.at("App/Script/App/Pesquisa.js")"></script>
