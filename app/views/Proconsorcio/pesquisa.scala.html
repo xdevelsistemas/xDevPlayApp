@@ -1,5 +1,11 @@
-@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String)
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String,request: play.api.mvc.RequestHeader, msg : String)
 <div ng-controller="Pesquisa" ng-cloak class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
+    @if(!msg.isEmpty) {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @msg
+        </div>
+    }
     @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
         <div class="alert alert-warning" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
