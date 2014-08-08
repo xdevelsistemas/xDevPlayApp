@@ -119,6 +119,16 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val JPAVersion = "4.3.6.Final"
 
+//  val JrimumDomkee = "org.jrimum" % "jrimum-domkee" % "0.2.3-DEV-SNAPSHOT"
+//  val JrimumTexgit = "org.jrimum" % "jrimum-texgit" % "0.2.3-DEV-SNAPSHOT"
+//  val Itext = "com.lowagie" % "itext" % "2.0.8"
+//  val Itextpdf = "com.itextpdf" % "itextpdf" % "5.4.5"
+//  val GuavaJdk5 = "com.google.guava" % "guava-jdk5" % "14.0.1"
+//  val HamcrestAll = "org.hamcrest" % "hamcrest-all" % "1.3"
+//  val MockitoAll = "org.mockito" % "mockito-all" % "1.9.5"
+//  val CommonsIo = "commons-io" % "commons-io" % "2.4"
+//  val Junit = "junit" % "junit" % "4.11"
+
 
 
   resolvers += Resolver.sonatypeRepo("releases")
@@ -126,6 +136,19 @@ object Build extends sbt.Build with Zap with Metamodel {
   val essentialDeps = Seq(
     "org.mockito" % "mockito-all" % mockitoVersion % "test"
   )
+
+//  val bopepoDeps = essentialDeps ++ Seq(
+//    javaCore,
+//    JrimumDomkee,
+//    JrimumTexgit,
+//    Itext,
+//    Itextpdf,
+//    GuavaJdk5,
+//    HamcrestAll,
+//    MockitoAll,
+//    Junit
+//  )
+
 
   val modelsDeps = essentialDeps ++ Seq(
     javaCore,
@@ -167,6 +190,19 @@ object Build extends sbt.Build with Zap with Metamodel {
     , metamodel <<= metamodelTask
     , metamodel <<= metamodel.dependsOn(clean in Compile)
   )
+
+
+//  lazy val bopepo = play.Project(
+//    appName + "-bopepo", appVersion,
+//    bopepoDeps,
+//    path = file("modules/Bopepo"),
+//    settings = javaSettings
+//  ).settings(
+//      zap <<= zapTask,
+//      zap <<= zap.dependsOn(clean in Compile)
+//      , metamodel <<= metamodelTask
+//      , metamodel <<= metamodel.dependsOn(clean in Compile)
+//    )
 
 
 
