@@ -383,12 +383,7 @@ class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
 
     if (carta == null) {
       Json.obj(
-        "codigo" -> "",
-        "valordoBem" -> "",
-        "tipo" -> Json.obj("codigo" -> "", "nome" -> ""),
-        "administradora" -> Json.obj("codigo" -> "", "nome" -> ""),
-        "status" -> Json.obj("codigo" -> "", "nome" -> ""),
-        "acoes" -> Json.arr()
+        "resp" -> new TpResponse("0", "Carta não encontrada").serialize()
       )
 
     } else {
@@ -411,30 +406,35 @@ class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
 
       if (_tp == ETipoTransacao.Compra) {
         Json.obj(
-          "codigo" -> carta.friendlyID.id.toString,
-          "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
-          "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
-          "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
-          "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
-          "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
-            Json.obj(
-              "codigo" -> u.toString,
-              "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+          "resp" -> new TpResponse("1", "").serialize(),
+          "carta" -> Json.obj(
+            "codigo" -> carta.friendlyID.id.toString,
+            "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+            "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+            "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+            "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+            "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+              Json.obj(
+                "codigo" -> u.toString,
+                "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+              )
             )
           )
         )
       } else {
         Json.obj(
-          "codigo" -> carta.friendlyID.id.toString,
-          "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
-          "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
-          "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
-          "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
-          "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
-            Json.obj(
-              "codigo" -> u.toString,
-              "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
-            )
+          "resp" -> new TpResponse("1", "").serialize(),
+          "carta" -> Json.obj(
+            "codigo" -> carta.friendlyID.id.toString,
+            "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+            "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+            "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+            "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+            "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+              Json.obj(
+                "codigo" -> u.toString,
+                "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+              ))
           ),
           "historico" -> (new CartaHistoricoDAO).findMany("carta", carta).asScala.map(h =>
             Json.obj(

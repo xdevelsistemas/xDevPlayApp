@@ -14,6 +14,7 @@ import play.api.data._
 import play.api.mvc.Action
 import play.db.jpa.JPA
 import play.libs.F
+import play.mvc.Http
 import securesocial.controllers.Registration
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
@@ -42,25 +43,9 @@ object Application extends xDevController {
 
   def home = UserAwareAction { implicit request =>
     Ok(views.html.App.main.render(
-      views.html.Proconsorcio.index.render(_userdao, _user,request,"")
+      views.html.Proconsorcio.index.render(_userdao, _user,request)
       , "Pesquisa", _user, request))
   }
-
-
-  def back(msg : String) = UserAwareAction { implicit request =>
-    Ok(views.html.App.main.render(
-      views.html.Proconsorcio.index.render(_userdao, _user,request,msg)
-      , "Pesquisa", _user, request))
-  }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -75,8 +60,8 @@ object Application extends xDevController {
   }
 
 
-  def detalhes(id: String) = Action { implicit request =>
-    Ok(views.html.App.main(views.html.Proconsorcio.detalhes.apply(id)(_user, request))("Pesquisa", _user, request))
+  def detalhes = Action { implicit request =>
+    Ok(views.html.App.main(views.html.Proconsorcio.detalhes(_user, request))("Pesquisa", _user, request))
   }
 
 
@@ -178,7 +163,7 @@ object Application extends xDevController {
 
           //Ok(views.html.App.main.render(views.html.Proconsorcio.index.render(_userdao,_user,request, "Obrigado! Em breve iremos retorná-lo") , "Pesquisa", _user, request))
           //"Obrigado! Em breve iremos retorná-lo"
-          Redirect(routes.Application.back("Obrigado! Em breve iremos retorná-lo"))
+          Redirect(routes.Application.home()).flashing("xdevel.msg"->"Obrigado! Em breve iremos retorná-lo")
 
         }catch {
           case e: Exception => {
@@ -214,7 +199,7 @@ object Application extends xDevController {
         //play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.index(_userdao,_user,request, "Dados Alterados com Sucesso!"), "Pesquisa", _user, request))
         //"Dados Alterados com Sucesso!"
 
-        Redirect(routes.Application.back("Dados Alterados com Sucesso!"))
+        Redirect(routes.Application.home()).flashing("xdevel.msg"->"Dados Alterados com Sucesso!")
       }
 
     )
@@ -268,7 +253,7 @@ object Application extends xDevController {
         //Ok(views.html.App.main.render(views.html.Proconsorcio.index.render(_userdao,_user,request, "Código Alterado com Sucesso!"), "Pesquisa", _user, request))
         //request.body = "Código Alterado com Sucesso!"
 
-        Redirect(routes.Application.back("Código Alterado com Sucesso!"))
+        Redirect(routes.Application.home()).flashing("xdevel.msg"->"Código Alterado com Sucesso!")
       }
 
     )
