@@ -4,7 +4,7 @@ import java.util
 import java.util.UUID
 import javax.persistence.EntityTransaction
 
-import models.Proconsorcio.RestModels.{Pesquisa, CartaForm, ContaBancoForm, LstContaBanco}
+import models.Proconsorcio.RestModels._
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
@@ -240,12 +240,17 @@ object RestController extends xDevRestController {
 
   }
 
+  def getDetalheCarta(id:String) = UserAwareAction{ implicit request =>
+    val user: User = if(_user.isDefined && !_user.isEmpty){(new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()}else{null}
+    JsonResult(new CartaDetalhe(java.lang.Long.parseLong(id),user))
+  }
+
 
   def handleInsertCarta = SecuredAction(parse.json) { implicit request =>
-
+    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
     try {
 
-      val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+
       val frm = (new CartaForm)
       val carta = frm.readAndValidate(request.body, user)
 
