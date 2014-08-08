@@ -1,4 +1,4 @@
-@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String,request: play.api.mvc.RequestHeader, msg : String)
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity], query: String, request: play.api.mvc.RequestHeader, msg: String)
 <div ng-controller="Pesquisa" ng-cloak class="container" id="pagina-pesquisa" xmlns="http://www.w3.org/1999/html">
     @if(!msg.isEmpty) {
         <div class="alert alert-success" role="alert">
@@ -125,8 +125,8 @@
                                 <div class="location"><span ng-bind="resultado.tipo.nome"></span></div>
                                 <div ng-bind="resultado.administradora.nome" class="location">Rodobens</div>
                                 <div class="more-info pull-right">
-                                    <button ng-href="'detalhes/' + resultado.codigo" ng-bind="strings.detalhes"
-                                    class="btn btn-large btn-primary"></button>
+                                    <a ng-href="detalhes#{{resultado.codigo}}" ng-bind="strings.detalhes"
+                                    class="btn btn-large btn-primary"></a>
                                 </div>
                                 @*<div class="more-info pull-right">*@
                                 @*<span class="label label-default" ng-bind="resultado.status.nome"></span>*@
