@@ -106,27 +106,27 @@ input, textarea, .uneditable-input {
 }
 
 #pagina-detalhes button.btn.btn-primary.btn-large ::after {
-    -webkit-transition: 0.2s;
+    /* -webkit-transition: 0.2s; */
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
-    transition: 0.2s;
-    -webkit-font-smoothing: antialiased;
-    font-family: 'PictoPro-Normal';
-    speak: none;
-    font-weight: normal;
-    font-variant: normal;
-    line-height: 1;
-    text-transform: none;
-    color: white;
-    content: "\e0f9";
-    font-size: 20px;
-    position: absolute;
-    margin: 0px 10px;
-    right: 0;
+    /* transition: 0.2s; */
+    /* -webkit-font-smoothing: antialiased; */
+    /* font-family: 'PictoPro-Normal'; */
+    /* speak: none; */
+    /* font-weight: normal; */
+    /* font-variant: normal; */
+    /* line-height: 1; */
+    /* text-transform: none; */
+    /* color: white; */
+    /* content: "\e0f9"; */
+    /* font-size: 20px; */
+    /* position: absolute; */
+    /* margin: 0px 10px; */
+    /* right: 0; */
 }
 
 #pagina-detalhes button.btn.btn-primary.btn-large.edit ::after {
-    content: "\e06e";
+    /* content: "\e06e"; */
 }
 
 #pagina-detalhes button.btn.btn-primary.btn-large.remove ::after {
@@ -327,4 +327,9 @@ td.contas-padrao, td.contas-remover {
     position: relative;
     display: inline-block;
     font-size: 18px;
+}
+
+.procon-acoes .btn .icon {
+    position: absolute;
+    right: 12px;
 }
