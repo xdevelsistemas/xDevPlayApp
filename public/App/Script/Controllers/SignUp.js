@@ -2,7 +2,7 @@ define(['./__module__', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('SignUp', ['$scope', function ($scope) {
 
-        $('#birthDate').inputmask("dd/mm/yyyy"); //nascimento
+        $('#birthDate').inputmask("dd/mm/yyyy", {placeholder: "dd/mm/aaaa"}); //nascimento
         $('#numCep').inputmask("99999-999"); //cep
         $('#docFederal').inputmask("999.999.999-99"); //Inicia o campo como CPF
         $('.tpDoc').change(function () {
