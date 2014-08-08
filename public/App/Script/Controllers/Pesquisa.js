@@ -57,25 +57,25 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             },
             "valor_credito_min": {
                 "codigo": "valor_credito_min",
-                "descricao": "Valor de Crédito Mínimo",
+                "descricao": "Valor de Crédito (Mín)",
                 "selecionado": "",
                 "lista": []
             },
             "valor_credito_max": {
                 "codigo": "valor_credito_min",
-                "descricao": "Valor de Crédito Máximo",
+                "descricao": "Valor de Crédito (Máx)",
                 "selecionado": "",
                 "lista": []
             },
             "valor_parcelas_min": {
                 "codigo": "valor_parcelas_min",
-                "descricao": "Valor das Parcelas Mínimo",
+                "descricao": "Valor das Parcelas (Mín)",
                 "selecionado": "",
                 "lista": []
             },
             "valor_parcelas_max": {
                 "codigo": "valor_parcelas_max",
-                "descricao": "Valor das Parcelas Máximo",
+                "descricao": "Valor das Parcelas (Máx)",
                 "selecionado": "",
                 "lista": []
             }
