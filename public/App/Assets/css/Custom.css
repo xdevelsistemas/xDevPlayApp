@@ -134,9 +134,10 @@ input, textarea, .uneditable-input {
 }
 
 #resultadosPesquisa .price, #resultadosPesquisa .location {
-    /* margin-top: 12px; */
+    margin-top: 6px;
     /* padding: 0.7em 1em; */
     /* top: 0; */
+    margin-bottom: 0px;
 }
 
 #resultadosPesquisa .title-price .title {
@@ -203,8 +204,8 @@ button.btn.interesse {
 }
 
 .more-info button.btn {
-    margin-left: 24px;
-    margin-top: 2px;
+    margin-top: 14px;
+    font-weight: bold;
 }
 
 .error-msg {
@@ -303,4 +304,27 @@ td.contas-padrao, td.contas-remover {
 
 .btn-nova-conta {
     margin-bottom: 12px;
+}
+
+.properties-rows .property {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: #f2f2f2;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid #00478C 3px;
+}
+
+.properties-rows .property .body {
+    width: 90%;
+    margin-left: 5%;
+}
+
+#resultadosPesquisa .price {
+    margin-top: 18px;
+    margin-bottom: 7px;
+    background-color: white;
+    width: auto;
+    position: relative;
+    display: inline-block;
+    font-size: 18px;
 }
