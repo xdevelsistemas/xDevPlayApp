@@ -311,6 +311,7 @@ td.contas-padrao, td.contas-remover {
     background-color: #f2f2f2;
     margin-top: 20px;
     padding-bottom: 20px;
+    border-bottom: solid #00478C 3px;
 }
 
 .properties-rows .property .body {
