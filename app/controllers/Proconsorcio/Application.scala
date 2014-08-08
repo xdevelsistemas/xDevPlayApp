@@ -1,13 +1,11 @@
 package controllers.Proconsorcio
 
 
-import com.typesafe.plugin._
+
 import models.Contato.Contatoinfo
 import play.api.data.Forms._
 import play.api.i18n.Messages
-import play.api.libs.json._
 import java.text.SimpleDateFormat
-import br.com.republicavirtual.{CepService, CepServiceVO}
 import controllers.xDevController
 import dao.IdentityDAO
 import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
@@ -41,11 +39,29 @@ object Application extends xDevController {
   }
 
 
+
   def home = UserAwareAction { implicit request =>
     Ok(views.html.App.main.render(
-      views.html.Proconsorcio.index.render(_userdao, _user)
+      views.html.Proconsorcio.index.render(_userdao, _user,request,"")
       , "Pesquisa", _user, request))
   }
+
+
+  def back(msg : String) = UserAwareAction { implicit request =>
+    Ok(views.html.App.main.render(
+      views.html.Proconsorcio.index.render(_userdao, _user,request,msg)
+      , "Pesquisa", _user, request))
+  }
+
+
+
+
+
+
+
+
+
+
 
 
   def novacarta = SecuredAction { implicit request =>
@@ -65,11 +81,13 @@ object Application extends xDevController {
 
 
   def pesquisa(query: String) = Action { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query), "Pesquisa", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query,request,""), "Pesquisa", _user, request))
+
+
   }
 
   def pesquisa_clean = Action { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, ""), "Pesquisa", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, "",request,""), "Pesquisa", _user, request))
   }
 
   def simulador = Action { implicit request =>
@@ -158,7 +176,9 @@ object Application extends xDevController {
           mailadmin.setFrom("proconsorcio@proconsorcio.com.br")
           mailadmin.sendHtml(bodyadm)
 
-          Ok(views.html.App.main.render(views.html.Proconsorcio.faleconosco(models.Contato.ContatoinfoObject.formContatoinfo.bindFromRequest(),_user ,"Obrigado! Em breve iremos retorná-lo",""), "Fale Conosco", _user, request))
+          //Ok(views.html.App.main.render(views.html.Proconsorcio.index.render(_userdao,_user,request, "Obrigado! Em breve iremos retorná-lo") , "Pesquisa", _user, request))
+          //"Obrigado! Em breve iremos retorná-lo"
+          Redirect(routes.Application.back("Obrigado! Em breve iremos retorná-lo"))
 
         }catch {
           case e: Exception => {
@@ -191,7 +211,10 @@ object Application extends xDevController {
           }
         })
 
-        play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.dadoscadastrais(RegistrationObjects.formAlterarDados.bindFromRequest(), "Dados Alterados com Sucesso!",_user,  _userdao), "Dados Cadastrais", _user, request))
+        //play.api.mvc.Results.Ok(views.html.App.main.render(views.html.Proconsorcio.index(_userdao,_user,request, "Dados Alterados com Sucesso!"), "Pesquisa", _user, request))
+        //"Dados Alterados com Sucesso!"
+
+        Redirect(routes.Application.back("Dados Alterados com Sucesso!"))
       }
 
     )
@@ -242,7 +265,10 @@ object Application extends xDevController {
 
           }
         })
-        Ok(views.html.App.main.render(views.html.Proconsorcio.alterarcodigo(RegistrationObjects.formAlterarCodigo, "Código Alterado com Sucesso!"), "Alterar Código de Compra/Venda", _user, request))
+        //Ok(views.html.App.main.render(views.html.Proconsorcio.index.render(_userdao,_user,request, "Código Alterado com Sucesso!"), "Pesquisa", _user, request))
+        //request.body = "Código Alterado com Sucesso!"
+
+        Redirect(routes.Application.back("Código Alterado com Sucesso!"))
       }
 
     )

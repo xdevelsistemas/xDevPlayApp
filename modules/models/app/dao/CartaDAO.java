@@ -114,10 +114,12 @@ public class CartaDAO extends AbstractDAO<Carta> {
         }
 
         if (yobj.ordem().equals("asc")){
-            if (yobj.ordenador().equals("preco")){
+            if (yobj.ordenador().equals("valor_credito")){
+                cq.orderBy(cb.asc(root.get("valorCredito")));
+            }else if (yobj.ordenador().equals("valor_entrada")){
                 cq.orderBy(cb.asc(root.get("valorEntrada")));
             }else{
-                cq.orderBy(cb.asc(root.get("administradora")));
+                cq.orderBy(cb.asc(root.get("valorPrestacao")));
             }
 
         }else{

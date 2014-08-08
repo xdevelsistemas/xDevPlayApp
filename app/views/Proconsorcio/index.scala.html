@@ -1,2 +1,2 @@
-@(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] )
-@views.html.Proconsorcio.pesquisa(userdao,user,new String())
+@(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] ,request: play.api.mvc.RequestHeader, msg : String )
+@views.html.Proconsorcio.pesquisa(userdao,user,new String(),request,msg)
