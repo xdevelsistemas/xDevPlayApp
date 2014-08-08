@@ -1,54 +1,50 @@
 @(implicit user: Option[securesocial.core.Identity], request: RequestHeader)
-<div class="container" id="pagina-detalhes">
+<div ng-controller="Detalhes" ng-cloak class="container" id="pagina-detalhes">
     <div class="row">
         <div id="main" class="span12 single-property">
-            <h1 class="page-header fl">Imóvel</h1>
+            <h1 class="page-header fl" ng-bind="carta.tipo.nome"></h1>
             <div class="property-detail">
                 <div class="overview">
                     <div class="row">
-                        <div class="span8">
-                            <h2 style="">Rodobens</h2>
+                        @*<div ng-class="{'span8': carta.acoes.length > 0, 'span12': carta.acoes.length == 0}">*@
+                        <div ng-class="carta.acoes.length > 0 ? 'span8' : 'span12'">
+                            <h2 style="" ng-bind="carta.administradora.nome"></h2>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <th>Valor do Crédito</th>
-                                        <td class="price">
-                                            R$ 60.000,00
-                                        </td>
+                                        <th ng-bind="strings.valorDoBem"></th>
+                                        <td class="price" ng-bind="carta.valordoBem"></td>
                                     </tr>
                                     <tr>
-                                        <th>Código da Carta:</th>
-                                        <td><strong>000104</strong></td>
+                                        <th ng-bind="strings.codigoDaCarta"></th>
+                                        <td><strong ng-bind="carta.codigo"></strong></td>
                                     </tr>
                                     <tr>
-                                        <th>Valor de entrada:</th>
-                                        <td>R$ 17.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Prazo</th>
-                                        <td>145 dias</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Status:</th>
-                                        <td>Reservada</td>
+                                        <th ng-bind="strings.status"></th>
+                                        <td ng-bind="carta.status.nome"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="span4 pull-right" >
+                        <div ng-show="carta.acoes.length > 0" class="span4 pull-right procon-acoes">
                             <div class="tab-content">
-                                @if(user.isDefined) {
-                                    <button class="btn btn-primary btn-large edit">
-                                        Editar<span></span>
-                                    </button>
-                                    <button class="btn btn-primary btn-large remove">
-                                        Excluir<span></span>
-                                    </button>
-                                } else {
-                                    <button class="btn btn-primary btn-large interesse">
-                                        Estou Interessado!
-                                    </button>
-                                }
+                                <button ng-repeat="acao in carta.acoes"
+                                class="btn btn-primary btn-large edit"
+                                ng-click="acaoMock(acao)">
+                                    <span ng-bind="acao.nome"></span>
+                                    <i class="icon icon-white"
+                                    ng-class="acao.icone"
+                                    ng-show="!!acao.icone"></i>
+                                </button>
+                                @*<button class="btn btn-primary btn-large edit">*@
+                                @*Editar<span></span>*@
+                                @*</button>*@
+                                @*<button class="btn btn-primary btn-large remove">*@
+                                @*Excluir<span></span>*@
+                                @*</button>*@
+                                @*<button class="btn btn-primary btn-large interesse">*@
+                                @*Estou Interessado!*@
+                                @*</button>*@
                             </div>
                         </div> <!-- /.span2 -->
                     </div><!-- /.row -->

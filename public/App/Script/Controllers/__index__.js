@@ -10,5 +10,6 @@ define([
     './Contas',
     './SignUp',
     './NovaCarta',
+    './Detalhes',
     './Simulador'
 ]);
