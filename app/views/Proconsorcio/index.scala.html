@@ -1,2 +1,2 @@
-@(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] ,request: play.api.mvc.RequestHeader, msg : String )
-@views.html.Proconsorcio.pesquisa(userdao,user,new String(),request,msg)
+@(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] ,request: play.api.mvc.RequestHeader)
+@views.html.Proconsorcio.pesquisa(userdao,user,new String(),request,if(request.flash.get("xdevel.msg").isDefined){request.flash.get("xdevel.msg").get}else{""})

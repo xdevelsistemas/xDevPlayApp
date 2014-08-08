@@ -3,14 +3,13 @@
 # ~~~~
 # Aplicatico principal
 GET         /                                      controllers.Proconsorcio.LandingPage.Home
-GET         /home/:msg                             controllers.Proconsorcio.Application.back(msg)
 GET         /home                                  controllers.Proconsorcio.Application.home
 GET         /pesquisa/:query                       controllers.Proconsorcio.Application.pesquisa(query)
 GET         /pesquisa                              controllers.Proconsorcio.Application.pesquisa_clean
 GET         /alterarcodigo                         controllers.Proconsorcio.Application.alterarcodigo
 POST        /alterarcodigo                         controllers.Proconsorcio.Application.handleAlterarCodigo
 GET         /novacarta                             controllers.Proconsorcio.Application.novacarta
-GET         /detalhes/:id                          controllers.Proconsorcio.Application.detalhes(id)
+GET         /detalhes                              controllers.Proconsorcio.Application.detalhes
 GET         /simulador                             controllers.Proconsorcio.Application.simulador
 GET         /dadoscadastrais                       controllers.Proconsorcio.Application.dadoscadastrais()
 POST        /dadoscadastrais                       controllers.Proconsorcio.Application.handleDadosCadastrais()
@@ -43,7 +42,7 @@ POST        /rest/grid/contas/remove/:id           controllers.Proconsorcio.Rest
 #carta
 POST        /rest/grid/cartas/add                  controllers.Proconsorcio.RestController.handleInsertCarta
 POST        /rest/grid/cartas/pesquisa             controllers.Proconsorcio.RestController.getResultPesquisa
-GET         /rest/grid/cartas/detalhes/:id         controllers.Proconsorcio.RestController.getDetalheCarta(id)
+GET         /rest/grid/cartas/detalhes/$id<[0-9]+> controllers.Proconsorcio.RestController.getDetalheCarta(id)
 
 
 # Map static resources from the /public folder to the /assets URL path
