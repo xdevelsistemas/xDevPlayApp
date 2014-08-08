@@ -1,6 +1,6 @@
 package models.Proconsorcio.RestModels
 
-import java.text.{DecimalFormat, NumberFormat}
+import java.text.{SimpleDateFormat, DateFormat, DecimalFormat, NumberFormat}
 import java.{math, util}
 import java.lang.Long
 import java.util.{Locale, UUID}
@@ -13,56 +13,54 @@ import play.api.libs.json.{JsValue, Json, JsObject}
 import scala.collection.JavaConverters._
 
 
-
 /**
  * Created by claytonsantosdasilva on 04/08/14.
  *
  * Criado para gerenciar cartas de consorcio ( parte de comunicação via rest API)
  */
-class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
+class CartaForm extends xDevSerialize with xDevForm[Carta, CartaForm] {
 
   private val ptBr = new Locale("pt", "BR")
   private val numberFormat = NumberFormat.getInstance(ptBr)
 
 
-  var status : TpResponse = new TpResponse("1","")
-  var codigo  : Tpval = new Tpval("","")
-  var id  : Tpval = new Tpval("","")
-  var codigo_statuscarta  : Tpval = new Tpval("","")
-  var codigo_tipocarta  : Tpval = new Tpval("","")
-  var codigo_administradora  : Tpval = new Tpval("","")
-  var prazoRestante  : Tpval = new Tpval("","")
-  var valorCredito  : Tpval = new Tpval("","")
-  var valorEntrada  : Tpval = new Tpval("","")
-  var valorPrestacao  : Tpval = new Tpval("","")
-  var valorCota  : Tpval = new Tpval("","")
-  var numCodigo  : Tpval = new Tpval("","")
-  val codigoConta : Tpval = new Tpval("","")
-  var numBancoDeposito  : Tpval = new Tpval("","")
-  var nomeBancoDeposito  : Tpval = new Tpval("","")
-  var agenciaDeposito  : Tpval = new Tpval("","")
-  var contaDeposito  : Tpval = new Tpval("","")
+  var status: TpResponse = new TpResponse("1", "")
+  var codigo: Tpval = new Tpval("", "")
+  var id: Tpval = new Tpval("", "")
+  var codigo_statuscarta: Tpval = new Tpval("", "")
+  var codigo_tipocarta: Tpval = new Tpval("", "")
+  var codigo_administradora: Tpval = new Tpval("", "")
+  var prazoRestante: Tpval = new Tpval("", "")
+  var valorCredito: Tpval = new Tpval("", "")
+  var valorEntrada: Tpval = new Tpval("", "")
+  var valorPrestacao: Tpval = new Tpval("", "")
+  var valorCota: Tpval = new Tpval("", "")
+  var numCodigo: Tpval = new Tpval("", "")
+  val codigoConta: Tpval = new Tpval("", "")
+  var numBancoDeposito: Tpval = new Tpval("", "")
+  var nomeBancoDeposito: Tpval = new Tpval("", "")
+  var agenciaDeposito: Tpval = new Tpval("", "")
+  var contaDeposito: Tpval = new Tpval("", "")
 
 
-  def validate (yobj : CartaForm, user: User) : CartaForm = {
-      val dao = new UserDAO
+  def validate(yobj: CartaForm, user: User): CartaForm = {
+    val dao = new UserDAO
 
-      if(!dao.verificanumCodigoDigitado(user.email,user.providerId,yobj.numCodigo.value,true))
-      {
-        yobj.status.result = "0"
-        yobj.status.message = "Código de Acesso inválido"
-        yobj.numCodigo.value = ""
-        yobj.numCodigo.error = yobj.status.message
-      }
-
+    if (!dao.verificanumCodigoDigitado(user.email, user.providerId, yobj.numCodigo.value, true)) {
+      yobj.status.result = "0"
+      yobj.status.message = "Código de Acesso inválido"
+      yobj.numCodigo.value = ""
+      yobj.numCodigo.error = yobj.status.message
+    }
 
 
 
-    if (Long.parseLong(yobj.prazoRestante.value) > 999 || Long.parseLong(yobj.prazoRestante.value) < 0 ){
+
+    if (Long.parseLong(yobj.prazoRestante.value) > 999 || Long.parseLong(yobj.prazoRestante.value) < 0) {
 
       val msg = "Prazo restante deve ser entre 0 e 999"
-      if (yobj.status.message.isEmpty ) {
-        yobj.status.message  = msg
+      if (yobj.status.message.isEmpty) {
+        yobj.status.message = msg
       }
 
       yobj.status.result = "0"
@@ -71,11 +69,11 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
 
     }
 
-    if (Long.parseLong(yobj.valorCota.value) > 999 || Long.parseLong(yobj.valorCota.value) < 0 ){
+    if (Long.parseLong(yobj.valorCota.value) > 999 || Long.parseLong(yobj.valorCota.value) < 0) {
 
       val msg = "Valor cota deve ser entre 0 e 999"
-      if (yobj.status.message.isEmpty ) {
-        yobj.status.message  = msg
+      if (yobj.status.message.isEmpty) {
+        yobj.status.message = msg
       }
 
       yobj.status.result = "0"
@@ -84,41 +82,36 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
 
     }
 
-       yobj
+    yobj
   }
-
-
-
-
-
 
 
   def serialize(): JsObject = {
 
     Json.obj(
-      "resp"->status.serialize(),
-      "fields"->Json.obj(
-        "codigo"-> this.codigo.serialize(),
-        "id"-> this.id.serialize(),
-        "codigo_statuscarta"-> this.codigo_statuscarta.serialize(),
-        "codigo_tipocarta"-> this.codigo_tipocarta.serialize(),
-        "codigo_administradora"-> this.codigo_administradora.serialize(),
-        "prazoRestante"-> this.prazoRestante.serialize(),
-        "valorCredito"-> this.valorCredito.serialize(),
-        "valorEntrada"-> this.valorEntrada.serialize(),
-        "valorPrestacao"-> this.valorPrestacao.serialize(),
-        "valorCota"-> this.valorCota.serialize(),
-        "numCodigo"-> this.numCodigo.serialize(),
-        "numBancoDeposito"-> this.numBancoDeposito.serialize(),
-        "nomeBancoDeposito"-> this.nomeBancoDeposito.serialize(),
-        "agenciaDeposito"-> this.agenciaDeposito.serialize(),
-        "contaDeposito"-> this.contaDeposito.serialize()
+      "resp" -> status.serialize(),
+      "fields" -> Json.obj(
+        "codigo" -> this.codigo.serialize(),
+        "id" -> this.id.serialize(),
+        "codigo_statuscarta" -> this.codigo_statuscarta.serialize(),
+        "codigo_tipocarta" -> this.codigo_tipocarta.serialize(),
+        "codigo_administradora" -> this.codigo_administradora.serialize(),
+        "prazoRestante" -> this.prazoRestante.serialize(),
+        "valorCredito" -> this.valorCredito.serialize(),
+        "valorEntrada" -> this.valorEntrada.serialize(),
+        "valorPrestacao" -> this.valorPrestacao.serialize(),
+        "valorCota" -> this.valorCota.serialize(),
+        "numCodigo" -> this.numCodigo.serialize(),
+        "numBancoDeposito" -> this.numBancoDeposito.serialize(),
+        "nomeBancoDeposito" -> this.nomeBancoDeposito.serialize(),
+        "agenciaDeposito" -> this.agenciaDeposito.serialize(),
+        "contaDeposito" -> this.contaDeposito.serialize()
       )
     )
   }
 
 
-  private def _read(yobj : JsValue) : CartaForm = {
+  private def _read(yobj: JsValue): CartaForm = {
     this.codigo_statuscarta.value = (yobj \ "fields" \ "codigo_statuscarta" \ "value").as[String]
     this.codigo_tipocarta.value = (yobj \ "fields" \ "codigo_tipocarta" \ "value").as[String]
     this.codigo_administradora.value = (yobj \ "fields" \ "codigo_administradora" \ "value").as[String]
@@ -130,27 +123,27 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.numCodigo.value = (yobj \ "fields" \ "numCodigo" \ "value").as[String]
     this.codigoConta.value = (yobj \ "fields" \ "codigo_conta" \ "value").as[String]
 
-//    this.numBancoDeposito.value = (yobj \ "fields" \ "numBancoDeposito" \ "value").as[String]
-//    this.nomeBancoDeposito.value = (yobj \ "fields" \ "nomeBancoDeposito" \ "value").as[String]
-//    this.agenciaDeposito.value = (yobj \ "fields" \ "agenciaDeposito" \ "value").as[String]
-//    this.contaDeposito.value = (yobj \ "fields" \ "contaDeposito" \ "value").as[String]
+    //    this.numBancoDeposito.value = (yobj \ "fields" \ "numBancoDeposito" \ "value").as[String]
+    //    this.nomeBancoDeposito.value = (yobj \ "fields" \ "nomeBancoDeposito" \ "value").as[String]
+    //    this.agenciaDeposito.value = (yobj \ "fields" \ "agenciaDeposito" \ "value").as[String]
+    //    this.contaDeposito.value = (yobj \ "fields" \ "contaDeposito" \ "value").as[String]
 
-     this
+    this
   }
 
-  def read(yobj : JsValue) : Carta = {
-      _instantiate(_read(yobj))
+  def read(yobj: JsValue): Carta = {
+    _instantiate(_read(yobj))
   }
 
-  private def _instantiate(yobj : CartaForm) : Carta = {
+  private def _instantiate(yobj: CartaForm): Carta = {
 
     val ptbrFormat = NumberFormat.getCurrencyInstance(ptBr)
     ptbrFormat.setMaximumFractionDigits(2)
     ptbrFormat.setMaximumFractionDigits(2)
 
-    def _fmt (value :String) : java.math.BigDecimal = {
+    def _fmt(value: String): java.math.BigDecimal = {
       val _number = ptbrFormat.parse(value)
-       new java.math.BigDecimal(_number.doubleValue()).setScale(2,java.math.BigDecimal.ROUND_HALF_EVEN)
+      new java.math.BigDecimal(_number.doubleValue()).setScale(2, java.math.BigDecimal.ROUND_HALF_EVEN)
 
     }
 
@@ -158,7 +151,7 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     xCarta.statusCarta = EstatusCarta.valueOf(yobj.codigo_statuscarta.value)
     xCarta.tipoCarta = (new TipoCartaDAO).findOne(UUID.fromString(yobj.codigo_tipocarta.value))
     xCarta.administradora = (new AdministradoraDAO).findOne(UUID.fromString(yobj.codigo_administradora.value))
-    xCarta.valorCredito =  _fmt(yobj.valorCredito.value)
+    xCarta.valorCredito = _fmt(yobj.valorCredito.value)
     xCarta.valorEntrada = _fmt(yobj.valorEntrada.value)
     xCarta.valorPrestacao = _fmt(yobj.valorPrestacao.value)
 
@@ -168,8 +161,8 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
       //if (xCarta.prazoRestante > 999 || xCarta.prazoRestante < 0 ) new Exception("Prazo Restante deve ser entre 0 e 999")
 
 
-    }catch {
-      case  e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 999")
+    } catch {
+      case e: Exception => throw new Exception("Prazo Restante deve ser entre 0 e 999")
     }
 
     try {
@@ -178,33 +171,32 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
       //if (xCarta.valorCota > 999 || xCarta.valorCota < 0 ) new Exception("Cota deve ser entre 0 e 999")
 
 
-    }catch {
-      case  e: Exception => throw new Exception("Cota deve ser entre 0 e 999")
+    } catch {
+      case e: Exception => throw new Exception("Cota deve ser entre 0 e 999")
     }
 
 
 
-    val codigo_conta =  (new ContaBancoDAO).findOne(UUID.fromString(yobj.codigoConta.value))
+    val codigo_conta = (new ContaBancoDAO).findOne(UUID.fromString(yobj.codigoConta.value))
 
     xCarta.numBancoDeposito = codigo_conta.numBanco
     xCarta.nomeBancoDeposito = codigo_conta.nomeBanco
     xCarta.agenciaDeposito = codigo_conta.agencia
     xCarta.contaDeposito = codigo_conta.conta
 
-     xCarta
+    xCarta
   }
 
-  def readAndValidate (yobj : JsValue, user: User) : Carta = {
-     _instantiate(validate(_read(yobj),user))
+  def readAndValidate(yobj: JsValue, user: User): Carta = {
+    _instantiate(validate(_read(yobj), user))
   }
 
 
-
-  def read(cta : Carta, resp : TpResponse) : CartaForm = {
+  def read(cta: Carta, resp: TpResponse): CartaForm = {
     this.status = resp
     this.id.value = cta.friendlyID.id.toString
     this.codigo.value = cta.uuid
-    this.codigo_statuscarta.value  = cta.statusCarta.toString
+    this.codigo_statuscarta.value = cta.statusCarta.toString
     this.codigo_administradora.value = cta.administradora.uuid
     this.codigo_tipocarta.value = cta.tipoCarta.uuid
     this.prazoRestante.value = cta.prazoRestante.toString
@@ -218,29 +210,25 @@ class CartaForm extends xDevSerialize with xDevForm[Carta,CartaForm]{
     this.contaDeposito.value = cta.contaDeposito
 
 
-     this
+    this
   }
 
 
 }
 
 
-
-
-
-class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) extends xDevSerialize{
+class TStatusCartaAdm(yval: EstatusAdministrativo, ytp: ETipoTransacao) extends xDevSerialize {
 
   val status = yval
   val tipotransacao = ytp
 
 
-
-  def getDesc : String  = {
+  def getDesc: String = {
 
 
     if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
 
-       this.status match {
+      this.status match {
         case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
         case EstatusAdministrativo.Aprovado => "Disponível"
         case EstatusAdministrativo.EmProcessodeCompra => "Em processo de compra"
@@ -257,7 +245,7 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
     } else {
       if (this.tipotransacao.equals(ETipoTransacao.Venda)) {
 
-         this.status match {
+        this.status match {
           case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
           case EstatusAdministrativo.Aprovado => "Anunciado"
           case EstatusAdministrativo.EmProcessodeCompra => "Aguardando autorização de venda"
@@ -273,7 +261,7 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 
       } else {
 
-         this.status match {
+        this.status match {
           case EstatusAdministrativo.AguardandoAprovacao => "Aguardando Aprovação"
           case EstatusAdministrativo.Aprovado => "Anunciado"
           case EstatusAdministrativo.EmProcessodeCompra => "Aguardando autorização de venda"
@@ -293,16 +281,16 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
   }
 
 
-  def getAcao : List[ETpAcoes] = {
+  def getAcao: List[ETpAcoes] = {
 
     if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
 
-       this.status match {
+      this.status match {
         case EstatusAdministrativo.AguardandoAprovacao => List()
         case EstatusAdministrativo.Aprovado => List()
         case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.Cancelar)
-        case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Pagar,ETpAcoes.Cancelar)
-        case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Cancelar,ETpAcoes.Estornar)
+        case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Pagar, ETpAcoes.Cancelar)
+        case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Cancelar, ETpAcoes.Estornar)
         case EstatusAdministrativo.Estornado => List()
         case EstatusAdministrativo.Reprovado => List()
         case EstatusAdministrativo.Cancelado => List()
@@ -314,10 +302,10 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
     } else {
       if (this.tipotransacao.equals(ETipoTransacao.Venda)) {
 
-         this.status match {
+        this.status match {
           case EstatusAdministrativo.AguardandoAprovacao => List(ETpAcoes.Excluir)
           case EstatusAdministrativo.Aprovado => List(ETpAcoes.Excluir)
-          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.AutorizarVenda,ETpAcoes.Cancelar,ETpAcoes.Reprovar)
+          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.AutorizarVenda, ETpAcoes.Cancelar, ETpAcoes.Reprovar)
           case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Cancelar)
           case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Estornar)
           case EstatusAdministrativo.Estornado => List()
@@ -330,12 +318,12 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 
       } else {
 
-         this.status match {
-          case EstatusAdministrativo.AguardandoAprovacao => List(ETpAcoes.Aprovar,ETpAcoes.Reprovar,ETpAcoes.Excluir)
-          case EstatusAdministrativo.Aprovado => List(ETpAcoes.Excluir,ETpAcoes.Bloqueiar)
-          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.Bloqueiar,ETpAcoes.Cancelar)
-          case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Bloqueiar,ETpAcoes.Cancelar)
-          case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Aprovar,ETpAcoes.Reprovar,ETpAcoes.Estornar)
+        this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => List(ETpAcoes.Aprovar, ETpAcoes.Reprovar, ETpAcoes.Excluir)
+          case EstatusAdministrativo.Aprovado => List(ETpAcoes.Excluir, ETpAcoes.Bloqueiar)
+          case EstatusAdministrativo.EmProcessodeCompra => List(ETpAcoes.Bloqueiar, ETpAcoes.Cancelar)
+          case EstatusAdministrativo.VendaAutorizada => List(ETpAcoes.Bloqueiar, ETpAcoes.Cancelar)
+          case EstatusAdministrativo.AguardandoAvaliacao => List(ETpAcoes.Aprovar, ETpAcoes.Reprovar, ETpAcoes.Estornar)
           case EstatusAdministrativo.Estornado => List()
           case EstatusAdministrativo.Reprovado => List(ETpAcoes.Estornar)
           case EstatusAdministrativo.Cancelado => List()
@@ -350,10 +338,10 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
 
   }
 
-  def getDescAcao(yacao : ETpAcoes) : String  = {
+  def getDescAcao(yacao: ETpAcoes): String = {
 
 
-     yacao match {
+    yacao match {
       case ETpAcoes.Aprovar => "Aprovar"
       case ETpAcoes.AutorizarVenda => "Autorizar Venda"
       case ETpAcoes.Bloqueiar => "Bloquear Transação"
@@ -367,30 +355,24 @@ class TStatusCartaAdm(yval : EstatusAdministrativo , ytp : ETipoTransacao) exten
     }
 
 
-
-
   }
 
   //def getAcoes: List
 
 
-
-
   def serialize(): JsObject = {
     Json.obj(
-      "codigo"-> this.status.toString,
-      "nome"-> this.getDesc
+      "codigo" -> this.status.toString,
+      "nome" -> this.getDesc
     )
 
   }
 
 
-
 }
 
 
-class CartaDetalhe(id : Long, user : User) extends xDevSerialize {
-
+class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
 
 
   def serialize(): JsObject = {
@@ -398,88 +380,123 @@ class CartaDetalhe(id : Long, user : User) extends xDevSerialize {
     val numberFormat = NumberFormat.getInstance(ptBr)
     val carta = (new CartaDAOextend).findbyFriendlyId(id)
 
-    val _tp: ETipoTransacao = if (carta.usuario.equals(user)) {
-      ETipoTransacao.Venda
-    }
-    else {
-      if (user.isAdmin) {
-        ETipoTransacao.Gerenciar
+
+    if (carta == null) {
+      Json.obj(
+        "codigo" -> "",
+        "valordoBem" -> "",
+        "tipo" -> Json.obj("codigo" -> "", "nome" -> ""),
+        "administradora" -> Json.obj("codigo" -> "", "nome" -> ""),
+        "status" -> Json.obj("codigo" -> "", "nome" -> ""),
+        "acoes" -> Json.arr()
+      )
+
+    } else {
+      val _tp: ETipoTransacao = if (user != null && carta.usuario.equals(user)) {
+        ETipoTransacao.Venda
       }
       else {
-        ETipoTransacao.Compra
+        if (user != null && user.isAdmin) {
+          ETipoTransacao.Gerenciar
+        }
+        else {
+          ETipoTransacao.Compra
+        }
       }
+
+
+
+      val df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+
+      if (_tp == ETipoTransacao.Compra) {
+        Json.obj(
+          "codigo" -> carta.friendlyID.id.toString,
+          "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+          "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+          "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+          "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+          "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+            Json.obj(
+              "codigo" -> u.toString,
+              "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+            )
+          )
+        )
+      } else {
+        Json.obj(
+          "codigo" -> carta.friendlyID.id.toString,
+          "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
+          "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
+          "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
+          "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
+          "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
+            Json.obj(
+              "codigo" -> u.toString,
+              "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
+            )
+          ),
+          "historico" -> (new CartaHistoricoDAO).findMany("carta", carta).asScala.map(h =>
+            Json.obj(
+              "hora" -> df.format(h.horaevento).toString,
+              "estagio_anterior" -> new TStatusCartaAdm(h.statusCartaAdmAntes, _tp).getDesc,
+              "estagio_posterior" -> new TStatusCartaAdm(h.statusCartaAdm, _tp).getDesc,
+              "usuario" -> h.usuarioEvento.realName,
+              "justificatica" -> h.justificativa
+            )
+          )
+        )
+      }
+
     }
 
 
-
-
-    Json.obj(
-      "codigo" -> carta.friendlyID.toString,
-      "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(carta.valorCredito),
-      "tipo" -> Json.obj("codigo" -> carta.tipoCarta.uuid, "nome" -> carta.tipoCarta.name),
-      "administradora" -> Json.obj("codigo" -> carta.administradora.uuid, "nome" -> carta.administradora.name),
-      "status" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).serialize(),
-      "acoes" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getAcao.map(u =>
-        Json.obj(
-          "codigo" -> u.toString,
-          "nome" -> new TStatusCartaAdm(carta.statusCartaAdm, _tp).getDescAcao(u)
-        )
-      )
-      //            ,
-      //            "historico"-> { if (ETipoTransacao.Venda || ETipoTransacao.Gerenciar){
-      //                            val lista_historico = (new CartaHistoricoDAO).findMany("carta",carta).sorting.QuickSort.
-      //
-      //                            }
-      //            }
-      //  }
-
-
-    )
   }
 }
 
 
-class  LstCartasEscritorio(ylista :List[Carta], ytp : ETipoTransacao) extends xDevSerialize {
+class LstCartasEscritorio(ylista: List[Carta], ytp: ETipoTransacao) extends xDevSerialize {
   val ptBr = new Locale("pt", "BR")
   val numberFormat = NumberFormat.getInstance(ptBr)
 
 
   def serialize(): JsObject = {
     Json.obj(
-      "lista"->
-        this.ylista.map { t=>
+      "lista" ->
+        this.ylista.map { t =>
           Json.obj(
-            "codigo"-> t.friendlyID.toString,
-            "valordoBem"-> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
-            "tipo"-> Json.obj("codigo"-> t.tipoCarta.uuid, "nome"->t.tipoCarta.name),
-            "administradora"-> Json.obj("codigo"-> t.administradora.uuid, "nome"->t.administradora.name),
-            "status"-> new TStatusCartaAdm(t.statusCartaAdm,ytp).serialize(),
-            "acoes"-> new TStatusCartaAdm(t.statusCartaAdm,ytp).getAcao.map(u=>
+            "codigo" -> t.friendlyID.toString,
+            "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
+            "tipo" -> Json.obj("codigo" -> t.tipoCarta.uuid, "nome" -> t.tipoCarta.name),
+            "administradora" -> Json.obj("codigo" -> t.administradora.uuid, "nome" -> t.administradora.name),
+            "status" -> new TStatusCartaAdm(t.statusCartaAdm, ytp).serialize(),
+            "acoes" -> new TStatusCartaAdm(t.statusCartaAdm, ytp).getAcao.map(u =>
               Json.obj(
-              "codigo"-> u.toString,
-              "nome"->  new TStatusCartaAdm(t.statusCartaAdm,ytp).getDescAcao(u)
+                "codigo" -> u.toString,
+                "nome" -> new TStatusCartaAdm(t.statusCartaAdm, ytp).getDescAcao(u)
               )
             )
 
-          ) }
+          )
+        }
     )
   }
 
-//  {
-//    "codigo": "1",
-//    "valorDoBem": "80000",
-//    "tipo": {
-//      "codigo": "1",
-//      "nome": "Rodobens"
-//    },
-//    "administradora": {
-//      "codigo": "1",
-//      "nome": "Carro"
-//    },
-//    "status": {
-//      "codigo": "1",
-//      "nome": "Aguardando Documentação"
-//    }
-//  },
+  //  {
+  //    "codigo": "1",
+  //    "valorDoBem": "80000",
+  //    "tipo": {
+  //      "codigo": "1",
+  //      "nome": "Rodobens"
+  //    },
+  //    "administradora": {
+  //      "codigo": "1",
+  //      "nome": "Carro"
+  //    },
+  //    "status": {
+  //      "codigo": "1",
+  //      "nome": "Aguardando Documentação"
+  //    }
+  //  },
 
 }

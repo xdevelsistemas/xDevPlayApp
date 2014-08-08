@@ -27,7 +27,7 @@ import scala.collection.JavaConverters._
  */
 class CartaDAOextend extends CartaDAO {
   def findbyFriendlyId(id: Long): Carta = {
-    return super.findOne("friendlyID", id)
+    return super.findOne("friendlyID", (new SequenciadorDAO).findOne(id))
   }
 
 
