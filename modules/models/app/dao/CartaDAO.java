@@ -25,7 +25,7 @@ public class CartaDAO extends AbstractDAO<Carta> {
     public ResultadoPesquisa PesquisaCarta(Pesquisa yobj) {
         javax.persistence.criteria.CriteriaQuery<Carta> cq = cb.createQuery(Carta.class);
         Root<Carta> root = cq.from(Carta.class);
-        List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<Predicate>();
 
 //        var administradora: Option[UUID] = None
 //        var contemplacao: Option[EstatusCarta] = None
