@@ -61,6 +61,7 @@ object Application extends xDevController {
 
 
   def detalhes = Action { implicit request =>
+
     Ok(views.html.App.main(views.html.Proconsorcio.detalhes(_user, request))("Pesquisa", _user, request))
   }
 

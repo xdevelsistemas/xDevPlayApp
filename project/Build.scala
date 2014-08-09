@@ -1,9 +1,8 @@
 import sbt._
 import sbt.Keys._
 import play.Project._
-import scala.collection.JavaConverters._
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
-import com.github.play2war.plugin._
+
 
 
 
@@ -13,8 +12,7 @@ trait Options extends sbt.Build {
   val debug     : Boolean
   
   override def settings = super.settings ++ Seq(
-      EclipseKeys.skipParents in ThisBuild := false,
-      Play2WarKeys.servletVersion := "3.1"
+      EclipseKeys.skipParents in ThisBuild := false
   )
 
   def defaultJavaSettings : Seq[String] = {
@@ -119,8 +117,6 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val JPAVersion = "4.3.6.Final"
 
-  val JrimumDomkee = "org.jrimum" % "jrimum-domkee" % "0.2.3-DEV-SNAPSHOT"
-  val JrimumTexgit = "org.jrimum" % "jrimum-texgit" % "0.2.3-DEV-SNAPSHOT"
   val Itext = "com.lowagie" % "itext" % "2.0.8"
   val Itextpdf = "com.itextpdf" % "itextpdf" % "5.4.5"
   val GuavaJdk5 = "com.google.guava" % "guava-jdk5" % "14.0.1"
@@ -128,10 +124,10 @@ object Build extends sbt.Build with Zap with Metamodel {
   val MockitoAll = "org.mockito" % "mockito-all" % "1.9.5"
   val CommonsIo = "commons-io" % "commons-io" % "2.4"
   val Junit = "junit" % "junit" % "4.11"
+  val log4j =  "log4j" % "log4j" % "1.2.17"
+  val commons =  "org.apache.commons" % "commons-lang3" % "3.3.2"
 
 
-
-  resolvers += Resolver.sonatypeRepo("releases") + "Jirimun" at "http://jrimum.org/maven/content/groups/public/"
 
   val essentialDeps = Seq(
     "org.mockito" % "mockito-all" % mockitoVersion % "test"
@@ -139,14 +135,14 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val bopepoDeps = essentialDeps ++ Seq(
     javaCore,
-    JrimumDomkee,
-    JrimumTexgit,
     Itext,
     Itextpdf,
     GuavaJdk5,
     HamcrestAll,
     MockitoAll,
-    Junit
+    Junit,
+    log4j,
+    commons
   )
 
 
@@ -214,7 +210,7 @@ object Build extends sbt.Build with Zap with Metamodel {
       zap <<= zapTask,
       zap <<= zap.dependsOn(clean in Compile)
 
-    ).settings(Play2WarPlugin.play2WarSettings: _*)
+    )
     .aggregate(models,bopepo)
     .dependsOn(models,bopepo)
 
