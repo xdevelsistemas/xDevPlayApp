@@ -1,5 +1,6 @@
 package models;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
@@ -38,6 +39,17 @@ public class AbstractModel implements Serializable {
     @PreUpdate
     public void preUpdate() {
         this.updated = new Date();
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if  (obj == null){
+            return false;
+        }else{
+            return (this.uuid.equals(((AbstractModel)obj).uuid))?true:false;
+        }
+
     }
 
 

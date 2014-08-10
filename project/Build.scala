@@ -160,6 +160,7 @@ object Build extends sbt.Build with Zap with Metamodel {
 
 
 
+
   val rootDeps = essentialDeps ++ Seq(
     "javax.inject" % "javax.inject" % "1",
     "com.google.inject" % "guice" % "3.0",
@@ -175,19 +176,6 @@ object Build extends sbt.Build with Zap with Metamodel {
   // projects
   //
 
-  lazy val models = play.Project(
-    appName + "-models", appVersion,
-    modelsDeps,
-    path = file("modules/models"),
-    settings = javaSettings
-  ).settings(
-    zap <<= zapTask,
-    zap <<= zap.dependsOn(clean in Compile)
-    , metamodel <<= metamodelTask
-    , metamodel <<= metamodel.dependsOn(clean in Compile)
-  )
-
-
   lazy val bopepo = play.Project(
     appName + "-bopepo", appVersion,
     bopepoDeps,
@@ -199,6 +187,24 @@ object Build extends sbt.Build with Zap with Metamodel {
       , metamodel <<= metamodelTask
       , metamodel <<= metamodel.dependsOn(clean in Compile)
     )
+
+  lazy val models = play.Project(
+    appName + "-models", appVersion,
+    modelsDeps,
+    path = file("modules/models"),
+    settings = javaSettings
+  ).settings(
+    zap <<= zapTask,
+    zap <<= zap.dependsOn(clean in Compile)
+    , metamodel <<= metamodelTask
+    , metamodel <<= metamodel.dependsOn(clean in Compile)
+  ).aggregate(bopepo)
+   .dependsOn(bopepo)
+
+
+
+
+
 
 
 
