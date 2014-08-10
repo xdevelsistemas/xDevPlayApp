@@ -3,9 +3,7 @@
     "Authentication": {
         "Bucket": "proconsorcio-docker",
         "Key": "dockercfg"
-    },
-
-    "Image": {
+    },"Image": {
         "Name": "claytonsilva/xdevplayapp:proconsorcio",
         "Update": "true"
     },
