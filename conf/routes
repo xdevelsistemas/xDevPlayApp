@@ -18,7 +18,7 @@ GET         /contas                                controllers.Proconsorcio.Appl
 GET         /faleconosco                           controllers.Proconsorcio.Application.faleconosco()
 POST        /faleconosco                           controllers.Proconsorcio.Application.handlefaleConosco()
 POST        /signupmail                            plugin.CustomRegistration.handleStartSignUpMail()
-
+GET         /boleto/$id<[0-9]+>                    controllers.Proconsorcio.Application.boleto(id)
 
 #apis rest para comunicação com frontend via angularjs
 GET         /rest/getendereco/:cep                 controllers.Proconsorcio.RestController.getEndereco(cep)

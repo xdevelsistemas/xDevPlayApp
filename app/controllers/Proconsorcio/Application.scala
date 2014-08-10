@@ -2,19 +2,22 @@ package controllers.Proconsorcio
 
 
 
+
+
+import models.Boleto.Boletos
 import models.Contato.Contatoinfo
+import play.api.Play
 import play.api.data.Forms._
 import play.api.i18n.Messages
 import java.text.SimpleDateFormat
 import controllers.xDevController
-import dao.IdentityDAO
+import dao.{IdentityDAO}
 import models.Cadastro.{RegistrationObjects, AlterarDadosInfo}
 import models.User
 import play.api.data._
 import play.api.mvc.Action
 import play.db.jpa.JPA
 import play.libs.F
-import play.mvc.Http
 import securesocial.controllers.Registration
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
@@ -67,13 +70,13 @@ object Application extends xDevController {
 
 
   def pesquisa(query: String) = Action { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query,request,""), "Pesquisa", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, query,request,"",""), "Pesquisa", _user, request))
 
 
   }
 
   def pesquisa_clean = Action { implicit request =>
-    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, "",request,""), "Pesquisa", _user, request))
+    Ok(views.html.App.main.render(views.html.Proconsorcio.pesquisa.render(_userdao, _user, "",request,"",""), "Pesquisa", _user, request))
   }
 
   def simulador = Action { implicit request =>
@@ -259,6 +262,26 @@ object Application extends xDevController {
 
     )
 
+
+  }
+
+
+
+
+
+  def boleto(id :String) = SecuredAction { implicit request =>
+
+    implicit val userdao = _userdao
+    implicit val user = _user
+    val userCarta = if(user.isDefined && !user.isEmpty){(new IdentityDAO).findOneByEmailAndProvider(user.get.email.get, user.get.identityId.providerId).user()}else{null}
+    val caminho = Play.application.path.getPath + "/public/Boletos"
+    val arquivo = Boletos.geraBoleto(id,userCarta,caminho)
+
+    if (arquivo.isEmpty){
+      Redirect(routes.Application.home()).flashing("xdevel.msg.error"->"Não existe Boleto para a Carta Solicitada!")
+    }else{
+      Ok(views.html.App.main.render(views.html.Proconsorcio.boleto(arquivo), "Pagar Boleto", _user, request))
+    }
 
   }
 

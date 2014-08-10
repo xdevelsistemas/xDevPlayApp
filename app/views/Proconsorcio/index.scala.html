@@ -1,2 +1,3 @@
 @(implicit  userdao : dao.UserDAO, user : Option[securesocial.core.Identity] ,request: play.api.mvc.RequestHeader)
-@views.html.Proconsorcio.pesquisa(userdao,user,new String(),request,if(request.flash.get("xdevel.msg").isDefined){request.flash.get("xdevel.msg").get}else{""})
+@views.html.Proconsorcio.pesquisa(userdao,user,new String(),request,if(request.flash.get("xdevel.msg").isDefined){request.flash.get("xdevel.msg").get}else{""},
+    if(request.flash.get("xdevel.msg.error").isDefined){request.flash.get("xdevel.msg.error").get}else{""})

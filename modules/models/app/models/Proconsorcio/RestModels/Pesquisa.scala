@@ -48,10 +48,10 @@ class Pesquisa(yobj: JsValue) {
     val _ordem = (yobj \ "ordem").as[String]
     val _ordenador = (yobj \ "ordenador").as[String]
 
-    this.administradora = if(!_administradora.isEmpty || _contemplacao == "-1" ) Some((new AdministradoraDAO).findByName(_administradora)) else None
-    this.contemplacao = if(!_contemplacao.isEmpty || _contemplacao == "-1") { if (_contemplacao.equals("Contemplada")) {EstatusCarta.contemplada.toString}else{EstatusCarta.naocontemplada.toString}} else ""
-    this.prazo_restante  = _prazo_restante
-    this.tipo = if(!_tipo.isEmpty) Some((new TipoCartaDAO).findByName(_tipo)) else None
+    this.administradora = if(!_administradora.isEmpty && _administradora != "-1" ) Some((new AdministradoraDAO).findByName(_administradora)) else None
+    this.contemplacao = if(!_contemplacao.isEmpty && _contemplacao != "-1") { if (_contemplacao.equals("Contemplada")) {EstatusCarta.contemplada.toString}else{EstatusCarta.naocontemplada.toString}} else ""
+    this.prazo_restante  = if(_prazo_restante != "-1")  _prazo_restante else ""
+    this.tipo = if(!_tipo.isEmpty && _tipo != "-1" ) Some((new TipoCartaDAO).findByName(_tipo)) else None
     this.valor_credito_max = if (_valor_credito_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_max))}
     this.valor_credito_min = if (_valor_credito_min.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_credito_min))}
     this.valor_parcelas_max = if (_valor_parcelas_max.isEmpty) {None} else {Some(NumberFormat.getCurrencyInstance(ptBr).parse(_valor_parcelas_max))}
