@@ -4,6 +4,7 @@
         "Bucket": "proconsorcio-docker",
         "Key": "dockercfg"
     },
+
     "Image": {
         "Name": "claytonsilva/xdevplayapp:proconsorcio",
         "Update": "true"
