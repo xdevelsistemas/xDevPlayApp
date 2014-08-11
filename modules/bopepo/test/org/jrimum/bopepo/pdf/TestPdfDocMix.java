@@ -376,12 +376,29 @@ public class TestPdfDocMix {
 	public void seGeraDocumentoEmArquivoViaParamentroFile() throws IOException{
 
 		final String file = "ArquivoComCampos";
-		final String filePath = "./src/test/resources/"+file+".pdf";
+
+        String filePath;
+        String current = new java.io.File( "." ).getCanonicalPath();
+        System.out.println("Current dir:"+current);
+
+        if (current.contains("modules/bopepo")){
+            filePath = "test/resources/"+file+".pdf";
+
+        }else
+        {
+            filePath = "modules/bopepo/test/resources/"+file+".pdf";
+        }
+
+
+
+
 		
 		doc = createDoc();
 		
 		PdfDocReader readerArqBase = new PdfDocReader(Resources.crieInputStreamParaArquivoComCampos());
-		
+
+
+
 		final File arqBase = new File(filePath); 
 		final File arqTest = File.createTempFile(file, ".pdf");
 		

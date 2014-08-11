@@ -37,6 +37,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -141,8 +142,19 @@ public class TestValoresDosCamposDoBoletoBradescoPDF {
 		for(Entry<Object, Object> campoValorEsperado : valoresEsperados){
 			
 			Object nomeDoCampoEsperado = campoValorEsperado.getKey();
-			Object valorDoCampoEsperado = campoValorEsperado.getValue();
-			String valorDoCampoNoBoleto = camposDoBoleto.get(nomeDoCampoEsperado);
+            Object valorDoCampoEsperado;
+
+
+            if (campoValorEsperado.getValue().getClass().equals(String.class)){
+                valorDoCampoEsperado = new String(Charset.forName("ISO-8859-1").encode(campoValorEsperado.getValue().toString()).array());
+            }else
+            {
+                valorDoCampoEsperado = campoValorEsperado.getValue();
+            }
+
+
+
+            String valorDoCampoNoBoleto = camposDoBoleto.get(nomeDoCampoEsperado);
 
 			assertThat(format("Campo [%s] ",nomeDoCampoEsperado),valorDoCampoNoBoleto, equalTo(valorDoCampoEsperado));
 		}
