@@ -22,7 +22,7 @@ public class SequenciadorDAO   {
 
 
 
-    protected SequenciadorDAO() {
+    public SequenciadorDAO() {
         EntityManager temp_em;
 
         try {

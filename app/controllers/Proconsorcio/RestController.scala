@@ -8,7 +8,7 @@ import models.Proconsorcio.RestModels._
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
-import models.Proconsorcio.ContaBanco
+import models.Proconsorcio.{Sequenciador, ContaBanco}
 import models.User
 import play.api.cache.Cached
 import play.api.libs.json.{Json, JsObject}
@@ -260,11 +260,61 @@ object RestController extends xDevRestController {
       } else {
 
 
-        val dao = new CartaDAOextend
+
+
+
+
 
 
         carta.usuario = user
-        val frm_novacarta = dao.add(carta)
+        //val frm_novacarta = dao.add(carta)
+
+
+      /*
+      *  como se trata de duas tabelas foi criado duas persistencias distintas
+      *
+      * */
+
+
+        try {
+
+          JPA.withTransaction("default", false, new F.Function0[Unit] {
+
+            def apply: Unit = {
+              val daoseq = new SequenciadorDAO
+              val xseq = daoseq.save(new Sequenciador)
+              carta.friendlyID = xseq
+
+            }
+          })
+
+          JPA.withTransaction("default", false, new F.Function0[Unit] {
+
+            def apply: Unit = {
+              val dao = new CartaDAOextend
+              dao.save(carta)
+
+            }
+          })
+
+
+
+        }catch {
+          case e: Exception => throw new Exception("Erro na persistência da carta")
+        }
+
+
+
+
+        val frm_novacarta =  (new CartaForm)
+          .read(carta,(new TpResponse("1",
+          "Sucesso, você pode agora acompanhar sua carta no escritório online")))
+
+        //return carta
+
+
+
+
 
         if (frm_novacarta.status.result.equals("0")) {
           BadRequest(frm_novacarta.serialize())

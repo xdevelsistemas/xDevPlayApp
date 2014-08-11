@@ -116,6 +116,7 @@ class CartaDAOextend extends CartaDAO {
 
   }
 
+  /*
   def add(yobj : Carta) : CartaForm = {
     try {
 
@@ -155,7 +156,7 @@ class CartaDAOextend extends CartaDAO {
 
 
 
-  }
+  }*/
 
 
 
