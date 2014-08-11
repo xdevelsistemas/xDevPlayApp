@@ -13,6 +13,6 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-/.target/
-/bin/
+/.target
 /public/Boletos/[^.]*
+/bin/target/.history
