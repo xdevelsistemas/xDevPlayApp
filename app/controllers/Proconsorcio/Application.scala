@@ -1,9 +1,5 @@
 package controllers.Proconsorcio
 
-
-
-
-
 import models.Boleto.Boletos
 import models.Contato.Contatoinfo
 import play.api.Play
@@ -18,6 +14,7 @@ import play.api.data._
 import play.api.mvc.Action
 import play.db.jpa.JPA
 import play.libs.F
+import plugin.AWS.S3.S3File
 import securesocial.controllers.Registration
 import securesocial.core.providers.utils.PasswordValidator
 import play.api.Play.current
@@ -281,6 +278,8 @@ object Application extends xDevController {
     if (arquivo.isEmpty){
       Redirect(routes.Application.home()).flashing("xdevel.msg.error"->"Não existe Boleto para a Carta Solicitada!")
     }else{
+      new S3File("proconsorcio").save(caminho + "/" + arquivo )
+
       Ok(views.html.App.main.render(views.html.Proconsorcio.boleto(arquivo), "Pagar Boleto", _user, request))
     }
 
