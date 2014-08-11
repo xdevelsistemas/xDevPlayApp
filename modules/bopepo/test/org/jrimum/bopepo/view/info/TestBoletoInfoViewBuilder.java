@@ -36,6 +36,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.nio.charset.Charset;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -74,7 +76,7 @@ public class TestBoletoInfoViewBuilder {
 		Map<String, String> camposTextoNoBoleto = new TreeMap<String, String> (boletoInfoViewBuilder.texts());
 		
 		for(BoletoCampo campo: BoletoCampo.values()){
-			String textoEsperado = boletoDadosEsperados.getString(campo.name());
+			String textoEsperado = new String(Charset.forName("ISO-8859-1").encode(boletoDadosEsperados.getString(campo.name())).array());
 			String textoAtual = whenNull(camposTextoNoBoleto.get(campo.name()), EMPTY);
 			assertEquals("CAMPO: "+campo,textoEsperado,textoAtual);
 		}

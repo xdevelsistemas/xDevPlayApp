@@ -120,27 +120,23 @@ object Build extends sbt.Build with Zap with Metamodel {
   val Itext = "com.lowagie" % "itext" % "2.0.8"
   val Itextpdf = "com.itextpdf" % "itextpdf" % "5.4.5"
   val GuavaJdk5 = "com.google.guava" % "guava-jdk5" % "14.0.1"
-  val HamcrestAll = "org.hamcrest" % "hamcrest-all" % "1.3"
-  val MockitoAll = "org.mockito" % "mockito-all" % "1.9.5"
   val CommonsIo = "commons-io" % "commons-io" % "2.4"
-  val Junit = "junit" % "junit" % "4.11"
   val log4j =  "log4j" % "log4j" % "1.2.17"
   val commons =  "org.apache.commons" % "commons-lang3" % "3.3.2"
 
 
 
   val essentialDeps = Seq(
-    "org.mockito" % "mockito-all" % mockitoVersion % "test"
+    "org.mockito" % "mockito-all" % mockitoVersion % "test" exclude("org.hamcrest", "hamcrest-core"),
+     "junit" % "junit" % "4.11" % "test" exclude("org.hamcrest", "hamcrest-core"),
+     "org.hamcrest" % "hamcrest-all" % "1.3" % "test"
   )
 
-  val bopepoDeps = essentialDeps ++ Seq(
+  val bopepoDeps =  essentialDeps ++ Seq(
     javaCore,
     Itext,
     Itextpdf,
     GuavaJdk5,
-    HamcrestAll,
-    MockitoAll,
-    Junit,
     log4j,
     commons
   )
