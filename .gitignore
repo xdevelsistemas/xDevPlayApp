@@ -15,4 +15,7 @@ dist
 /.settings
 /.target
 /public/Boletos/[^.]*
-/bin/target/.history
+bin/views
+bin/securesocial
+bin/controllers
+bin/target
