@@ -130,7 +130,8 @@ object Build extends sbt.Build with Zap with Metamodel {
     "org.mockito" % "mockito-all" % mockitoVersion % "test" exclude("org.hamcrest", "hamcrest-core"),
      "junit" % "junit" % "4.11" % "test" exclude("org.hamcrest", "hamcrest-core"),
      "org.hamcrest" % "hamcrest-all" % "1.3" % "test",
-     "com.typesafe" % "config" % "1.2.0"
+     "com.typesafe" % "config" % "1.2.0",
+     "com.amazonaws" % "aws-java-sdk" % "1.8.7"
   )
 
   val bopepoDeps =  essentialDeps ++ Seq(
