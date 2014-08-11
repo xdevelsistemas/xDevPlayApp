@@ -274,7 +274,8 @@ object Application extends xDevController {
     implicit val userdao = _userdao
     implicit val user = _user
     val userCarta = if(user.isDefined && !user.isEmpty){(new IdentityDAO).findOneByEmailAndProvider(user.get.email.get, user.get.identityId.providerId).user()}else{null}
-    val caminho = Play.application.path.getPath + "/public/Boletos"
+//    val caminho = Play.application.path.getPath + "public/Boletos"
+    val caminho = "public/Boletos"
     val arquivo = Boletos.geraBoleto(id,userCarta,caminho)
 
     if (arquivo.isEmpty){
