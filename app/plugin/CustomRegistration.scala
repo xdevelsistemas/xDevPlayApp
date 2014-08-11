@@ -4,6 +4,7 @@ package plugin
  * Created by claytonsantosdasilva on 01/07/14.
  */
 
+import _root_.java.util
 import _root_.java.util.{Date, UUID}
 
 import com.typesafe.plugin._
@@ -277,6 +278,46 @@ object CustomRegistration extends Controller {
     }
     else NotFound(views.html.defaultpages.notFound.render(request, None))
   }
+
+
+
+  def handleStartSignUpMail = Action { implicit request =>
+    if (registrationEnabled) {
+      // check if there is already an account for this email address
+      val value:Option[Map[String, Seq[String]]]  = request.body.asFormUrlEncoded;
+
+      if (value.isDefined && value.get.get("email").isDefined ){
+
+        val email = value.get.get("email").get.apply(0);
+
+        if (email.length() > 0) {
+          UserService.findByEmailAndProvider(email, UsernamePasswordProvider.UsernamePassword) match {
+            case Some(user) => {
+              // user signed up already, send an email offering to login/recover password
+              Mailer.sendAlreadyRegisteredEmail(user)
+            }
+            case None => {
+              val token = createToken(email, isSignUp = true)
+              Mailer.sendSignUpEmail(email, token._1)
+            }
+          }
+          Redirect(onHandleStartSignUpGoTo).flashing(Success -> Messages(ThankYouCheckEmail), Email -> email)
+
+        }else
+        {
+          Redirect("/")
+        }
+
+
+      }else
+        NotFound(views.html.defaultpages.notFound.render(request, None))
+
+
+
+    }
+    else NotFound(views.html.defaultpages.notFound.render(request, None))
+  }
+
 
 
 

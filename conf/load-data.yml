@@ -1,0 +1,423 @@
+# Users
+users:
+  - &userAdmin !!models.User
+      email:                 "clayton@xdevel.com.br"
+      realName:              "Clayton Silva"
+      codigoPlano:           "teste"
+      providerId:            "userpass"
+      isAdmin:               true
+# Identities
+
+identities:
+  - &identityAdmin !!models.Identity
+      user:                 *userAdmin
+      username:             "clayton@xdevel.com.br"
+      provider:             "userpass"
+      firstName:            "Clayton"
+      lastName:             "Silva"
+      fullName:             "Clayton Santos da Silva"
+      email:                "clayton@xdevel.com.br"
+      authMethod:           "userPassword"
+      hasPasswordInfo:      true
+      passwordInfoHasher:   "bcrypt"
+      passwordInfoPassword: "$2a$10$igmSTb.c2uxs6SXDA0fShuzU4k9ioxYAPsUcvszCgSJvEBvqcPXva"
+
+# Administradoras
+administradoras:
+    - &adm1 !!models.Proconsorcio.Administradora
+        name: "ITAÚ ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm2 !!models.Proconsorcio.Administradora
+        name: "CICAL ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm3 !!models.Proconsorcio.Administradora
+        name: "BRASAL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm4 !!models.Proconsorcio.Administradora
+        name: "FERRAZ ADMINISTRACAO E CONSORCIOS LTDA"
+    - &adm5 !!models.Proconsorcio.Administradora
+        name: "FUNDACAO HABITACIONAL DO EXERCITO - FHE"
+    - &adm6 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO SAGA LTDA"
+    - &adm7 !!models.Proconsorcio.Administradora
+        name: "DISBRAVE ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm8 !!models.Proconsorcio.Administradora
+        name: "BANCORBRAS ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm9 !!models.Proconsorcio.Administradora
+        name: "GOVESA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm10 !!models.Proconsorcio.Administradora
+        name: "IRMÃOS DE MARCO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm11 !!models.Proconsorcio.Administradora
+        name: "H. ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm12 !!models.Proconsorcio.Administradora
+        name: "BRENNER ADMINISTRADORA DE CONSORCIO LTDA"
+    - &adm13 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSORCIOS MAIA LTDA."
+    - &adm14 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO REGIONAL WAY LTDA."
+    - &adm15 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSORCIOS SAPEMA LTDA."
+    - &adm16 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIOS BECKER LTDA."
+    - &adm17 !!models.Proconsorcio.Administradora
+        name: "APEC - ADMINISTRADORA DE CONSORCIOS S/A"
+    - &adm18 !!models.Proconsorcio.Administradora
+        name: "FUGANTI ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm19 !!models.Proconsorcio.Administradora
+        name: "SOLUÇÃO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm20 !!models.Proconsorcio.Administradora
+        name: "MULTIMARCAS ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm21 !!models.Proconsorcio.Administradora
+        name: "MAGGI ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm22 !!models.Proconsorcio.Administradora
+        name: "FRANCAUTO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm23 !!models.Proconsorcio.Administradora
+        name: "MOTOASA ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm24 !!models.Proconsorcio.Administradora
+        name: "CAIXA CONSÓRCIOS S.A ADMINISTRADORA DE CONSÓRCIOS"
+    - &adm25 !!models.Proconsorcio.Administradora
+        name: "NOVOTEMPO ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm26 !!models.Proconsorcio.Administradora
+        name: "TÁGIDE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm27 !!models.Proconsorcio.Administradora
+        name: "NANUQUE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm28 !!models.Proconsorcio.Administradora
+        name: "AUVEPAR ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm29 !!models.Proconsorcio.Administradora
+        name: "DESTAQUE ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm30 !!models.Proconsorcio.Administradora
+        name: "BB ADMINISTRADORA DE CONSORCIOS S.A."
+    - &adm31 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSORCIO NACIONAL GAZIN LTDA"
+    - &adm32 !!models.Proconsorcio.Administradora
+        name: "BRISA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm33 !!models.Proconsorcio.Administradora
+        name: "ITAUNA ADMINISTRADORA DE CONSORCIO LTDA"
+    - &adm34 !!models.Proconsorcio.Administradora
+        name: "FIEL PADUA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm35 !!models.Proconsorcio.Administradora
+        name: "ASSOCIACAO ATLETICA DO BANCO DO BRASIL - CE"
+    - &adm36 !!models.Proconsorcio.Administradora
+        name: "CONBRAV - ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm37 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSORCIOS SICREDI LTDA"
+    - &adm38 !!models.Proconsorcio.Administradora
+        name: "ITABENS ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm39 !!models.Proconsorcio.Administradora
+        name: "ELDORADO ADMINISTRADORA DE CONSORCIO LTDA"
+    - &adm40 !!models.Proconsorcio.Administradora
+        name: "PROMOVE ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm41 !!models.Proconsorcio.Administradora
+        name: "FANCAR ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm42 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO SICOOB PARANÁ LTDA."
+    - &adm43 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA ALAGOANA DE CONSORCIOS ADACON LTDA"
+    - &adm44 !!models.Proconsorcio.Administradora
+        name: "AUTO GIRO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm45 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIOS ARACAJU LTDA."
+    - &adm46 !!models.Proconsorcio.Administradora
+        name: "CIMAVEL ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm47 !!models.Proconsorcio.Administradora
+        name: "ASSOCIACAO BAHIANA DE MEDICINA ABM"
+    - &adm48 !!models.Proconsorcio.Administradora
+        name: "BR CONSÓRCIOS ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm49 !!models.Proconsorcio.Administradora
+        name: "REVAISA ADMINISTRADORA DE CONSORCIOS S/C LTDA - IMPEDIDA CRIAR NOVOS GRUPOS"
+    - &adm50 !!models.Proconsorcio.Administradora
+        name: "LYSCAR ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm51 !!models.Proconsorcio.Administradora
+        name: "ASSOCIACAO DOS FUNCIONARIOS DO BDMG"
+    - &adm52 !!models.Proconsorcio.Administradora
+        name: "PONTA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm53 !!models.Proconsorcio.Administradora
+        name: "MAPFRE ADMINISTRADORA DE CONSÓRCIOS S.A."
+    - &adm54 !!models.Proconsorcio.Administradora
+        name: "SOMACO - SOCIEDADE MONVEP ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm55 !!models.Proconsorcio.Administradora
+        name: "UNIÃO ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm56 !!models.Proconsorcio.Administradora
+        name: "CANCELLA NACIONAL ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm57 !!models.Proconsorcio.Administradora
+        name: "OPÇÃO ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm58 !!models.Proconsorcio.Administradora
+        name: "ATUAL ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm59 !!models.Proconsorcio.Administradora
+        name: "ZEMA ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm60 !!models.Proconsorcio.Administradora
+        name: "RECON ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm61 !!models.Proconsorcio.Administradora
+        name: "UNIÃO NACIONAL DOS AUDITORES FISCAIS DA RECEITA FEDERAL - UNAFISCO DE MINAS GERAIS"
+    - &adm62 !!models.Proconsorcio.Administradora
+        name: "PINHEIRO'S ADMINISTRADORA DE CONSÓRCIOS S.A."
+    - &adm63 !!models.Proconsorcio.Administradora
+        name: "DN ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm64 !!models.Proconsorcio.Administradora
+        name: "GROSCON ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm65 !!models.Proconsorcio.Administradora
+        name: "GUARAPIRANGA VEÍCULOS ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm66 !!models.Proconsorcio.Administradora
+        name: "COIMEX ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm67 !!models.Proconsorcio.Administradora
+        name: "CONTAUTO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm68 !!models.Proconsorcio.Administradora
+        name: "GLOBEX ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm69 !!models.Proconsorcio.Administradora
+        name: "RESERVA ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm70 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO NACIONAL LÍDER LTDA."
+    - &adm71 !!models.Proconsorcio.Administradora
+        name: "RIO-PLAN ADMINISTRADORA DE CONSORCIO S/C LTDA - IMPEDIDA CRIAR NOVOS GRUPOS"
+    - &adm72 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO ECONÔMICO LTDA."
+    - &adm73 !!models.Proconsorcio.Administradora
+        name: "FEDERACAO NAC. DE ASSOCIACOES DOS SERVIDORES DO BCO CENTRAL"
+    - &adm74 !!models.Proconsorcio.Administradora
+        name: "NASA ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm75 !!models.Proconsorcio.Administradora
+        name: "CLUBE NAVAL - CAIXA BENEFICIENTE"
+    - &adm76 !!models.Proconsorcio.Administradora
+        name: "ASSOCIACAO DOS FUNCIONARIOS DO BNDES"
+    - &adm77 !!models.Proconsorcio.Administradora
+        name: "MERCEDES-BENZ ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm78 !!models.Proconsorcio.Administradora
+        name: "JORLAN ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm79 !!models.Proconsorcio.Administradora
+        name: "ITAÚ UNIBANCO VEÍCULOS ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm80 !!models.Proconsorcio.Administradora
+        name: "CONSHOP ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm81 !!models.Proconsorcio.Administradora
+        name: "COMAUTO ADMINISTRADORA DE CONSORCIO LTDA"
+    - &adm82 !!models.Proconsorcio.Administradora
+        name: "FRA-FREIRE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm83 !!models.Proconsorcio.Administradora
+        name: "BAURU ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm84 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSORCIO NACIONAL HONDA LTDA"
+    - &adm85 !!models.Proconsorcio.Administradora
+        name: "VEMAR ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm86 !!models.Proconsorcio.Administradora
+        name: "BRQUALY ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm87 !!models.Proconsorcio.Administradora
+        name: "FINAMA ADMINISTRADORA DE CONSORCIO LTDA"
+    - &adm88 !!models.Proconsorcio.Administradora
+        name: "MASSEY FERGUSON ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm89 !!models.Proconsorcio.Administradora
+        name: "IDEROL ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm90 !!models.Proconsorcio.Administradora
+        name: "SANMELL - ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm91 !!models.Proconsorcio.Administradora
+        name: "MERCABENCO MERCANTIL E ADMINISTRADORA DE BENS E CONSÓRCIOS LTDA."
+    - &adm92 !!models.Proconsorcio.Administradora
+        name: "SANTA EMILIA ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm93 !!models.Proconsorcio.Administradora
+        name: "CONSORCIO NACIONAL PROESTE-DIVELPA LTDA"
+    - &adm94 !!models.Proconsorcio.Administradora
+        name: "YAMAHA ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm95 !!models.Proconsorcio.Administradora
+        name: "CONSÓRCIO NACIONAL VOLKSWAGEN - ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm96 !!models.Proconsorcio.Administradora
+        name: "GAPLAN ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm97 !!models.Proconsorcio.Administradora
+        name: "PORTO SEGURO ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm98 !!models.Proconsorcio.Administradora
+        name: "GMAC ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm99 !!models.Proconsorcio.Administradora
+        name: "VINAC ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm100 !!models.Proconsorcio.Administradora
+        name: "PANAMERICANO ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm101 !!models.Proconsorcio.Administradora
+        name: "SIMÃO ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm102 !!models.Proconsorcio.Administradora
+        name: "UNAFISCO - ASSOCIAÇÃO NACIONAL DOS AUDITORES FISCAIS DA RECEITA FEDERAL DO BRASIL"
+    - &adm103 !!models.Proconsorcio.Administradora
+        name: "CONPROF ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm104 !!models.Proconsorcio.Administradora
+        name: "CONFIA ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm105 !!models.Proconsorcio.Administradora
+        name: "GUARUMOTO ADMINISTRACAO DE CONSORCIOS S/C LTDA"
+    - &adm106 !!models.Proconsorcio.Administradora
+        name: "PRIMO ROSSI ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm107 !!models.Proconsorcio.Administradora
+        name: "RODOBENS ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm108 !!models.Proconsorcio.Administradora
+        name: "BRADESCO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm109 !!models.Proconsorcio.Administradora
+        name: "TARRAF ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm110 !!models.Proconsorcio.Administradora
+        name: "SPERTA ADMINISTRADORA DE CONSORCIO NACIONAL LTDA"
+    - &adm111 !!models.Proconsorcio.Administradora
+        name: "SANTANDER BRASIL ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm112 !!models.Proconsorcio.Administradora
+        name: "VALTRA ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm113 !!models.Proconsorcio.Administradora
+        name: "SUZUKI MOTOS ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm114 !!models.Proconsorcio.Administradora
+        name: "EMBRACON ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm115 !!models.Proconsorcio.Administradora
+        name: "CONVEF ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm116 !!models.Proconsorcio.Administradora
+        name: "CNF - ADMINISTRADORA DE CONSÓRCIOS NACIONAL LTDA."
+    - &adm117 !!models.Proconsorcio.Administradora
+        name: "DISAL ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm118 !!models.Proconsorcio.Administradora
+        name: "TRADIÇÃO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm119 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO NACIONAL VIME LTDA."
+    - &adm120 !!models.Proconsorcio.Administradora
+        name: "HSBC (BRASIL) ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm121 !!models.Proconsorcio.Administradora
+        name: "LUIZA ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm122 !!models.Proconsorcio.Administradora
+        name: "ANCORA ADMINISTRADORA DE CONSORCIOS S.A."
+    - &adm123 !!models.Proconsorcio.Administradora
+        name: "UNIFISA ADMINISTRADORA NACIONAL DE CONSORCIOS LTDA"
+    - &adm124 !!models.Proconsorcio.Administradora
+        name: "COOPERATIVA MISTA JOCKEY CLUB DE SAO PAULO"
+    - &adm125 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO BORBA GATO LTDA"
+    - &adm126 !!models.Proconsorcio.Administradora
+        name: "CNDP - DPASCHOAL ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm127 !!models.Proconsorcio.Administradora
+        name: "REDENÇÃO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm128 !!models.Proconsorcio.Administradora
+        name: "REMAZA ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm129 !!models.Proconsorcio.Administradora
+        name: "FEDERAÇÃO DAS COOPERATIVAS DE CONSUMO DOS FUNCIONÁRIOS DO BANCO DO BRASIL"
+    - &adm130 !!models.Proconsorcio.Administradora
+        name: "CNK ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm131 !!models.Proconsorcio.Administradora
+        name: "MINAUTO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm132 !!models.Proconsorcio.Administradora
+        name: "REALIZA ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm133 !!models.Proconsorcio.Administradora
+        name: "REMAC ADMINISTRADORA DE CONSORCIO LTDA."
+    - &adm134 !!models.Proconsorcio.Administradora
+        name: "CEM ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm135 !!models.Proconsorcio.Administradora
+        name: "CANOPUS ADMINISTRADORA DE CONSORCIOS S/A"
+    - &adm136 !!models.Proconsorcio.Administradora
+        name: "AGRABEN ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm137 !!models.Proconsorcio.Administradora
+        name: "MINASMÁQUINAS ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm138 !!models.Proconsorcio.Administradora
+        name: "CAMVEL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm139 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO RCI BRASIL LTDA"
+    - &adm140 !!models.Proconsorcio.Administradora
+        name: "BREITKOPF ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm141 !!models.Proconsorcio.Administradora
+        name: "HS ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm142 !!models.Proconsorcio.Administradora
+        name: "JAMARI ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm143 !!models.Proconsorcio.Administradora
+        name: "VOLVO ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm144 !!models.Proconsorcio.Administradora
+        name: "NORPAVE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm145 !!models.Proconsorcio.Administradora
+        name: "SERVOPA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm146 !!models.Proconsorcio.Administradora
+        name: "INSTITUTO DE ENGENHARIA DO PARANA"
+    - &adm147 !!models.Proconsorcio.Administradora
+        name: "MENEGALLI ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm148 !!models.Proconsorcio.Administradora
+        name: "VOUPAR ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm149 !!models.Proconsorcio.Administradora
+        name: "IGAPÓ ADMINISTRADORA DE CONSÓRCIO LTDA"
+    - &adm150 !!models.Proconsorcio.Administradora
+        name: "PARANAMOTOR ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm151 !!models.Proconsorcio.Administradora
+        name: "TRIÂNGULO ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm152 !!models.Proconsorcio.Administradora
+        name: "FIPAL ADMINISTRADORA DE CONSÓRCIOS LTDA"
+    - &adm153 !!models.Proconsorcio.Administradora
+        name: "RIVEL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm154 !!models.Proconsorcio.Administradora
+        name: "GUARARAPES ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm155 !!models.Proconsorcio.Administradora
+        name: "SANTA FÉ ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm156 !!models.Proconsorcio.Administradora
+        name: "CONTEMPLA ADMINISTRADORA DE CONSORCIO LTDA."
+    - &adm157 !!models.Proconsorcio.Administradora
+        name: "ARAVEL ADMINISTRADORA DE CONSORCIO LTDA."
+    - &adm158 !!models.Proconsorcio.Administradora
+        name: "COTA SUL ADMINISTRADORA NACIONAL DE CONSÓRCIOS LTDA"
+    - &adm159 !!models.Proconsorcio.Administradora
+        name: "UNILANCE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm160 !!models.Proconsorcio.Administradora
+        name: "HOEPCKE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm161 !!models.Proconsorcio.Administradora
+        name: "CONSEG ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm162 !!models.Proconsorcio.Administradora
+        name: "UNIMED DE JOINVILLE - COOPERATIVA DE TRABALHO MEDICO"
+    - &adm163 !!models.Proconsorcio.Administradora
+        name: "GAMBATTO ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm164 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO REAL LTDA."
+    - &adm165 !!models.Proconsorcio.Administradora
+        name: "UNIÃO CATARINENSE ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm166 !!models.Proconsorcio.Administradora
+        name: "JUGASA ADMINISTRADORA DE CONSÓRCIO S/A"
+    - &adm167 !!models.Proconsorcio.Administradora
+        name: "KOENTOPP ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm168 !!models.Proconsorcio.Administradora
+        name: "ADEMILAR ADMINISTRADORA DE CONSORCIOS S.A."
+    - &adm169 !!models.Proconsorcio.Administradora
+        name: "GLOBO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm170 !!models.Proconsorcio.Administradora
+        name: "PORTOBENS ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm171 !!models.Proconsorcio.Administradora
+        name: "SPONCHIADO ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm172 !!models.Proconsorcio.Administradora
+        name: "SOCIEDADE ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm173 !!models.Proconsorcio.Administradora
+        name: "SINOSSERRA ADMINISTRADORA DE CONSÓRCIOS S/A."
+    - &adm174 !!models.Proconsorcio.Administradora
+        name: "SIMPALA LANÇADORA E ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm175 !!models.Proconsorcio.Administradora
+        name: "SERRANA ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm176 !!models.Proconsorcio.Administradora
+        name: "BROZAUTO ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm177 !!models.Proconsorcio.Administradora
+        name: "PAJE ADMINISTRADORA DE CONSORCIOS S/C LTDA"
+    - &adm178 !!models.Proconsorcio.Administradora
+        name: "ALPHA ADMINISTRADORA DE CONSÓRCIO LTDA."
+    - &adm179 !!models.Proconsorcio.Administradora
+        name: "FARROUPILHA ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm180 !!models.Proconsorcio.Administradora
+        name: "RANDON ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm181 !!models.Proconsorcio.Administradora
+        name: "GRAVEL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm182 !!models.Proconsorcio.Administradora
+        name: "ADMINISTRADORA DE CONSÓRCIO SPENGLER LTDA."
+    - &adm183 !!models.Proconsorcio.Administradora
+        name: "3 PIRÂMIDES ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm184 !!models.Proconsorcio.Administradora
+        name: "REDE OESTE ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm185 !!models.Proconsorcio.Administradora
+        name: "CONESUL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm186 !!models.Proconsorcio.Administradora
+        name: "BANRISUL S.A. - ADMINISTRADORA DE CONSÓRCIOS"
+    - &adm187 !!models.Proconsorcio.Administradora
+        name: "ASSOCIACAO DOS JUIZES DO RIO GRANDE DO SUL"
+    - &adm188 !!models.Proconsorcio.Administradora
+        name: "VIA CERTA ADMINISTRADORA DE CONSÓRCIOS S.A."
+    - &adm189 !!models.Proconsorcio.Administradora
+        name: "CENTRO SUL ADMINISTRADORA DE CONSÓRCIOS LTDA."
+    - &adm190 !!models.Proconsorcio.Administradora
+        name: "CARLESSI ADMINISTRADORA DE CONSORCIOS LTDA"
+    - &adm191 !!models.Proconsorcio.Administradora
+        name: "DIMAS ADMINISTRADORA DE CONSORCIOS LTDA."
+    - &adm192 !!models.Proconsorcio.Administradora
+        name: "SCANIA ADMINISTRADORA DE CONSÓRCIOS LTDA."
+
+# Tipos de cartas
+tiposcartas:
+  - &tpc1 !!models.Proconsorcio.TipoCarta
+      name:              "Carro"
+  - &tpc2 !!models.Proconsorcio.TipoCarta
+      name:              "Caminhão"
+  - &tpc3 !!models.Proconsorcio.TipoCarta
+      name:              "Imóvel"
+  - &tpc4 !!models.Proconsorcio.TipoCarta
+      name:              "Moto"
+
+

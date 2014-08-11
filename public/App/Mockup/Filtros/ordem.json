@@ -1,0 +1,14 @@
+{
+    "codigo":"ordem",
+    "descricao": "Ordem da pesquisa",
+    "lista": [
+        {
+            "codigo": "asc",
+            "descricao": "Crescente"
+        },
+        {
+            "codigo": "desc",
+            "descricao": "Decrescente"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "strings": {
+        "titulo": "Quanto vale a minha carta?",
+        "subtitulo": "Descubra em um instante com o nosso simulador!",
+        "texto": "Quisque non dictum eros. Praesent porta vehicula arcu eu ornare. Donec id egestas arcu. Suspendisse auctor condimentum ligula ultricies cursus. Vestibulum vel orci vel lacus rhoncus sagittis sed vitae mi. Pellentesque molestie elit bibendum tincidunt semper. Aliquam ac volutpat risus. In felis felis, posuere commodo aliquet eget, sagittis sed turpis. Phasellus commodo turpis non nunc egestas, et egestas felis pretium. Pellentesque dignissim libero vitae tincidunt semper. Nam id ante nisi. Nam sollicitudin, dolor non suscipit feugiat, nibh lacus commodo metus, nec tempus dui velit sagittis velit. Pellentesque elementum risus rhoncus justo porta, at varius odio consequat. Duis non augue adipiscing, posuere quam non, tempus urna.",
+        "valorCredito": "Valor de Crédito",
+        "valorPrestacoes": "Valor das Prestações",
+        "prazoRestante": "Prazo Restante (em meses)",
+        "resultado": "RESULTADO (R$)",
+        "botaoCalcular": "Calcular",
+        "campoObrigatorio": "Este é um campo obrigatório."
+    }
+}

@@ -1,3 +1,10 @@
+/*angularjs ngCloak hack*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/*end*/
+
 div.comprar-vender-box {
     width: 44%;
     display: inline-block;
@@ -6,12 +13,13 @@ div.comprar-vender-box {
     margin-top: 28px;
 }
 
-#comprar-vender{
+#comprar-vender {
     text-align: center;
     background: rgba(0, 0, 0, 0.6) url(/assets/LandingPage/Content/img/menu_divider.png) no-repeat center;
-    margin-top: 38px;
     padding: 0 0 18px 0;
-	border-radius: 5px;
+    border-radius: 5px;
+    height: 212px;
+    margin-top: 32px;
 }
 
 .form-group {
@@ -22,19 +30,24 @@ div.comprar-vender-box {
 .img-container {
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
+    padding-top: 42px;
+    height: 0;
+    overflow: hidden;
 }
+
 .img-container {
-    padding-bottom: 18%;
-    padding-top: 5%; height: 0; overflow: hidden;
-    margin-top: -4px;
+    padding-bottom: 20%;
+    padding-top: 8%;
+    height: 0;
+    overflow: hidden;
+    margin-top: 24px;
     text-align: center;
 }
 
 .video-container iframe,
 .video-container object,
 .video-container embed,
-.img-container img{
+.img-container img {
     position: absolute;
     top: 0;
     left: 0;
@@ -42,20 +55,52 @@ div.comprar-vender-box {
     height: 100%;
 }
 
-.img-container img{
+.img-container img {
     height: auto;
     max-width: 451px;
     position: relative;
 }
 
-
-nav{
+nav {
     top: 0;
     bottom: inherit;
-    position: absolute; 
-    margin-top: 0; 
+    position: absolute;
+    margin-top: 0;
 }
 
-.row.countdown{
-    margin-top: 48px;
+.row.countdown {
+    margin-top: 16px;
+    min-width: 100px;
+    max-width: 680px;
+    width: 100%;
+    left: 0%;
+    /* position: relative; */
+    /* margin-left: -400px; */;
+    display: inline-block;
+}
+
+@media (min-width: 1024px) {
+    .row.countdown {
+        max-width: 448px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1920px) {
+    .row.countdown {
+        max-width: 680px;
+        width: 100%;
+    }
+}
+
+select {
+    cursor: pointer;
+}
+
+.select {
+    background: white url('/assets/LandingPage/Content/img/down.png') no-repeat right center;
+}
+
+.xd-align-center {
+    text-align: center;
 }

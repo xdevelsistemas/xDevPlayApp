@@ -1,0 +1,15 @@
+{
+    "titulo": "Nova Carta",
+    "tipo": "Tipo",
+    "administradora": "Administradora",
+    "contemplacao": "Contemplação",
+    "status": "Status",
+    "prazoRestante": "Prazo Restante (em meses)",
+    "valorCredito": "Valor de Crédito",
+    "valorEntrada": "Valor de Entrada",
+    "valorPrestacoes": "Valor das Prestações",
+    "cota": "Cota",
+    "botaoAnunciar": "Anunciar",
+    "textoConfirmar": "Você confirma que os dados conferem?",
+    "campoObrigatorio": "Este campo é obrigatório."
+}

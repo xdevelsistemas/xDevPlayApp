@@ -1,9 +1,8 @@
 import sbt._
 import sbt.Keys._
 import play.Project._
-import scala.collection.JavaConverters._
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
-import com.github.play2war.plugin._
+
 
 
 
@@ -13,8 +12,7 @@ trait Options extends sbt.Build {
   val debug     : Boolean
   
   override def settings = super.settings ++ Seq(
-      EclipseKeys.skipParents in ThisBuild := false,
-      Play2WarKeys.servletVersion := "3.1"
+      EclipseKeys.skipParents in ThisBuild := false
   )
 
   def defaultJavaSettings : Seq[String] = {
@@ -108,8 +106,8 @@ object Build extends sbt.Build with Zap with Metamodel {
   val json4sVersion = "3.2.7"
   val securesocialVersion = "2.1.3"
 
-  val eclipselinkVersion = "2.5.1"
-  val hibernateVersion = "3.6.9.Final"
+  val eclipselinkVersion = "2.5.2"
+
 
   val postgresqlVersion = "9.1-901-1.jdbc4"
 
@@ -117,24 +115,46 @@ object Build extends sbt.Build with Zap with Metamodel {
 
   val xStreamVersion = "1.2.2"
 
+  val JPAVersion = "4.3.6.Final"
+
+  val Itext = "com.lowagie" % "itext" % "2.0.8"
+  val Itextpdf = "com.itextpdf" % "itextpdf" % "5.4.5"
+  val GuavaJdk5 = "com.google.guava" % "guava-jdk5" % "14.0.1"
+  val CommonsIo = "commons-io" % "commons-io" % "2.4"
+  val log4j =  "log4j" % "log4j" % "1.2.17"
+  val commons =  "org.apache.commons" % "commons-lang3" % "3.3.2"
 
 
-  resolvers += Resolver.sonatypeRepo("releases")
 
   val essentialDeps = Seq(
-    "org.mockito" % "mockito-all" % mockitoVersion % "test"
+    "org.mockito" % "mockito-all" % mockitoVersion % "test" exclude("org.hamcrest", "hamcrest-core"),
+     "junit" % "junit" % "4.11" % "test" exclude("org.hamcrest", "hamcrest-core"),
+     "org.hamcrest" % "hamcrest-all" % "1.3" % "test",
+     "com.typesafe" % "config" % "1.2.0"
   )
+
+  val bopepoDeps =  essentialDeps ++ Seq(
+    javaCore,
+    Itext,
+    Itextpdf,
+    GuavaJdk5,
+    log4j,
+    commons
+  )
+
 
   val modelsDeps = essentialDeps ++ Seq(
     javaCore,
     javaJdbc,
-    javaJpa,
+    javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
     "org.eclipse.persistence" % "eclipselink" % eclipselinkVersion,
     //"org.eclipse.persistence" % "org.eclipse.persistence.jpa.modelgen.processor" % eclipselinkVersion,
+    "org.hibernate" % "hibernate-entitymanager" % JPAVersion,
     "xstream" % "xstream" % xStreamVersion,
     "mysql" % "mysql-connector-java" % MySQlVersion,
     "ws.securesocial" %% "securesocial" % securesocialVersion
   )
+
 
 
 
@@ -153,6 +173,18 @@ object Build extends sbt.Build with Zap with Metamodel {
   // projects
   //
 
+  lazy val bopepo = play.Project(
+    appName + "-bopepo", appVersion,
+    bopepoDeps,
+    path = file("modules/bopepo"),
+    settings = javaSettings
+  ).settings(
+      zap <<= zapTask,
+      zap <<= zap.dependsOn(clean in Compile)
+      , metamodel <<= metamodelTask
+      , metamodel <<= metamodel.dependsOn(clean in Compile)
+    )
+
   lazy val models = play.Project(
     appName + "-models", appVersion,
     modelsDeps,
@@ -163,7 +195,13 @@ object Build extends sbt.Build with Zap with Metamodel {
     zap <<= zap.dependsOn(clean in Compile)
     , metamodel <<= metamodelTask
     , metamodel <<= metamodel.dependsOn(clean in Compile)
-  )
+  ).aggregate(bopepo)
+   .dependsOn(bopepo)
+
+
+
+
+
 
 
 
@@ -175,8 +213,8 @@ object Build extends sbt.Build with Zap with Metamodel {
       zap <<= zapTask,
       zap <<= zap.dependsOn(clean in Compile)
 
-    ).settings(Play2WarPlugin.play2WarSettings: _*)
-    .aggregate(models)
-    .dependsOn(models)
+    )
+    .aggregate(models,bopepo)
+    .dependsOn(models,bopepo)
 
 }

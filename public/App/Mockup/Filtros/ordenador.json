@@ -1,0 +1,17 @@
+{
+    "codigo": "ordenador",
+    "lista": [
+        {
+            "codigo": "valor_credito",
+            "descricao": "Valor de Crédito"
+        },
+        {
+            "codigo": "valor_entrada",
+            "descricao": "Valor de Entrada"
+        },
+        {
+            "codigo": "valor_prestacao",
+            "descricao": "Valor da Prestação"
+        }
+    ]
+}

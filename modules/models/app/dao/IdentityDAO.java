@@ -11,7 +11,7 @@ import models.User;
 
 
 
-public class IdentityDAO extends AbstractDAO<models.Identity> {
+public class IdentityDAO extends AbstractDAO<models.Identity>  {
 
     public IdentityDAO() {
         super(models.Identity.class);

@@ -1,0 +1,18 @@
+{
+    "codigo": "prazo_restante",
+    "descricao": "Prazo restante",
+    "lista": [
+        {
+            "codigo": "_1",
+            "descricao": "até 1 mês"
+        },
+        {
+            "codigo": "1_|_2",
+            "descricao": "de 1 a 2 meses"
+        },
+        {
+            "codigo": "2_",
+            "descricao": "acima de 2 meses"
+        }
+    ]
+}

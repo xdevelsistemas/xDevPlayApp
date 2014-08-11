@@ -1,0 +1,16 @@
+define([
+    '../Libs/jquery.mask.min',
+    '../Libs/jquery.inputmask/jquery.inputmask.bundle.min',
+    '../Libs/jquery-maskmoney/jquery.maskMoney.min',
+    '../Libs/js/aviators-map',
+    '../Libs/js/gmap3.infobox.min',
+    '../Libs/js/retina',
+    '../Libs/js/gmap3.clusterer',
+    '../Libs/js/jquery.ezmark',
+    '../Libs/js/carousel',
+    '../Libs/js/jquery.bxslider',
+    '../Libs/js/aviators-settings',
+    '../Libs/rs-plugin/js/jquery.themepunch.revolution.min',
+    '../Libs/rs-plugin/js/jquery.themepunch.plugins.min',
+    '../Libs/rs-plugin/datepicker/js/bootstrap-datepicker'
+]);

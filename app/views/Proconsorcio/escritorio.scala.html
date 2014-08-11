@@ -1,177 +1,145 @@
-<div class="container" id="pagina-escritorio">
+@(implicit userdao: dao.UserDAO, user: Option[securesocial.core.Identity])
+<div ng-controller="Escritorio" class="container" id="pagina-escritorio">
+    @if(user.nonEmpty && (!userdao.verificaCadastro(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }, Finalize seus dados Cadastrais clicando  <a href="/dadoscadastrais"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
+    @if(user.nonEmpty && (!userdao.verificanumCodigo(user.get.email.get, user.get.identityId.providerId))) {
+        <div class="alert alert-alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only"></span></button>
+            @{
+                user.get.firstName
+            }
+            , Registre seu Código de Compra/Venda clicando  <a href="/alterarcodigo"><strong style="color : darkblue">
+            Aqui </strong> </a>
+        </div>
+    }
     <div class="row">
-
         <div id="main" class="span12">
 
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h1 class="page-header">Reputação</h1>
+            <h1 class="page-header">Escritório Online</h1> <br>
+
+            <div ng-cloak class="tabbable" id="painel">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#compras" data-toggle="tab">Compras</a></li>
+                    <li><a href="#vendas" data-toggle="tab">Vendas</a></li>
+                    @*<li><a href="#tab-reputacao" data-toggle="tab">Reputação</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="compras">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <h1 class="page-header">Compras</h1>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered dataTable no-footer">
+                            <thead>
+                                <tr>
+                                    <th>Código da Carta</th>
+                                    <th>Valor do Bem</th>
+                                    <th>Tipo</th>
+                                    <th>Administradora</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="carta in compras.lista">
+                                    <td class="compras-codigo">
+                                        <a ng-bind="carta.codigo"
+                                        ng-href="detalhes/+carta.codigo"></a>
+                                    </td>
+                                    <td class="compras-valor" xd-mask-money-brl
+                                    ng-bind="carta.valorDoBem"></td>
+                                    <td class="compras-tipo"
+                                    ng-bind="carta.tipo.nome"></td>
+                                    <td class="compras-administradora"
+                                    ng-bind="carta.administradora.nome"></td>
+                                    <td class="compras-status">
+                                        <strong class="publish"
+                                        ng-bind="carta.status.nome"></strong>
+                                    </td>
+                                    <td class="actions">
+                                        <a href="#" class="download" title="Baixar o Boleto">Baixar&nbsp;o&nbsp;Boleto</a>
+                                        <a href="property-detail.html" class="view" title="Ver Detalhes">Ver&nbsp;Detalhes</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane" id="vendas">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <h1 class="page-header">Vendas</h1>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered dataTable no-footer">
+                            <thead>
+                                <tr>
+                                    <th>Código da Carta</th>
+                                    <th>Valor do Bem</th>
+                                    <th>Tipo</th>
+                                    <th>Administradora</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="carta in vendas.lista">
+                                    <td class="compras-codigo">
+                                        <a ng-bind="carta.codigo"
+                                        ng-href="detalhes/+carta.codigo"></a>
+                                    </td>
+                                    <td class="compras-valor"
+                                    ng-bind="carta.valorDoBem"></td>
+                                    <td class="compras-tipo"
+                                    ng-bind="carta.tipo.nome"></td>
+                                    <td class="compras-administradora"
+                                    ng-bind="carta.administradora.nome"></td>
+                                    <td class="compras-status">
+                                        <strong class="publish"
+                                        ng-bind="carta.status.nome"></strong>
+                                    </td>
+                                    <td class="actions">
+                                        <a href="#" class="download" title="Baixar o Boleto">Baixar&nbsp;o&nbsp;Boleto</a>
+                                        <a href="property-detail.html" class="view" title="Ver Detalhes">Ver&nbsp;Detalhes</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                        <!--
+                    <div class="tab-pane" id="tab-reputacao">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <h1 class="page-header">Reputação</h1>
+                            </div>
+                        </div>
+                        <table class="table span4">
+                            <tr>
+                                <th>Compras</th>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <th>Vendas</th>
+                                <td>9</td>
+                            </tr>
+                        </table>
+                    </div>
+                    -->
                 </div>
-                    <!-- /.pull-left -->
             </div>
-                <!-- /.clearfix -->
+            <br>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="reputacao-compras">
-                            <strong>Compras: </strong>2
-                        </td>
-                        <td class="reputacao-vendas">
-                            <strong>Vendas: </strong>8
-                        </td>
-                    </tr>
-                    <tr class="sep">
-                        <td colspan="6"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h1 class="page-header">Compras</h1>
-                </div>
-                    <!-- /.pull-left -->
-            </div>
-                <!-- /.clearfix -->
-            <table class="table submissions-table">
-                <thead>
-                    <tr>
-                        <th>Código da Carta</th>
-                        <th>Valor do Bem</th>
-                        <th>Tipo</th>
-                        <th>Administradora</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="compras-codigo">
-                            <a href="detalhamento.html">000104</a>
-                        </td>
-
-                        <td class="compras-valor">
-                            R$ 8.000,00
-                        </td>
-
-                        <td class="compras-tipo">
-                            Carro
-                        </td>
-
-                        <td class="compras-administradora">
-                            Rodobens
-                        </td>
-
-                        <td class="compras-status">
-                            <strong class="publish">Aguardando Documentação</strong>
-                        </td>
-
-                        <td class="actions">
-                            <a href="#" class="download" title="Baixar o Boleto">Baixar&nbsp;o&nbsp;Boleto</a>
-                            <a href="property-detail.html" class="view" title="Ver Detalhes">Ver&nbsp;Detalhes</a>
-                        </td>
-                    </tr>
-                    <tr class="sep">
-                        <td colspan="6"></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h1 class="page-header">Vendas</h1>
-                </div>
-                    <!-- /.pull-left -->
-            </div>
-                <!-- /.clearfix -->
-
-            <table class="table submissions-table">
-                <thead>
-                    <tr>
-                        <th>Código da Carta</th>
-                        <th>Valor do Bem</th>
-                        <th>Tipo</th>
-                        <th>Administradora</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td class="vendas-codigo">
-                            <a href="/detalhes/104">000104</a>
-                        </td>
-
-                        <td class="vendas-valor">
-                            R$ 8.000,00
-                        </td>
-
-                        <td class="vendas-tipo">
-                            Carro
-                        </td>
-
-                        <td class="vendas-administradora">
-                            Rodobens
-                        </td>
-
-                        <td class="vendas-status">
-                            <strong class="publish">Aguardando Documentação</strong>
-                        </td>
-
-                        <td class="actions">
-                            <a href="#" class="download" title="Baixar o Boleto">Baixar&nbsp;o&nbsp;Boleto</a>
-                            <a href="property-detail.html" class="view" title="Ver Detalhes">Ver&nbsp;Detalhes</a>
-                        </td>
-                    </tr>
-                    <tr class="sep">
-                        <td colspan="6"></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-                <!--            <div class="pagination pagination-centered">
-                            <ul class="unstyled">
-                                <li><a href="#">Previous</a></li>
-                                <li><a href="#" class="inactive">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#" class="inactive">3</a>
-                                </li>
-                                <li><a href="#" class="inactive">4</a>
-                                </li>
-                                <li><a href="#">Next</a></li>
-                                <li><a href="#">Last</a></li>
-                            </ul>
-                        </div>-->
-
-
-        </div>
-            <!-- /#main -->
-    </div>
-        <!-- /.row -->
-</div>
-<!-- /.container -->
-
-
-<script>
-//    app.Modelo.Pesquisa.filtros = app.aplicarModelo("Filtros", "#caixa-filtros");
-//    app.Modelo.Pesquisa.resultados = app.aplicarModelo("ResultadosPesquisa", "#resultadosPesquisa", function() {
-//        $('select[name=filter_sort_by]').change(function() {
-//            $('form.form-sort').submit();
-//        });
-//
-//        $('select[name=filter_order]').change(function() {
-//            $('form.form-sort').submit();
-//        });
-//    });
-</script>
+        </div> <!-- /#main -->
+    </div> <!-- /.row -->
+</div> <!-- /.container -->

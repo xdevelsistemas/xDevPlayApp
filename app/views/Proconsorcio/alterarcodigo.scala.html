@@ -1,60 +1,59 @@
-@(userForms:play.api.data.Form[models.Cadastro.AlteraCodigoInfo], msg: String)(implicit request: play.api.mvc.RequestHeader)
-@import helper._
-@import securesocial.core.SecureSocial
-    @implicitFieldConstructor = @{ FieldConstructor(defaultFieldConstructor.f) }
+@(userForms: play.api.data.Form[models.Cadastro.AlteraCodigoInfo], msg: String)(implicit request: play.api.mvc.RequestHeader)
+    @import helper._
+    @import securesocial.core.SecureSocial
+    @implicitFieldConstructor = @{
+        FieldConstructor(defaultFieldConstructor.f)
+    }
 
+    <div ng-cloak class="container" id="pagina-alterarCodigo">
+        <div class="row">
 
+            <div id="main" class="span12">
 
+                <div class="login-register">
+                    <h2>Alterar Código de Acesso</h2>
+                    @request.flash.get("error").map { msg =>
+                        <div class="alert alert-error">
+                            @msg
+                        </div>
+                    }
+                    @if(!msg.isEmpty) {
+                        <div class="alert alert-success" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                            @msg
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="span8 offset2">
 
-<div class="container" id="pagina-alterarCodigo">
-    <div class="row">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="login">
+                                    <form method="post" action="@request.uri">
 
-        <div id="main" class="span12">
+                                        @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get, SecureSocial.currentUser.get.identityId.providerId)) {
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Código de acesso atual
+                                                </label>
 
-            <div class="login-register">
-                <h2>Alterar Código de Acesso</h2>
-                @request.flash.get("error").map { msg =>
-                    <div class="alert alert-error">
-                        @msg
-                    </div>
-                }
-                @if(!msg.isEmpty){
-                    <div class="alert alert-success"  role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                        @msg
-                    </div>
-                }
-                <div class="row">
-                    <div class="span8 offset2">
-
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="login">
-                                <form method="post">
-
-                                    @if(SecureSocial.currentUser.isDefined && (new dao.UserDAO).verificanumCodigo(SecureSocial.currentUser.get.email.get, SecureSocial.currentUser.get.identityId.providerId)) {
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Código de acesso atual
-                                            </label>
-
-                                            <div class="controls">
+                                                <div class="controls">
+                                                @helper.inputPassword(
+                                                    userForms("codigoAtual"),
+                                                    '_label -> ""
+                                                )
+                                                </div>
+                                                    <!-- /.controls -->
+                                            </div>
+                                                <!-- /.control-group -->
+                                        } else {
+                                            <div style="display : none">
                                             @helper.inputPassword(
                                                 userForms("codigoAtual"),
                                                 '_label -> ""
                                             )
                                             </div>
-                                                <!-- /.controls -->
-                                        </div>
-                                            <!-- /.control-group -->
-                                    }else{
-                                        <div style="display: none">
-                                        @helper.inputPassword(
-                                            userForms("codigoAtual"),
-                                            '_label -> ""
-                                        )
-                                        </div>
 
-                                    }
+                                        }
 
                                     <div class="control-group">
                                         <label class="control-label">
@@ -92,24 +91,24 @@
                                         class="btn btn-primary arrow-right">
                                     </div>
                                         <!-- /.form-actions -->
-                                </form>
+                                    </form>
+                                </div>
+                                    <!-- /.tab-pane -->
                             </div>
-                                <!-- /.tab-pane -->
+                                <!-- /.tab-content -->
+                            <hr>
                         </div>
-                            <!-- /.tab-content -->
-                        <hr>
-                    </div>
-                        <!-- /.span4-->
+                            <!-- /.span4-->
 
+                    </div>
+                        <!-- /.row -->
                 </div>
-                    <!-- /.row -->
+                    <!-- /.login-register -->
+
             </div>
-                <!-- /.login-register -->
+                <!-- /#main -->
 
         </div>
-            <!-- /#main -->
-
+            <!-- /.row -->
     </div>
-        <!-- /.row -->
-</div>
-<!-- /.container -->
+    <!-- /.container -->

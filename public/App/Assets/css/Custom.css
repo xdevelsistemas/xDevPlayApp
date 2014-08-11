@@ -1,0 +1,335 @@
+/*angularjs ngCloak hack*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/*end*/
+
+/*TODO  provavelmente isso não será mais necessário*/
+#all-content {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    height: 100%;
+}
+
+/*it makes the footer stuck to the page bottom*/
+html, body, #all-content {
+    height: 100%;
+}
+
+#page-container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -101px;
+}
+
+.push {
+    height: 128px;
+}
+
+#footer-wrapper {
+    height: 96px;
+    overflow: hidden;
+}
+
+/*end*/
+
+dd.error {
+    color: red;
+    font-weight: bolder;
+}
+
+.logo img {
+    max-height: 42px;
+}
+
+@media (max-width: 445px) {
+    .menu-item a {
+        color: white !important;
+    }
+}
+
+#content {
+    min-height: 100% !important;
+    height: 100% !important;
+    padding-top: 1em;
+    position: relative;
+}
+
+#pagina-dadosCadastrais .tab-content {
+    min-height: 544px;
+}
+
+#pagina-novaCarta .tab-content {
+    min-height: 296px;
+}
+
+input, textarea, .uneditable-input {
+    /*width: 174px;*/
+}
+
+.submissions-table tbody tr td.actions .download {
+    position: relative;
+    margin-right: 10px;
+    padding: 5px 30px 5px 10px;
+}
+
+.submissions-table tbody tr td.actions .download:after {
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'PictoPro-Normal';
+    speak: none;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-transform: none;
+    color: #00915E;
+    content: "\e0f9";
+    font-size: 20px;
+    position: absolute;
+    right: 5px;
+}
+
+#pagina-escritorio {
+    overflow: auto;
+}
+
+#pagina-detalhes button.btn.btn-primary.btn-large {
+    background-color: #00915E;
+    width: 100%;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+#pagina-detalhes button.btn.btn-primary.btn-large ::after {
+    /* -webkit-transition: 0.2s; */
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    /* transition: 0.2s; */
+    /* -webkit-font-smoothing: antialiased; */
+    /* font-family: 'PictoPro-Normal'; */
+    /* speak: none; */
+    /* font-weight: normal; */
+    /* font-variant: normal; */
+    /* line-height: 1; */
+    /* text-transform: none; */
+    /* color: white; */
+    /* content: "\e0f9"; */
+    /* font-size: 20px; */
+    /* position: absolute; */
+    /* margin: 0px 10px; */
+    /* right: 0; */
+}
+
+#pagina-detalhes button.btn.btn-primary.btn-large.edit ::after {
+    /* content: "\e06e"; */
+}
+
+#pagina-detalhes button.btn.btn-primary.btn-large.remove ::after {
+    content: "\e04b";
+}
+
+#resultadosPesquisa .price, #resultadosPesquisa .location {
+    margin-top: 6px;
+    /* padding: 0.7em 1em; */
+    /* top: 0; */
+    margin-bottom: 0px;
+}
+
+#resultadosPesquisa .title-price .title {
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
+
+.limpar-filtros {
+    background-color: #003f4f;
+}
+
+div.ordenadores {
+    margin-left: 0.3em;
+}
+
+#simulador input {
+    text-align: right;
+}
+
+.form-required {
+    color: red;
+    font-size: 0.9em;
+}
+
+label {
+    cursor: default;
+}
+
+/*tabbabble hack*/
+.tabbable .nav {
+    margin-bottom: 0;
+}
+
+/*end*/
+
+/*datatables*/
+.dataTables_length select {
+    width: 5em;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+}
+
+/*end*/
+
+/*tabela reputação*/
+#tab-reputacao table {
+    background-color: white;
+}
+
+#tab-reputacao tr {
+    border: 1px solid lightgray;
+}
+
+/*end*/
+
+button.btn.interesse {
+    font-size: 1.3em;
+    padding: 0.6em;
+}
+
+.busca-codigo {
+    text-align: right;
+
+}
+
+.more-info button.btn {
+    margin-top: 14px;
+    font-weight: bold;
+}
+
+.error-msg {
+    display: inherit;
+    color: red;
+    font-weight: bolder;
+}
+
+h1, h2, h3 {
+    color: #00478C;
+}
+
+/*loading bar*/
+
+#loading-splash {
+    display: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    z-index: 5;
+}
+
+#loading-splash[ng-cloak] {
+    display: block !important;
+}
+
+#loading-bar .bar {
+    width: 140%;
+    background-color: #317DC6;
+    margin-left: -20px;
+    position: relative;
+}
+
+#loading-bar {
+    border-radius: 0;
+    height: 1em;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/*end*/
+
+textarea {
+    min-height: 240px;
+    width: 100%;
+}
+
+.modal form {
+    margin: 0;
+}
+
+.select-conta-padrao {
+    background-color: #00915E;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 3px 7px 4px;
+    font-size: 100%;
+    line-height: 20px;
+    min-height: 1em;
+    margin-left: -20px;
+    padding-right: 20px;
+}
+
+.select2-highlighted .select-conta-padrao, .select-conta-padrao:hover {
+    background-color: #428bca;
+    color: white;
+}
+
+.select2-chosen .select-conta-padrao {
+    background-color: white;
+    color: #000000;
+    margin-left: 0px;
+    padding: 0;
+}
+
+td.contas-padrao i, td.contas-remover i {
+    margin-right: 8px;
+}
+
+td.contas-padrao, td.contas-remover {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn-nova-conta {
+    margin-bottom: 12px;
+}
+
+.properties-rows .property {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: #f2f2f2;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid #00478C 3px;
+}
+
+.properties-rows .property .body {
+    width: 90%;
+    margin-left: 5%;
+}
+
+#resultadosPesquisa .price {
+    margin-top: 18px;
+    margin-bottom: 7px;
+    background-color: white;
+    width: auto;
+    position: relative;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.procon-acoes .btn .icon {
+    position: absolute;
+    right: 12px;
+}
