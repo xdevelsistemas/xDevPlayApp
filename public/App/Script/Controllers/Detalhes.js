@@ -7,38 +7,50 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "status": "Status",
             "valorDoBem3": "Valor do Bem"
         };
+        $scope.carta = {};
+        $scope.historico = [];
         var cartaMock = {
-            "codigo": "000104",
-            "valordoBem": "R$ 60.000,00",
-            "tipo": {
-                "codigo": "0000",
-                "nome": "Tipo da Carta"
-            },
-            "administradora": {
-                "codigo": "0000",
-                "nome": "Nome da Administradora"
-            },
-            "status": {
-                "codigo": "0000",
-                "nome": "Status Atual"
-            },
-            "acoes": [
-                {
-                    "codigo": "acao_01",
-                    "nome": "Ação 01"
+                "codigo": "000104",
+                "valordoBem": "R$ 60.000,00",
+                "tipo": {
+                    "codigo": "0000",
+                    "nome": "Tipo da Carta"
                 },
-                {
-                    "codigo": "acao_02",
-                    "nome": "Ação 02",
-                    "icone": "icon-trash"
+                "administradora": {
+                    "codigo": "0000",
+                    "nome": "Nome da Administradora"
                 },
+                "status": {
+                    "codigo": "0000",
+                    "nome": "Status Atual"
+                },
+                "acoes": [
+                    {
+                        "codigo": "acao_01",
+                        "nome": "Ação 01"
+                    },
+                    {
+                        "codigo": "acao_02",
+                        "nome": "Ação 02",
+                        "icone": "icon-trash"
+                    },
+                    {
+                        "codigo": "acao_03",
+                        "nome": "Ação 03",
+                        "icone": "icon-edit"
+                    }
+                ]
+            },
+            historicoMock = [
                 {
-                    "codigo": "acao_03",
-                    "nome": "Ação 03",
-                    "icone": "icon-edit"
+                    "hora": "dd/MM/YYYY HH:mm:ss",
+                    "estagio_anterior": "O estágio anterior",
+                    "estagio_posterior": "O estágio posterior",
+                    "usuario": "O usuário",
+                    "justificativa": "A justificativa"
                 }
-            ]
-        };
+            ];
+
 
         $scope.acaoMock = function (acao) {
             window.alert("Este botão chamou a ação " + acao.nome +
@@ -50,13 +62,18 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             var codigo = window.location.hash.replace('#', '');
             if (!codigo)
                 return console.log("!!! ==> Código não encontrado no hash!");
-            if (codigo == "mock")
-                return angular.extend($scope.carta, cartaMock);
+            if (codigo == "mock") {
+                angular.extend($scope.carta, cartaMock);
+                angular.extend($scope.historico, historicoMock);
+            }
             $http.get('/rest/grid/cartas/detalhes/' + codigo).success(function (data) {
                 if (data.resp.result != 1)
                     return console.log("!!! ==> Código não encontrado no servidor!");
-                else
+                else {
                     angular.extend($scope.carta, data.carta);
+                    if (!!data.historico)
+                        angular.extend($scope.historico, data.historico);
+                }
             });
         })();
 

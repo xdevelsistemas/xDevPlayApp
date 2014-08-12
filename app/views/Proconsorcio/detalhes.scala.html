@@ -49,6 +49,29 @@
                         </div> <!-- /.span2 -->
                     </div><!-- /.row -->
                 </div><!-- /.overview -->
+                <div class="row" ng-show="historico.length>0">
+                    <h2>Histórico</h2>
+                    <table class="table table-striped table-bordered dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Estágio Anterior</th>
+                                <th>Estágio Posterior</th>
+                                <th>Usuário</th>
+                                <th>Justificativa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in historico">
+                                <td ng-bind="item.hora"></td>
+                                <td ng-bind="item.estagio_anterior"></td>
+                                <td ng-bind="item.estagio_posterior"></td>
+                                <td ng-bind="item.usuario"></td>
+                                <td ng-bind="item.justificativa"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div><!-- /.property-detail -->
         </div><!-- /#main -->
     </div><!-- /.row -->
