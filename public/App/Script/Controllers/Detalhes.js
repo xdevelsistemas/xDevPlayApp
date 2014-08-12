@@ -39,7 +39,6 @@ define(['./__module__', 'jquery'], function (controllers, $) {
                 }
             ]
         };
-        $scope.carta = cartaMock;
 
         $scope.acaoMock = function (acao) {
             window.alert("Este botão chamou a ação " + acao.nome +
