@@ -5,13 +5,16 @@ define(['./__module__', 'jquery'], function (controllers, $) {
             "valorDoBem": "Valor do Bem",
             "codigoDaCarta": "Código da Carta",
             "status": "Status",
-            "valorDoBem3": "Valor do Bem"
+            "valorEntrada": "Valor de Entrada",
+            "prazoRestante": "Prazo Restante (meses)"
         };
         $scope.carta = {};
         $scope.historico = [];
         var cartaMock = {
                 "codigo": "000104",
                 "valordoBem": "R$ 60.000,00",
+                "valorEntrada": "R$ 8.000,00",
+                "prazoRestante": "20",
                 "tipo": {
                     "codigo": "0000",
                     "nome": "Tipo da Carta"
