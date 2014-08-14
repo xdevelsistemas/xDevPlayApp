@@ -52,7 +52,7 @@ class CartaDAOextend extends CartaDAO {
       if (yCarta.usuario == yUser){
         tpOper = ETipoTransacao.Venda
       }else{
-        if(yUser.isAdmin){
+        if(yUser.isAdmin != null && yUser.isAdmin){
           tpOper = ETipoTransacao.Gerenciar
         }else{
           tpOper = ETipoTransacao.Compra

@@ -104,7 +104,7 @@ object Application extends xDevController {
   def escritorio = SecuredAction { implicit request =>
     val usuario: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
 
-    if (usuario.isAdmin){
+    if (usuario.isAdmin != null &&  usuario.isAdmin){
       Ok(views.html.App.main.render(views.html.Proconsorcio.escritorioadmin(_userdao, _user), "Escritório Online (Administrador)", _user, request))
     }else{
       Ok(views.html.App.main.render(views.html.Proconsorcio.escritorio(_userdao, _user), "Escritório Online", _user, request))
