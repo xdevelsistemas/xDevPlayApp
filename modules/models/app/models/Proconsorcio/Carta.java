@@ -69,7 +69,7 @@ public class Carta extends AbstractModel {
     @NotNull(message="Campo 'Pago Vendedor' não pode ser nulo")
     public Boolean isPagoVendedor;
 
-    @Column(name="PAGO_VENDEDOR", nullable = false)
+    @Column(name="PAGO_COMPRADOR", nullable = false)
     @NotNull(message="Campo 'Pago Comprador' não pode ser nulo")
     public Boolean isPagoComprador;
 

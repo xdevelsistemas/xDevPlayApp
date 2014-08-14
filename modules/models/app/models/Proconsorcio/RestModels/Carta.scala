@@ -448,7 +448,7 @@ class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
         ETipoTransacao.Venda
       }
       else {
-        if (user != null && user.isAdmin) {
+        if (user != null && user.isAdmin != null && user.isAdmin) {
           ETipoTransacao.Gerenciar
         }
         else {

@@ -44,7 +44,7 @@ POST        /rest/grid/cartas/add                         controllers.Proconsorc
 POST        /rest/grid/cartas/pesquisa                    controllers.Proconsorcio.RestController.getResultPesquisa
 GET         /rest/grid/cartas/detalhes/$id<[0-9]+>        controllers.Proconsorcio.RestController.getDetalheCarta(id)
 GET         /rest/grid/cartas/lista/:tipo                 controllers.Proconsorcio.RestController.getListaCartasEscritorio(tipo)
-GET         /rest/grid/cartas/lista                       controllers.Proconsorcio.RestController.getListaCartasEscritorio
+GET         /rest/grid/cartas/lista                       controllers.Proconsorcio.RestController.getListaCartasEscritorioAdmin
 
 
 # Map static resources from the /public folder to the /assets URL path

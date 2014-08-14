@@ -251,16 +251,16 @@ object RestController extends xDevRestController {
   def getEndereco(cep: String) = Action {
     JsonResult(CepService.buscaCEP(cep))
   }
-
-  def getListaCartasEscritorio = getListaCartasEscritorio("")
+  
+  def getListaCartasEscritorioAdmin = getListaCartasEscritorio("")
 
   def getListaCartasEscritorio(ytipo: String) = SecuredAction { implicit request =>
     val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
     val dao = new CartaDAO
 
-    val tpTransacao = user.isAdmin match {
-      case true => ETipoTransacao.Gerenciar
-      case false => {
+    val tpTransacao : ETipoTransacao = user.isAdmin match {
+      case java.lang.Boolean.TRUE => ETipoTransacao.Gerenciar
+      case java.lang.Boolean.FALSE => {
         ytipo match {
           case "Compra" => ETipoTransacao.Compra
           case "Venda" => ETipoTransacao.Venda
