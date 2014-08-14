@@ -65,6 +65,15 @@ public class Carta extends AbstractModel {
     public Long valorCota;
 
 
+    @Column(name="PAGO_VENDEDOR", nullable = false)
+    @NotNull(message="Campo 'Pago Vendedor' não pode ser nulo")
+    public Boolean isPagoVendedor;
+
+    @Column(name="PAGO_VENDEDOR", nullable = false)
+    @NotNull(message="Campo 'Pago Comprador' não pode ser nulo")
+    public Boolean isPagoComprador;
+
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "ID_USUARIO", nullable = false)
     @NotNull(message="Campo 'Usuário' não pode ser nulo")
@@ -174,6 +183,8 @@ public class Carta extends AbstractModel {
     public void prePersist() {
         super.prePersist();
 
+        this.isPagoComprador = false;
+        this.isPagoVendedor = false;
         this.statusCartaAdm = EstatusAdministrativo.AguardandoAprovacao;
     }
 

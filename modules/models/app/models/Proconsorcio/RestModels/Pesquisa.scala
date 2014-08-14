@@ -124,7 +124,7 @@ class ResultadoPesquisa(ytotal: Long, ylista: java.util.List[Carta]) extends xDe
             "codigo" -> t.tipoCarta.uuid,
             "nome" -> t.tipoCarta.name
           ),
-          "valorDaEntrada" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),
+          "valorDaEntrada" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorEntrada),
           "prazoRestante" -> t.prazoRestante.toString
         )
       )

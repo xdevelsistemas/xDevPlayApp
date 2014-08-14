@@ -8,18 +8,25 @@ import models.Proconsorcio.RestModels._
 import _root_.util.{TpResponse, TpDropDown, TpElDropDown}
 import controllers.Proconsorcio.Application._
 import models.Cadastro.RegistrationObjects
-import models.Proconsorcio.{Sequenciador, ContaBanco}
+import models.Proconsorcio.{ETipoTransacao, Sequenciador, ContaBanco}
 import models.User
+import play.api.Play
 import play.api.cache.Cached
+import play.api.data.Forms._
 import play.api.libs.json.{Json, JsObject}
 import play.api.mvc.{SimpleResult, Action}
 import play.db.jpa.JPA
 import play.libs.F
+import securesocial.core.Registry
+import securesocial.views.html.provider
+import services.AuthenticationService
 import scala.collection.JavaConverters._
 import br.com.republicavirtual.CepService
 import controllers.xDevRestController
 import dao._
 import play.api.Play.current
+import securesocial.core.AuthenticationMethod._
+import securesocial.core.providers.UsernamePasswordProvider.UsernamePassword
 
 
 /**
@@ -27,7 +34,39 @@ import play.api.Play.current
  * Controller responável por toda comunicação via rest com o front-end
  *
  */
+
+
 object RestController extends xDevRestController {
+
+
+  //TODO ESTUDAR MAIS E PESQUISAR MELHOR MANEIRA DE CONTROLAR LOGIN VIA REST
+  def RestLogin = Action(parse.json) { implicit request =>
+
+
+
+    val auth: AuthenticationService = new AuthenticationService(Play.current)
+
+    val _jsusername = (request.body \ "username").toString
+    val _jspassword = (request.body \ "password").toString
+    case class _user(username: String, password: String)
+
+
+
+
+    val userForm = play.api.data.Form[_user](
+      mapping(
+        "username" -> nonEmptyText,
+        "password" -> nonEmptyText
+      )((username, password) => _user(username, password))(info => Some(info.username, info.password))
+    ).fill(new _user(_jsusername, _jspassword))
+
+
+    //val x = Registry.providers.get(UsernamePassword).map { up => provider( "userpass", Some(userForm))
+    val saida = Json.obj("accessToken" -> "")
+
+
+    Ok(Json.toJson(saida))
+  }
 
   def getResultPesquisa = Action(parse.json) { implicit request =>
 
@@ -213,6 +252,30 @@ object RestController extends xDevRestController {
     JsonResult(CepService.buscaCEP(cep))
   }
 
+  def getListaCartasEscritorio = getListaCartasEscritorio("")
+
+  def getListaCartasEscritorio(ytipo: String) = SecuredAction { implicit request =>
+    val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+    val dao = new CartaDAO
+
+    val tpTransacao = user.isAdmin match {
+      case true => ETipoTransacao.Gerenciar
+      case false => {
+        ytipo match {
+          case "Compra" => ETipoTransacao.Compra
+          case "Venda" => ETipoTransacao.Venda
+        }
+
+      }
+
+    }
+
+
+    JsonResult(new LstCartasEscritorio(user,dao,tpTransacao))
+
+
+  }
+
 
   def getListaContasLookup = SecuredAction { implicit request =>
     val user: User = (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
@@ -240,9 +303,13 @@ object RestController extends xDevRestController {
 
   }
 
-  def getDetalheCarta(id:String) = UserAwareAction{ implicit request =>
-    val user: User = if(_user.isDefined && !_user.isEmpty){(new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()}else{null}
-    JsonResult(new CartaDetalhe(java.lang.Long.parseLong(id),user))
+  def getDetalheCarta(id: String) = UserAwareAction { implicit request =>
+    val user: User = if (_user.isDefined && !_user.isEmpty) {
+      (new IdentityDAO).findOneByEmailAndProvider(_user.get.email.get, _user.get.identityId.providerId).user()
+    } else {
+      null
+    }
+    JsonResult(new CartaDetalhe(java.lang.Long.parseLong(id), user))
   }
 
 
@@ -259,21 +326,14 @@ object RestController extends xDevRestController {
         BadRequest(frm.serialize())
       } else {
 
-
-
-
-
-
-
-
         carta.usuario = user
         //val frm_novacarta = dao.add(carta)
 
 
-      /*
-      *  como se trata de duas tabelas foi criado duas persistencias distintas
-      *
-      * */
+        /*
+        *  como se trata de duas tabelas foi criado duas persistencias distintas
+        *
+        * */
 
 
         try {
@@ -298,16 +358,15 @@ object RestController extends xDevRestController {
           })
 
 
-
-        }catch {
+        } catch {
           case e: Exception => throw new Exception("Erro na persistência da carta")
         }
 
 
 
 
-        val frm_novacarta =  (new CartaForm)
-          .read(carta,(new TpResponse("1",
+        val frm_novacarta = (new CartaForm)
+          .read(carta, (new TpResponse("1",
           "Sucesso, você pode agora acompanhar sua carta no escritório online")))
 
         //return carta

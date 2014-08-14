@@ -281,6 +281,63 @@ class TStatusCartaAdm(yval: EstatusAdministrativo, ytp: ETipoTransacao) extends 
   }
 
 
+
+  def visible: Boolean = {
+    if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
+
+      this.status match {
+        case EstatusAdministrativo.AguardandoAprovacao => false
+        case EstatusAdministrativo.Aprovado => false
+        case EstatusAdministrativo.EmProcessodeCompra => true
+        case EstatusAdministrativo.VendaAutorizada => true
+        case EstatusAdministrativo.AguardandoAvaliacao => true
+        case EstatusAdministrativo.Estornado => true
+        case EstatusAdministrativo.Reprovado => true
+        case EstatusAdministrativo.Cancelado => true
+        case EstatusAdministrativo.Bloqueio => true
+        case EstatusAdministrativo.Concluida => true
+        case EstatusAdministrativo.Excluida => false
+
+      }
+    } else {
+      if (this.tipotransacao.equals(ETipoTransacao.Venda)) {
+
+        this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => true
+          case EstatusAdministrativo.Aprovado => true
+          case EstatusAdministrativo.EmProcessodeCompra => true
+          case EstatusAdministrativo.VendaAutorizada => true
+          case EstatusAdministrativo.AguardandoAvaliacao => true
+          case EstatusAdministrativo.Estornado => true
+          case EstatusAdministrativo.Reprovado => true
+          case EstatusAdministrativo.Cancelado => false
+          case EstatusAdministrativo.Bloqueio => false
+          case EstatusAdministrativo.Concluida => true
+          case EstatusAdministrativo.Excluida => false
+        }
+
+      } else {
+
+        this.status match {
+          case EstatusAdministrativo.AguardandoAprovacao => true
+          case EstatusAdministrativo.Aprovado => true
+          case EstatusAdministrativo.EmProcessodeCompra => true
+          case EstatusAdministrativo.VendaAutorizada => true
+          case EstatusAdministrativo.AguardandoAvaliacao => true
+          case EstatusAdministrativo.Estornado => true
+          case EstatusAdministrativo.Reprovado => true
+          case EstatusAdministrativo.Cancelado => true
+          case EstatusAdministrativo.Bloqueio => true
+          case EstatusAdministrativo.Concluida => false
+          case EstatusAdministrativo.Excluida => false
+
+        }
+
+      }
+    }
+
+  }
+
   def getAcao: List[ETpAcoes] = {
 
     if (this.tipotransacao.equals(ETipoTransacao.Compra)) {
@@ -401,7 +458,7 @@ class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
 
 
 
-      val df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+      val df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
 
       if (_tp == ETipoTransacao.Compra) {
@@ -455,15 +512,23 @@ class CartaDetalhe(id: Long, user: User) extends xDevSerialize {
 }
 
 
-class LstCartasEscritorio(ylista: List[Carta], ytp: ETipoTransacao) extends xDevSerialize {
+
+
+
+class LstCartasEscritorio(yUser: User, ydao : CartaDAO , ytp: ETipoTransacao) extends xDevSerialize {
   val ptBr = new Locale("pt", "BR")
   val numberFormat = NumberFormat.getInstance(ptBr)
 
+  val  xLista : List[Carta] = ytp match {
+    case ETipoTransacao.Compra => ydao.findMany("usuarioCompra",yUser).asScala.filter(d=>(new TStatusCartaAdm(d.statusCartaAdm,ytp)).visible).toList
+    case ETipoTransacao.Venda => ydao.findMany("usuario",yUser).asScala.filter(d=>(new TStatusCartaAdm(d.statusCartaAdm,ytp)).visible).toList
+    case ETipoTransacao.Gerenciar => ydao.all().asScala.filter(d=>(new TStatusCartaAdm(d.statusCartaAdm,ytp)).visible).toList
+  }
 
   def serialize(): JsObject = {
     Json.obj(
       "lista" ->
-        this.ylista.map { t =>
+        this.xLista.map { t =>
           Json.obj(
             "codigo" -> t.friendlyID.toString,
             "valordoBem" -> NumberFormat.getCurrencyInstance(ptBr).format(t.valorCredito),

@@ -2,71 +2,73 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # Aplicatico principal
-GET         /                                      controllers.Proconsorcio.LandingPage.Home
-GET         /home                                  controllers.Proconsorcio.Application.home
-GET         /pesquisa/:query                       controllers.Proconsorcio.Application.pesquisa(query)
-GET         /pesquisa                              controllers.Proconsorcio.Application.pesquisa_clean
-GET         /alterarcodigo                         controllers.Proconsorcio.Application.alterarcodigo
-POST        /alterarcodigo                         controllers.Proconsorcio.Application.handleAlterarCodigo
-GET         /novacarta                             controllers.Proconsorcio.Application.novacarta
-GET         /detalhes                              controllers.Proconsorcio.Application.detalhes
-GET         /simulador                             controllers.Proconsorcio.Application.simulador
-GET         /dadoscadastrais                       controllers.Proconsorcio.Application.dadoscadastrais()
-POST        /dadoscadastrais                       controllers.Proconsorcio.Application.handleDadosCadastrais()
-GET         /escritorio                            controllers.Proconsorcio.Application.escritorio()
-GET         /contas                                controllers.Proconsorcio.Application.contas()
-GET         /faleconosco                           controllers.Proconsorcio.Application.faleconosco()
-POST        /faleconosco                           controllers.Proconsorcio.Application.handlefaleConosco()
-POST        /signupmail                            plugin.CustomRegistration.handleStartSignUpMail()
-GET         /boleto/$id<[0-9]+>                    controllers.Proconsorcio.Application.boleto(id)
+GET         /                                             controllers.Proconsorcio.LandingPage.Home
+GET         /home                                         controllers.Proconsorcio.Application.home
+GET         /pesquisa/:query                              controllers.Proconsorcio.Application.pesquisa(query)
+GET         /pesquisa                                     controllers.Proconsorcio.Application.pesquisa_clean
+GET         /alterarcodigo                                controllers.Proconsorcio.Application.alterarcodigo
+POST        /alterarcodigo                                controllers.Proconsorcio.Application.handleAlterarCodigo
+GET         /novacarta                                    controllers.Proconsorcio.Application.novacarta
+GET         /detalhes                                     controllers.Proconsorcio.Application.detalhes
+GET         /simulador                                    controllers.Proconsorcio.Application.simulador
+GET         /dadoscadastrais                              controllers.Proconsorcio.Application.dadoscadastrais()
+POST        /dadoscadastrais                              controllers.Proconsorcio.Application.handleDadosCadastrais()
+GET         /escritorio                                   controllers.Proconsorcio.Application.escritorio()
+GET         /contas                                       controllers.Proconsorcio.Application.contas()
+GET         /faleconosco                                  controllers.Proconsorcio.Application.faleconosco()
+POST        /faleconosco                                  controllers.Proconsorcio.Application.handlefaleConosco()
+POST        /signupmail                                   plugin.CustomRegistration.handleStartSignUpMail()
+GET         /boleto/$id<[0-9]+>                           controllers.Proconsorcio.Application.boleto(id)
 
 #apis rest para comunicação com frontend via angularjs
-GET         /rest/getendereco/:cep                 controllers.Proconsorcio.RestController.getEndereco(cep)
+GET         /rest/getendereco/:cep                        controllers.Proconsorcio.RestController.getEndereco(cep)
 #listas
-GET         /rest/list/getadministradoras          controllers.Proconsorcio.RestController.getAdministradoras
-GET         /rest/list/gettipocarta                controllers.Proconsorcio.RestController.getTipoCarta
-GET         /rest/list/getuf                       controllers.Proconsorcio.RestController.getUF
-GET         /rest/list/getbanco                    controllers.Proconsorcio.RestController.getBanco
-GET         /rest/list/getcontemplacao             controllers.Proconsorcio.RestController.getContemplacao
-GET         /rest/list/getprazorestante            controllers.Proconsorcio.RestController.getPrazoRestante
-GET         /rest/list/getordem                    controllers.Proconsorcio.RestController.getOrdem
-GET         /rest/list/getordenador                controllers.Proconsorcio.RestController.getOrdenador
+GET         /rest/list/getadministradoras                 controllers.Proconsorcio.RestController.getAdministradoras
+GET         /rest/list/gettipocarta                       controllers.Proconsorcio.RestController.getTipoCarta
+GET         /rest/list/getuf                              controllers.Proconsorcio.RestController.getUF
+GET         /rest/list/getbanco                           controllers.Proconsorcio.RestController.getBanco
+GET         /rest/list/getcontemplacao                    controllers.Proconsorcio.RestController.getContemplacao
+GET         /rest/list/getprazorestante                   controllers.Proconsorcio.RestController.getPrazoRestante
+GET         /rest/list/getordem                           controllers.Proconsorcio.RestController.getOrdem
+GET         /rest/list/getordenador                       controllers.Proconsorcio.RestController.getOrdenador
 
 #contas bancárias
-GET         /rest/list/contas/listlookup           controllers.Proconsorcio.RestController.getListaContasLookup
-GET         /rest/grid/contas/list                 controllers.Proconsorcio.RestController.getConta
-POST        /rest/grid/contas/add                  controllers.Proconsorcio.RestController.handleInsertConta
-POST        /rest/grid/contas/setpadrao/:id        controllers.Proconsorcio.RestController.handleSetPadrao(id)
-POST        /rest/grid/contas/remove/:id           controllers.Proconsorcio.RestController.handleRemove(id)
+GET         /rest/list/contas/listlookup                  controllers.Proconsorcio.RestController.getListaContasLookup
+GET         /rest/grid/contas/list                        controllers.Proconsorcio.RestController.getConta
+POST        /rest/grid/contas/add                         controllers.Proconsorcio.RestController.handleInsertConta
+POST        /rest/grid/contas/setpadrao/:id               controllers.Proconsorcio.RestController.handleSetPadrao(id)
+POST        /rest/grid/contas/remove/:id                  controllers.Proconsorcio.RestController.handleRemove(id)
 
 #carta
-POST        /rest/grid/cartas/add                  controllers.Proconsorcio.RestController.handleInsertCarta
-POST        /rest/grid/cartas/pesquisa             controllers.Proconsorcio.RestController.getResultPesquisa
-GET         /rest/grid/cartas/detalhes/$id<[0-9]+> controllers.Proconsorcio.RestController.getDetalheCarta(id)
+POST        /rest/grid/cartas/add                         controllers.Proconsorcio.RestController.handleInsertCarta
+POST        /rest/grid/cartas/pesquisa                    controllers.Proconsorcio.RestController.getResultPesquisa
+GET         /rest/grid/cartas/detalhes/$id<[0-9]+>        controllers.Proconsorcio.RestController.getDetalheCarta(id)
+GET         /rest/grid/cartas/lista/:tipo                 controllers.Proconsorcio.RestController.getListaCartasEscritorio(tipo)
+GET         /rest/grid/cartas/lista                       controllers.Proconsorcio.RestController.getListaCartasEscritorio
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                          controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                 controllers.Assets.at(path="/public", file)
 # Login page
-GET         /login                                 securesocial.controllers.LoginPage.login
-GET         /logout                                securesocial.controllers.LoginPage.logout
+GET         /login                                        securesocial.controllers.LoginPage.login
+GET         /logout                                       securesocial.controllers.LoginPage.logout
 
 # User Registration and password handling (only needed if you are using UsernamePasswordProvider)
-GET         /signup                                plugin.CustomRegistration.startSignUp
-POST        /signup                                plugin.CustomRegistration.handleStartSignUp
-GET         /signup/:token                         plugin.CustomRegistration.signUp(token)
-POST        /signup/:token                         plugin.CustomRegistration.handleSignUp(token)
-GET         /reset                                 securesocial.controllers.Registration.startResetPassword
-POST        /reset                                 securesocial.controllers.Registration.handleStartResetPassword
-GET         /reset/:token                          securesocial.controllers.Registration.resetPassword(token)
-POST        /reset/:token                          plugin.CustomRegistration.handleResetPassword(token)
-GET         /password                              securesocial.controllers.PasswordChange.page
-POST        /password                              securesocial.controllers.PasswordChange.handlePasswordChange
+GET         /signup                                       plugin.CustomRegistration.startSignUp
+POST        /signup                                       plugin.CustomRegistration.handleStartSignUp
+GET         /signup/:token                                plugin.CustomRegistration.signUp(token)
+POST        /signup/:token                                plugin.CustomRegistration.handleSignUp(token)
+GET         /reset                                        securesocial.controllers.Registration.startResetPassword
+POST        /reset                                        securesocial.controllers.Registration.handleStartResetPassword
+GET         /reset/:token                                 securesocial.controllers.Registration.resetPassword(token)
+POST        /reset/:token                                 plugin.CustomRegistration.handleResetPassword(token)
+GET         /password                                     securesocial.controllers.PasswordChange.page
+POST        /password                                     securesocial.controllers.PasswordChange.handlePasswordChange
 
 # Providers entry points
-GET         /authenticate/:provider                securesocial.controllers.ProviderController.authenticate(provider)
-POST        /authenticate/:provider                securesocial.controllers.ProviderController.authenticateByPost(provider)
-GET         /not-authorized                        securesocial.controllers.ProviderController.notAuthorized
+GET         /authenticate/:provider                       securesocial.controllers.ProviderController.authenticate(provider)
+POST        /authenticate/:provider                       securesocial.controllers.ProviderController.authenticateByPost(provider)
+GET         /not-authorized                               securesocial.controllers.ProviderController.notAuthorized
 
 
 

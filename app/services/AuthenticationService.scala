@@ -132,6 +132,7 @@ class AuthenticationService(application: Application) extends UserServicePlugin(
 
   def deleteExpiredTokens() {
     tokens = tokens.filter(!_._2.isExpired)
+
   }
 
 }
