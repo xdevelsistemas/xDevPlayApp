@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/xDevPlayApp.iml" filepath="$PROJECT_DIR$/.idea_modules/xDevPlayApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/xDevPlayApp-bopepo.iml" filepath="$PROJECT_DIR$/.idea_modules/xDevPlayApp-bopepo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/xDevPlayApp-models.iml" filepath="$PROJECT_DIR$/.idea_modules/xDevPlayApp-models.iml" />
+    </modules>
+  </component>
+</project>

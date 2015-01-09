@@ -72,8 +72,8 @@ public class TestCLBancoDeBrasilia extends AbstractCampoLivreBaseTest<CLBancoDeB
 		createCampoLivreToTest();
 		
 		setCampoLivreEsperadoComoString("0000586002006100000107045");
-		assertEquals(4, titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO1));
-		assertEquals(5, titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO2));
+		assertEquals((long)4, (long)titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO1));
+		assertEquals((long)5, (long)titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO2));
 	}
 	
 	@Test
@@ -86,8 +86,8 @@ public class TestCLBancoDeBrasilia extends AbstractCampoLivreBaseTest<CLBancoDeB
 		setCampoLivreEsperadoComoString("0000586002006200000107031");
 		
 		seCampoLivreEscritoEstaCorreto();
-		assertEquals(3, titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO1));
-		assertEquals(1, titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO2));
+		assertEquals((long)3, (long)titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO1));
+		assertEquals((long)1, (long)titulo.getParametrosBancarios().getValor(CHAVE_ASBACE_DIGITO2));
 	}
 
 	@Test(expected = CampoLivreException.class)
